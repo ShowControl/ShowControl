@@ -156,6 +156,7 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         self.action_Sound_Cues.triggered.connect(self.ShowSoundCues)
         self.action_Lighting_Cues.triggered.connect(self.ShowLightCues)
         self.action_Sound_FX.triggered.connect(self.ShowSFXApp)
+        self.SFXAppProc = None
 
         self.editcuedlg = EditCue('0')
 
@@ -307,7 +308,27 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
 
     def ShowSFXApp(self):
         print("Launch SFX App.")
-        bla = subprocess.Popen(['python3', '/home/mac/PycharmProjs/linux-show-player/linux-show-player', '-f', '/home/mac/Shows/Pauline/sfx.lsp'])
+        self.SFXAppProc = subprocess.Popen(['python3', '/home/mac/PycharmProjs/linux-show-player/linux-show-player', '-f', '/home/mac/Shows/Pauline/sfx.lsp'])
+
+    def EndSFXApp(self):
+        self.SFXAppProc.terminate()
+
+    def closeEvent(self, event):
+        reply = self.confirmQuit()
+        if reply == QMessageBox.Yes:
+            if self.SFXAppProc != None:
+                savereply = QMessageBox.warning(self, 'Warning',
+                    "Save changes in FX player before continuing!", QMessageBox.Ok, QMessageBox.Ok)
+                self.EndSFXApp()
+            event.accept()
+        else:
+            event.ignore()
+
+    def confirmQuit(self):
+        reply = QMessageBox.question(self, 'Message',
+            "Are you sure to quit?", QMessageBox.Yes |
+            QMessageBox.No, QMessageBox.No)
+        return reply
 
 
 class MyTableModel(QtCore.QAbstractTableModel):
