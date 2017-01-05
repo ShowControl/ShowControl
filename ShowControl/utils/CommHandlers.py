@@ -21,7 +21,7 @@ class receiver(QThread):
         while not self.threadshouldstop:
             sleep(1)
             print("in receiver thread")
-            self.rcvrsignal.emit("hi from receiver thread")
+            #self.rcvrsignal.emit("hi from receiver thread")
             while not self.rcvsndqueue.empty():
                 msg = self.rcvsndqueue.get()
                 self.sck.sendto(msg.dgram, (self.mixer_ip, self.mixer_port))
@@ -63,7 +63,7 @@ class sender(QThread):
         while not self.threadshouldstop:
             sleep(0.5)
             print("in sender thread")
-            self.sndrsignal.emit("hi from sender thread")
+            #self.sndrsignal.emit("hi from sender thread")
             while not self.sndrqueue.empty():
                 self.socket.sendto(self.sndrqueue.get().dgram, (self.mixer_ip, self.mixer_port))
 
@@ -78,7 +78,7 @@ class sender(QThread):
 
 class cmd_receiver(QThread):
     """..."""
-    cmd_rcvrsignal = pyqtSignal(str, name='cmd_rcvrsignaled') #define a custom signal called 'signal' whose name is 'signaled'
+    cmd_rcvrsignal = pyqtSignal(bytearray, name='cmd_rcvrsignaled') #define a custom signal called 'signal' whose name is 'signaled'
 
     def __init__(self, sck):
         """..."""
@@ -91,17 +91,14 @@ class cmd_receiver(QThread):
     def run(self):
         """..."""
         while not self.threadshouldstop:
-            sleep(1)
-            print("in command receiver thread")
-            self.cmd_rcvrsignal.emit("hi from command receiver thread")
+            #print("in command receiver thread")
+            #self.cmd_rcvrsignal.emit("hi from command receiver thread")
             sleep(0.1)
-            # data, server = self.sck.receive()
             data, server = self.sck.recvfrom(1024)
-            data_str = data.decode('utf-8')
-            data_strx = re.sub('\0|\n', '', data_str)
-
-            addstr = re.split(',s| ', data_strx)
-            self.cmd_rcvrsignal.emit('{0}'.format(addstr))
+            self.cmd_rcvrsignal.emit(bytearray(data))
+            '''1/5/2017 had to change the bytes datagram to bytearray
+               because there is a known bug in emit when using
+               bytes the bytes get corrupted'''
 
     '''called from widget.stopthread to flag thread to close'''
     def setstopflag(self):
