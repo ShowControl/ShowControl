@@ -57,7 +57,14 @@ class CueList:
         except:
             print('Exits Index ' + '{0:03}'.format(cueindex) + ' not found!')
         #print(self.mutestate)
-        
+        try:
+            levels = thiscue.find('Levels')
+            if levels != None:
+                levelslist = levels.text
+                self.levelstate = dict(item.split(":") for item in levelslist.split(","))
+                print(self.levelstate)
+        except:
+            print('Levels not found!')
         
     def setpreviewcuestate(self, cueindex):
         '''

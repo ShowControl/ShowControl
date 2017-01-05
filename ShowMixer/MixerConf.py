@@ -11,9 +11,10 @@ except ImportError:
     import xml.etree.ElementTree as ET
 
 class InputControl:
-    def __init__(self, level, scribble_text):
+    def __init__(self, level, scribble_text, cmd):
         self.level = level
         self.scribble_text = scribble_text
+        self.cmd = cmd
 
 class OutputControl:
     def __init__(self, level, scribble_text):
@@ -82,11 +83,13 @@ class MixerConf:
             portattribs = port.attrib
             #print(portattribs)
             if portattribs['type'] == 'input':
+                fader = port.find('fader')
+                faderattribs = fader.attrib
                 #print(portattribs['cnt'])
                 self.input_count = int(portattribs['cnt'])
                 #print(self.input_count)
                 for x in  range(1, self.input_count + 1):
-                    sldr = InputControl(x,'In' + '{0:02}'.format(x))
+                    sldr = InputControl(x,'In' + '{0:02}'.format(x), {})
                     self.inputsliders['Ch' + '{0:02}'.format(x)] = sldr
             elif portattribs['type'] == 'output':
                 #print(portattribs['cnt'])

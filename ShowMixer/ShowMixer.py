@@ -27,8 +27,11 @@ sys.path.insert(0,syblingdir)
 print(sys.path)
 
 
-
+# import ShowControl/utils
 from ShowConf import ShowConf
+import configuration as cfg
+import CommHandlers
+
 from MixerConf import MixerConf
 from MixerMap import MixerCharMap
 from Cues import CueList
@@ -37,7 +40,6 @@ from Cues import CueList
 import ui_ShowMixer
 from ui_preferences import Ui_Preferences
 
-import configuration as cfg
 
 import styles
 
@@ -63,13 +65,13 @@ class UDPSignals(QObject):
     """object will ultimately be the gui object we want to interact with(in this example, the label on the gui
        str is the string we wan to put in the label
     """
-    #updatesignal = pyqtSignal(object, str)
+    # updatesignal = pyqtSignal(object, str)
     UDPCue_rcvd = pyqtSignal(object, str)
 
 class ShowPreferences(QDialog, Ui_Preferences):
     def __init__(self, parent=None):
         QDialog.__init__(self, parent)
-        #super(object, self).__init__(self)
+        # super(object, self).__init__(self)
         self.setupUi(self)
 
     def accept(self):
@@ -243,6 +245,64 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
             layout.addWidget(lbl,0,i-1,1,1)
             self.channumlabels.append(lbl)
         #self.setLayout(layout)
+            # #for test add junk to tab 2
+            tb2layout = self.stripgridLayout_3
+            self.tb2channumlabels = []
+            self.tb2mutes = []
+            self.tb2levs = []
+            self.tb2sliders = []
+            self.tb2scrbls = []
+            for i in range(1,chans+1):
+                print(str(i))
+                #Add scribble for this channel Qt::AlignHCenter
+                scrbl = QtWidgets.QLabel()
+                scrbl.setObjectName('tb2scr' + '{0:02}'.format(i))
+                scrbl.setText('Scribble ' + '{0:02}'.format(i))
+                scrbl.setAlignment(QtCore.Qt.AlignHCenter)
+                scrbl.setMinimumWidth(self.ChanStrip_MinWidth)
+                scrbl.setMinimumHeight(30)
+                scrbl.setWordWrap(True)
+                tb2layout.addWidget(scrbl,4,i-1,1,1)
+                self.tb2scrbls.append(scrbl)
+
+                #Add slider for this channel
+                sldr = QtWidgets.QSlider(QtCore.Qt.Vertical)
+                sldr.valueChanged.connect(self.sliderprint)
+                sldr.setObjectName('sl{0:02}'.format(i))
+                sldr.setMinimumSize(self.ChanStrip_MinWidth,200)
+                sldr.setRange(0,1024)
+                sldr.setTickPosition(3)
+                sldr.setTickInterval(10)
+                sldr.setSingleStep(2)
+                tb2layout.addWidget(sldr,3,i-1,1,1)
+                self.tb2sliders.append(sldr)
+
+                #Add label for this channel level
+                lev = QtWidgets.QLabel()
+                lev.setObjectName('tb2lev' + '{0:02}'.format(i))
+                lev.setText('000')
+                lev.setMinimumWidth(self.ChanStrip_MinWidth)
+                lev.setAlignment(QtCore.Qt.AlignHCenter)
+                tb2layout.addWidget(lev,2,i-1,1,1)
+                self.tb2levs.append(lev)
+
+                #Add mute button for this channel
+                mute = QtWidgets.QPushButton()
+                mute.setCheckable(True)
+                mute.clicked.connect(self.on_buttonMute_clicked)
+                mute.setObjectName('tb2mt{0:02}'.format(i))
+                mute.setMinimumWidth(self.ChanStrip_MinWidth)
+                tb2layout.addWidget(mute,1,i-1,1,1)
+                self.tb2mutes.append(mute)
+
+                #Add label for this channel
+                lbl = QtWidgets.QLabel()
+                lbl.setObjectName('tb2ch{0:02}'.format(i))
+                lbl.setText('Ch' + '{0:02}'.format(i))
+                lbl.setMinimumWidth(self.ChanStrip_MinWidth)
+                tb2layout.addWidget(lbl,0,i-1,1,1)
+                self.tb2channumlabels.append(lbl)
+
 
     def sliderprint(self, val):
         sending_slider = self.sender()
@@ -287,6 +347,14 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
             #print(mute.objectName())
             msg = msg.build()
             client.send(msg)
+            for sldcnt in range(1, The_Show.mixer.inputsliders.__len__() + 1):
+                sldr = self.findChild(QtWidgets.QSlider, name='{0:02}'.format(sldcnt))
+                osc_add = '/ch/' + sldr.objectName() + '/mix/fader'
+                msg = osc_message_builder.OscMessageBuilder(address=osc_add)
+                sldlev = The_Show.cues.levelstate['ch' + '{0}'.format(sldcnt)]
+                msg.add_arg(translate(int(sldlev), 0, 1024, 0.0, 1.0))
+                msg = msg.build()
+                client.send(msg)
 
     def on_UDPCue_rcvd(self, guiref, command):
 #         print(The_Show.cues.mutestate)
@@ -341,6 +409,14 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
             msg = msg.build()
             client.send(msg)
 
+    def initlevels(self):
+        for sldcnt in range(1, The_Show.mixer.inputsliders.__len__() + 1):
+            sldr = self.findChild(QtWidgets.QSlider, name='{0:02}'.format(sldcnt))
+            osc_add = '/ch/' + sldr.objectName() + '/mix/fader'
+            msg = osc_message_builder.OscMessageBuilder(address=osc_add)
+            msg.add_arg(translate(0, 0, 1024, 0.0, 1.0))
+            msg = msg.build()
+            client.send(msg)
 
     def on_buttonMute_clicked(self):
         mbtn=self.sender()
@@ -550,6 +626,7 @@ if __name__ == "__main__":
     client = udp_client.UDPClient(args.ip, args.port)
     ui.set_scribble(The_Show.chrchnmap.maplist)
     ui.initmutes()
+    ui.initlevels()
     #tblvw = ui.findChild(QtWidgets.QTableView)
     #tblvw.selectRow(The_Show.cues.currentcueindex)
 
