@@ -19,20 +19,24 @@ class receiver(QThread):
     def run(self):
         """..."""
         while not self.threadshouldstop:
-            sleep(1)
-            print("in receiver thread")
-            #self.rcvrsignal.emit("hi from receiver thread")
-            while not self.rcvsndqueue.empty():
-                msg = self.rcvsndqueue.get()
-                self.sck.sendto(msg.dgram, (self.mixer_ip, self.mixer_port))
-                sleep(0.1)
-                data, server = self.sck.recvfrom(1024)
-                data_str = data.decode('utf-8')
-                data_strx = re.sub('\0|\n', '', data_str)
+            if not self.rcvsndqueue.empty():
+                #sleep(.1)
+                print("in receiver thread")
+                #self.rcvrsignal.emit("hi from receiver thread")
+                while not self.rcvsndqueue.empty():
+                    print("in receiver thread queue handler")
+                    msg = self.rcvsndqueue.get()
+                    self.sck.sendto(msg.dgram, (self.mixer_ip, self.mixer_port))
+                    self.msleep(100)
+                    data, server = self.sck.recvfrom(1024)
+                    data_str = data.decode('utf-8')
+                    data_strx = re.sub('\0|\n', '', data_str)
 
-                addstr = re.split(',s| ', data_strx)
-                self.rcvrsignal.emit('{0}'.format(addstr))
-                #print('{0}'.format(addstr))
+                    addstr = re.split(',s| ', data_strx)
+                    self.rcvrsignal.emit('{0}'.format(addstr))
+                    #print('{0}'.format(addstr))
+            else:
+                self.msleep(200)
 
     '''called from widget.stopthread to flag thread to close'''
     def setstopflag(self):
@@ -61,11 +65,15 @@ class sender(QThread):
     def run(self):
         """..."""
         while not self.threadshouldstop:
-            sleep(0.5)
-            print("in sender thread")
-            #self.sndrsignal.emit("hi from sender thread")
-            while not self.sndrqueue.empty():
-                self.socket.sendto(self.sndrqueue.get().dgram, (self.mixer_ip, self.mixer_port))
+            if not self.sndrqueue.empty():
+                #sleep(0.1)
+                print("in sender thread")
+                #self.sndrsignal.emit("hi from sender thread")
+                while not self.sndrqueue.empty():
+                    self.socket.sendto(self.sndrqueue.get().dgram, (self.mixer_ip, self.mixer_port))
+                    self.msleep(10)
+            else:
+                self.msleep(200)
 
     '''called from widget.stopthread to flag thread to close'''
     def setstopflag(self):
@@ -91,7 +99,7 @@ class cmd_receiver(QThread):
     def run(self):
         """..."""
         while not self.threadshouldstop:
-            #print("in command receiver thread")
+            print("in command receiver thread")
             #self.cmd_rcvrsignal.emit("hi from command receiver thread")
             sleep(0.1)
             data, server = self.sck.recvfrom(1024)

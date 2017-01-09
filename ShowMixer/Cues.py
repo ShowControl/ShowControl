@@ -65,7 +65,19 @@ class CueList:
                 print(self.levelstate)
         except:
             print('Levels not found!')
-        
+
+    def getcuetype(self, cueindex):
+        thiscue = self.cuelist.find("./cue[@num='" + '{0:03}'.format(cueindex) + "']")
+        print(ET.dump(thiscue))
+        try:
+            cuetype = thiscue.find('CueType')
+            if cuetype != None:
+                return cuetype.text
+            else:
+                return ''
+        except:
+            print('Cue type for index ' + '{0:03}'.format(cueindex) + ' not found!')
+
     def setpreviewcuestate(self, cueindex):
         '''
         Constructor
