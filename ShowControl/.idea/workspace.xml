@@ -30,13 +30,16 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Show.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Show.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/utils/Show.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+            <state relative-caret-position="143">
+              <caret line="51" column="101" lean-forward="false" selection-start-line="51" selection-start-column="101" selection-end-line="51" selection-end-column="101" />
               <folding>
-                <element signature="e#236#259#0" expanded="true" />
+                <element signature="e#71#90#0" expanded="true" />
+                <element signature="e#391#426#1" expanded="false" />
+                <element signature="e#1214#1310#1" expanded="false" />
+                <element signature="e#2403#2497#1" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -52,7 +55,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CommHandlers.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="CommHandlers.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/utils/CommHandlers.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="465">
@@ -70,8 +73,8 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/utils/configuration.py" />
-        <option value="$PROJECT_DIR$/utils/Show.py" />
         <option value="$PROJECT_DIR$/utils/CommHandlers.py" />
+        <option value="$PROJECT_DIR$/utils/Show.py" />
       </list>
     </option>
   </component>
@@ -96,6 +99,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -125,7 +129,6 @@
         </subPane>
       </pane>
       <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -333,7 +336,10 @@
         <state relative-caret-position="105">
           <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
           <folding>
-            <element signature="e#236#259#0" expanded="true" />
+            <element signature="e#71#90#0" expanded="true" />
+            <element signature="e#391#426#1" expanded="false" />
+            <element signature="e#1214#1310#1" expanded="false" />
+            <element signature="e#2403#2497#1" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -369,7 +375,10 @@
         <state relative-caret-position="105">
           <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
           <folding>
-            <element signature="e#236#259#0" expanded="true" />
+            <element signature="e#71#90#0" expanded="true" />
+            <element signature="e#391#426#1" expanded="false" />
+            <element signature="e#1214#1310#1" expanded="false" />
+            <element signature="e#2403#2497#1" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -405,7 +414,49 @@
         <state relative-caret-position="105">
           <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
           <folding>
-            <element signature="e#236#259#0" expanded="true" />
+            <element signature="e#71#90#0" expanded="true" />
+            <element signature="e#391#426#1" expanded="false" />
+            <element signature="e#1214#1310#1" expanded="false" />
+            <element signature="e#2403#2497#1" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/ShowConf.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/CommHandlers.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#12#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/configuration.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="18" column="31" lean-forward="false" selection-start-line="18" selection-start-column="31" selection-end-line="18" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/Show.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding>
+            <element signature="e#71#90#0" expanded="true" />
+            <element signature="e#391#426#1" expanded="false" />
+            <element signature="e#1214#1310#1" expanded="false" />
+            <element signature="e#2403#2497#1" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -441,7 +492,10 @@
         <state relative-caret-position="105">
           <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
           <folding>
-            <element signature="e#236#259#0" expanded="true" />
+            <element signature="e#71#90#0" expanded="true" />
+            <element signature="e#391#426#1" expanded="false" />
+            <element signature="e#1214#1310#1" expanded="false" />
+            <element signature="e#2403#2497#1" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -467,7 +521,10 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#236#259#0" expanded="true" />
+            <element signature="e#71#90#0" expanded="true" />
+            <element signature="e#391#426#1" expanded="false" />
+            <element signature="e#1214#1310#1" expanded="false" />
+            <element signature="e#2403#2497#1" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -477,16 +534,6 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/utils/Show.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-          <folding>
-            <element signature="e#236#259#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -512,6 +559,19 @@
           <caret line="73" column="33" lean-forward="false" selection-start-line="73" selection-start-column="33" selection-end-line="73" selection-end-column="33" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/Show.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="143">
+          <caret line="51" column="101" lean-forward="false" selection-start-line="51" selection-start-column="101" selection-end-line="51" selection-end-column="101" />
+          <folding>
+            <element signature="e#71#90#0" expanded="true" />
+            <element signature="e#391#426#1" expanded="false" />
+            <element signature="e#1214#1310#1" expanded="false" />
+            <element signature="e#2403#2497#1" expanded="false" />
           </folding>
         </state>
       </provider>

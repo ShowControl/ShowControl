@@ -30,6 +30,8 @@ class CueList:
         self.levelstate = {}
         self.currentcueindex = 0
         self.previewcueindex = 0
+        cues = self.cuelist.findall('cue')
+        self.cuecount = len(cues)
         
     def setcurrentcuestate(self, cueindex):
         '''

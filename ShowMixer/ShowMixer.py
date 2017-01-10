@@ -30,6 +30,7 @@ print(sys.path)
 
 
 # import ShowControl/utils
+from Show import Show
 from ShowConf import ShowConf
 import configuration as cfg
 import CommHandlers
@@ -65,13 +66,6 @@ def translate(value, leftMin, leftMax, rightMin, rightMax):
     # Convert the 0-1 range into a value in the right range.
     return rightMin + (valueScaled * rightSpan)
 
-class UDPSignals(QObject):
-    """object will ultimately be the gui object we want to interact with(in this example, the label on the gui
-       str is the string we wan to put in the label
-    """
-    # updatesignal = pyqtSignal(object, str)
-    UDPCue_rcvd = pyqtSignal(object, str)
-
 class ShowPreferences(QDialog, Ui_Preferences):
     def __init__(self, parent=None):
         QDialog.__init__(self, parent)
@@ -92,75 +86,79 @@ class ShowPreferences(QDialog, Ui_Preferences):
     def reject(self):
         super(ShowPreferences, self).reject()
 
-class Show:
-    '''
-    The Show class contains the information and object that constitute a show
-    '''
-
-
-    def __init__(self):
-        '''
-        Constructor
-        '''
-        self.show_confpath = cfgdict['Show']['folder'] + '/'
-        self.show_conf = ShowConf(self.show_confpath + cfgdict['Show']['file'])
-        self.mixer = MixerConf(path.abspath(path.join(path.dirname(__file__), '../ShowControl/', cfgdict['Mixer']['file'])),self.show_conf.settings['mxrmfr'],self.show_conf.settings['mxrmodel'])
-        self.chrchnmap = MixerCharMap(self.show_confpath + self.show_conf.settings['mxrmap'])
-        self.cues = CueList(self.show_confpath + self.show_conf.settings['mxrcue'], self.mixer.input_count)
-        self.cues.currentcueindex = 0
-        self.cues.setcurrentcuestate(self.cues.currentcueindex)
-
-    def loadNewShow(self, newpath):
-        '''
-            :param sho_configpath: path to new ShowConf.xml
-            :return:
-        '''
-        print(cfgdict)
-        self.show_confpath, showfile = path.split(newpath)
-        #self.show_confpath = path.dirname(newpath)
-        self.show_confpath = self.show_confpath + '/'
-        cfgdict['Show']['folder'] = self.show_confpath
-        cfgdict['Show']['file'] = showfile
-        cfg.updateFromDict(cfgdict)
-        cfg.write()
-        self.show_conf = ShowConf(self.show_confpath + cfgdict['Show']['file'])
-        self.mixer = MixerConf(path.abspath(path.join(path.dirname(__file__), '../ShowControl/', cfgdict['Mixer']['file'])),self.show_conf.settings['mxrmfr'],self.show_conf.settings['mxrmodel'])
-        self.chrchnmap = MixerCharMap(self.show_confpath + self.show_conf.settings['mxrmap'])
-        self.cues = CueList(self.show_confpath + self.show_conf.settings['mxrcue'], self.mixer.input_count)
-        self.cues.currentcueindex = 0
-        self.cues.setcurrentcuestate(self.cues.currentcueindex)
-        self.displayShow()
-
-    def displayShow(self):
-        '''
-        Update the state of the mixer display to reflect the newly loaded show
-        '''
-        print(path.join(path.dirname(__file__)))
-        print(path.abspath(path.join(path.dirname(__file__))) + '/')
-        #print('Show Object:',The_Show)
-        #print(The_Show.show_conf.settings['mxrmapfile'])
-        insliders = self.mixer.inputsliders
-        #print('Input Slider Count: ' + str(len(insliders)))
-        for x in range(1, len(insliders)+1):
-            sliderconf = insliders['Ch' + '{0:02}'.format(x)]
-            #print('level: ' + str(sliderconf.level))
-            #print('scribble: ' + sliderconf.scribble_text)
-        outsliders = self.mixer.outputsliders
-        #print('Output Slider Count: ' + str(len(outsliders)))
-        for x in range(1, len(outsliders)+1):
-            sliderconf = outsliders['Ch' + '{0:02}'.format(x)]
-            #print('level: ' + str(sliderconf.level))
-            #print('scribble: ' + sliderconf.scribble_text)
-
-        #print(The_Show.cues)
-        qs = self.cues.cuelist.findall('cue')
-        for q in qs:
-             print(q.attrib)
-
-        #print(The_Show.chrchnmap)
-        chs = self.chrchnmap.maplist.findall('input')
-        # for ch in chs:
-        #     print(ch.attrib)
+#class Show:
+    # '''
+    # The Show class contains the information and object that constitute a show
+    # '''
+    #
+    #
+    # def __init__(self):
+    #     '''
+    #     Constructor
+    #     '''
+    #     self.show_confpath = cfgdict['Show']['folder'] + '/'
+    #     self.show_conf = ShowConf(self.show_confpath + cfgdict['Show']['file'])
+    #     self.mixer = MixerConf(path.abspath(path.join(path.dirname(__file__), '../ShowControl/', cfgdict['Mixer']['file'])),self.show_conf.settings['mxrmfr'],self.show_conf.settings['mxrmodel'])
+    #     self.chrchnmap = MixerCharMap(self.show_confpath + self.show_conf.settings['mxrmap'])
+    #     self.cues = CueList(self.show_confpath + self.show_conf.settings['mxrcue'], self.mixer.input_count)
+    #     self.cues.currentcueindex = 0
+    #     self.cues.previouscueindex = 0
+    #     self.cues.selectedcueindex = 0
+    #     self.cues.setcurrentcuestate(self.cues.currentcueindex)
+    #
+    # def loadNewShow(self, newpath):
+    #     '''
+    #         :param sho_configpath: path to new ShowConf.xml
+    #         :return:
+    #     '''
+    #     print(cfgdict)
+    #     self.show_confpath, showfile = path.split(newpath)
+    #     #self.show_confpath = path.dirname(newpath)
+    #     self.show_confpath = self.show_confpath + '/'
+    #     cfgdict['Show']['folder'] = self.show_confpath
+    #     cfgdict['Show']['file'] = showfile
+    #     cfg.updateFromDict(cfgdict)
+    #     cfg.write()
+    #     self.show_conf = ShowConf(self.show_confpath + cfgdict['Show']['file'])
+    #     self.mixer = MixerConf(path.abspath(path.join(path.dirname(__file__), '../ShowControl/', cfgdict['Mixer']['file'])),self.show_conf.settings['mxrmfr'],self.show_conf.settings['mxrmodel'])
+    #     self.chrchnmap = MixerCharMap(self.show_confpath + self.show_conf.settings['mxrmap'])
+    #     self.cues = CueList(self.show_confpath + self.show_conf.settings['mxrcue'], self.mixer.input_count)
+    #     self.cues.currentcueindex = 0
+    #     self.cues.previouscueindex = 0
+    #     self.cues.selectedcueindex = 0
+    #     self.cues.setcurrentcuestate(self.cues.currentcueindex)
+    #     self.displayShow()
+    #
+    # def displayShow(self):
+    #     '''
+    #     Update the state of the mixer display to reflect the newly loaded show
+    #     '''
+    #     print(path.join(path.dirname(__file__)))
+    #     print(path.abspath(path.join(path.dirname(__file__))) + '/')
+    #     #print('Show Object:',The_Show)
+    #     #print(The_Show.show_conf.settings['mxrmapfile'])
+    #     insliders = self.mixer.inputsliders
+    #     #print('Input Slider Count: ' + str(len(insliders)))
+    #     for x in range(1, len(insliders)+1):
+    #         sliderconf = insliders['Ch' + '{0:02}'.format(x)]
+    #         #print('level: ' + str(sliderconf.level))
+    #         #print('scribble: ' + sliderconf.scribble_text)
+    #     outsliders = self.mixer.outputsliders
+    #     #print('Output Slider Count: ' + str(len(outsliders)))
+    #     for x in range(1, len(outsliders)+1):
+    #         sliderconf = outsliders['Ch' + '{0:02}'.format(x)]
+    #         #print('level: ' + str(sliderconf.level))
+    #         #print('scribble: ' + sliderconf.scribble_text)
+    #
+    #     #print(The_Show.cues)
+    #     qs = self.cues.cuelist.findall('cue')
+    #     for q in qs:
+    #          print(q.attrib)
+    #
+    #     #print(The_Show.chrchnmap)
+    #     chs = self.chrchnmap.maplist.findall('input')
+    #     # for ch in chs:
+    #     #     print(ch.attrib)
 
 
 class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
@@ -212,6 +210,8 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         self.setWindowTitle(The_Show.show_conf.settings['name'])
         self.tabWidget.setCurrentIndex(0)
         self.nextButton.clicked.connect(self.on_buttonNext_clicked)
+        self.jumpButton.clicked.connect(self.on_buttonJump_clicked)
+        self.tableView.clicked.connect(self.tableClicked)
         self.actionOpen_Show.triggered.connect(self.openShow)
         self.actionSave_Show.triggered.connect(self.saveShow)
         self.actionClose_Show.triggered.connect(self.closeShow)
@@ -353,54 +353,10 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
 
     def on_buttonNext_clicked(self):
         self.next_cue()
-        # #         print(The_Show.cues.mutestate)
-        # #         print('Next')
-        # previdx = The_Show.cues.currentcueindex
-        # The_Show.cues.currentcueindex += 1
-        # tblvw = self.findChild(QtWidgets.QTableView)
-        # tblvw.selectRow(The_Show.cues.currentcueindex)
-        # # print('Old index: ' + str(previdx) + '   New: ' + str(The_Show.cues.currentcueindex))
-        # The_Show.cues.setcurrentcuestate(The_Show.cues.currentcueindex)
-        # # print(The_Show.cues.mutestate)
-        #
-        # for btncnt in range(1, The_Show.mixer.inputsliders.__len__() + 1):
-        #     mute = self.findChild(QtWidgets.QPushButton, name='{0:02}'.format(btncnt))
-        #     #             print('Object name: ' + mute.objectName())
-        #     #             print('ch' + '{0}'.format(btncnt))
-        #     #             print(The_Show.cues.mutestate['ch7'])
-        #     #             print(The_Show.cues.mutestate['ch' + '{0}'.format(btncnt)])
-        #     osc_add = '/ch/' + mute.objectName() + '/mix/on'
-        #     # print(osc_add)
-        #     msg = osc_message_builder.OscMessageBuilder(address=osc_add)
-        #     if The_Show.cues.mutestate['ch' + '{0}'.format(btncnt)] == 1:
-        #         mute.setChecked(False)
-        #         msg.add_arg(The_Show.mixer.mutestyle['unmute'])
-        #     else:
-        #         mute.setChecked(True)
-        #         msg.add_arg(The_Show.mixer.mutestyle['mute'])
-        #     # print(mute.objectName())
-        #     msg = msg.build()
-        #     # client.send(msg)
-        #     self.mxr_sndrthread.queue_msg(msg)
-        #
-        # for sldcnt in range(1, The_Show.mixer.inputsliders.__len__() + 1):
-        #     sldr = self.findChild(QtWidgets.QSlider, name='{0:02}'.format(sldcnt))
-        #     osc_add = '/ch/' + sldr.objectName() + '/mix/fader'
-        #     msg = osc_message_builder.OscMessageBuilder(address=osc_add)
-        #     sldlev = The_Show.cues.levelstate['ch' + '{0}'.format(sldcnt)]
-        #     msg.add_arg(translate(int(sldlev), 0, 1024, 0.0, 1.0))
-        #     msg = msg.build()
-        #     # client.send(msg)
-        #     self.mxr_sndrthread.queue_msg(msg)
 
-    def next_cue(self):
-        #         print('Next')
-        previdx = The_Show.cues.currentcueindex
-        nextmxrcuefound = False
-        while not nextmxrcuefound:
-            The_Show.cues.currentcueindex += 1
-            if The_Show.cues.getcuetype(The_Show.cues.currentcueindex) == 'Mixer':
-                nextmxrcuefound = True
+    def on_buttonJump_clicked(self):
+        The_Show.cues.previouscueindex = The_Show.cues.currentcueindex
+        The_Show.cues.currentcueindex = The_Show.cues.selectedcueindex
         tblvw = self.findChild(QtWidgets.QTableView)
         tblvw.selectRow(The_Show.cues.currentcueindex)
         # print('Old index: ' + str(previdx) + '   New: ' + str(The_Show.cues.currentcueindex))
@@ -430,39 +386,46 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
             msg = msg.build()
             self.mxr_sndrthread.queue_msg(msg)
 
-    def on_UDPCue_rcvd(self, guiref, command):
-#         print(The_Show.cues.mutestate)
-#         print('Next')
-        print('Command: ' + command)
 
-        previdx = The_Show.cues.currentcueindex
-        The_Show.cues.currentcueindex = int(command.split(' ')[1])
-        tblvw = guiref.findChild(QtWidgets.QTableView)
+    def next_cue(self):
+        #         print('Next')
+        The_Show.cues.previouscueindex = The_Show.cues.currentcueindex
+        nextmxrcuefound = False
+        while not nextmxrcuefound:
+            The_Show.cues.currentcueindex += 1
+            if The_Show.cues.currentcueindex < The_Show.cues.cuecount:
+                if The_Show.cues.getcuetype(The_Show.cues.currentcueindex) == 'Mixer':
+                    nextmxrcuefound = True
+            else:
+                return
+        tblvw = self.findChild(QtWidgets.QTableView)
         tblvw.selectRow(The_Show.cues.currentcueindex)
-        #print('Old index: ' + str(previdx) + '   New: ' + str(The_Show.cues.currentcueindex))
+        # print('Old index: ' + str(previdx) + '   New: ' + str(The_Show.cues.currentcueindex))
         The_Show.cues.setcurrentcuestate(The_Show.cues.currentcueindex)
-        #print(The_Show.cues.mutestate)
+        # print(The_Show.cues.mutestate)
 
-        for btncnt in range(1, The_Show.mixer.inputsliders.__len__() + 1):
-            mute = guiref.findChild(QtWidgets.QPushButton, name='{0:02}'.format(btncnt))
-#             print('Object name: ' + mute.objectName())
-#             print('ch' + '{0}'.format(btncnt))
-#             print(The_Show.cues.mutestate['ch7'])
-#             print(The_Show.cues.mutestate['ch' + '{0}'.format(btncnt)])
-            osc_add='/ch/' + mute.objectName() + '/mix/on'
-            #print(osc_add)
+        for ctlcnt in range(1, The_Show.mixer.inputsliders.__len__() + 1):
+            mute = self.findChild(QtWidgets.QPushButton, name='{0:02}'.format(ctlcnt))
+            osc_add = '/ch/' + mute.objectName() + '/mix/on'
             msg = osc_message_builder.OscMessageBuilder(address=osc_add)
-            if The_Show.cues.mutestate['ch' + '{0}'.format(btncnt)] == 1:
+            if The_Show.cues.mutestate['ch' + '{0}'.format(ctlcnt)] == 1:
                 mute.setChecked(False)
                 msg.add_arg(The_Show.mixer.mutestyle['unmute'])
             else:
                 mute.setChecked(True)
                 msg.add_arg(The_Show.mixer.mutestyle['mute'])
-            #print(mute.objectName())
             msg = msg.build()
-            #client.send(msg)
             self.mxr_sndrthread.queue_msg(msg)
 
+            sldr = self.findChild(QtWidgets.QSlider, name='{0:02}'.format(ctlcnt))
+            osc_add = '/ch/' + sldr.objectName() + '/mix/fader'
+            msg = osc_message_builder.OscMessageBuilder(address=osc_add)
+            sldlev = The_Show.cues.levelstate['ch' + '{0}'.format(ctlcnt)]
+            sldlev_int = translate(int(sldlev), 0, 1024, 0.0, 1.0)
+            sldr.setSliderPosition(int(sldlev))
+            msg.add_arg(sldlev_int)
+            msg = msg.build()
+            self.mxr_sndrthread.queue_msg(msg)
 
     def initmutes(self):
         
@@ -532,7 +495,6 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         tblvw = self.findChild(QtWidgets.QTableView)
         tblvw.selectRow(The_Show.cues.currentcueindex)
 
-
     def openShow(self):
         '''
         Present file dialog to select new ShowConf.xml file
@@ -592,6 +554,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         tablemodel = MyTableModel(self.tabledata, header, self)
         self.tableView.setModel(tablemodel)
         self.tableView.resizeColumnsToContents()
+        #self.tableView.connect(self.tableClicked, QtCore.SIGNAL("clicked()"))
 
     def get_table_data(self):
         qs = The_Show.cues.cuelist.findall('cue')
@@ -606,6 +569,12 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
                      q.find('Title').text,
                      q.find('Cue').text])
         #print(self.tabledata)
+
+    def tableClicked(self, modelidx):
+        rowidx = modelidx.row()
+        The_Show.cues.selectedcueindex = rowidx
+        self.tableView.selectRow(The_Show.cues.selectedcueindex)
+        print('table clicked, row{}'.format(rowidx))
 
     def closeEvent(self, event):
         """..."""
@@ -710,20 +679,8 @@ class MyTableModel(QtCore.QAbstractTableModel):
             return QtCore.QVariant(self.headerdata[col])
         return QtCore.QVariant()
 
-    def sort(self, Ncol, order):
-        """
-        Sort table by given column number.
-        """
-        self.emit(SIGNAL("layoutAboutToBeChanged()"))
-        self.arraydata = sorted(self.arraydata, key=operator.itemgetter(Ncol))       
-        if order == QtCore.Qt.DescendingOrder:
-            self.arraydata.reverse()
-        self.emit(SIGNAL("layoutChanged()"))
 
-
-
-#The_Show = Show(path.abspath(path.join(path.dirname(__file__))) + '/')
-The_Show = Show()
+The_Show = Show(cfgdict)
 The_Show.displayShow()
 
 if __name__ == "__main__":
