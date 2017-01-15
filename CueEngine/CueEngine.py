@@ -4,6 +4,7 @@ __author__ = 'mac'
 import os, sys, inspect, subprocess
 import types
 import argparse
+import socket
 
 from PyQt5 import Qt, QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QColor, QBrush
@@ -22,16 +23,21 @@ print(parentdir)
 sys.path.insert(0,syblingdir)
 print(sys.path)
 
-from ShowConf import ShowConf
-from Cues import CueList
+#from ShowConf import ShowConf
+#from Cues import CueList
 #from MixerConf import MixerConf
-from UDPClient import *
+from ShowBase import Show
+import CommHandlers
+
 
 import CueEngine_ui
 from CueEdit_ui import Ui_dlgEditCue
-#import mainwindow
+
 from pythonosc import osc_message_builder
-#from pythonosc import udp_client
+
+CUE_IP = "127.0.0.1"
+CUE_PORT = 5005
+
 
 import configuration as cfg
 
@@ -94,47 +100,47 @@ class EditCue(QDialog, Ui_dlgEditCue):
     #    self.changeflag = True
 
 
-class Show:
-    '''
-    The Show class contains the information and object that constitute a show
-    '''
-    def __init__(self):
-        '''
-        Constructor
-        '''
-        self.show_confpath = cfgdict['Show']['folder'] + '/'
-        self.show_conf = ShowConf(self.show_confpath + cfgdict['Show']['file'])
-        self.cues = CueList(self.show_confpath + self.show_conf.settings['mxrcue'])
-        self.cues.currentcueindex = 0
-        self.cues.setcurrentcuestate(self.cues.currentcueindex)
-
-    def loadNewShow(self, newpath):
-        '''
-            :param sho_configpath: path to new ShowConf.xml
-            :return:
-        '''
-        print(cfgdict)
-        self.show_confpath, showfile = path.split(newpath)
-        #self.show_confpath = path.dirname(newpath)
-        self.show_confpath = self.show_confpath + '/'
-        cfgdict['Show']['folder'] = self.show_confpath
-        cfgdict['Show']['file'] = showfile
-        cfg.updateFromDict(cfgdict)
-        cfg.write()
-        self.show_conf = ShowConf(self.show_confpath + cfgdict['Show']['file'])
-        self.cues = CueList(self.show_confpath + self.show_conf.settings['mxrcue'])
-        self.cues.currentcueindex = 0
-        self.cues.setcurrentcuestate(self.cues.currentcueindex)
-        self.displayShow()
-
-    def displayShow(self):
-        '''
-        Update the state of the mixer display to reflect the newly loaded show
-        '''
-        #print(self.cues)
-        qs = self.cues.cuelist.findall('cue')
-        for q in qs:
-             print(q.attrib)
+# class Show:
+#     '''
+#     The Show class contains the information and object that constitute a show
+#     '''
+#     def __init__(self):
+#         '''
+#         Constructor
+#         '''
+#         self.show_confpath = cfgdict['Show']['folder'] + '/'
+#         self.show_conf = ShowConf(self.show_confpath + cfgdict['Show']['file'])
+#         self.cues = CueList(self.show_confpath + self.show_conf.settings['mxrcue'])
+#         self.cues.currentcueindex = 0
+#         self.cues.setcurrentcuestate(self.cues.currentcueindex)
+#
+#     def loadNewShow(self, newpath):
+#         '''
+#             :param sho_configpath: path to new ShowConf.xml
+#             :return:
+#         '''
+#         print(cfgdict)
+#         self.show_confpath, showfile = path.split(newpath)
+#         #self.show_confpath = path.dirname(newpath)
+#         self.show_confpath = self.show_confpath + '/'
+#         cfgdict['Show']['folder'] = self.show_confpath
+#         cfgdict['Show']['file'] = showfile
+#         cfg.updateFromDict(cfgdict)
+#         cfg.write()
+#         self.show_conf = ShowConf(self.show_confpath + cfgdict['Show']['file'])
+#         self.cues = CueList(self.show_confpath + self.show_conf.settings['mxrcue'])
+#         self.cues.currentcueindex = 0
+#         self.cues.setcurrentcuestate(self.cues.currentcueindex)
+#         self.displayShow()
+#
+#     def displayShow(self):
+#         '''
+#         Update the state of the mixer display to reflect the newly loaded show
+#         '''
+#         #print(self.cues)
+#         qs = self.cues.cuelist.findall('cue')
+#         for q in qs:
+#              print(q.attrib)
 
 
 class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
@@ -159,6 +165,20 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         self.SFXAppProc = None
 
         self.editcuedlg = EditCue('0')
+        try:
+            self.mxr_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        except socket.error:
+            print('Failed to create mixer socket')
+            sys.exit()
+        self.comm_threads = []  # a list of threads in use for later use when app exits
+
+        # setup sender thread
+        self.mxr_sndrthread = CommHandlers.sender(self.mxr_sock, CUE_IP, CUE_PORT)
+        self.mxr_sndrthread.sndrsignal.connect(self.sndrtestfunc)  # connect to custom signal called 'signal'
+        self.mxr_sndrthread.finished.connect(self.sndrthreaddone)  # connect to buitlin signal 'finished'
+        self.mxr_sndrthread.start()  # start the thread
+        self.comm_threads.append(self.mxr_sndrthread)
+
 
 
     def on_buttonNext_clicked(self):
@@ -169,10 +189,14 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         tblvw.selectRow(The_Show.cues.currentcueindex)
         print('Old index: ' + str(previdx) + '   New: ' + str(The_Show.cues.currentcueindex))
         The_Show.cues.setcurrentcuestate(The_Show.cues.currentcueindex)
+        msg = osc_message_builder.OscMessageBuilder(address='/cue/#')
+        msg.add_arg(3)
+        msg = msg.build()
+        self.mxr_sndrthread.queue_msg(msg)
 
-        print('/cue ' + ascii(The_Show.cues.currentcueindex))
-        msg = '/cue ' + ascii(The_Show.cues.currentcueindex)
-        sender.send(msg)
+        # print('/cue ' + ascii(The_Show.cues.currentcueindex))
+        # msg = '/cue ' + ascii(The_Show.cues.currentcueindex)
+        # sender.send(msg)
 
     def on_buttonPrev_clicked(self):
         print('Prev')
@@ -320,6 +344,7 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
                 savereply = QMessageBox.warning(self, 'Warning',
                     "Save changes in FX player before continuing!", QMessageBox.Ok, QMessageBox.Ok)
                 self.EndSFXApp()
+            self.stopthreads()
             event.accept()
         else:
             event.ignore()
@@ -329,6 +354,25 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
             "Are you sure to quit?", QMessageBox.Yes |
             QMessageBox.No, QMessageBox.No)
         return reply
+
+    '''gets called by main to tell the thread to stop'''
+    def stopthreads(self):
+        """..."""
+        for t in self.comm_threads:
+            t.setstopflag()
+            t.wait(500)
+
+    '''testfucn
+        - gets called when the signal called 'signal' is emitted from thread called 'thread' '''
+    def sndrtestfunc(self, sigstr):
+        """..."""
+        print(sigstr)
+        self.statusBar().showMessage(sigstr)
+
+    '''called when builtin signal 'finished' is emitted by worker thread'''
+    def sndrthreaddone(self):
+        """..."""
+        print('sender thread done')
 
 
 class MyTableModel(QtCore.QAbstractTableModel):
@@ -392,7 +436,7 @@ class MyTableModel(QtCore.QAbstractTableModel):
 
 
 #The_Show = Show(path.abspath(path.join(path.dirname(__file__))) + '/')
-The_Show = Show()
+The_Show = Show(cfgdict)
 The_Show.displayShow()
 
 
@@ -413,10 +457,5 @@ if __name__ == "__main__":
     parser.add_argument("--port", type=int, default=5005, help="The port the OSC server is listening on")
     args = parser.parse_args()
 
-    sender = UDPClient(args.ip, args.port)
-    #ui.set_scribble(The_Show.chrchnmap.maplist)
-    #ui.initmutes()
-    #tblvw = ui.findChild(QtWidgets.QTableView)
-    #tblvw.selectRow(The_Show.cues.currentcueindex)
     ui.show()
     sys.exit(app.exec_())

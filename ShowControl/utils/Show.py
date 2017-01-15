@@ -33,7 +33,6 @@ class Show:
         self.cues.currentcueindex = 0
         self.cues.previouscueindex = 0
         self.cues.selectedcueindex = 0
-        self.cues.setcurrentcuestate(self.cues.currentcueindex)
 
     def loadNewShow(self, newpath):
         '''
@@ -88,3 +87,4 @@ class Show:
         chs = self.chrchnmap.maplist.findall('input')
         # for ch in chs:
         #     print(ch.attrib)
+

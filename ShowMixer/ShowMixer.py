@@ -30,7 +30,7 @@ print(sys.path)
 
 
 # import ShowControl/utils
-from Show import Show
+from ShowBase import Show
 from ShowConf import ShowConf
 import configuration as cfg
 import CommHandlers
@@ -86,26 +86,20 @@ class ShowPreferences(QDialog, Ui_Preferences):
     def reject(self):
         super(ShowPreferences, self).reject()
 
-#class Show:
-    # '''
-    # The Show class contains the information and object that constitute a show
-    # '''
-    #
-    #
-    # def __init__(self):
-    #     '''
-    #     Constructor
-    #     '''
-    #     self.show_confpath = cfgdict['Show']['folder'] + '/'
-    #     self.show_conf = ShowConf(self.show_confpath + cfgdict['Show']['file'])
-    #     self.mixer = MixerConf(path.abspath(path.join(path.dirname(__file__), '../ShowControl/', cfgdict['Mixer']['file'])),self.show_conf.settings['mxrmfr'],self.show_conf.settings['mxrmodel'])
-    #     self.chrchnmap = MixerCharMap(self.show_confpath + self.show_conf.settings['mxrmap'])
-    #     self.cues = CueList(self.show_confpath + self.show_conf.settings['mxrcue'], self.mixer.input_count)
-    #     self.cues.currentcueindex = 0
-    #     self.cues.previouscueindex = 0
-    #     self.cues.selectedcueindex = 0
-    #     self.cues.setcurrentcuestate(self.cues.currentcueindex)
-    #
+class ShowMxr(Show):
+    '''
+    The Show class contains the information and object that constitute a show
+    '''
+
+
+    def __init__(self, cfgdict):
+        '''
+        Constructor
+        '''
+        super(ShowMxr, self).__init__(cfgdict)
+        self.mixer = MixerConf(path.abspath(path.join(path.dirname(__file__), '../ShowControl/', cfgdict['Mixer']['file'])),self.show_conf.settings['mxrmfr'],self.show_conf.settings['mxrmodel'])
+        self.chrchnmap = MixerCharMap(self.show_confpath + self.show_conf.settings['mxrmap'])
+
     # def loadNewShow(self, newpath):
     #     '''
     #         :param sho_configpath: path to new ShowConf.xml
@@ -338,125 +332,108 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
 
     def sliderprint(self, val):
         sending_slider = self.sender()
-        print(sending_slider.objectName())
-
         scrLbl = self.findChild(QtWidgets.QLabel, name='lev' + sending_slider.objectName())
-        print(scrLbl.text())
         scrLbl.setText('{0:03}'.format(val))
-        print(val)
-        osc_add='/ch/' + sending_slider.objectName() + '/mix/fader'
+        osc_add = The_Show.mixer.inputsliders['Ch' + '{0:02}'.format(int(sending_slider.objectName()))].fadercmd.replace('#', sending_slider.objectName())
         msg = osc_message_builder.OscMessageBuilder(address=osc_add)
         msg.add_arg(translate(val, 0,1024,0.0, 1.0))
         msg = msg.build()
-        #client.send(msg)
         self.mxr_sndrthread.queue_msg(msg)
 
     def on_buttonNext_clicked(self):
         self.next_cue()
 
     def on_buttonJump_clicked(self):
+        self.execute_cue(The_Show.cues.selectedcueindex)
+
+    def execute_cue(self, num):
         The_Show.cues.previouscueindex = The_Show.cues.currentcueindex
-        The_Show.cues.currentcueindex = The_Show.cues.selectedcueindex
+        The_Show.cues.currentcueindex = num
         tblvw = self.findChild(QtWidgets.QTableView)
         tblvw.selectRow(The_Show.cues.currentcueindex)
-        # print('Old index: ' + str(previdx) + '   New: ' + str(The_Show.cues.currentcueindex))
-        The_Show.cues.setcurrentcuestate(The_Show.cues.currentcueindex)
-        # print(The_Show.cues.mutestate)
+#        The_Show.cues.setcurrentcuestate(The_Show.cues.currentcueindex)
 
-        for ctlcnt in range(1, The_Show.mixer.inputsliders.__len__() + 1):
-            mute = self.findChild(QtWidgets.QPushButton, name='{0:02}'.format(ctlcnt))
-            osc_add = '/ch/' + mute.objectName() + '/mix/on'
-            msg = osc_message_builder.OscMessageBuilder(address=osc_add)
-            if The_Show.cues.mutestate['ch' + '{0}'.format(ctlcnt)] == 1:
-                mute.setChecked(False)
-                msg.add_arg(The_Show.mixer.mutestyle['unmute'])
-            else:
-                mute.setChecked(True)
-                msg.add_arg(The_Show.mixer.mutestyle['mute'])
-            msg = msg.build()
-            self.mxr_sndrthread.queue_msg(msg)
+        mute_changes = The_Show.cues.get_cue_mute_state(The_Show.cues.currentcueindex)
+        # iterate through mute changes, if any
+        if mute_changes != None:
+            for key, value in mute_changes.items():
+                channum = int(key.strip('ch'))
+                mute = self.findChild(QtWidgets.QPushButton, name='{0:02}'.format(channum))
+                osc_add = The_Show.mixer.inputsliders['Ch' + '{0:02}'.format(channum)].mutecmd.replace('#', mute.objectName())
+                msg = osc_message_builder.OscMessageBuilder(address=osc_add)
+                if value == 1:
+                    mute.setChecked(False)
+                    msg.add_arg(The_Show.mixer.mutestyle['unmute'])
+                else:
+                    mute.setChecked(True)
+                    msg.add_arg(The_Show.mixer.mutestyle['mute'])
+                msg = msg.build()
+                self.mxr_sndrthread.queue_msg(msg)
 
-            sldr = self.findChild(QtWidgets.QSlider, name='{0:02}'.format(ctlcnt))
-            osc_add = '/ch/' + sldr.objectName() + '/mix/fader'
-            msg = osc_message_builder.OscMessageBuilder(address=osc_add)
-            sldlev = The_Show.cues.levelstate['ch' + '{0}'.format(ctlcnt)]
-            sldlev_int = translate(int(sldlev), 0, 1024, 0.0, 1.0)
-            sldr.setSliderPosition(int(sldlev))
-            msg.add_arg(sldlev_int)
-            msg = msg.build()
-            self.mxr_sndrthread.queue_msg(msg)
+        levels = The_Show.cues.get_cue_levels(The_Show.cues.currentcueindex)
+        if levels != None:
+            for key, value in levels.items():
+                channum = int(key.strip('ch'))
+            #for ctlcnt in range(1, The_Show.mixer.inputsliders.__len__() + 1):
+                sldr = self.findChild(QtWidgets.QSlider, name='{0:02}'.format(channum))
+                sldlev = translate(int(value), 0, 1024, 0.0, 1.0)
+                currentlevel = translate(sldr.sliderPosition(), 0, 1024, 0.0, 1.0)
+                currentlevval = sldr.value()
+                print('current level: {}'.format(currentlevel))
+                print('sldlev: {}'.format(sldlev))
+                print('value: {}'.format(value))
+                if currentlevel != sldlev:
+                    print('change')
+                    osc_add = The_Show.mixer.inputsliders['Ch' + '{0:02}'.format(channum)].fadercmd.replace('#', sldr.objectName())
+                    msg = osc_message_builder.OscMessageBuilder(address=osc_add)
+                    sldr.setSliderPosition(int(value))
+                    msg.add_arg(sldlev)
+                    msg = msg.build()
+                    self.mxr_sndrthread.queue_msg(msg)
+        # for ctlcnt in range(1, The_Show.mixer.inputsliders.__len__() + 1):
+        #     sldr = self.findChild(QtWidgets.QSlider, name='{0:02}'.format(ctlcnt))
+        #     #osc_add = '/ch/' + sldr.objectName() + '/mix/fader'
+        #     osc_add = The_Show.mixer.inputsliders['Ch' + '{0:02}'.format(ctlcnt)].fadercmd.replace('#', sldr.objectName())
+        #     msg = osc_message_builder.OscMessageBuilder(address=osc_add)
+        #     sldlev = The_Show.cues.levelstate['ch' + '{0}'.format(ctlcnt)]
+        #     sldlev_int = translate(int(sldlev), 0, 1024, 0.0, 1.0)
+        #     sldr.setSliderPosition(int(sldlev))
+        #     msg.add_arg(sldlev_int)
+        #     msg = msg.build()
+        #     self.mxr_sndrthread.queue_msg(msg)
 
 
     def next_cue(self):
-        #         print('Next')
-        The_Show.cues.previouscueindex = The_Show.cues.currentcueindex
         nextmxrcuefound = False
+        index = The_Show.cues.currentcueindex
         while not nextmxrcuefound:
-            The_Show.cues.currentcueindex += 1
-            if The_Show.cues.currentcueindex < The_Show.cues.cuecount:
-                if The_Show.cues.getcuetype(The_Show.cues.currentcueindex) == 'Mixer':
+            index += 1
+            if index < The_Show.cues.cuecount:
+                if The_Show.cues.getcuetype(index) == 'Mixer':
                     nextmxrcuefound = True
+                    self.execute_cue(index)
             else:
                 return
-        tblvw = self.findChild(QtWidgets.QTableView)
-        tblvw.selectRow(The_Show.cues.currentcueindex)
-        # print('Old index: ' + str(previdx) + '   New: ' + str(The_Show.cues.currentcueindex))
-        The_Show.cues.setcurrentcuestate(The_Show.cues.currentcueindex)
-        # print(The_Show.cues.mutestate)
-
-        for ctlcnt in range(1, The_Show.mixer.inputsliders.__len__() + 1):
-            mute = self.findChild(QtWidgets.QPushButton, name='{0:02}'.format(ctlcnt))
-            osc_add = '/ch/' + mute.objectName() + '/mix/on'
-            msg = osc_message_builder.OscMessageBuilder(address=osc_add)
-            if The_Show.cues.mutestate['ch' + '{0}'.format(ctlcnt)] == 1:
-                mute.setChecked(False)
-                msg.add_arg(The_Show.mixer.mutestyle['unmute'])
-            else:
-                mute.setChecked(True)
-                msg.add_arg(The_Show.mixer.mutestyle['mute'])
-            msg = msg.build()
-            self.mxr_sndrthread.queue_msg(msg)
-
-            sldr = self.findChild(QtWidgets.QSlider, name='{0:02}'.format(ctlcnt))
-            osc_add = '/ch/' + sldr.objectName() + '/mix/fader'
-            msg = osc_message_builder.OscMessageBuilder(address=osc_add)
-            sldlev = The_Show.cues.levelstate['ch' + '{0}'.format(ctlcnt)]
-            sldlev_int = translate(int(sldlev), 0, 1024, 0.0, 1.0)
-            sldr.setSliderPosition(int(sldlev))
-            msg.add_arg(sldlev_int)
-            msg = msg.build()
-            self.mxr_sndrthread.queue_msg(msg)
 
     def initmutes(self):
         
-        for btncnt in range(1, The_Show.mixer.inputsliders.__len__() + 1):
-            mute = self.findChild(QtWidgets.QPushButton, name='{0:02}'.format(btncnt))
-#             print('Object name: ' + mute.objectName())
-#             print('ch' + '{0}'.format(btncnt))
-#             print(The_Show.cues.mutestate['ch7'])
-#             print(The_Show.cues.mutestate['ch' + '{0}'.format(btncnt)])
-            osc_add='/ch/' + mute.objectName() + '/mix/on'
-            #print(osc_add)
+        for ctlcnt in range(1, The_Show.mixer.inputsliders.__len__() + 1):
+            mute = self.findChild(QtWidgets.QPushButton, name='{0:02}'.format(ctlcnt))
+            osc_add = The_Show.mixer.inputsliders['Ch' + '{0:02}'.format(ctlcnt)].mutecmd.replace('#', mute.objectName())
             msg = osc_message_builder.OscMessageBuilder(address=osc_add)
-            if The_Show.cues.mutestate['ch' + '{0}'.format(btncnt)] == 1:
-                mute.setChecked(False)
-                msg.add_arg(The_Show.mixer.mutestyle['unmute'])
-            else:
-                mute.setChecked(True)
-                msg.add_arg(The_Show.mixer.mutestyle['mute'])
-            #print(mute.objectName())
+            mute.setChecked(True)
+            msg.add_arg(The_Show.mixer.mutestyle['mute'])
             msg = msg.build()
-            #client.send(msg)
             self.mxr_sndrthread.queue_msg(msg)
 
     def initlevels(self):
-        for sldcnt in range(1, The_Show.mixer.inputsliders.__len__() + 1):
-            sldr = self.findChild(QtWidgets.QSlider, name='{0:02}'.format(sldcnt))
+        for ctlcnt in range(1, The_Show.mixer.inputsliders.__len__() + 1):
+            sldr = self.findChild(QtWidgets.QSlider, name='{0:02}'.format(ctlcnt))
             osc_add = '/ch/' + sldr.objectName() + '/mix/fader'
+            osc_add = The_Show.mixer.inputsliders['Ch' + '{0:02}'.format(ctlcnt)].fadercmd.replace('#', sldr.objectName())
             msg = osc_message_builder.OscMessageBuilder(address=osc_add)
             msg.add_arg(translate(0, 0, 1024, 0.0, 1.0))
             msg = msg.build()
-            #client.send(msg)
             self.mxr_sndrthread.queue_msg(msg)
 
     def on_buttonMute_clicked(self):
@@ -494,6 +471,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
     def setfirstcue(self):
         tblvw = self.findChild(QtWidgets.QTableView)
         tblvw.selectRow(The_Show.cues.currentcueindex)
+        self.execute_cue(The_Show.cues.currentcueindex)
 
     def openShow(self):
         '''
@@ -510,6 +488,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         self.set_scribble(The_Show.chrchnmap.maplist)
         self.setWindowTitle(The_Show.show_conf.settings['name'])
         self.initmutes()
+        self.initlevels()
         self.disptext()
         self.setfirstcue()
 
@@ -533,6 +512,8 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         #self.itb.show()
 
     def set_scribble(self, mxrmap):
+        charcount = int(mxrmap.getroot().attrib['charcount'])
+
         chans = mxrmap.findall('input')
         for chan in chans:
             cnum = int(chan.attrib['chan'])
@@ -609,6 +590,8 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         if msg.address == '/cue':
             if msg.params[0] == "NEXT":
                 self.next_cue()
+        elif msg.address == '/cue/#':
+            self.execute_cue(msg.params[0])
 
     def sndrqput(self, msg):
         """..."""
@@ -680,7 +663,7 @@ class MyTableModel(QtCore.QAbstractTableModel):
         return QtCore.QVariant()
 
 
-The_Show = Show(cfgdict)
+The_Show = ShowMxr(cfgdict)
 The_Show.displayShow()
 
 if __name__ == "__main__":
@@ -697,19 +680,14 @@ if __name__ == "__main__":
     ui.resize(chans*ui.ChanStrip_MinWidth,800)
     ui.addChanStrip()
     ui.disptext()
+    ui.set_scribble(The_Show.chrchnmap.maplist)
+    ui.initmutes()
+    ui.initlevels()
     ui.setfirstcue()
     parser = argparse.ArgumentParser()
     parser.add_argument("--ip", default="192.168.53.40", help="The ip of the OSC server")
     parser.add_argument("--port", type=int, default=10023, help="The port the OSC server is listening on")
     args = parser.parse_args()
 
-    #client = udp_client.UDPClient(args.ip, args.port)
-    ui.set_scribble(The_Show.chrchnmap.maplist)
-    ui.initmutes()
-    ui.initlevels()
-    #tblvw = ui.findChild(QtWidgets.QTableView)
-    #tblvw.selectRow(The_Show.cues.currentcueindex)
-
-#    ui.rcvrthread.start()
     ui.show()
     sys.exit(app.exec_())

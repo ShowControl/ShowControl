@@ -32,41 +32,91 @@ class CueList:
         self.previewcueindex = 0
         cues = self.cuelist.findall('cue')
         self.cuecount = len(cues)
-        
-    def setcurrentcuestate(self, cueindex):
+
+    def get_cue_mute_state(self, cueindex):
         '''
-        Constructor
-        '''
-        #print('{0:03}'.format(cueindex))
-        thiscue = self.cuelist.find("./cue[@num='"+'{0:03}'.format(cueindex)+"']")
+                Constructor
+                '''
+        # print('{0:03}'.format(cueindex))
+        mutestate = {}
+        #for x in range(1, chancount+1):
+        #    self.mutestate['ch' + '{0}'.format(x)] = 0
+
+        thiscue = self.cuelist.find("./cue[@num='" + '{0:03}'.format(cueindex) + "']")
         print(ET.dump(thiscue))
         try:
             ents = thiscue.find('Entrances')
-#             print(ET.dump(ents))
-#             print(ents.text)
+            #             print(ET.dump(ents))
+            #             print(ents.text)
             if ents != None:
                 entlist = ents.text
                 for entidx in entlist.split(","):
-                    self.mutestate[entidx.strip()] = 1
+                    mutestate[entidx.strip()] = 1
+            else:
+                return mutestate
         except:
             print('Entrances Index ' + '{0:03}'.format(cueindex) + ' not found!')
         try:
             exts = thiscue.find('Exits')
+            #             print(ET.dump(exts))
+            #             print(exts.text)
             if exts != None:
                 extlist = exts.text
                 for extidx in extlist.split(","):
-                    self.mutestate[extidx.strip()] = 0
+                    mutestate[extidx.strip()] = 0
+            return mutestate
         except:
-            print('Exits Index ' + '{0:03}'.format(cueindex) + ' not found!')
-        #print(self.mutestate)
+            print('Entrances Index ' + '{0:03}'.format(cueindex) + ' not found!')
+
+    def get_cue_levels(self, cueindex):
+        levelstate = {}
+        thiscue = self.cuelist.find("./cue[@num='"+'{0:03}'.format(cueindex)+"']")
+        #print(ET.dump(thiscue))
         try:
             levels = thiscue.find('Levels')
             if levels != None:
                 levelslist = levels.text
-                self.levelstate = dict(item.split(":") for item in levelslist.split(","))
-                print(self.levelstate)
+                levelstate = dict(item.split(":") for item in levelslist.split(","))
+                print(levelstate)
+            return levelstate
         except:
             print('Levels not found!')
+
+
+#     def setcurrentcuestate(self, cueindex):
+#         '''
+#         Constructor
+#         '''
+#         #print('{0:03}'.format(cueindex))
+#         thiscue = self.cuelist.find("./cue[@num='"+'{0:03}'.format(cueindex)+"']")
+#         print(ET.dump(thiscue))
+#         try:
+#             ents = thiscue.find('Entrances')
+# #             print(ET.dump(ents))
+# #             print(ents.text)
+#             if ents != None:
+#                 entlist = ents.text
+#                 for entidx in entlist.split(","):
+#                     self.mutestate[entidx.strip()] = 1
+#         except:
+#             print('Entrances Index ' + '{0:03}'.format(cueindex) + ' not found!')
+#         try:
+#             exts = thiscue.find('Exits')
+#             if exts != None:
+#                 extlist = exts.text
+#                 for extidx in extlist.split(","):
+#                     self.mutestate[extidx.strip()] = 0
+#         except:
+#             print('Exits Index ' + '{0:03}'.format(cueindex) + ' not found!')
+#         #print(self.mutestate)
+#         try:
+#             levels = thiscue.find('Levels')
+#             if levels != None:
+#                 levelslist = levels.text
+#                 self.levelstate = dict(item.split(":") for item in levelslist.split(","))
+#                 print(self.levelstate)
+#         except:
+#             print('Levels not found!')
 
     def getcuetype(self, cueindex):
         thiscue = self.cuelist.find("./cue[@num='" + '{0:03}'.format(cueindex) + "']")

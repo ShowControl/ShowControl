@@ -48,3 +48,13 @@ Levels of cue are now activated
 Action needed: finish update/add of levels in Paulie_cues_w_cuetypes.xml
 
 
+Sat Jan 14 14:35:55 EST 2017
+Still need to separate "mixer" from "cues". Cues currently need to know the chan/charcount
+Possibly, remove current cue state from CueList and inherit CueList then add cuestate to
+Compare differences in ShowMixer/Cues.py and CueEngine/Cues.py. In CueEngine/Cues.py it handles the writing of cues
+when a cue is edited.
+
+Sun Jan 15 16:02:48 EST 2017
+Tons of cleanup and simplifications.
+I think I have successfully removed the link between cues and mixer.
+Now need to moves Cues.py to ShowControl/utils and get CueEngine working

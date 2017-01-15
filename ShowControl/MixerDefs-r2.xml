@@ -4,15 +4,15 @@
   <protocol>osc</protocol>
   <mutestyle>illuminated</mutestyle>
   <port type="input" cnt="32" name="CH">
-    <fader cmd="/ch/##/mix/fader" cmdtyp="level" range="0.0,1.0,1024" val="0"/>
-    <mute cmd="/ch/##/mix/on" cmdtyp="enum" val="0"/>
-    <scribble cmd="/ch/##/config/name" cmdtyp="string" text=""/>
+    <fader cmd="/ch/#/mix/fader" cmdtyp="level" range="0.0,1.0,1024" val="0"/>
+    <mute cmd="/ch/#/mix/on" cmdtyp="enum" val="0"/>
+    <scribble cmd="/ch/#/config/name" cmdtyp="string" text=""/>
   </port>
    <port type="auxin" cnt="6" name="AUX">
    </port>
    <port type="output" cnt="16" name="OUT">
-    <mute cmd="/outputs/main/##/mix/on" cmdtyp="enum" val="0"/>
-    <fader cmd="/ch/##/mix/fader" cmdtyp="level" range="0.0,1.0,1024" val="0"/>
+    <mute cmd="/outputs/main/#/mix/on" cmdtyp="enum" val="0"/>
+    <fader cmd="/ch/#/mix/fader" cmdtyp="level" range="0.0,1.0,1024" val="0"/>
    </port>
 </mixer>
 <mixer mfr="Yamaha" model="01V">
