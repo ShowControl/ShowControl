@@ -179,7 +179,7 @@
   <action name="actionOpen_Show">
    <property name="icon">
     <iconset>
-     <normaloff>../../../.designer/backup/Open.png</normaloff>../../../.designer/backup/Open.png</iconset>
+     <normaloff>Open.png</normaloff>Open.png</iconset>
    </property>
    <property name="text">
     <string>&amp;Open Show</string>
@@ -191,7 +191,7 @@
    </property>
    <property name="icon">
     <iconset>
-     <normaloff>../../../.designer/backup/Stage.png</normaloff>../../../.designer/backup/Stage.png</iconset>
+     <normaloff>Stage.png</normaloff>Stage.png</iconset>
    </property>
    <property name="text">
     <string>&amp;Stage Cues</string>
@@ -206,7 +206,7 @@
    </property>
    <property name="icon">
     <iconset>
-     <normaloff>../../../.designer/backup/Sound.png</normaloff>../../../.designer/backup/Sound.png</iconset>
+     <normaloff>Sound.png</normaloff>Sound.png</iconset>
    </property>
    <property name="text">
     <string>S&amp;ound Cues</string>
@@ -221,7 +221,7 @@
    </property>
    <property name="icon">
     <iconset>
-     <normaloff>../../../.designer/backup/Lighting.png</normaloff>../../../.designer/backup/Lighting.png</iconset>
+     <normaloff>Lighting.png</normaloff>Lighting.png</iconset>
    </property>
    <property name="text">
     <string>&amp;Lighting Cues</string>
@@ -236,8 +236,7 @@
    </property>
    <property name="icon">
     <iconset>
-     <normaloff>../../../.designer/backup/LightingApp.png</normaloff>
-     <normalon>../../../.designer/backup/LightingApp.png</normalon>../../../.designer/backup/LightingApp.png</iconset>
+     <normaloff>LightingApp.png</normaloff>LightingApp.png</iconset>
    </property>
    <property name="text">
     <string>&amp;Lighting</string>
@@ -249,7 +248,7 @@
    </property>
    <property name="icon">
     <iconset>
-     <normaloff>../../../.designer/backup/MixerApp.png</normaloff>../../../.designer/backup/MixerApp.png</iconset>
+     <normaloff>MixerApp.png</normaloff>MixerApp.png</iconset>
    </property>
    <property name="text">
     <string>&amp;Mixer</string>
@@ -281,7 +280,7 @@
    </property>
    <property name="icon">
     <iconset>
-     <normaloff>../../../.designer/backup/SoundFX.png</normaloff>../../../.designer/backup/SoundFX.png</iconset>
+     <normaloff>SoundFX.png</normaloff>SoundFX.png</iconset>
    </property>
    <property name="text">
     <string>&amp;Sound FX</string>

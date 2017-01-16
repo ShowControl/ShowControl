@@ -64,3 +64,8 @@ CuesEngine.py and ShowMixer.py now refer to /ShowControl/utils/Show.py and /Show
 CueEngine.py can now launch and close Shows.py
 CueEngine.py/on_table_click needs some work so the selected cue is executed when Jump button is clicked.
 (Figure out what happen to the icons in CueEngine...)
+
+Mon Jan 16 16:35:03 EST 2017
+When I updated the CueEngine ui file it was pointing to the ~/.designer/backup folder for the icons. Don't know why.
+Fixed that an all is good.
+Added toggle of mixer app from menubar.

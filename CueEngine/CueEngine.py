@@ -122,6 +122,7 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         self.action_Sound_FX.triggered.connect(self.ShowSFXApp)
         self.action_Mixer.triggered.connect(self.ShowMxrApp)
         self.SFXAppProc = None
+        self.MxrAppProc = None
 
         self.editcuedlg = EditCue('0')
         try:
@@ -162,6 +163,8 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
     def on_buttonJump_clicked(self):
         """Execute the highlighted cue"""
         print('Jump')
+        The_Show.cues.previouscueindex = The_Show.cues.currentcueindex
+        The_Show.cues.currentcueindex = The_Show.cues.selectedcueindex
         self.dispatch_cue()
 
     def dispatch_cue(self):
@@ -295,8 +298,15 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         self.SFXAppProc.terminate()
 
     def ShowMxrApp(self):
-        print("Launch Mxr App.")
-        self.MxrAppProc = subprocess.Popen(['python3', '/home/mac/PycharmProjs/ShowControl/ShowMixer/ShowMixer.py'])
+        if self.MxrAppProc != None:
+            msg = osc_message_builder.OscMessageBuilder(address='/cue/quit')
+            msg.add_arg(The_Show.cues.currentcueindex)
+            msg = msg.build()
+            self.mxr_sndrthread.queue_msg(msg)
+            self.MxrAppProc = None
+        else:
+            print("Launch Mxr App.")
+            self.MxrAppProc = subprocess.Popen(['python3', '/home/mac/PycharmProjs/ShowControl/ShowMixer/ShowMixer.py'])
 
     def closeEvent(self, event):
         reply = self.confirmQuit()
