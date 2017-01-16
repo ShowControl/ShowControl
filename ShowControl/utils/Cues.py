@@ -13,7 +13,7 @@ class CueList:
     '''
     CueList object contains information defining the cues for a show
     '''
-    def __init__(self, cuefilename, chancount):
+    def __init__(self, cuefilename):
         '''
         Constructor
         cuelist is a tree object with all cues for the show
@@ -24,10 +24,10 @@ class CueList:
         previewcueindex is an integer that indicates the cue being previewed , if a preview is active 
         '''
         self.cuelist = ET.parse(cuefilename)
-        self.mutestate = {}
-        for x in range(1, chancount+1):
-            self.mutestate['ch' + '{0}'.format(x)] = 0
-        self.levelstate = {}
+        # self.mutestate = {}
+        # for x in range(1, chancount+1):
+        #     self.mutestate['ch' + '{0}'.format(x)] = 0
+        # self.levelstate = {}
         self.currentcueindex = 0
         self.previewcueindex = 0
         cues = self.cuelist.findall('cue')

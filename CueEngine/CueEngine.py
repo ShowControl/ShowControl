@@ -5,6 +5,7 @@ import os, sys, inspect, subprocess
 import types
 import argparse
 import socket
+from time import sleep
 
 from PyQt5 import Qt, QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QColor, QBrush
@@ -26,7 +27,7 @@ print(sys.path)
 #from ShowConf import ShowConf
 #from Cues import CueList
 #from MixerConf import MixerConf
-from ShowBase import Show
+from Show import Show
 import CommHandlers
 
 
@@ -99,50 +100,6 @@ class EditCue(QDialog, Ui_dlgEditCue):
     #    print('textchanged')
     #    self.changeflag = True
 
-
-# class Show:
-#     '''
-#     The Show class contains the information and object that constitute a show
-#     '''
-#     def __init__(self):
-#         '''
-#         Constructor
-#         '''
-#         self.show_confpath = cfgdict['Show']['folder'] + '/'
-#         self.show_conf = ShowConf(self.show_confpath + cfgdict['Show']['file'])
-#         self.cues = CueList(self.show_confpath + self.show_conf.settings['mxrcue'])
-#         self.cues.currentcueindex = 0
-#         self.cues.setcurrentcuestate(self.cues.currentcueindex)
-#
-#     def loadNewShow(self, newpath):
-#         '''
-#             :param sho_configpath: path to new ShowConf.xml
-#             :return:
-#         '''
-#         print(cfgdict)
-#         self.show_confpath, showfile = path.split(newpath)
-#         #self.show_confpath = path.dirname(newpath)
-#         self.show_confpath = self.show_confpath + '/'
-#         cfgdict['Show']['folder'] = self.show_confpath
-#         cfgdict['Show']['file'] = showfile
-#         cfg.updateFromDict(cfgdict)
-#         cfg.write()
-#         self.show_conf = ShowConf(self.show_confpath + cfgdict['Show']['file'])
-#         self.cues = CueList(self.show_confpath + self.show_conf.settings['mxrcue'])
-#         self.cues.currentcueindex = 0
-#         self.cues.setcurrentcuestate(self.cues.currentcueindex)
-#         self.displayShow()
-#
-#     def displayShow(self):
-#         '''
-#         Update the state of the mixer display to reflect the newly loaded show
-#         '''
-#         #print(self.cues)
-#         qs = self.cues.cuelist.findall('cue')
-#         for q in qs:
-#              print(q.attrib)
-
-
 class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
 
     def __init__(self, cuelistfile, parent=None):
@@ -154,6 +111,7 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         self.setWindowTitle(The_Show.show_conf.settings['name'])
         self.nextButton.clicked.connect(self.on_buttonNext_clicked)
         self.prevButton.clicked.connect(self.on_buttonPrev_clicked)
+        self.jumpButton.clicked.connect(self.on_buttonJump_clicked)
         self.tableView.doubleClicked.connect(self.on_table_dblclick)
         self.tableView.clicked.connect(self.on_table_click)
         self.actionOpen_Show.triggered.connect(self.openShow)
@@ -162,6 +120,7 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         self.action_Sound_Cues.triggered.connect(self.ShowSoundCues)
         self.action_Lighting_Cues.triggered.connect(self.ShowLightCues)
         self.action_Sound_FX.triggered.connect(self.ShowSFXApp)
+        self.action_Mixer.triggered.connect(self.ShowMxrApp)
         self.SFXAppProc = None
 
         self.editcuedlg = EditCue('0')
@@ -179,24 +138,13 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         self.mxr_sndrthread.start()  # start the thread
         self.comm_threads.append(self.mxr_sndrthread)
 
-
-
     def on_buttonNext_clicked(self):
         print('Next')
         previdx = The_Show.cues.currentcueindex
         The_Show.cues.currentcueindex += 1
         tblvw = self.findChild(QtWidgets.QTableView)
         tblvw.selectRow(The_Show.cues.currentcueindex)
-        print('Old index: ' + str(previdx) + '   New: ' + str(The_Show.cues.currentcueindex))
-        The_Show.cues.setcurrentcuestate(The_Show.cues.currentcueindex)
-        msg = osc_message_builder.OscMessageBuilder(address='/cue/#')
-        msg.add_arg(3)
-        msg = msg.build()
-        self.mxr_sndrthread.queue_msg(msg)
-
-        # print('/cue ' + ascii(The_Show.cues.currentcueindex))
-        # msg = '/cue ' + ascii(The_Show.cues.currentcueindex)
-        # sender.send(msg)
+        self.dispatch_cue()
 
     def on_buttonPrev_clicked(self):
         print('Prev')
@@ -207,16 +155,26 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
             The_Show.cues.setcurrentcuestate(The_Show.cues.currentcueindex)
         else:
             The_Show.cues.currentcueindex = 0
-        print('/cue ' + ascii(The_Show.cues.currentcueindex))
-        msg = '/cue ' + ascii(The_Show.cues.currentcueindex)
         tblvw = self.findChild(QtWidgets.QTableView)
         tblvw.selectRow(The_Show.cues.currentcueindex)
-        sender.send(msg)
+        self.dispatch_cue()
+
+    def on_buttonJump_clicked(self):
+        """Execute the highlighted cue"""
+        print('Jump')
+        self.dispatch_cue()
+
+    def dispatch_cue(self):
+        if The_Show.cues.getcuetype(The_Show.cues.currentcueindex) == 'Mixer':
+            msg = osc_message_builder.OscMessageBuilder(address='/cue/#')
+            msg.add_arg(The_Show.cues.currentcueindex)
+            msg = msg.build()
+            self.mxr_sndrthread.queue_msg(msg)
 
     def on_table_click(self,index):
         tblvw = self.findChild(QtWidgets.QTableView)
         tblvw.selectRow(index.row())
-
+        The_Show.cues.selectedcueindex = index.row()
 
     def on_table_dblclick(self,index):
         print(index.row())
@@ -325,7 +283,6 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         print("Show sound cues.")
         pass
 
-
     def ShowLightCues(self):
         print("Show Light cues.")
         pass
@@ -337,6 +294,10 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
     def EndSFXApp(self):
         self.SFXAppProc.terminate()
 
+    def ShowMxrApp(self):
+        print("Launch Mxr App.")
+        self.MxrAppProc = subprocess.Popen(['python3', '/home/mac/PycharmProjs/ShowControl/ShowMixer/ShowMixer.py'])
+
     def closeEvent(self, event):
         reply = self.confirmQuit()
         if reply == QMessageBox.Yes:
@@ -344,6 +305,15 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
                 savereply = QMessageBox.warning(self, 'Warning',
                     "Save changes in FX player before continuing!", QMessageBox.Ok, QMessageBox.Ok)
                 self.EndSFXApp()
+            try:  # if MxrAppProc was never created it will throw and exception on the next line...so this is probabaly not the right way...
+                if self.MxrAppProc != None:
+                    msg = osc_message_builder.OscMessageBuilder(address='/cue/quit')
+                    msg.add_arg(The_Show.cues.currentcueindex)
+                    msg = msg.build()
+                    self.mxr_sndrthread.queue_msg(msg)
+                    sleep(2)  # wait for message to be sent before killing threads
+            except:
+                pass
             self.stopthreads()
             event.accept()
         else:

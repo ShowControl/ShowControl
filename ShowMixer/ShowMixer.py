@@ -1,23 +1,18 @@
 #!/usr/bin/env python3
 __author__ = 'mac'
 
-import os, sys, inspect
-import types
 import argparse
+import inspect
+import os
 import socket
-from time import sleep
+import sys
+from os import path
 
 from PyQt5 import Qt, QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
-from pythonosc import osc_message_builder
 from pythonosc import osc_message
-from pythonosc.parsing import osc_types
-from pythonosc import udp_client
-
-
-import xml.etree.ElementTree as ET
-from os import path
+from pythonosc import osc_message_builder
 
 currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 print(currentdir)
@@ -30,15 +25,12 @@ print(sys.path)
 
 
 # import ShowControl/utils
-from ShowBase import Show
-from ShowConf import ShowConf
+from Show import Show
 import configuration as cfg
 import CommHandlers
 
 from MixerConf import MixerConf
 from MixerMap import MixerCharMap
-from Cues import CueList
-
 
 import ui_ShowMixer
 from ui_preferences import Ui_Preferences
@@ -100,61 +92,6 @@ class ShowMxr(Show):
         self.mixer = MixerConf(path.abspath(path.join(path.dirname(__file__), '../ShowControl/', cfgdict['Mixer']['file'])),self.show_conf.settings['mxrmfr'],self.show_conf.settings['mxrmodel'])
         self.chrchnmap = MixerCharMap(self.show_confpath + self.show_conf.settings['mxrmap'])
 
-    # def loadNewShow(self, newpath):
-    #     '''
-    #         :param sho_configpath: path to new ShowConf.xml
-    #         :return:
-    #     '''
-    #     print(cfgdict)
-    #     self.show_confpath, showfile = path.split(newpath)
-    #     #self.show_confpath = path.dirname(newpath)
-    #     self.show_confpath = self.show_confpath + '/'
-    #     cfgdict['Show']['folder'] = self.show_confpath
-    #     cfgdict['Show']['file'] = showfile
-    #     cfg.updateFromDict(cfgdict)
-    #     cfg.write()
-    #     self.show_conf = ShowConf(self.show_confpath + cfgdict['Show']['file'])
-    #     self.mixer = MixerConf(path.abspath(path.join(path.dirname(__file__), '../ShowControl/', cfgdict['Mixer']['file'])),self.show_conf.settings['mxrmfr'],self.show_conf.settings['mxrmodel'])
-    #     self.chrchnmap = MixerCharMap(self.show_confpath + self.show_conf.settings['mxrmap'])
-    #     self.cues = CueList(self.show_confpath + self.show_conf.settings['mxrcue'], self.mixer.input_count)
-    #     self.cues.currentcueindex = 0
-    #     self.cues.previouscueindex = 0
-    #     self.cues.selectedcueindex = 0
-    #     self.cues.setcurrentcuestate(self.cues.currentcueindex)
-    #     self.displayShow()
-    #
-    # def displayShow(self):
-    #     '''
-    #     Update the state of the mixer display to reflect the newly loaded show
-    #     '''
-    #     print(path.join(path.dirname(__file__)))
-    #     print(path.abspath(path.join(path.dirname(__file__))) + '/')
-    #     #print('Show Object:',The_Show)
-    #     #print(The_Show.show_conf.settings['mxrmapfile'])
-    #     insliders = self.mixer.inputsliders
-    #     #print('Input Slider Count: ' + str(len(insliders)))
-    #     for x in range(1, len(insliders)+1):
-    #         sliderconf = insliders['Ch' + '{0:02}'.format(x)]
-    #         #print('level: ' + str(sliderconf.level))
-    #         #print('scribble: ' + sliderconf.scribble_text)
-    #     outsliders = self.mixer.outputsliders
-    #     #print('Output Slider Count: ' + str(len(outsliders)))
-    #     for x in range(1, len(outsliders)+1):
-    #         sliderconf = outsliders['Ch' + '{0:02}'.format(x)]
-    #         #print('level: ' + str(sliderconf.level))
-    #         #print('scribble: ' + sliderconf.scribble_text)
-    #
-    #     #print(The_Show.cues)
-    #     qs = self.cues.cuelist.findall('cue')
-    #     for q in qs:
-    #          print(q.attrib)
-    #
-    #     #print(The_Show.chrchnmap)
-    #     chs = self.chrchnmap.maplist.findall('input')
-    #     # for ch in chs:
-    #     #     print(ch.attrib)
-
-
 class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
     ChanStrip_MinWidth = 50
 
@@ -183,6 +120,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         self.mxr_rcvrthread.finished.connect(self.rcvrthreaddone)  # conect to buitlin signal 'finished'
         self.mxr_rcvrthread.start()  # start the thread
         self.comm_threads.append(self.mxr_rcvrthread)
+        self.externalclose = False
 
 
         #  Setup thread and udp to handle commands from CueEngine
@@ -390,18 +328,6 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
                     msg.add_arg(sldlev)
                     msg = msg.build()
                     self.mxr_sndrthread.queue_msg(msg)
-        # for ctlcnt in range(1, The_Show.mixer.inputsliders.__len__() + 1):
-        #     sldr = self.findChild(QtWidgets.QSlider, name='{0:02}'.format(ctlcnt))
-        #     #osc_add = '/ch/' + sldr.objectName() + '/mix/fader'
-        #     osc_add = The_Show.mixer.inputsliders['Ch' + '{0:02}'.format(ctlcnt)].fadercmd.replace('#', sldr.objectName())
-        #     msg = osc_message_builder.OscMessageBuilder(address=osc_add)
-        #     sldlev = The_Show.cues.levelstate['ch' + '{0}'.format(ctlcnt)]
-        #     sldlev_int = translate(int(sldlev), 0, 1024, 0.0, 1.0)
-        #     sldr.setSliderPosition(int(sldlev))
-        #     msg.add_arg(sldlev_int)
-        #     msg = msg.build()
-        #     self.mxr_sndrthread.queue_msg(msg)
-
 
     def next_cue(self):
         nextmxrcuefound = False
@@ -568,9 +494,12 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
 
     def confirmQuit(self):
         """..."""
-        reply = QMessageBox.question(self, 'Confirm Quit',
-            "Are you sure you want to quit?", QMessageBox.Yes |
-            QMessageBox.No, QMessageBox.No)
+        if self.externalclose:
+            reply =  QMessageBox.Yes
+        else:
+            reply = QMessageBox.question(self, 'Confirm Quit',
+                "Are you sure you want to quit?", QMessageBox.Yes |
+                QMessageBox.No, QMessageBox.No)
         return reply
 
     '''sender functions'''
@@ -592,6 +521,9 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
                 self.next_cue()
         elif msg.address == '/cue/#':
             self.execute_cue(msg.params[0])
+        elif msg.address == '/cue/quit':
+            self.externalclose = True
+            self.close()
 
     def sndrqput(self, msg):
         """..."""

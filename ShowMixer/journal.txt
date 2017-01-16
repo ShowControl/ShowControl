@@ -58,3 +58,9 @@ Sun Jan 15 16:02:48 EST 2017
 Tons of cleanup and simplifications.
 I think I have successfully removed the link between cues and mixer.
 Now need to moves Cues.py to ShowControl/utils and get CueEngine working
+
+Mon Jan 16 11:19:37 EST 2017
+CuesEngine.py and ShowMixer.py now refer to /ShowControl/utils/Show.py and /ShowControl/utils/Cues.py
+CueEngine.py can now launch and close Shows.py
+CueEngine.py/on_table_click needs some work so the selected cue is executed when Jump button is clicked.
+(Figure out what happen to the icons in CueEngine...)
