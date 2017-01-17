@@ -23,7 +23,7 @@
       <file leaf-file-name="MixerControl.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MixerControl.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
+            <state relative-caret-position="180">
               <caret line="19" column="21" lean-forward="false" selection-start-line="19" selection-start-column="21" selection-end-line="19" selection-end-column="21" />
               <folding>
                 <element signature="e#71#94#0" expanded="true" />
@@ -35,7 +35,7 @@
       <file leaf-file-name="ShowMixer.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ShowMixer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2805">
+            <state relative-caret-position="3660">
               <caret line="423" column="0" lean-forward="false" selection-start-line="423" selection-start-column="0" selection-end-line="423" selection-end-column="0" />
               <folding>
                 <element signature="e#43#58#0" expanded="true" />
@@ -68,8 +68,8 @@
       <file leaf-file-name="journal.txt" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/journal.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="852">
-              <caret line="70" column="39" lean-forward="false" selection-start-line="70" selection-start-column="39" selection-end-line="70" selection-end-column="39" />
+            <state relative-caret-position="837">
+              <caret line="86" column="113" lean-forward="false" selection-start-line="86" selection-start-column="113" selection-end-line="86" selection-end-column="113" />
               <folding />
             </state>
           </provider>
@@ -173,6 +173,7 @@
     </navigator>
     <panes>
       <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -187,7 +188,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -956,7 +956,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="375">
           <caret line="25" column="52" lean-forward="false" selection-start-line="25" selection-start-column="52" selection-end-line="25" selection-end-column="52" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1074,7 +1073,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/MixerControl.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
+        <state relative-caret-position="180">
           <caret line="19" column="21" lean-forward="false" selection-start-line="19" selection-start-column="21" selection-end-line="19" selection-end-column="21" />
           <folding>
             <element signature="e#71#94#0" expanded="true" />
@@ -1094,7 +1093,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ShowMixer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2805">
+        <state relative-caret-position="3660">
           <caret line="423" column="0" lean-forward="false" selection-start-line="423" selection-start-column="0" selection-end-line="423" selection-end-column="0" />
           <folding>
             <element signature="e#43#58#0" expanded="true" />
@@ -1125,8 +1124,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/journal.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="852">
-          <caret line="70" column="39" lean-forward="false" selection-start-line="70" selection-start-column="39" selection-end-line="70" selection-end-column="39" />
+        <state relative-caret-position="837">
+          <caret line="86" column="113" lean-forward="false" selection-start-line="86" selection-start-column="113" selection-end-line="86" selection-end-column="113" />
           <folding />
         </state>
       </provider>

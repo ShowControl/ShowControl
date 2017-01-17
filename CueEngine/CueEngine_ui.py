@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'CueEngine-3.ui'
+# Form implementation generated from reading ui file 'CueEngine-3_w_res.ui'
 #
 # Created by: PyQt5 UI code generator 5.7
 #
@@ -69,37 +69,37 @@ class Ui_MainWindow(object):
         MainWindow.addToolBar(QtCore.Qt.TopToolBarArea, self.toolBar)
         self.actionOpen_Show = QtWidgets.QAction(MainWindow)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("Open.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap(":/Res/Open.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.actionOpen_Show.setIcon(icon)
         self.actionOpen_Show.setObjectName("actionOpen_Show")
         self.action_Stage_Cues = QtWidgets.QAction(MainWindow)
         self.action_Stage_Cues.setCheckable(True)
         icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap("Stage.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon1.addPixmap(QtGui.QPixmap(":/Res/Stage.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.action_Stage_Cues.setIcon(icon1)
         self.action_Stage_Cues.setObjectName("action_Stage_Cues")
         self.action_Sound_Cues = QtWidgets.QAction(MainWindow)
         self.action_Sound_Cues.setCheckable(True)
         icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap("Sound.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon2.addPixmap(QtGui.QPixmap(":/Res/Sound.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.action_Sound_Cues.setIcon(icon2)
         self.action_Sound_Cues.setObjectName("action_Sound_Cues")
         self.action_Lighting_Cues = QtWidgets.QAction(MainWindow)
         self.action_Lighting_Cues.setCheckable(True)
         icon3 = QtGui.QIcon()
-        icon3.addPixmap(QtGui.QPixmap("Lighting.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon3.addPixmap(QtGui.QPixmap(":/Res/Lighting.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.action_Lighting_Cues.setIcon(icon3)
         self.action_Lighting_Cues.setObjectName("action_Lighting_Cues")
         self.action_Lighting = QtWidgets.QAction(MainWindow)
         self.action_Lighting.setCheckable(True)
         icon4 = QtGui.QIcon()
-        icon4.addPixmap(QtGui.QPixmap("LightingApp.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon4.addPixmap(QtGui.QPixmap(":/Res/LightingApp.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.action_Lighting.setIcon(icon4)
         self.action_Lighting.setObjectName("action_Lighting")
         self.action_Mixer = QtWidgets.QAction(MainWindow)
         self.action_Mixer.setCheckable(True)
         icon5 = QtGui.QIcon()
-        icon5.addPixmap(QtGui.QPixmap("MixerApp.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon5.addPixmap(QtGui.QPixmap(":/Res/MixerApp.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.action_Mixer.setIcon(icon5)
         self.action_Mixer.setObjectName("action_Mixer")
         self.actionExit = QtWidgets.QAction(MainWindow)
@@ -113,7 +113,7 @@ class Ui_MainWindow(object):
         self.action_Sound_FX = QtWidgets.QAction(MainWindow)
         self.action_Sound_FX.setCheckable(True)
         icon6 = QtGui.QIcon()
-        icon6.addPixmap(QtGui.QPixmap("SoundFX.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon6.addPixmap(QtGui.QPixmap(":/Res/SoundFX.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.action_Sound_FX.setIcon(icon6)
         self.action_Sound_FX.setObjectName("action_Sound_FX")
         self.menu_File.addAction(self.actionOpen_Show)
@@ -173,3 +173,4 @@ class Ui_MainWindow(object):
         self.actionClose_Show.setText(_translate("MainWindow", "&Close Show"))
         self.action_Sound_FX.setText(_translate("MainWindow", "&Sound FX"))
 
+import CueEngine_rsrc_rc

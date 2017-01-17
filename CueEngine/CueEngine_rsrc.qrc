@@ -1,0 +1,11 @@
+<RCC>
+  <qresource prefix="Res">
+    <file>Lighting.png</file>
+    <file>LightingApp.png</file>
+    <file>MixerApp.png</file>
+    <file>Open.png</file>
+    <file>Sound.png</file>
+    <file>SoundFX.png</file>
+    <file>Stage.png</file>
+  </qresource>
+</RCC>

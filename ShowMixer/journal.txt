@@ -69,3 +69,19 @@ Mon Jan 16 16:35:03 EST 2017
 When I updated the CueEngine ui file it was pointing to the ~/.designer/backup folder for the icons. Don't know why.
 Fixed that an all is good.
 Added toggle of mixer app from menubar.
+
+Tue Jan 17 12:38:04 EST 2017
+Had a look at how to use resource files
+In QtDesigner select the Resource Browser tab and click edit (the pencil icon)
+When you add a resource file from the resulting dialog it creates a xxx.qrc file.
+You then select the resources, icons, etc. they are automatically part of the qrc file.
+Once you save the .ui file in QtDesigner then use the following to produce the ui .py and rc.py files:
+Example at the command line:
+pyuic5 CueEngine-3_w_res.ui -o CueEngine_ui.py
+pyrcc5 CueEngine_rsrc.qrc -o CueEngine_rsrc_rc.py
+
+If you check the CueEngine_ui.py file you'll see this:
+import CueEngine_rsrc_rc
+
+Updated CueEngine to handle visibility of different cue types.
+some issues here because cue number and table index no longer track. THis is fixed in Jump and Next, not Previous

@@ -114,11 +114,15 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         self.jumpButton.clicked.connect(self.on_buttonJump_clicked)
         self.tableView.doubleClicked.connect(self.on_table_dblclick)
         self.tableView.clicked.connect(self.on_table_click)
+        self.tabledata = []
         self.actionOpen_Show.triggered.connect(self.openShow)
         self.actionSave.triggered.connect(self.saveShow)
         self.action_Stage_Cues.triggered.connect(self.ShowStageCues)
+        self.StageCuesVisible = True
         self.action_Sound_Cues.triggered.connect(self.ShowSoundCues)
+        self.SoundCuesVisible = True
         self.action_Lighting_Cues.triggered.connect(self.ShowLightCues)
+        self.LightCuesVisible = True
         self.action_Sound_FX.triggered.connect(self.ShowSFXApp)
         self.action_Mixer.triggered.connect(self.ShowMxrApp)
         self.SFXAppProc = None
@@ -141,11 +145,15 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
 
     def on_buttonNext_clicked(self):
         print('Next')
-        previdx = The_Show.cues.currentcueindex
-        The_Show.cues.currentcueindex += 1
         tblvw = self.findChild(QtWidgets.QTableView)
-        tblvw.selectRow(The_Show.cues.currentcueindex)
-        self.dispatch_cue()
+        selections = tblvw.selectedIndexes()  # selections is a list that contains an entry for each column in the row
+        tblrow = selections[0].row()  # the row is the index to the tabledata for the cue
+        tblrow += 1  # next row
+        cuedata = self.tabledata[tblrow]  # data for next row
+        The_Show.cues.previouscueindex = The_Show.cues.currentcueindex  # save previous cue index
+        The_Show.cues.currentcueindex = int(self.tabledata[tblrow][0])  # new current cue index is the cue we want to execute
+        tblvw.selectRow(tblrow)  # select the next row
+        self.dispatch_cue()  # execute the cue
 
     def on_buttonPrev_clicked(self):
         print('Prev')
@@ -175,9 +183,11 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
             self.mxr_sndrthread.queue_msg(msg)
 
     def on_table_click(self,index):
+        """index is the row in the tableview (thus the row of the tabledata)"""
         tblvw = self.findChild(QtWidgets.QTableView)
         tblvw.selectRow(index.row())
-        The_Show.cues.selectedcueindex = index.row()
+        cuedata = self.tabledata[index.row()]
+        The_Show.cues.selectedcueindex = int(self.tabledata[index.row()][0])
 
     def on_table_dblclick(self,index):
         print(index.row())
@@ -244,18 +254,26 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         for q in qs:
             #print(q.attrib)
             #print(q.find('Move').text)
-            self.tabledata.append(
-                    [q.find('Move').text,
-                    q.find('Act').text,
-                    q.find('Scene').text,
-                    q.find('Page').text,
-                    q.find('Id').text,
-                    q.find('Title').text,
-                    q.find('Cue').text,
-                    q.find('CueType').text])
+            if q.find('CueType').text == 'Mixer' and self.SoundCuesVisible:
+                self.append_table_data(q)
+            elif q.find('CueType').text == 'Stage' and self.StageCuesVisible:
+                self.append_table_data(q)
+            elif q.find('CueType').text == 'Light' and self.LightCuesVisible:
+                self.append_table_data(q)
         print(self.tabledata)
 
-#Menu and Tool Bar functions
+    def append_table_data(self, q):
+        self.tabledata.append(
+            [q.find('Move').text,
+             q.find('Act').text,
+             q.find('Scene').text,
+             q.find('Page').text,
+             q.find('Id').text,
+             q.find('Title').text,
+             q.find('Cue').text,
+             q.find('CueType').text])
+
+    #Menu and Tool Bar functions
 
     def openShow(self):
         '''
@@ -279,16 +297,34 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         pass
 
     def ShowStageCues(self):
-        print("Show stage cues.")
-        pass
+        """Toggle visibility of stage cues"""
+        if self.StageCuesVisible:
+            self.StageCuesVisible = False
+        else:
+            self.StageCuesVisible = True
+        self.disptext()
+        self.setfirstcue()
+
 
     def ShowSoundCues(self):
-        print("Show sound cues.")
-        pass
+        """Toggle visibility of sound cues"""
+        if self.SoundCuesVisible:
+            self.SoundCuesVisible = False
+        else:
+            self.SoundCuesVisible = True
+        self.disptext()
+        self.setfirstcue()
+
 
     def ShowLightCues(self):
-        print("Show Light cues.")
-        pass
+        """Toggle visibility of Light cues"""
+        if self.LightCuesVisible:
+            self.LightCuesVisible = False
+        else:
+            self.LightCuesVisible = True
+        self.disptext()
+        self.setfirstcue()
+
 
     def ShowSFXApp(self):
         print("Launch SFX App.")
