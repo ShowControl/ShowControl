@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>850</width>
+    <width>835</width>
     <height>768</height>
    </rect>
   </property>
@@ -115,7 +115,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>850</width>
+     <width>835</width>
      <height>28</height>
     </rect>
    </property>
@@ -139,7 +139,7 @@
      <string>&amp;View</string>
     </property>
     <addaction name="action_Stage_Cues"/>
-    <addaction name="action_Sound_Cues"/>
+    <addaction name="action_Sound_FX_Cues"/>
     <addaction name="action_Lighting_Cues"/>
    </widget>
    <widget class="QMenu" name="menu_Application">
@@ -169,7 +169,8 @@
    <addaction name="actionOpen_Show"/>
    <addaction name="separator"/>
    <addaction name="action_Stage_Cues"/>
-   <addaction name="action_Sound_Cues"/>
+   <addaction name="action_Sound_FX_Cues"/>
+   <addaction name="action_Mixer_Cues"/>
    <addaction name="action_Lighting_Cues"/>
    <addaction name="separator"/>
    <addaction name="action_Lighting"/>
@@ -200,19 +201,19 @@
     <string>Display Stage Cues</string>
    </property>
   </action>
-  <action name="action_Sound_Cues">
+  <action name="action_Sound_FX_Cues">
    <property name="checkable">
     <bool>true</bool>
    </property>
    <property name="icon">
     <iconset resource="CueEngine_rsrc.qrc">
-     <normaloff>:/Res/Sound.png</normaloff>:/Res/Sound.png</iconset>
+     <normaloff>:/Res/SFX_300X300png</normaloff>:/Res/SFX_300X300png</iconset>
    </property>
    <property name="text">
-    <string>S&amp;ound Cues</string>
+    <string>S&amp;ound FX Cues</string>
    </property>
    <property name="toolTip">
-    <string>Display Sound Cues</string>
+    <string>Display Sound FX Cues</string>
    </property>
   </action>
   <action name="action_Lighting_Cues">
@@ -253,6 +254,9 @@
    <property name="text">
     <string>&amp;Mixer</string>
    </property>
+   <property name="toolTip">
+    <string>Show/hide Mixer App</string>
+   </property>
   </action>
   <action name="actionExit">
    <property name="text">
@@ -280,10 +284,25 @@
    </property>
    <property name="icon">
     <iconset resource="CueEngine_rsrc.qrc">
-     <normaloff>:/Res/SoundFX.png</normaloff>:/Res/SoundFX.png</iconset>
+     <normaloff>:/Res/SoundFXApp.png</normaloff>:/Res/SoundFXApp.png</iconset>
    </property>
    <property name="text">
     <string>&amp;Sound FX</string>
+   </property>
+   <property name="toolTip">
+    <string>Show/hide Sound FX App</string>
+   </property>
+  </action>
+  <action name="action_Mixer_Cues">
+   <property name="icon">
+    <iconset resource="CueEngine_rsrc.qrc">
+     <normaloff>:/Res/mixer-icon.png</normaloff>:/Res/mixer-icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>Mixer Cues</string>
+   </property>
+   <property name="toolTip">
+    <string>Show/hide mixer cues</string>
    </property>
   </action>
  </widget>

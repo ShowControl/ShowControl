@@ -119,8 +119,10 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         self.actionSave.triggered.connect(self.saveShow)
         self.action_Stage_Cues.triggered.connect(self.ShowStageCues)
         self.StageCuesVisible = True
-        self.action_Sound_Cues.triggered.connect(self.ShowSoundCues)
-        self.SoundCuesVisible = True
+        self.action_Sound_FX_Cues.triggered.connect(self.ShowSoundFXCues)
+        self.SoundFXCuesVisible = True
+        self.action_Mixer_Cues.triggered.connect(self.ShowMixerCues)
+        self.MixerCuesVisible = True
         self.action_Lighting_Cues.triggered.connect(self.ShowLightCues)
         self.LightCuesVisible = True
         self.action_Sound_FX.triggered.connect(self.ShowSFXApp)
@@ -254,7 +256,9 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         for q in qs:
             #print(q.attrib)
             #print(q.find('Move').text)
-            if q.find('CueType').text == 'Mixer' and self.SoundCuesVisible:
+            if q.find('CueType').text == 'Sound' and self.SoundFXCuesVisible:
+                self.append_table_data(q)
+            elif q.find('CueType').text == 'Mixer' and self.MixerCuesVisible:
                 self.append_table_data(q)
             elif q.find('CueType').text == 'Stage' and self.StageCuesVisible:
                 self.append_table_data(q)
@@ -305,16 +309,23 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         self.disptext()
         self.setfirstcue()
 
-
-    def ShowSoundCues(self):
+    def ShowSoundFXCues(self):
         """Toggle visibility of sound cues"""
-        if self.SoundCuesVisible:
-            self.SoundCuesVisible = False
+        if self.SoundFXCuesVisible:
+            self.SoundFXCuesVisible = False
         else:
-            self.SoundCuesVisible = True
+            self.SoundFXCuesVisible = True
         self.disptext()
         self.setfirstcue()
 
+    def ShowMixerCues(self):
+        """Toggle visibility of sound cues"""
+        if self.MixerCuesVisible:
+            self.MixerCuesVisible = False
+        else:
+            self.MixerCuesVisible = True
+        self.disptext()
+        self.setfirstcue()
 
     def ShowLightCues(self):
         """Toggle visibility of Light cues"""

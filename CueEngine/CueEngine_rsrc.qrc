@@ -1,11 +1,13 @@
 <RCC>
   <qresource prefix="Res">
+    <file>mixer-icon.png</file>
     <file>Lighting.png</file>
     <file>LightingApp.png</file>
     <file>MixerApp.png</file>
     <file>Open.png</file>
     <file>Sound.png</file>
-    <file>SoundFX.png</file>
     <file>Stage.png</file>
+    <file>SFX_300X300png</file>
+    <file>SoundFXApp.png</file>
   </qresource>
 </RCC>
