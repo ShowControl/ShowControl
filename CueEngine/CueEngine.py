@@ -15,6 +15,8 @@ from PyQt5.QtWidgets import *
 import xml.etree.ElementTree as ET
 from os import path
 
+from rtmidi.midiconstants import CONTROL_CHANGE, NOTE_ON
+
 currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 print(currentdir)
 syblingdir =  os.path.dirname(currentdir) + '/ShowControl/utils'
@@ -138,12 +140,19 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
             sys.exit()
         self.comm_threads = []  # a list of threads in use for later use when app exits
 
-        # setup sender thread
+        # setup mixer sender thread
         self.mxr_sndrthread = CommHandlers.sender(self.mxr_sock, CUE_IP, CUE_PORT)
         self.mxr_sndrthread.sndrsignal.connect(self.sndrtestfunc)  # connect to custom signal called 'signal'
         self.mxr_sndrthread.finished.connect(self.sndrthreaddone)  # connect to buitlin signal 'finished'
         self.mxr_sndrthread.start()  # start the thread
         self.comm_threads.append(self.mxr_sndrthread)
+
+        # setup sound sender thread
+        self.snd_sndrthread = CommHandlers.MIDIsender('x')
+        self.snd_sndrthread.snd_sndrsignal.connect(self.snd_sndrtestfunc)  # connect to custom signal called 'signal'
+        self.snd_sndrthread.finished.connect(self.snd_sndrthreaddone)  # connect to buitlin signal 'finished'
+        self.snd_sndrthread.start()  # start the thread
+        self.comm_threads.append(self.snd_sndrthread)
 
     def on_buttonNext_clicked(self):
         print('Next')
@@ -182,7 +191,11 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
             msg = osc_message_builder.OscMessageBuilder(address='/cue/#')
             msg.add_arg(The_Show.cues.currentcueindex)
             msg = msg.build()
-            self.mxr_sndrthread.queue_msg(msg)
+            self.mxr_sndrthread.queue_msg(msg, CUE_IP, CUE_PORT)
+        elif The_Show.cues.getcuetype(The_Show.cues.currentcueindex) == 'Sound':
+            msg = [NOTE_ON, 60, 112]
+            self.snd_sndrthread.queue_msg(msg)
+
 
     def on_table_click(self,index):
         """index is the row in the tableview (thus the row of the tabledata)"""
@@ -340,6 +353,8 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
     def ShowSFXApp(self):
         print("Launch SFX App.")
         self.SFXAppProc = subprocess.Popen(['python3', '/home/mac/PycharmProjs/linux-show-player/linux-show-player', '-f', '/home/mac/Shows/Pauline/sfx.lsp'])
+        #self.SFXAppProc = subprocess.Popen(['/home/mac/PycharmProjs/ShowControl/sound_effects_player/try_player.sh'])
+        #self.SFXAppProc = subprocess.Popen(['sound_effects_player'])
 
     def EndSFXApp(self):
         self.SFXAppProc.terminate()
@@ -349,7 +364,7 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
             msg = osc_message_builder.OscMessageBuilder(address='/cue/quit')
             msg.add_arg(The_Show.cues.currentcueindex)
             msg = msg.build()
-            self.mxr_sndrthread.queue_msg(msg)
+            self.mxr_sndrthread.queue_msg(msg, CUE_IP, CUE_PORT)
             self.MxrAppProc = None
         else:
             print("Launch Mxr App.")
@@ -367,7 +382,7 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
                     msg = osc_message_builder.OscMessageBuilder(address='/cue/quit')
                     msg.add_arg(The_Show.cues.currentcueindex)
                     msg = msg.build()
-                    self.mxr_sndrthread.queue_msg(msg)
+                    self.mxr_sndrthread.queue_msg(msg, CUE_IP, CUE_PORT)
                     sleep(2)  # wait for message to be sent before killing threads
             except:
                 pass
@@ -396,11 +411,19 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         print(sigstr)
         self.statusBar().showMessage(sigstr)
 
+    def snd_sndrtestfunc(self, sigstr):
+        """..."""
+        print(sigstr)
+        self.statusBar().showMessage(sigstr)
+
     '''called when builtin signal 'finished' is emitted by worker thread'''
     def sndrthreaddone(self):
         """..."""
         print('sender thread done')
 
+    def snd_sndrthreaddone(self):
+        """..."""
+        print('sender thread done')
 
 class MyTableModel(QtCore.QAbstractTableModel):
     def __init__(self, datain, headerdata, parent=None):

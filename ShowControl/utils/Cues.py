@@ -83,42 +83,6 @@ class CueList:
         except:
             print('Levels not found!')
 
-
-#     def setcurrentcuestate(self, cueindex):
-#         '''
-#         Constructor
-#         '''
-#         #print('{0:03}'.format(cueindex))
-#         thiscue = self.cuelist.find("./cue[@num='"+'{0:03}'.format(cueindex)+"']")
-#         print(ET.dump(thiscue))
-#         try:
-#             ents = thiscue.find('Entrances')
-# #             print(ET.dump(ents))
-# #             print(ents.text)
-#             if ents != None:
-#                 entlist = ents.text
-#                 for entidx in entlist.split(","):
-#                     self.mutestate[entidx.strip()] = 1
-#         except:
-#             print('Entrances Index ' + '{0:03}'.format(cueindex) + ' not found!')
-#         try:
-#             exts = thiscue.find('Exits')
-#             if exts != None:
-#                 extlist = exts.text
-#                 for extidx in extlist.split(","):
-#                     self.mutestate[extidx.strip()] = 0
-#         except:
-#             print('Exits Index ' + '{0:03}'.format(cueindex) + ' not found!')
-#         #print(self.mutestate)
-#         try:
-#             levels = thiscue.find('Levels')
-#             if levels != None:
-#                 levelslist = levels.text
-#                 self.levelstate = dict(item.split(":") for item in levelslist.split(","))
-#                 print(self.levelstate)
-#         except:
-#             print('Levels not found!')
-
     def getcuetype(self, cueindex):
         thiscue = self.cuelist.find("./cue[@num='" + '{0:03}'.format(cueindex) + "']")
         print(ET.dump(thiscue))

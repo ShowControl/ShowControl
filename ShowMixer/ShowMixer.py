@@ -276,7 +276,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         msg = osc_message_builder.OscMessageBuilder(address=osc_add)
         msg.add_arg(translate(val, 0,1024,0.0, 1.0))
         msg = msg.build()
-        self.mxr_sndrthread.queue_msg(msg)
+        self.mxr_sndrthread.queue_msg(msg, MXR_IP, MXR_PORT)
 
     def on_buttonNext_clicked(self):
         self.next_cue()
@@ -306,7 +306,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
                     mute.setChecked(True)
                     msg.add_arg(The_Show.mixer.mutestyle['mute'])
                 msg = msg.build()
-                self.mxr_sndrthread.queue_msg(msg)
+                self.mxr_sndrthread.queue_msg(msg, MXR_IP, MXR_PORT)
 
         levels = The_Show.cues.get_cue_levels(The_Show.cues.currentcueindex)
         if levels != None:
@@ -327,7 +327,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
                     sldr.setSliderPosition(int(value))
                     msg.add_arg(sldlev)
                     msg = msg.build()
-                    self.mxr_sndrthread.queue_msg(msg)
+                    self.mxr_sndrthread.queue_msg(msg, MXR_IP, MXR_PORT)
 
     def next_cue(self):
         nextmxrcuefound = False
@@ -350,7 +350,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
             mute.setChecked(True)
             msg.add_arg(The_Show.mixer.mutestyle['mute'])
             msg = msg.build()
-            self.mxr_sndrthread.queue_msg(msg)
+            self.mxr_sndrthread.queue_msg(msg, MXR_IP, MXR_PORT)
 
     def initlevels(self):
         for ctlcnt in range(1, The_Show.mixer.inputsliders.__len__() + 1):
@@ -360,7 +360,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
             msg = osc_message_builder.OscMessageBuilder(address=osc_add)
             msg.add_arg(translate(0, 0, 1024, 0.0, 1.0))
             msg = msg.build()
-            self.mxr_sndrthread.queue_msg(msg)
+            self.mxr_sndrthread.queue_msg(msg, MXR_IP, MXR_PORT)
 
     def on_buttonMute_clicked(self):
         mbtn=self.sender()
@@ -379,7 +379,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
 
         msg = msg.build()
         #client.send(msg)
-        self.mxr_sndrthread.queue_msg(msg)
+        self.mxr_sndrthread.queue_msg(msg, MXR_IP, MXR_PORT)
 
     def on_buttonUnmute_clicked(self):
         spin=1
@@ -392,7 +392,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         msg.add_arg(1)
         msg = msg.build()
         #client.send(msg)
-        self.mxr_sndrthread.queue_msg(msg)
+        self.mxr_sndrthread.queue_msg(msg, MXR_IP, MXR_PORT)
 
     def setfirstcue(self):
         tblvw = self.findChild(QtWidgets.QTableView)
@@ -450,7 +450,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
             msg.add_arg(chan.attrib['actor'][:5])
             msg = msg.build()
             #client.send(msg)
-            self.mxr_sndrthread.queue_msg(msg)
+            self.mxr_sndrthread.queue_msg(msg, MXR_IP, MXR_PORT)
             thislbl = self.findChild(QtWidgets.QLabel, name='scr'+ '{0:02}'.format(cnum))
             thislbl.setText(tmpstr)
 

@@ -84,4 +84,4 @@ If you check the CueEngine_ui.py file you'll see this:
 import CueEngine_rsrc_rc
 
 Updated CueEngine to handle visibility of different cue types.
-some issues here because cue number and table index no longer track. THis is fixed in Jump and Next, not Previous
+some issues here because cue number and table index no longer track. This is fixed in Jump and Next, not Previous
