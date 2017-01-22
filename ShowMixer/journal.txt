@@ -85,3 +85,7 @@ import CueEngine_rsrc_rc
 
 Updated CueEngine to handle visibility of different cue types.
 some issues here because cue number and table index no longer track. This is fixed in Jump and Next, not Previous
+
+Sun Jan 22 15:34:41 EST 2017
+Created example code to use jack midi and rtmidi(alsa) now need to update ShowControl/utils/CommHandlers.py to have
+JACK and ALSA midi capabilities.
