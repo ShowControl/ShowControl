@@ -133,26 +133,26 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         self.MxrAppProc = None
 
         self.editcuedlg = EditCue('0')
-        try:
-            self.mxr_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        except socket.error:
-            print('Failed to create mixer socket')
-            sys.exit()
         self.comm_threads = []  # a list of threads in use for later use when app exits
+        # try:
+        #     self.mxr_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        # except socket.error:
+        #     print('Failed to create mixer socket')
+        #     sys.exit()
 
-        # setup mixer sender thread
-        self.mxr_sndrthread = CommHandlers.sender(self.mxr_sock, CUE_IP, CUE_PORT)
-        self.mxr_sndrthread.sndrsignal.connect(self.sndrtestfunc)  # connect to custom signal called 'signal'
-        self.mxr_sndrthread.finished.connect(self.sndrthreaddone)  # connect to buitlin signal 'finished'
-        self.mxr_sndrthread.start()  # start the thread
-        self.comm_threads.append(self.mxr_sndrthread)
+        # # setup mixer sender thread
+        # self.mxr_sndrthread = CommHandlers.sender(self.mxr_sock, CUE_IP, CUE_PORT)
+        # self.mxr_sndrthread.sndrsignal.connect(self.sndrtestfunc)  # connect to custom signal called 'signal'
+        # self.mxr_sndrthread.finished.connect(self.sndrthreaddone)  # connect to buitlin signal 'finished'
+        # self.mxr_sndrthread.start()  # start the thread
+        # self.comm_threads.append(self.mxr_sndrthread)
 
-        # setup sound sender thread
-        self.snd_sndrthread = CommHandlers.MIDIsender('x')
-        self.snd_sndrthread.snd_sndrsignal.connect(self.snd_sndrtestfunc)  # connect to custom signal called 'signal'
-        self.snd_sndrthread.finished.connect(self.snd_sndrthreaddone)  # connect to buitlin signal 'finished'
-        self.snd_sndrthread.start()  # start the thread
-        self.comm_threads.append(self.snd_sndrthread)
+        # # setup sound sender thread
+        # self.snd_sndrthread = CommHandlers.MIDIsender('x')
+        # self.snd_sndrthread.snd_sndrsignal.connect(self.snd_sndrtestfunc)  # connect to custom signal called 'signal'
+        # self.snd_sndrthread.finished.connect(self.snd_sndrthreaddone)  # connect to buitlin signal 'finished'
+        # self.snd_sndrthread.start()  # start the thread
+        # self.comm_threads.append(self.snd_sndrthread)
 
     def on_buttonNext_clicked(self):
         print('Next')
@@ -355,6 +355,14 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         self.SFXAppProc = subprocess.Popen(['python3', '/home/mac/PycharmProjs/linux-show-player/linux-show-player', '-f', '/home/mac/Shows/Pauline/sfx.lsp'])
         #self.SFXAppProc = subprocess.Popen(['/home/mac/PycharmProjs/ShowControl/sound_effects_player/try_player.sh'])
         #self.SFXAppProc = subprocess.Popen(['sound_effects_player'])
+        # setup sound sender thread
+        self.snd_sndrthread = CommHandlers.AMIDIsender()
+        self.snd_sndrthread.setport(['RtMidiIn', 'RtMidiIn Client:RtMidi input'])
+        self.snd_sndrthread.amidi_sndrsignal.connect(self.snd_sndrtestfunc)  # connect to custom signal called 'signal'
+        self.snd_sndrthread.finished.connect(self.snd_sndrthreaddone)  # connect to buitlin signal 'finished'
+        self.snd_sndrthread.start()  # start the thread
+        self.comm_threads.append(self.snd_sndrthread)
+
 
     def EndSFXApp(self):
         self.SFXAppProc.terminate()
@@ -362,13 +370,25 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
     def ShowMxrApp(self):
         if self.MxrAppProc != None:
             msg = osc_message_builder.OscMessageBuilder(address='/cue/quit')
-            msg.add_arg(The_Show.cues.currentcueindex)
+            #msg.add_arg(The_Show.cues.currentcueindex)
             msg = msg.build()
             self.mxr_sndrthread.queue_msg(msg, CUE_IP, CUE_PORT)
             self.MxrAppProc = None
         else:
             print("Launch Mxr App.")
             self.MxrAppProc = subprocess.Popen(['python3', '/home/mac/PycharmProjs/ShowControl/ShowMixer/ShowMixer.py'])
+            # setup mixer sender thread
+            try:
+                self.mxr_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+            except socket.error:
+                print('Failed to create mixer socket')
+                sys.exit()
+            self.mxr_sndrthread = CommHandlers.sender(self.mxr_sock, CUE_IP, CUE_PORT)
+            self.mxr_sndrthread.sndrsignal.connect(self.sndrtestfunc)  # connect to custom signal called 'signal'
+            self.mxr_sndrthread.finished.connect(self.sndrthreaddone)  # connect to buitlin signal 'finished'
+            self.mxr_sndrthread.start()  # start the thread
+            self.comm_threads.append(self.mxr_sndrthread)
+
 
     def closeEvent(self, event):
         reply = self.confirmQuit()
@@ -380,7 +400,6 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
             try:  # if MxrAppProc was never created it will throw and exception on the next line...so this is probabaly not the right way...
                 if self.MxrAppProc != None:
                     msg = osc_message_builder.OscMessageBuilder(address='/cue/quit')
-                    msg.add_arg(The_Show.cues.currentcueindex)
                     msg = msg.build()
                     self.mxr_sndrthread.queue_msg(msg, CUE_IP, CUE_PORT)
                     sleep(2)  # wait for message to be sent before killing threads

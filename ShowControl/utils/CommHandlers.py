@@ -7,6 +7,7 @@ from PyQt5.QtCore import *
 
 from rtmidi.midiutil import open_midiport
 from rtmidi.midiconstants import NOTE_OFF, NOTE_ON
+import jack
 
 
 class receiver(QThread):
@@ -128,20 +129,17 @@ class cmd_receiver(QThread):
         """..."""
         self.rcvsndqueue.put(msg)
 
-class MIDIsender(QThread):
-    """..."""
-    snd_sndrsignal = pyqtSignal(str, name='sndrsignaled') #define a custom signal called 'signal' whose name is 'signaled'
+class AMIDIsender(QThread):
+    """MIDI queued/threaded sender for ALSA interfaces"""
+    amidi_sndrsignal = pyqtSignal(str, name='amidi_sndrsignaled') #define a custom signal called 'signal' whose name is 'signaled'
 
-    def __init__(self, MIDIPort):
+    def __init__(self):
         """..."""
         QThread.__init__(self)
         self.threadshouldstop = False
         self.MIDIsndrqueue = queue.Queue()
-        self.MIDIPort = MIDIPort
-        try:
-            self.midiout, self.port_name = open_midiport('RtMidiIn', 'RtMidiIn Client:RtMidi input')
-        except (EOFError, KeyboardInterrupt):
-            sys.exit()
+        self.midiout = None
+        self.port_name = None
 
     '''overloads QThread run() function'''
     def run(self):
@@ -171,3 +169,44 @@ class MIDIsender(QThread):
         """..."""
         cmd_pack = msg
         self.MIDIsndrqueue.put(cmd_pack)
+
+    def setport(self, port):
+        for n in range(10):  # wait up to 10 seconds for app to launch and the port be available
+            try:
+                self.midiout, self.port_name = open_midiport(port[0],port[1], interactive=False)
+                break
+            except (EOFError, KeyboardInterrupt):
+                sys.exit()
+            except ValueError as err:
+                print('count: {} Error: {}'.format(n, err.args))
+                sleep(1)
+
+class JMIDIsender(QThread):
+    """MIDI queued/threaded sender for JACK interfaces"""
+    jmidi_sndrsignal = pyqtSignal(str, name='jmidi_sndrsignaled') #define a custom signal called 'signal' whose name is 'signaled'
+    def __init__(self, clientname):
+        """..."""
+        QThread.__init__(self)
+        self.threadshouldstop = False
+        self.MIDIsndrqueue = queue.Queue()
+        self.client = jack.Client('jmidi_{}'.format(clientname))
+        self.outport = self.client.midi_outports.register("output")
+        self.client.set_process_callback(self.process)
+        self.client.activate()
+
+    def process(self, frames):
+        for port in self.client.midi_outports:
+            port.clear_buffer()
+        offset = 0
+        while not self.MIDIsndrqueue.empty():
+            event = self.MIDIsndrqueue.get()
+            self.client.midi_outports[event[0]].write_midi_event(offset, event[1:])
+            offset += 1
+
+    def setport(self, port):
+        '''Connect this ouput client (self.outport) to the input of another client or a physical output'''
+        self.client.connect(self.outport, port)
+
+    def output_event(self, event):
+        self.MIDIsndrqueue.put(event)
+
