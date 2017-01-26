@@ -89,7 +89,18 @@ class ShowMxr(Show):
         Constructor
         '''
         super(ShowMxr, self).__init__(cfgdict)
-        self.mixer = MixerConf(path.abspath(path.join(path.dirname(__file__), '../ShowControl/', cfgdict['Mixer']['file'])),self.show_conf.settings['mxrmfr'],self.show_conf.settings['mxrmodel'])
+        self.mixers = {}
+        for mxrid in self.show_conf.settings['mixers']:
+            print(mxrid)
+            self.mixers[mxrid] = MixerConf(path.abspath(path.join(path.dirname(__file__),
+                                                          '../ShowControl/', cfgdict['Mixer']['file'])),
+                                   self.show_conf.settings['mixers'][mxrid]['mxrmfr'],
+                                   self.show_conf.settings['mixers'][mxrid]['mxrmodel'])
+
+        # self.mixer = MixerConf(path.abspath(path.join(path.dirname(__file__),
+        #                     '../ShowControl/', cfgdict['Mixer']['file'])),
+        #                     self.show_conf.settings['mixers'][1]['mxrmfr'],
+        #                     self.show_conf.settings['mixers'][1]['mxrmodel'])
         self.chrchnmap = MixerCharMap(self.show_confpath + self.show_conf.settings['mxrmap'])
 
 class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
@@ -100,6 +111,8 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         QtGui.QIcon.setThemeSearchPaths(styles.QLiSPIconsThemePaths)
         QtGui.QIcon.setThemeName(styles.QLiSPIconsThemeName)
         self.__index = 0
+        self.max_slider_count = 0
+
         #  Setup thread and udp to handle mixer I/O
         try:
             self.mxr_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -152,8 +165,17 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
 
 
     def addChanStrip(self):
-        #layout = self.stripgridLayout
+        # determine max sliders
+        for mxrid in The_Show.mixers:
+            if The_Show.mixers[mxrid].input_count > self.max_slider_count:
+                self.max_slider_count = The_Show.mixers[mxrid].input_count
+        _translate = QtCore.QCoreApplication.translate
+        for idx in range(self.tabWidget.count()):
+            print(idx)
+        for mxrid in The_Show.mixers:
+            self.tabWidget.setTabText(mxrid-1, _translate("MainWindow", 'Mixer {}'.format(mxrid)))
         layout = self.stripgridLayout_2
+        tb2layout = self.stripgridLayout_3
         self.channumlabels = []
         self.mutes = []
         self.levs = []
@@ -211,7 +233,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
             self.channumlabels.append(lbl)
         #self.setLayout(layout)
             # #for test add junk to tab 2
-            tb2layout = self.stripgridLayout_3
+            #tb2layout = self.stripgridLayout_3
             self.tb2channumlabels = []
             self.tb2mutes = []
             self.tb2levs = []
@@ -272,7 +294,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         sending_slider = self.sender()
         scrLbl = self.findChild(QtWidgets.QLabel, name='lev' + sending_slider.objectName())
         scrLbl.setText('{0:03}'.format(val))
-        osc_add = The_Show.mixer.inputsliders['Ch' + '{0:02}'.format(int(sending_slider.objectName()))].fadercmd.replace('#', sending_slider.objectName())
+        osc_add = The_Show.mixers[1].inputsliders['Ch' + '{0:02}'.format(int(sending_slider.objectName()))].fadercmd.replace('#', sending_slider.objectName())
         msg = osc_message_builder.OscMessageBuilder(address=osc_add)
         msg.add_arg(translate(val, 0,1024,0.0, 1.0))
         msg = msg.build()
@@ -297,14 +319,14 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
             for key, value in mute_changes.items():
                 channum = int(key.strip('ch'))
                 mute = self.findChild(QtWidgets.QPushButton, name='{0:02}'.format(channum))
-                osc_add = The_Show.mixer.inputsliders['Ch' + '{0:02}'.format(channum)].mutecmd.replace('#', mute.objectName())
+                osc_add = The_Show.mixers[1].inputsliders['Ch' + '{0:02}'.format(channum)].mutecmd.replace('#', mute.objectName())
                 msg = osc_message_builder.OscMessageBuilder(address=osc_add)
                 if value == 1:
                     mute.setChecked(False)
-                    msg.add_arg(The_Show.mixer.mutestyle['unmute'])
+                    msg.add_arg(The_Show.mixers[1].mutestyle['unmute'])
                 else:
                     mute.setChecked(True)
-                    msg.add_arg(The_Show.mixer.mutestyle['mute'])
+                    msg.add_arg(The_Show.mixers[1].mutestyle['mute'])
                 msg = msg.build()
                 self.mxr_sndrthread.queue_msg(msg, MXR_IP, MXR_PORT)
 
@@ -322,7 +344,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
                 print('value: {}'.format(value))
                 if currentlevel != sldlev:
                     print('change')
-                    osc_add = The_Show.mixer.inputsliders['Ch' + '{0:02}'.format(channum)].fadercmd.replace('#', sldr.objectName())
+                    osc_add = The_Show.mixers[1].inputsliders['Ch' + '{0:02}'.format(channum)].fadercmd.replace('#', sldr.objectName())
                     msg = osc_message_builder.OscMessageBuilder(address=osc_add)
                     sldr.setSliderPosition(int(value))
                     msg.add_arg(sldlev)
@@ -343,20 +365,20 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
 
     def initmutes(self):
         
-        for ctlcnt in range(1, The_Show.mixer.inputsliders.__len__() + 1):
+        for ctlcnt in range(1, The_Show.mixers[1].inputsliders.__len__() + 1):
             mute = self.findChild(QtWidgets.QPushButton, name='{0:02}'.format(ctlcnt))
-            osc_add = The_Show.mixer.inputsliders['Ch' + '{0:02}'.format(ctlcnt)].mutecmd.replace('#', mute.objectName())
+            osc_add = The_Show.mixers[1].inputsliders['Ch' + '{0:02}'.format(ctlcnt)].mutecmd.replace('#', mute.objectName())
             msg = osc_message_builder.OscMessageBuilder(address=osc_add)
             mute.setChecked(True)
-            msg.add_arg(The_Show.mixer.mutestyle['mute'])
+            msg.add_arg(The_Show.mixers[1].mutestyle['mute'])
             msg = msg.build()
             self.mxr_sndrthread.queue_msg(msg, MXR_IP, MXR_PORT)
 
     def initlevels(self):
-        for ctlcnt in range(1, The_Show.mixer.inputsliders.__len__() + 1):
+        for ctlcnt in range(1, The_Show.mixers[1].inputsliders.__len__() + 1):
             sldr = self.findChild(QtWidgets.QSlider, name='{0:02}'.format(ctlcnt))
             osc_add = '/ch/' + sldr.objectName() + '/mix/fader'
-            osc_add = The_Show.mixer.inputsliders['Ch' + '{0:02}'.format(ctlcnt)].fadercmd.replace('#', sldr.objectName())
+            osc_add = The_Show.mixers[1].inputsliders['Ch' + '{0:02}'.format(ctlcnt)].fadercmd.replace('#', sldr.objectName())
             msg = osc_message_builder.OscMessageBuilder(address=osc_add)
             msg.add_arg(translate(0, 0, 1024, 0.0, 1.0))
             msg = msg.build()
@@ -373,9 +395,9 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         print(dwn)
         msg = osc_message_builder.OscMessageBuilder(address=osc_add)
         if mbtn.isChecked():
-            msg.add_arg(The_Show.mixer.mutestyle['mute'])
+            msg.add_arg(The_Show.mixers[1].mutestyle['mute'])
         else:
-            msg.add_arg(The_Show.mixer.mutestyle['unmute'])
+            msg.add_arg(The_Show.mixers[1].mutestyle['unmute'])
 
         msg = msg.build()
         #client.send(msg)
@@ -606,11 +628,12 @@ if __name__ == "__main__":
 #                          selection-background-color: green;}""")
     #app.setStyleSheet("QPushButton {pressed-color: red }")
     app.setStyleSheet(styles.QLiSPTheme_Dark)
-    chans = len(The_Show.mixer.inputsliders)
+    chans = 32
     #ui = ChanStripDlg(path.abspath(path.join(path.dirname(__file__))) + '/Scrooge Moves.xml')
     ui = ChanStripDlg(path.abspath(path.join(path.dirname(cfgdict['Show']['folder']))))
-    ui.resize(chans*ui.ChanStrip_MinWidth,800)
+    #ui.resize(chans*ui.ChanStrip_MinWidth,800)
     ui.addChanStrip()
+    ui.resize(ui.max_slider_count * ui.ChanStrip_MinWidth, 800)
     ui.disptext()
     ui.set_scribble(The_Show.chrchnmap.maplist)
     ui.initmutes()
