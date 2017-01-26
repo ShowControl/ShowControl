@@ -208,5 +208,10 @@ class JMIDIsender(QThread):
         self.client.connect(self.outport, port)
 
     def output_event(self, event):
+        """Add a MIDI event to the cue
+            parameters in:
+            event - list [<port index>, <midi chan>, <control number on the midi device>, <value>]
+                multi ports (i.e. port_index) is not implemented as of 1/26/2017
+            """
         self.MIDIsndrqueue.put(event)
 
