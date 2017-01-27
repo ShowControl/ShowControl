@@ -112,6 +112,9 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         QtGui.QIcon.setThemeName(styles.QLiSPIconsThemeName)
         self.__index = 0
         self.max_slider_count = 0
+        self.tablist = []
+        self.tabgridlayoutlist = []
+        self.tabstripgridlist = []
 
         #  Setup thread and udp to handle mixer I/O
         try:
@@ -166,129 +169,62 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
 
     def addChanStrip(self):
         # determine max sliders
+        print('Mixer count: {}'.format(The_Show.mixers.__len__()))
         for mxrid in The_Show.mixers:
             if The_Show.mixers[mxrid].input_count > self.max_slider_count:
                 self.max_slider_count = The_Show.mixers[mxrid].input_count
-        _translate = QtCore.QCoreApplication.translate
-        for idx in range(self.tabWidget.count()):
-            print(idx)
-        for mxrid in The_Show.mixers:
-            self.tabWidget.setTabText(mxrid-1, _translate("MainWindow", 'Mixer {}'.format(mxrid)))
-        layout = self.stripgridLayout_2
-        tb2layout = self.stripgridLayout_3
-        self.channumlabels = []
-        self.mutes = []
-        self.levs = []
-        self.sliders = []
-        self.scrbls = []
-        for i in range(1,chans+1):
-            print(str(i))
-            #Add scribble for this channel Qt::AlignHCenter
-            scrbl = QtWidgets.QLabel()
-            scrbl.setObjectName('scr' + '{0:02}'.format(i))
-            scrbl.setText('Scribble ' + '{0:02}'.format(i))
-            scrbl.setAlignment(QtCore.Qt.AlignHCenter)
-            scrbl.setMinimumWidth(self.ChanStrip_MinWidth)
-            scrbl.setMinimumHeight(30)
-            scrbl.setWordWrap(True)
-            layout.addWidget(scrbl,4,i-1,1,1)
-            self.scrbls.append(scrbl)
-
-            #Add slider for this channel
-            sldr = QtWidgets.QSlider(QtCore.Qt.Vertical)
-            sldr.valueChanged.connect(self.sliderprint)
-            sldr.setObjectName('{0:02}'.format(i))
-            sldr.setMinimumSize(self.ChanStrip_MinWidth,200)
-            sldr.setRange(0,1024)
-            sldr.setTickPosition(3)
-            sldr.setTickInterval(10)
-            sldr.setSingleStep(2)
-            layout.addWidget(sldr,3,i-1,1,1)
-            self.sliders.append(sldr)
-
-            #Add label for this channel level
-            lev = QtWidgets.QLabel()
-            lev.setObjectName('lev' + '{0:02}'.format(i))
-            lev.setText('000')
-            lev.setMinimumWidth(self.ChanStrip_MinWidth)
-            lev.setAlignment(QtCore.Qt.AlignHCenter)
-            layout.addWidget(lev,2,i-1,1,1)
-            self.levs.append(lev)
-
-            #Add mute button for this channel
-            mute = QtWidgets.QPushButton()
-            mute.setCheckable(True)            
-            mute.clicked.connect(self.on_buttonMute_clicked)
-            mute.setObjectName('{0:02}'.format(i))
-            mute.setMinimumWidth(self.ChanStrip_MinWidth)
-            layout.addWidget(mute,1,i-1,1,1)
-            self.mutes.append(mute)
-
-            #Add label for this channel
-            lbl = QtWidgets.QLabel()
-            lbl.setObjectName('{0:02}'.format(i))
-            lbl.setText('Ch' + '{0:02}'.format(i))
-            lbl.setMinimumWidth(self.ChanStrip_MinWidth)
-            layout.addWidget(lbl,0,i-1,1,1)
-            self.channumlabels.append(lbl)
-        #self.setLayout(layout)
-            # #for test add junk to tab 2
-            #tb2layout = self.stripgridLayout_3
-            self.tb2channumlabels = []
-            self.tb2mutes = []
-            self.tb2levs = []
-            self.tb2sliders = []
-            self.tb2scrbls = []
-            for i in range(1,chans+1):
-                print(str(i))
-                # Add scribble for this channel Qt::AlignHCenter
+        for idx in range(The_Show.mixers.__len__()):
+            self.tablist.append(QtWidgets.QWidget())
+            self.tablist[idx].setMinimumSize(QtCore.QSize(0, 300))
+            self.tablist[idx].setObjectName("Pg {}".format(idx))
+            self.tabgridlayoutlist.append(QtWidgets.QGridLayout(self.tablist[idx]))
+            self.tabgridlayoutlist[idx].setContentsMargins(0, 0, 0, 0)
+            self.tabgridlayoutlist[idx].setObjectName("gridLayout{}".format(idx))
+            self.tabstripgridlist.append(QtWidgets.QGridLayout())
+            self.tabstripgridlist[idx].setObjectName("stripgridLayout{}".format(idx))
+            self.tabgridlayoutlist[idx].addLayout(self.tabstripgridlist[idx], 0, 0, 1, 1)
+            self.tabWidget.insertTab(idx, self.tablist[idx], "Tab {}".format(idx))
+            for chn in range(The_Show.mixers[idx].input_count):
+                # Add scribble for each channel
                 scrbl = QtWidgets.QLabel()
-                scrbl.setObjectName('tb2scr' + '{0:02}'.format(i))
-                scrbl.setText('Scribble ' + '{0:02}'.format(i))
+                scrbl.setObjectName('scr{0:02}'.format(chn+1))
+                scrbl.setText('M{0} Scribble {1:02}'.format(idx,chn+1))
                 scrbl.setAlignment(QtCore.Qt.AlignHCenter)
                 scrbl.setMinimumWidth(self.ChanStrip_MinWidth)
                 scrbl.setMinimumHeight(30)
                 scrbl.setWordWrap(True)
-                tb2layout.addWidget(scrbl,4,i-1,1,1)
-                self.tb2scrbls.append(scrbl)
-
+                self.tabstripgridlist[idx].addWidget(scrbl,4,chn+1,1,1)
                 # Add slider for this channel
                 sldr = QtWidgets.QSlider(QtCore.Qt.Vertical)
                 sldr.valueChanged.connect(self.sliderprint)
-                sldr.setObjectName('sl{0:02}'.format(i))
+                sldr.setObjectName('{0:02}'.format(chn+1))
                 sldr.setMinimumSize(self.ChanStrip_MinWidth,200)
                 sldr.setRange(0,1024)
                 sldr.setTickPosition(3)
                 sldr.setTickInterval(10)
                 sldr.setSingleStep(2)
-                tb2layout.addWidget(sldr,3,i-1,1,1)
-                self.tb2sliders.append(sldr)
-
+                self.tabstripgridlist[idx].addWidget(sldr, 3, chn+1, 1, 1)
                 # Add label for this channel level
                 lev = QtWidgets.QLabel()
-                lev.setObjectName('tb2lev' + '{0:02}'.format(i))
+                lev.setObjectName('lev' + '{0:02}'.format(chn+1))
                 lev.setText('000')
                 lev.setMinimumWidth(self.ChanStrip_MinWidth)
                 lev.setAlignment(QtCore.Qt.AlignHCenter)
-                tb2layout.addWidget(lev,2,i-1,1,1)
-                self.tb2levs.append(lev)
-
-                # Add mute button for this channel
+                self.tabstripgridlist[idx].addWidget(lev,2,chn+1, 1, 1)
+                #Add mute button for this channel
                 mute = QtWidgets.QPushButton()
                 mute.setCheckable(True)
                 mute.clicked.connect(self.on_buttonMute_clicked)
-                mute.setObjectName('tb2mt{0:02}'.format(i))
+                mute.setObjectName('{0:02}'.format(chn+1))
                 mute.setMinimumWidth(self.ChanStrip_MinWidth)
-                tb2layout.addWidget(mute,1,i-1,1,1)
-                self.tb2mutes.append(mute)
-
+                self.tabstripgridlist[idx].addWidget(mute, 1, chn+1, 1, 1)
                 # Add label for this channel
                 lbl = QtWidgets.QLabel()
-                lbl.setObjectName('tb2ch{0:02}'.format(i))
-                lbl.setText('Ch' + '{0:02}'.format(i))
+                lbl.setObjectName('{0:02}'.format(chn+1))
+                lbl.setText('Ch' + '{0:02}'.format(chn+1))
                 lbl.setMinimumWidth(self.ChanStrip_MinWidth)
-                tb2layout.addWidget(lbl,0,i-1,1,1)
-                self.tb2channumlabels.append(lbl)
+                self.tabstripgridlist[idx].addWidget(lbl, 0, chn+1, 1, 1)
+
 
     def sliderprint(self, val):
         sending_slider = self.sender()
@@ -462,19 +398,22 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
     def set_scribble(self, mxrmap):
         charcount = int(mxrmap.getroot().attrib['charcount'])
 
-        chans = mxrmap.findall('input')
-        for chan in chans:
-            cnum = int(chan.attrib['chan'])
-            osc_add='/ch/' + '{0:02}'.format(cnum) + '/config/name'
-            msg = osc_message_builder.OscMessageBuilder(address=osc_add)
-            tmpstr = chan.attrib['actor'][:5]
-            #print('Temp String: ' + tmpstr)
-            msg.add_arg(chan.attrib['actor'][:5])
-            msg = msg.build()
-            #client.send(msg)
-            self.mxr_sndrthread.queue_msg(msg, MXR_IP, MXR_PORT)
-            thislbl = self.findChild(QtWidgets.QLabel, name='scr'+ '{0:02}'.format(cnum))
-            thislbl.setText(tmpstr)
+        chars = mxrmap.findall('input')
+        for char in chars:
+            cnum = int(char.attrib['chan'])
+            mxrid = int(char.attrib['mixerid'])
+            for idx in range(The_Show.mixers.__len__()):
+                if mxrid == idx:
+                    osc_add='/ch/' + '{0:02}'.format(cnum) + '/config/name'
+                    msg = osc_message_builder.OscMessageBuilder(address=osc_add)
+                    tmpstr = char.attrib['actor'][:5]
+                    #print('Temp String: ' + tmpstr)
+                    msg.add_arg(char.attrib['actor'][:5])
+                    msg = msg.build()
+                    #client.send(msg)
+                    self.mxr_sndrthread.queue_msg(msg, MXR_IP, MXR_PORT)
+                    thislbl = self.findChild(QtWidgets.QLabel, name='scr'+ '{0:02}'.format(cnum))
+                    thislbl.setText(tmpstr)
 
     def disptext(self):
         self.get_table_data()
@@ -636,13 +575,13 @@ if __name__ == "__main__":
     ui.resize(ui.max_slider_count * ui.ChanStrip_MinWidth, 800)
     ui.disptext()
     ui.set_scribble(The_Show.chrchnmap.maplist)
-    ui.initmutes()
-    ui.initlevels()
-    ui.setfirstcue()
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--ip", default="192.168.53.40", help="The ip of the OSC server")
-    parser.add_argument("--port", type=int, default=10023, help="The port the OSC server is listening on")
-    args = parser.parse_args()
-
+    # ui.initmutes()
+    # ui.initlevels()
+    # ui.setfirstcue()
+    # parser = argparse.ArgumentParser()
+    # parser.add_argument("--ip", default="192.168.53.40", help="The ip of the OSC server")
+    # parser.add_argument("--port", type=int, default=10023, help="The port the OSC server is listening on")
+    # args = parser.parse_args()
+    #
     ui.show()
     sys.exit(app.exec_())
