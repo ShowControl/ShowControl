@@ -79,11 +79,9 @@ class ShowPreferences(QDialog, Ui_Preferences):
         super(ShowPreferences, self).reject()
 
 class ShowMxr(Show):
-    '''
+    """
     The Show class contains the information and object that constitute a show
-    '''
-
-
+    """
     def __init__(self, cfgdict):
         '''
         Constructor
@@ -93,14 +91,10 @@ class ShowMxr(Show):
         for mxrid in self.show_conf.settings['mixers']:
             print(mxrid)
             self.mixers[mxrid] = MixerConf(path.abspath(path.join(path.dirname(__file__),
-                                                          '../ShowControl/', cfgdict['Mixer']['file'])),
-                                   self.show_conf.settings['mixers'][mxrid]['mxrmfr'],
-                                   self.show_conf.settings['mixers'][mxrid]['mxrmodel'])
+                                                                  '../ShowControl/', cfgdict['Mixer']['file'])),
+                                           self.show_conf.settings['mixers'][mxrid]['mxrmfr'],
+                                           self.show_conf.settings['mixers'][mxrid]['mxrmodel'])
 
-        # self.mixer = MixerConf(path.abspath(path.join(path.dirname(__file__),
-        #                     '../ShowControl/', cfgdict['Mixer']['file'])),
-        #                     self.show_conf.settings['mixers'][1]['mxrmfr'],
-        #                     self.show_conf.settings['mixers'][1]['mxrmodel'])
         self.chrchnmap = MixerCharMap(self.show_confpath + self.show_conf.settings['mxrmap'])
 
 class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
@@ -115,6 +109,8 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         self.tablist = []
         self.tabgridlayoutlist = []
         self.tabstripgridlist = []
+        self.scrollArea = []
+        self.scrollAreaWidgetContents = []
 
         #  Setup thread and udp to handle mixer I/O
         try:
@@ -174,10 +170,24 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
             if The_Show.mixers[mxrid].input_count > self.max_slider_count:
                 self.max_slider_count = The_Show.mixers[mxrid].input_count
         for idx in range(The_Show.mixers.__len__()):
+            self.scroller = QtWidgets.QScrollArea()
             self.tablist.append(QtWidgets.QWidget())
             self.tablist[idx].setMinimumSize(QtCore.QSize(0, 300))
             self.tablist[idx].setObjectName("Pg {}".format(idx))
-            self.tabgridlayoutlist.append(QtWidgets.QGridLayout(self.tablist[idx]))
+
+            self.scrollArea.append(QtWidgets.QScrollArea(self.tablist[idx]))  # add a scrollarea to the tab
+            #self.scrollArea[idx].setGeometry(QtCore.QRect(19, 20, 981, 191))
+            self.scrollArea[idx].setGeometry(QtCore.QRect(19, 20, 1200, 300))  # set overall size of the scroll area
+            self.scrollArea[idx].setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+            self.scrollArea[idx].setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
+            self.scrollArea[idx].setWidgetResizable(False)
+            self.scrollArea[idx].setObjectName("scrollArea")
+            self.scrollAreaWidgetContents.append(QtWidgets.QWidget())
+            self.scrollAreaWidgetContents[idx].setGeometry(QtCore.QRect(0, 0, 1200, 300))  # set the size of the area under the scrol area
+            self.scrollAreaWidgetContents[idx].setObjectName('scrollAreaWidgetContents_{}'.format(idx))
+
+
+            self.tabgridlayoutlist.append(QtWidgets.QGridLayout(self.scrollAreaWidgetContents[idx]))
             self.tabgridlayoutlist[idx].setContentsMargins(0, 0, 0, 0)
             self.tabgridlayoutlist[idx].setObjectName("gridLayout{}".format(idx))
             self.tabstripgridlist.append(QtWidgets.QGridLayout())
@@ -224,7 +234,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
                 lbl.setText('Ch' + '{0:02}'.format(chn+1))
                 lbl.setMinimumWidth(self.ChanStrip_MinWidth)
                 self.tabstripgridlist[idx].addWidget(lbl, 0, chn+1, 1, 1)
-
+            self.scrollArea[idx].setWidget(self.scrollAreaWidgetContents[idx])
 
     def sliderprint(self, val):
         sending_slider = self.sender()
