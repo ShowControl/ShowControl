@@ -32,7 +32,7 @@ import CommHandlers
 from MixerConf import MixerConf
 from MixerMap import MixerCharMap
 
-import ui_ScrollTabs
+import ui_ScrollTabs2
 from ui_preferences import Ui_Preferences
 
 
@@ -42,7 +42,7 @@ import styles
 cfgdict = cfg.toDict()
 
 
-class ChanStripDlg(QtWidgets.QMainWindow, ui_ScrollTabs.Ui_MainWindow):
+class ChanStripDlg(QtWidgets.QMainWindow, ui_ScrollTabs2.Ui_MainWindow):
     ChanStrip_MinWidth = 50
 
     def __init__(self, cuelistfile, parent=None):
@@ -74,15 +74,16 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ScrollTabs.Ui_MainWindow):
             self.tablistvertlayout[idx].setObjectName("verticalLayout")
 
             self.scrollArea.append(QtWidgets.QScrollArea(self.tablist[idx]))  # add a scrollarea to the tab
-            self.scrollArea[idx].setGeometry(QtCore.QRect(19, 20, 1200, 600))  # set overall size of the scroll area
-            #self.scrollArea[idx].setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
-            #self.scrollArea[idx].setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
+            #self.scrollArea[idx].setGeometry(QtCore.QRect(19, 20, 981, 191))
+            #self.scrollArea[idx].setGeometry(QtCore.QRect(19, 20, 1800, 800))  # set overall size of the scroll area
+            # self.scrollArea[idx].setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+            # self.scrollArea[idx].setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
             self.scrollArea[idx].setWidgetResizable(True)
             self.scrollArea[idx].setObjectName("scrollArea")
             self.scrollAreaWidgetContents.append(QtWidgets.QWidget())
-            self.scrollAreaWidgetContents[idx].setGeometry(QtCore.QRect(0, 0, 1200, 400))  # set the size of the area under the scrol area
+            self.scrollAreaWidgetContents[idx].setGeometry(QtCore.QRect(0, 0, 1200, 800))  # set the size of the area under the scrol area
             self.scrollAreaWidgetContents[idx].setObjectName('scrollAreaWidgetContents_{}'.format(idx))
-            # put a grid layout on the scroll container widget
+
             self.tabgridlayoutlist.append(QtWidgets.QGridLayout(self.scrollAreaWidgetContents[idx]))
             self.tabgridlayoutlist[idx].setContentsMargins(0, 0, 0, 0)
             self.tabgridlayoutlist[idx].setObjectName("gridLayout{}".format(idx))
@@ -90,7 +91,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ScrollTabs.Ui_MainWindow):
             self.tabstripgridlist[idx].setObjectName("stripgridLayout{}".format(idx))
             self.tabgridlayoutlist[idx].addLayout(self.tabstripgridlist[idx], 0, 0, 1, 1)
             self.tabWidget.insertTab(idx, self.tablist[idx], "Tab {}".format(idx))
-            for chn in range(1,40):
+            for chn in range(1,32):
                 scrbl = QtWidgets.QLabel()
                 scrbl.setObjectName('scr{0:02}'.format(chn))
                 scrbl.setText('M{0} Scribble {1:02}'.format(idx,chn))
@@ -99,6 +100,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ScrollTabs.Ui_MainWindow):
                 scrbl.setMinimumHeight(30)
                 scrbl.setWordWrap(True)
                 self.tabstripgridlist[idx].addWidget(scrbl,4,chn,1,1)
+                #self.scrbls.append(scrbl)
                 # Add slider for this channel
                 sldr = QtWidgets.QSlider(QtCore.Qt.Vertical)
                 sldr.setObjectName('{0:02}'.format(chn+1))
@@ -109,8 +111,8 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ScrollTabs.Ui_MainWindow):
                 sldr.setSingleStep(2)
                 self.tabstripgridlist[idx].addWidget(sldr, 3, chn, 1, 1)
 
-                #self.scrbls.append(scrbl)
             self.scrollArea[idx].setWidget(self.scrollAreaWidgetContents[idx])
+            self.tablistvertlayout[idx].addWidget(self.scrollArea[idx])
         print(self.tabWidget.count())
 
 
