@@ -20,6 +20,17 @@ from pythonosc import udp_client
 supported_protocols = ['osc','midi']
 supported_controls = ['fader','mute','scribble']
 
+def translate(value, leftMin, leftMax, rightMin, rightMax):
+    # Figure out how 'wide' each range is
+    leftSpan = leftMax - leftMin
+    rightSpan = rightMax - rightMin
+
+    # Convert the left range into a 0-1 range (float)
+    valueScaled = float(value - leftMin) / float(leftSpan)
+
+    # Convert the 0-1 range into a value in the right range.
+    return rightMin + (valueScaled * rightSpan)
+
 class ControlFactory:
     class oscfader:
         def __init__(self):
@@ -33,10 +44,25 @@ class ControlFactory:
             self.ctyp = ctyp
 
         def Set(self, cnum, value):
-            pass
+            osc_address = self.cmdstr.replace('#', '{0:02}'.format(cnum))
+            msg = osc_message_builder.OscMessageBuilder(address=osc_address)
+            msg.add_arg(translate(0, 0, 1024, 0.0, 1.0))
+            msg = msg.build()
+            return msg
 
     class midifader:
-        pass
+        def __init__(self):
+            self.ctyp = ''
+            self.cmdstr = ''
+            self.crng = []
+
+        def fill(self, ctyp, cmdstr, crng):
+            self.cmdstr = cmdstr
+            self.crng = crng
+            self.ctyp = ctyp
+
+        def Set(self, cnum, value):
+            pass
 
     class oscmute:
         def __init__(self):
@@ -49,15 +75,24 @@ class ControlFactory:
             self.crng = crng
             self.ctyp = ctyp
 
-        def Set(self, muteButton, muteState):
-            osc_add='/ch/' + muteButton + '/mix/on'
-            #print(osc_add)
-            msg = osc_message_builder.OscMessageBuilder(address=osc_add)
+        def Set(self, cnum, muteState):
+            osc_address = self.cmdstr.replace('#', '{0:02}'.format(cnum))
+            msg = osc_message_builder.OscMessageBuilder(address=osc_address)
             msg.add_arg(muteState)
             msg = msg.build()
-            #client.send(msg)
+            return msg
 
     class midimute:
+        def __init__(self):
+            self.ctyp = ''
+            self.cmdstr = ''
+            self.crng = []
+
+        def fill(self, ctyp, cmdstr, crng):
+            self.cmdstr = cmdstr
+            self.crng = crng
+            self.ctyp = ctyp
+
         def Set(self, muteButton, muteState):
             pass
 
@@ -72,21 +107,33 @@ class ControlFactory:
             self.crng = crng
             self.ctyp = ctyp
 
-        def Set(self):
+        def Set(self, cnum, scrbltxt):
             """Handle osc output to scribble control"""
+            osc_address = self.cmdstr.replace('#', '{0:02}'.format(cnum))
             # osc_add = '/ch/' + '{0:02}'.format(cnum) + '/config/name'
-            # msg = osc_message_builder.OscMessageBuilder(address=osc_add)
+            msg = osc_message_builder.OscMessageBuilder(address=osc_address)
             # tmpstr = char.attrib['actor'][:5]
+            tmpstr = scrbltxt[:5]
             # # print('Temp String: ' + tmpstr)
-            # msg.add_arg(char.attrib['actor'][:5])
-            # msg = msg.build()
-            # # client.send(msg)
+            msg.add_arg(scrbltxt[:5])
+            msg = msg.build()
+            return msg
             # self.mxr_sndrthread.queue_msg(msg, MXR_IP, MXR_PORT)
             # thislbl = self.findChild(QtWidgets.QLabel, name='scr' + '{0:02}'.format(cnum))
             # thislbl.setText(tmpstr)
 
     class midiscribble:
-        def Set(self):
+        def __init__(self):
+            self.ctyp = ''
+            self.cmdstr = ''
+            self.crng = []
+
+        def fill(self, ctyp, cmdstr, crng):
+            self.cmdstr = cmdstr
+            self.crng = crng
+            self.ctyp = ctyp
+
+        def Set(self, cnum, value):
             pass
 
     @staticmethod

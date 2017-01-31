@@ -198,49 +198,55 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
             self.tabstripgridlist[idx].setObjectName("stripgridLayout{}".format(idx))
             self.tabgridlayoutlist[idx].addLayout(self.tabstripgridlist[idx], 0, 0, 1, 1)
             self.tabWidget.insertTab(idx, self.tablist[idx], "Tab {}".format(idx))
-            for chn in range(The_Show.mixers[idx].input_count):
+            for chn in range(The_Show.mixers[idx].mxrconsole.__len__()):
+            #for chn in range(The_Show.mixers[idx].input_count):
                 # Add scribble for each channel
                 scrbl = QtWidgets.QLabel()
-                scrbl.setObjectName('scr{0:02}'.format(chn+1))
-                scrbl.setText('M{0} Scribble {1:02}'.format(idx,chn+1))
+                #scrbl.setObjectName('scr{0:02}'.format(chn))
+                scrbl.setObjectName('M{0}scr{1:02}'.format(idx,chn))
+                print(scrbl.objectName())
+                scrbl.setText(The_Show.mixers[idx].mxrconsole[chn]['name'])
+                #scrbl.setText('M{0} Scribble {1:02}'.format(idx,chn))
                 scrbl.setAlignment(QtCore.Qt.AlignHCenter)
                 scrbl.setMinimumWidth(self.ChanStrip_MinWidth)
                 scrbl.setMinimumHeight(30)
                 scrbl.setWordWrap(True)
-                self.tabstripgridlist[idx].addWidget(scrbl,4,chn+1,1,1)
+                self.tabstripgridlist[idx].addWidget(scrbl,4,chn,1,1)
                 # Add slider for this channel
                 sldr = QtWidgets.QSlider(QtCore.Qt.Vertical)
                 sldr.valueChanged.connect(self.sliderprint)
-                sldr.setObjectName('{0:02}'.format(chn+1))
+                sldr.setObjectName('M{0}sldr{1:02}'.format(idx, chn))
+                print(sldr.objectName())
                 sldr.setMinimumSize(self.ChanStrip_MinWidth,200)
                 sldr.setRange(0,1024)
                 sldr.setTickPosition(3)
                 sldr.setTickInterval(10)
                 sldr.setSingleStep(2)
-                self.tabstripgridlist[idx].addWidget(sldr, 3, chn+1, 1, 1)
+                self.tabstripgridlist[idx].addWidget(sldr, 3, chn, 1, 1)
                 # Add label for this channel level
                 lev = QtWidgets.QLabel()
-                lev.setObjectName('lev' + '{0:02}'.format(chn+1))
+                lev.setObjectName('M{0}lev{1:02}'.format(idx, chn))
+                print(lev.objectName())
                 lev.setText('000')
                 lev.setMinimumWidth(self.ChanStrip_MinWidth)
                 lev.setAlignment(QtCore.Qt.AlignHCenter)
-                self.tabstripgridlist[idx].addWidget(lev,2,chn+1, 1, 1)
+                self.tabstripgridlist[idx].addWidget(lev,2,chn, 1, 1)
                 #Add mute button for this channel
                 mute = QtWidgets.QPushButton()
                 mute.setCheckable(True)
                 mute.clicked.connect(self.on_buttonMute_clicked)
-                mute.setObjectName('{0:02}'.format(chn+1))
+                mute.setObjectName('M{0}mute{1:02}'.format(idx, chn))
+                print('Created: {}'.format(mute.objectName()))
                 mute.setMinimumWidth(self.ChanStrip_MinWidth)
-                self.tabstripgridlist[idx].addWidget(mute, 1, chn+1, 1, 1)
+                self.tabstripgridlist[idx].addWidget(mute, 1, chn, 1, 1)
                 # Add label for this channel
                 lbl = QtWidgets.QLabel()
-                lbl.setObjectName('{0:02}'.format(chn+1))
-                lbl.setText('Ch' + '{0:02}'.format(chn+1))
+                lbl.setObjectName('M{0}lbl{1:02}'.format(idx, chn))
+                lbl.setText(The_Show.mixers[idx].mxrconsole[chn]['name'])
                 lbl.setMinimumWidth(self.ChanStrip_MinWidth)
-                self.tabstripgridlist[idx].addWidget(lbl, 0, chn+1, 1, 1)
+                self.tabstripgridlist[idx].addWidget(lbl, 0, chn, 1, 1)
             self.scrollArea[idx].setWidget(self.scrollAreaWidgetContents[idx])
             self.tablistvertlayout[idx].addWidget(self.scrollArea[idx])
-
 
     def sliderprint(self, val):
         sending_slider = self.sender()
@@ -316,25 +322,45 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
                 return
 
     def initmutes(self):
-        
-        for ctlcnt in range(1, The_Show.mixers[1].inputsliders.__len__() + 1):
-            mute = self.findChild(QtWidgets.QPushButton, name='{0:02}'.format(ctlcnt))
-            osc_add = The_Show.mixers[1].inputsliders['Ch' + '{0:02}'.format(ctlcnt)].mutecmd.replace('#', mute.objectName())
-            msg = osc_message_builder.OscMessageBuilder(address=osc_add)
-            mute.setChecked(True)
-            msg.add_arg(The_Show.mixers[1].mutestyle['mute'])
-            msg = msg.build()
-            self.mxr_sndrthread.queue_msg(msg, MXR_IP, MXR_PORT)
+        for mxrid in range(The_Show.mixers.__len__()):
+            for stripGUIindx in range(The_Show.mixers[mxrid].mxrconsole.__len__()):
+            #for strip in The_Show.mixers[mxrid].mxrconsole:
+                #stripGUIindx = The_Show.mixers[mxrid].mxrconsole.index(strip)
+                # print('#' * 80)
+                # print('idex of strip is:{}'.format(stripGUIindx))
+                msg = The_Show.mixers[mxrid].mxrstrips[The_Show.mixers[mxrid].
+                    mxrconsole[stripGUIindx]['type']]['mute'].\
+                    Set(stripGUIindx, The_Show.mixers[mxrid].mutestyle['mute'])
+                if The_Show.mixers[mxrid].protocol == 'osc':
+                    self.mxr_sndrthread.queue_msg(msg, MXR_IP, MXR_PORT)
+                elif The_Show.mixers[mxrid].protocol == 'midi':
+                    pass
+                # print('Finding: M{0}mute{1:02}'.format(mxrid, stripGUIindx))
+                mute = self.findChild(QtWidgets.QPushButton, name='M{0}mute{1:02}'.format(mxrid, stripGUIindx))
+                if The_Show.mixers[mxrid].mutestyle['mutestyle']== 'illuminated':
+                    mute.setChecked(True)
+                else:
+                    mute.setChecked(False)
 
     def initlevels(self):
-        for ctlcnt in range(1, The_Show.mixers[1].inputsliders.__len__() + 1):
-            sldr = self.findChild(QtWidgets.QSlider, name='{0:02}'.format(ctlcnt))
-            osc_add = '/ch/' + sldr.objectName() + '/mix/fader'
-            osc_add = The_Show.mixers[1].inputsliders['Ch' + '{0:02}'.format(ctlcnt)].fadercmd.replace('#', sldr.objectName())
-            msg = osc_message_builder.OscMessageBuilder(address=osc_add)
-            msg.add_arg(translate(0, 0, 1024, 0.0, 1.0))
-            msg = msg.build()
-            self.mxr_sndrthread.queue_msg(msg, MXR_IP, MXR_PORT)
+        for mxrid in range(The_Show.mixers.__len__()):
+            for stripGUIindx in range(The_Show.mixers[mxrid].mxrconsole.__len__()):
+                msg = The_Show.mixers[mxrid].mxrstrips[The_Show.mixers[mxrid].
+                    mxrconsole[stripGUIindx]['type']]['fader'].\
+                    Set(stripGUIindx, 0)
+                if The_Show.mixers[mxrid].protocol == 'osc':
+                    self.mxr_sndrthread.queue_msg(msg, MXR_IP, MXR_PORT)
+                elif The_Show.mixers[mxrid].protocol == 'midi':
+                    pass
+
+        # for ctlcnt in range(1, The_Show.mixers[1].inputsliders.__len__() + 1):
+        #     sldr = self.findChild(QtWidgets.QSlider, name='{0:02}'.format(ctlcnt))
+        #     osc_add = '/ch/' + sldr.objectName() + '/mix/fader'
+        #     osc_add = The_Show.mixers[1].inputsliders['Ch' + '{0:02}'.format(ctlcnt)].fadercmd.replace('#', sldr.objectName())
+        #     msg = osc_message_builder.OscMessageBuilder(address=osc_add)
+        #     msg.add_arg(translate(0, 0, 1024, 0.0, 1.0))
+        #     msg = msg.build()
+        #     self.mxr_sndrthread.queue_msg(msg, MXR_IP, MXR_PORT)
 
     def on_buttonMute_clicked(self):
         mbtn=self.sender()
@@ -418,18 +444,40 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         for char in chars:
             cnum = int(char.attrib['chan'])
             mxrid = int(char.attrib['mixerid'])
-            for idx in range(The_Show.mixers.__len__()):
-                if mxrid == idx:
-                    osc_add='/ch/' + '{0:02}'.format(cnum) + '/config/name'
-                    msg = osc_message_builder.OscMessageBuilder(address=osc_add)
-                    tmpstr = char.attrib['actor'][:5]
-                    #print('Temp String: ' + tmpstr)
-                    msg.add_arg(char.attrib['actor'][:5])
-                    msg = msg.build()
-                    #client.send(msg)
-                    self.mxr_sndrthread.queue_msg(msg, MXR_IP, MXR_PORT)
-                    thislbl = self.findChild(QtWidgets.QLabel, name='scr'+ '{0:02}'.format(cnum))
-                    thislbl.setText(tmpstr)
+            #xtype = The_Show.mixers[mxrid].mxrconsole[cnum-1]['type']
+            msg = The_Show.mixers[mxrid].mxrstrips[The_Show.mixers[mxrid].
+                mxrconsole[cnum - 1]['type']]['scribble'].\
+                Set(cnum, char.attrib['actor'])
+            if The_Show.mixers[mxrid].protocol == 'osc':
+                self.mxr_sndrthread.queue_msg(msg, MXR_IP, MXR_PORT)
+                #thislbl = self.findChild(QtWidgets.QLabel, name='scr' + '{0:02}'.format(cnum))
+            elif The_Show.mixers[mxrid].protocol == 'midi':
+                pass
+                #self.mxr_sndrthread.queue_msg(msg, MXR_IP, MXR_PORT)
+                # thislbl = self.findChild(QtWidgets.QLabel, name='scr' + '{0:02}'.format(cnum))
+                # thislbl.setText(char.attrib['actor'][:5])
+            print('M{0}scr{1:02}'.format(mxrid,cnum))
+            thislbl = self.findChild(QtWidgets.QLabel, name='M{0}scr{1:02}'.format(mxrid,cnum-1))
+            thislbl.setText(char.attrib['actor'][:5])
+
+            pass
+        # for char in chars:
+        #     cnum = int(char.attrib['chan'])
+        #     mxrid = int(char.attrib['mixerid'])
+        #     # mxrid is index into mixers
+        #     #cnum is the strip
+        #     for idx in range(The_Show.mixers.__len__()):
+        #         if mxrid == idx:
+        #             osc_add='/ch/' + '{0:02}'.format(cnum) + '/config/name'
+        #             msg = osc_message_builder.OscMessageBuilder(address=osc_add)
+        #             tmpstr = char.attrib['actor'][:5]
+        #             #print('Temp String: ' + tmpstr)
+        #             msg.add_arg(char.attrib['actor'][:5])
+        #             msg = msg.build()
+        #             #client.send(msg)
+        #             self.mxr_sndrthread.queue_msg(msg, MXR_IP, MXR_PORT)
+        #             thislbl = self.findChild(QtWidgets.QLabel, name='scr'+ '{0:02}'.format(cnum))
+        #             thislbl.setText(tmpstr)
 
     def disptext(self):
         self.get_table_data()
@@ -591,8 +639,8 @@ if __name__ == "__main__":
     ui.resize(ui.max_slider_count * ui.ChanStrip_MinWidth, 800)
     ui.disptext()
     ui.set_scribble(The_Show.chrchnmap.maplist)
-    # ui.initmutes()
-    # ui.initlevels()
+    ui.initmutes()
+    ui.initlevels()
     # ui.setfirstcue()
     # parser = argparse.ArgumentParser()
     # parser.add_argument("--ip", default="192.168.53.40", help="The ip of the OSC server")

@@ -70,11 +70,22 @@ class MixerConf:
         # for mutestyle['non-illuminated'], mutestyle['mute'] will be 1, mutestyle['unmute'] will be 0
         self.mutestyle = {}
 
-        self.mxrstrips = []
+        '''mxrstrips is a dictionary of controls for a type of strip.
+        mxrstrips will have a key for each strip type (input, output, auuxin, etc.)
+        each strip type wil have a dictionary of it's associated control objects.
+        Controls objects are based on the protocol of the mixer. (See MixerControl.py)'''
+        self.mxrstrips = {}
+
+        '''mxrconsole is a list of all the strips on the mixer.
+        This is used for the layout on the GUI and to work on a sigle strip
+        or interate through all strips on the mixer.
+        Each element of the list will have a dictionary with the strip name and strip type'''
+        self.mxrconsole = []
 
         self.fadercontrol = None
         self.scribblecontrol = None
         self.mutecontrol = None
+        self.controls = {}
 
         mixerdefs = ET.parse(mixerconf_file)
         mixers = mixerdefs.getroot()
@@ -101,28 +112,32 @@ class MixerConf:
             stripattribs = strip.attrib
             #print(stripattribs)
             if stripattribs['type'] == 'input':
+                self.mxrstrips['input'] ={}
                 try:
                     fader = strip.find('fader')
                     faderattribs = fader.attrib
                     stripcontrols.append('fader')
-                    self.fadercontrol = ControlFactory.create_control('fader', self.protocol)
-                    self.fadercontrol.fill(faderattribs['cmdtyp'], faderattribs['cmd'], faderattribs['range'])
+                    fadercontrol = ControlFactory.create_control('fader', self.protocol)
+                    fadercontrol.fill(faderattribs['cmdtyp'], faderattribs['cmd'], faderattribs['range'])
+                    self.mxrstrips[stripattribs['type']].update({'fader':fadercontrol})
                 except:
                     pass
                 try:
                     mute = strip.find('mute')
                     muteattribs = mute.attrib
                     stripcontrols.append('mute')
-                    self.mutecontrol = ControlFactory.create_control('mute', self.protocol)
-                    self.mutecontrol.fill(muteattribs['cmdtyp'], muteattribs['cmd'], None)
+                    mutecontrol = ControlFactory.create_control('mute', self.protocol)
+                    mutecontrol.fill(muteattribs['cmdtyp'], muteattribs['cmd'], None)
+                    self.mxrstrips[stripattribs['type']].update({'mute' : mutecontrol})
                 except:
                     pass
                 try:
                     scribble = strip.find('scribble')
                     scribbleattribs = scribble.attrib
                     stripcontrols.append('scribble')
-                    self.scribblecontrol = ControlFactory.create_control('scribble', self.protocol)
-                    self.scribblecontrol.fill(scribbleattribs['cmdtyp'], scribbleattribs['cmd'], '')
+                    scribblecontrol = ControlFactory.create_control('scribble', self.protocol)
+                    scribblecontrol.fill(scribbleattribs['cmdtyp'], scribbleattribs['cmd'], '')
+                    self.mxrstrips[stripattribs['type']].update({'scribble' : scribblecontrol})
                 except:
                     pass
                 print(stripattribs['cnt'])
@@ -131,14 +146,104 @@ class MixerConf:
                 for x in  range(1, self.input_count + 1):
                     sldr = InputControl(x,'In' + '{0:02}'.format(x), faderattribs['cmd'], muteattribs['cmd'], scribbleattribs['cmd'])
                     self.inputsliders['Ch' + '{0:02}'.format(x)] = sldr
+                    self.mxrconsole.append({'name':stripattribs['name'] + '{0:02}'.format(x), 'type':stripattribs['type']})
             elif stripattribs['type'] == 'output':
+                self.mxrstrips['output'] ={}
                 #print(stripattribs['cnt'])
                 self.output_count = int(stripattribs['cnt'])
                 #print(self.output_count)
                 for x in  range(1, self.output_count + 1):
                     sldr = OutputControl(x,'Out' + '{0:02}'.format(x))
                     self.outputsliders['Ch' + '{0:02}'.format(x)] = sldr
+            elif stripattribs['type'] == 'auxin':
+                self.mxrstrips['auxin'] = {}
+                self.aux_count = int(stripattribs['cnt'])
+                try:
+                    fader = strip.find('fader')
+                    faderattribs = fader.attrib
+                    fadercontrol = ControlFactory.create_control('fader', self.protocol)
+                    fadercontrol.fill(faderattribs['cmdtyp'], faderattribs['cmd'], faderattribs['range'])
+                    self.mxrstrips[stripattribs['type']].update({'fader':fadercontrol})
+                except:
+                    pass
+                try:
+                    mute = strip.find('mute')
+                    muteattribs = mute.attrib
+                    mutecontrol = ControlFactory.create_control('mute', self.protocol)
+                    mutecontrol.fill(muteattribs['cmdtyp'], muteattribs['cmd'], None)
+                    self.mxrstrips[stripattribs['type']].update({'mute' : mutecontrol})
+                except:
+                    pass
+                try:
+                    scribble = strip.find('scribble')
+                    scribbleattribs = scribble.attrib
+                    scribblecontrol = ControlFactory.create_control('scribble', self.protocol)
+                    scribblecontrol.fill(scribbleattribs['cmdtyp'], scribbleattribs['cmd'], '')
+                    self.mxrstrips[stripattribs['type']].update({'scribble' : scribblecontrol})
+                except:
+                    pass
+                for x in range(1, self.aux_count + 1):
+                    self.mxrconsole.append({'name':stripattribs['name'] + '{0:02}'.format(x), 'type':stripattribs['type']})
+            elif stripattribs['type'] == 'bus':
+                self.mxrstrips['bus'] = {}
+                self.bus_count = int(stripattribs['cnt'])
+                try:
+                    fader = strip.find('fader')
+                    faderattribs = fader.attrib
+                    fadercontrol = ControlFactory.create_control('fader', self.protocol)
+                    fadercontrol.fill(faderattribs['cmdtyp'], faderattribs['cmd'], faderattribs['range'])
+                    self.mxrstrips[stripattribs['type']].update({'fader':fadercontrol})
+                except:
+                    pass
+                try:
+                    mute = strip.find('mute')
+                    muteattribs = mute.attrib
+                    mutecontrol = ControlFactory.create_control('mute', self.protocol)
+                    mutecontrol.fill(muteattribs['cmdtyp'], muteattribs['cmd'], None)
+                    self.mxrstrips[stripattribs['type']].update({'mute' : mutecontrol})
+                except:
+                    pass
+                try:
+                    scribble = strip.find('scribble')
+                    scribbleattribs = scribble.attrib
+                    scribblecontrol = ControlFactory.create_control('scribble', self.protocol)
+                    scribblecontrol.fill(scribbleattribs['cmdtyp'], scribbleattribs['cmd'], '')
+                    self.mxrstrips[stripattribs['type']].update({'scribble' : scribblecontrol})
+                except:
+                    pass
+                for x in range(1, self.bus_count + 1):
+                    self.mxrconsole.append({'name':stripattribs['name'] + '{0:02}'.format(x), 'type':stripattribs['type']})
+            elif stripattribs['type'] == 'main':
+                self.mxrstrips['main'] = {}
+                self.main_count = int(stripattribs['cnt'])
+                try:
+                    fader = strip.find('fader')
+                    faderattribs = fader.attrib
+                    fadercontrol = ControlFactory.create_control('fader', self.protocol)
+                    fadercontrol.fill(faderattribs['cmdtyp'], faderattribs['cmd'], faderattribs['range'])
+                    self.mxrstrips[stripattribs['type']].update({'fader':fadercontrol})
+                except:
+                    pass
+                try:
+                    mute = strip.find('mute')
+                    muteattribs = mute.attrib
+                    mutecontrol = ControlFactory.create_control('mute', self.protocol)
+                    mutecontrol.fill(muteattribs['cmdtyp'], muteattribs['cmd'], None)
+                    self.mxrstrips[stripattribs['type']].update({'mute' : mutecontrol})
+                except:
+                    pass
+                try:
+                    scribble = strip.find('scribble')
+                    scribbleattribs = scribble.attrib
+                    scribblecontrol = ControlFactory.create_control('scribble', self.protocol)
+                    scribblecontrol.fill(scribbleattribs['cmdtyp'], scribbleattribs['cmd'], '')
+                    self.mxrstrips[stripattribs['type']].update({'scribble' : scribblecontrol})
+                except:
+                    pass
+                for x in range(1, self.main_count + 1):
+                    self.mxrconsole.append({'name':stripattribs['name'], 'type':stripattribs['type']})
 
+        pass
              # if stripcontrols is not None:
              #     idx = 0
              #     for control in stripcontrols:
