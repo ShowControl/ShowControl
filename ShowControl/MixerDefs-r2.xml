@@ -14,9 +14,9 @@
     <scribble cmd="/auxin/#/config/name" cmdtyp="string" text=""/>
    </strip>
    <strip type="bus" cnt="16" name="Bus">
-    <mute cmd="/bus/#/mix/on" cmdtyp="enum" val="0"/>
     <fader cmd="/bus/#/mix/fader" cmdtyp="level" range="0.0,1.0,1024" val="0"/>
-   <scribble cmd="/bus/#/config/name" cmdtyp="string" text=""/>
+   <mute cmd="/bus/#/mix/on" cmdtyp="enum" val="0"/>
+    <scribble cmd="/bus/#/config/name" cmdtyp="string" text=""/>
    </strip>
    <strip type="main" cnt="1" name="Main">
     <mute cmd="/main/st/mix/on" cmdtyp="enum" val="0"/>
@@ -32,7 +32,7 @@
 <mixer mfr="Yamaha" model="01V">
   <protocol>midi</protocol>
   <mutestyle>dark</mutestyle>
-  <strip type="input" cnt="12" name="Ch">
+  <strip type="input" cnt="16" name="Ch">
     <fader cmd="B#,01,XX" cmdtyp="level" range="0,127" val="0"/>
     <mute cmd="B#.1C,XX" cmdtyp="enum" val="0"/>
     <scribble cmd="" cmdtyp="string" text=""/>

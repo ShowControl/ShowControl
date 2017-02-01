@@ -14,7 +14,7 @@ from time import sleep
 
 from pythonosc import osc_message_builder
 from pythonosc import udp_client
-
+from rtmidi.midiconstants import CONTROL_CHANGE
 #from ShowMixer import Show
 
 supported_protocols = ['osc','midi']
@@ -46,7 +46,7 @@ class ControlFactory:
         def Set(self, cnum, value):
             osc_address = self.cmdstr.replace('#', '{0:02}'.format(cnum))
             msg = osc_message_builder.OscMessageBuilder(address=osc_address)
-            msg.add_arg(translate(0, 0, 1024, 0.0, 1.0))
+            msg.add_arg(translate(value, 0, 1024, 0.0, 1.0))
             msg = msg.build()
             return msg
 
@@ -62,7 +62,9 @@ class ControlFactory:
             self.ctyp = ctyp
 
         def Set(self, cnum, value):
-            pass
+            msg = self.cmdstr.replace('#','{:01x}'.format(cnum))
+            msg2 = msg.replace('XX','{:02x}'.format(value))
+            return msg2
 
     class oscmute:
         def __init__(self):
@@ -110,17 +112,11 @@ class ControlFactory:
         def Set(self, cnum, scrbltxt):
             """Handle osc output to scribble control"""
             osc_address = self.cmdstr.replace('#', '{0:02}'.format(cnum))
-            # osc_add = '/ch/' + '{0:02}'.format(cnum) + '/config/name'
             msg = osc_message_builder.OscMessageBuilder(address=osc_address)
-            # tmpstr = char.attrib['actor'][:5]
-            tmpstr = scrbltxt[:5]
-            # # print('Temp String: ' + tmpstr)
+            # tmpstr = scrbltxt[:5]
             msg.add_arg(scrbltxt[:5])
             msg = msg.build()
             return msg
-            # self.mxr_sndrthread.queue_msg(msg, MXR_IP, MXR_PORT)
-            # thislbl = self.findChild(QtWidgets.QLabel, name='scr' + '{0:02}'.format(cnum))
-            # thislbl.setText(tmpstr)
 
     class midiscribble:
         def __init__(self):
@@ -150,3 +146,10 @@ if __name__ == "__main__":
             control_object = ControlFactory.create_control(control, protocol)
             print(type(control_object))
             control_object = None
+    testmidifader = ControlFactory.create_control('fader', 'midi')
+    testmidifader.fill('input', 'B#,1C,XX', '0,127')
+    msg = testmidifader.Set(2,0)
+    # msg is a comma separated string
+    # so the following could be used to get it to a list of ints:
+    # x = list(map(int,msg.split(',')))
+    pass

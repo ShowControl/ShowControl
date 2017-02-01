@@ -146,7 +146,9 @@ class MixerConf:
                 for x in  range(1, self.input_count + 1):
                     sldr = InputControl(x,'In' + '{0:02}'.format(x), faderattribs['cmd'], muteattribs['cmd'], scribbleattribs['cmd'])
                     self.inputsliders['Ch' + '{0:02}'.format(x)] = sldr
-                    self.mxrconsole.append({'name':stripattribs['name'] + '{0:02}'.format(x), 'type':stripattribs['type']})
+                    self.mxrconsole.append(
+                        {'name': stripattribs['name'] + '{0:02}'.format(x), 'type': stripattribs['type'],
+                         'channum': x})
             elif stripattribs['type'] == 'output':
                 self.mxrstrips['output'] ={}
                 #print(stripattribs['cnt'])
@@ -183,7 +185,9 @@ class MixerConf:
                 except:
                     pass
                 for x in range(1, self.aux_count + 1):
-                    self.mxrconsole.append({'name':stripattribs['name'] + '{0:02}'.format(x), 'type':stripattribs['type']})
+                    self.mxrconsole.append(
+                        {'name': stripattribs['name'] + '{0:02}'.format(x), 'type': stripattribs['type'],
+                         'channum': x})
             elif stripattribs['type'] == 'bus':
                 self.mxrstrips['bus'] = {}
                 self.bus_count = int(stripattribs['cnt'])
@@ -212,7 +216,9 @@ class MixerConf:
                 except:
                     pass
                 for x in range(1, self.bus_count + 1):
-                    self.mxrconsole.append({'name':stripattribs['name'] + '{0:02}'.format(x), 'type':stripattribs['type']})
+                    self.mxrconsole.append(
+                        {'name': stripattribs['name'] + '{0:02}'.format(x), 'type': stripattribs['type'],
+                         'channum': x})
             elif stripattribs['type'] == 'main':
                 self.mxrstrips['main'] = {}
                 self.main_count = int(stripattribs['cnt'])
@@ -241,7 +247,9 @@ class MixerConf:
                 except:
                     pass
                 for x in range(1, self.main_count + 1):
-                    self.mxrconsole.append({'name':stripattribs['name'], 'type':stripattribs['type']})
+                    self.mxrconsole.append(
+                        {'name': stripattribs['name'] + '{0:02}'.format(x), 'type': stripattribs['type'],
+                         'channum': x})
 
         pass
              # if stripcontrols is not None:

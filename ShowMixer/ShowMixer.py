@@ -6,6 +6,7 @@ import inspect
 import os
 import socket
 import sys
+import re
 from os import path
 
 from PyQt5 import Qt, QtCore, QtGui, QtWidgets
@@ -120,7 +121,10 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
             print('Failed to create mixer socket')
             sys.exit()
         self.comm_threads = []  # a list of threads in use for later use when app exits
-
+        #****FIX****
+        #Need to adjust comm_threads list so mixer index/id can be used to select the comm thread
+        #then then sends can just select the sender/receiver for a mixer
+        #note: command thread might be special???
         # setup sender thread
         self.mxr_sndrthread = CommHandlers.sender(self.mxr_sock, MXR_IP, MXR_PORT)
         self.mxr_sndrthread.sndrsignal.connect(self.sndrtestfunc)  # connect to custom signal called 'signal'
@@ -250,13 +254,20 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
 
     def sliderprint(self, val):
         sending_slider = self.sender()
-        scrLbl = self.findChild(QtWidgets.QLabel, name='lev' + sending_slider.objectName())
+        print('sending_slider name: {0}'.format(sending_slider.objectName()))
+        sldrname = sending_slider.objectName()
+        mxrid = int(sldrname[1])
+        stripGUIindx = int(sldrname[-2:len(sldrname)])
+        scrLblname = sldrname.replace('sldr', 'lev')
+        scrLbl = self.findChild(QtWidgets.QLabel, name=scrLblname)
         scrLbl.setText('{0:03}'.format(val))
-        osc_add = The_Show.mixers[1].inputsliders['Ch' + '{0:02}'.format(int(sending_slider.objectName()))].fadercmd.replace('#', sending_slider.objectName())
-        msg = osc_message_builder.OscMessageBuilder(address=osc_add)
-        msg.add_arg(translate(val, 0,1024,0.0, 1.0))
-        msg = msg.build()
-        self.mxr_sndrthread.queue_msg(msg, MXR_IP, MXR_PORT)
+        msg = The_Show.mixers[mxrid].mxrstrips[The_Show.mixers[mxrid].
+            mxrconsole[stripGUIindx]['type']]['fader']. \
+            Set(The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['channum'], val)
+        if The_Show.mixers[mxrid].protocol == 'osc':
+            self.mxr_sndrthread.queue_msg(msg, MXR_IP, MXR_PORT)
+        elif The_Show.mixers[mxrid].protocol == 'midi':
+            pass
 
     def on_buttonNext_clicked(self):
         self.next_cue()
@@ -275,39 +286,52 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         # iterate through mute changes, if any
         if mute_changes != None:
             for key, value in mute_changes.items():
-                channum = int(key.strip('ch'))
-                mute = self.findChild(QtWidgets.QPushButton, name='{0:02}'.format(channum))
-                osc_add = The_Show.mixers[1].inputsliders['Ch' + '{0:02}'.format(channum)].mutecmd.replace('#', mute.objectName())
-                msg = osc_message_builder.OscMessageBuilder(address=osc_add)
-                if value == 1:
-                    mute.setChecked(False)
-                    msg.add_arg(The_Show.mixers[1].mutestyle['unmute'])
+                #channum = int(key.strip('ch'))
+                nbrs = re.findall(r'\d+',key)
+                mxrid = int(nbrs[0])
+                stripGUIindx = int(nbrs[1]) - 1
+                mute = self.findChild(QtWidgets.QPushButton, name='M{0}mute{1:02}'.format(mxrid, stripGUIindx))
+                if value == 1:  # 1 >> unmute  0 >> mute
+                    # Handle unmute
+                    if The_Show.mixers[mxrid].mutestyle['mutestyle'] == 'illuminated':
+                        mute.setChecked(False)  # for illuminated = unmuted
+                    else:
+                        mute.setChecked(True)  # for a dark = umuted
+                    muteval = The_Show.mixers[mxrid].mutestyle['unmute']
                 else:
-                    mute.setChecked(True)
-                    msg.add_arg(The_Show.mixers[1].mutestyle['mute'])
-                msg = msg.build()
-                self.mxr_sndrthread.queue_msg(msg, MXR_IP, MXR_PORT)
+                    # Handle mute
+                    if The_Show.mixers[mxrid].mutestyle['mutestyle'] == 'illuminated':
+                        mute.setChecked(True)
+                    else:
+                        mute.setChecked(False)
+                    muteval = The_Show.mixers[mxrid].mutestyle['mute']
+                msg = The_Show.mixers[mxrid].mxrstrips[The_Show.mixers[mxrid].
+                    mxrconsole[stripGUIindx]['type']]['mute']. \
+                    Set(The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['channum'], muteval)
+                if The_Show.mixers[mxrid].protocol == 'osc':
+                    self.mxr_sndrthread.queue_msg(msg, MXR_IP, MXR_PORT)
+                elif The_Show.mixers[mxrid].protocol == 'midi':
+                    pass
 
         levels = The_Show.cues.get_cue_levels(The_Show.cues.currentcueindex)
         if levels != None:
             for key, value in levels.items():
-                channum = int(key.strip('ch'))
-            #for ctlcnt in range(1, The_Show.mixer.inputsliders.__len__() + 1):
-                sldr = self.findChild(QtWidgets.QSlider, name='{0:02}'.format(channum))
-                sldlev = translate(int(value), 0, 1024, 0.0, 1.0)
+                nbrs = re.findall(r'\d+',key)
+                mxrid = int(nbrs[0])
+                stripGUIindx = int(nbrs[1]) - 1
+                sldr = self.findChild(QtWidgets.QSlider, name='M{0}sldr{1:02}'.format(mxrid, stripGUIindx))
+                newsldlev = translate(int(value), 0, 1024, 0.0, 1.0)
                 currentlevel = translate(sldr.sliderPosition(), 0, 1024, 0.0, 1.0)
-                currentlevval = sldr.value()
-                print('current level: {}'.format(currentlevel))
-                print('sldlev: {}'.format(sldlev))
-                print('value: {}'.format(value))
-                if currentlevel != sldlev:
-                    print('change')
-                    osc_add = The_Show.mixers[1].inputsliders['Ch' + '{0:02}'.format(channum)].fadercmd.replace('#', sldr.objectName())
-                    msg = osc_message_builder.OscMessageBuilder(address=osc_add)
+                if currentlevel != newsldlev:
+                    msg = The_Show.mixers[mxrid].mxrstrips[The_Show.mixers[mxrid].
+                        mxrconsole[stripGUIindx]['type']]['fader']. \
+                        Set(The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['channum'], int(value))
                     sldr.setSliderPosition(int(value))
-                    msg.add_arg(sldlev)
-                    msg = msg.build()
-                    self.mxr_sndrthread.queue_msg(msg, MXR_IP, MXR_PORT)
+                    if The_Show.mixers[mxrid].protocol == 'osc':
+                        self.mxr_sndrthread.queue_msg(msg, MXR_IP, MXR_PORT)
+                    elif The_Show.mixers[mxrid].protocol == 'midi':
+                        pass
+                pass
 
     def next_cue(self):
         nextmxrcuefound = False
@@ -315,7 +339,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         while not nextmxrcuefound:
             index += 1
             if index < The_Show.cues.cuecount:
-                if The_Show.cues.getcuetype(index) == 'Mixer':
+                if 'Mixer' in The_Show.cues.getcuetype(index):
                     nextmxrcuefound = True
                     self.execute_cue(index)
             else:
@@ -324,18 +348,13 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
     def initmutes(self):
         for mxrid in range(The_Show.mixers.__len__()):
             for stripGUIindx in range(The_Show.mixers[mxrid].mxrconsole.__len__()):
-            #for strip in The_Show.mixers[mxrid].mxrconsole:
-                #stripGUIindx = The_Show.mixers[mxrid].mxrconsole.index(strip)
-                # print('#' * 80)
-                # print('idex of strip is:{}'.format(stripGUIindx))
                 msg = The_Show.mixers[mxrid].mxrstrips[The_Show.mixers[mxrid].
                     mxrconsole[stripGUIindx]['type']]['mute'].\
-                    Set(stripGUIindx, The_Show.mixers[mxrid].mutestyle['mute'])
+                    Set(The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['channum'], The_Show.mixers[mxrid].mutestyle['mute'])
                 if The_Show.mixers[mxrid].protocol == 'osc':
                     self.mxr_sndrthread.queue_msg(msg, MXR_IP, MXR_PORT)
                 elif The_Show.mixers[mxrid].protocol == 'midi':
                     pass
-                # print('Finding: M{0}mute{1:02}'.format(mxrid, stripGUIindx))
                 mute = self.findChild(QtWidgets.QPushButton, name='M{0}mute{1:02}'.format(mxrid, stripGUIindx))
                 if The_Show.mixers[mxrid].mutestyle['mutestyle']== 'illuminated':
                     mute.setChecked(True)
@@ -347,52 +366,33 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
             for stripGUIindx in range(The_Show.mixers[mxrid].mxrconsole.__len__()):
                 msg = The_Show.mixers[mxrid].mxrstrips[The_Show.mixers[mxrid].
                     mxrconsole[stripGUIindx]['type']]['fader'].\
-                    Set(stripGUIindx, 0)
+                    Set(The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['channum'], 0)
                 if The_Show.mixers[mxrid].protocol == 'osc':
                     self.mxr_sndrthread.queue_msg(msg, MXR_IP, MXR_PORT)
                 elif The_Show.mixers[mxrid].protocol == 'midi':
                     pass
 
-        # for ctlcnt in range(1, The_Show.mixers[1].inputsliders.__len__() + 1):
-        #     sldr = self.findChild(QtWidgets.QSlider, name='{0:02}'.format(ctlcnt))
-        #     osc_add = '/ch/' + sldr.objectName() + '/mix/fader'
-        #     osc_add = The_Show.mixers[1].inputsliders['Ch' + '{0:02}'.format(ctlcnt)].fadercmd.replace('#', sldr.objectName())
-        #     msg = osc_message_builder.OscMessageBuilder(address=osc_add)
-        #     msg.add_arg(translate(0, 0, 1024, 0.0, 1.0))
-        #     msg = msg.build()
-        #     self.mxr_sndrthread.queue_msg(msg, MXR_IP, MXR_PORT)
-
     def on_buttonMute_clicked(self):
         mbtn=self.sender()
+        print('sending_slider name: {0}'.format(mbtn.objectName()))
+        mbtnname = mbtn.objectName()
+        mxrid = int(mbtnname[1])
+        stripGUIindx = int(mbtnname[-2:len(mbtnname)])
         print(mbtn.objectName())
         chkd = mbtn.isChecked()
         dwn=mbtn.isDown()
-        osc_add='/ch/' + mbtn.objectName() + '/mix/on'
-        print(osc_add)
-        print(chkd)
-        print(dwn)
-        msg = osc_message_builder.OscMessageBuilder(address=osc_add)
         if mbtn.isChecked():
-            msg.add_arg(The_Show.mixers[1].mutestyle['mute'])
+            muteval = The_Show.mixers[mxrid].mutestyle['mute']
         else:
-            msg.add_arg(The_Show.mixers[1].mutestyle['unmute'])
+            muteval = The_Show.mixers[mxrid].mutestyle['unmute']
 
-        msg = msg.build()
-        #client.send(msg)
-        self.mxr_sndrthread.queue_msg(msg, MXR_IP, MXR_PORT)
-
-    def on_buttonUnmute_clicked(self):
-        spin=1
-        chnum=self.spinChNum.value()
-        print(chnum)
-        print(spin)
-        osc_add='/ch/' + '{0:02}'.format(chnum) + '/mix/on'
-#        osc_add='/ch/02/mix/on'
-        msg = osc_message_builder.OscMessageBuilder(address=osc_add)
-        msg.add_arg(1)
-        msg = msg.build()
-        #client.send(msg)
-        self.mxr_sndrthread.queue_msg(msg, MXR_IP, MXR_PORT)
+        msg = The_Show.mixers[mxrid].mxrstrips[The_Show.mixers[mxrid].
+            mxrconsole[stripGUIindx]['type']]['mute']. \
+            Set(The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['channum'], muteval)
+        if The_Show.mixers[mxrid].protocol == 'osc':
+            self.mxr_sndrthread.queue_msg(msg, MXR_IP, MXR_PORT)
+        elif The_Show.mixers[mxrid].protocol == 'midi':
+            pass
 
     def setfirstcue(self):
         tblvw = self.findChild(QtWidgets.QTableView)
