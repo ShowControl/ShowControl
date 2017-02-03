@@ -89,3 +89,17 @@ some issues here because cue number and table index no longer track. This is fix
 Sun Jan 22 15:34:41 EST 2017
 Created example code to use jack midi and rtmidi(alsa) now need to update ShowControl/utils/CommHandlers.py to have
 JACK and ALSA midi capabilities.
+
+Thu Feb  2 09:31:26 EST 2017
+for doc/memory purposes:
+
+mixer               |   X32            |   01V
+--------------------------------------------------
+mute style          | illuminated      |  dark
+muted indication    | light on         | light off
+value sent to mixer | 0                | 0x00
+GUI setting         | setChecked(True) | setChecked(False)
+                    |                  |
+unmute indication   | light off        | light on
+value sent to mixer | 1                | 0x7F
+GUI setting         | setChecked(False) | setChecked(True)

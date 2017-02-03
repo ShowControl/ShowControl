@@ -20,7 +20,6 @@ class receiver(QThread):
         self.threadshouldstop = False
         self.rcvsndqueue = queue.Queue()
         self.sck = sck
-
     '''overloads QThread run() function'''
     def run(self):
         """..."""
@@ -48,8 +47,8 @@ class receiver(QThread):
     def setstopflag(self):
         """..."""
         self.threadshouldstop = True
-
-    def queue_msg(self, msg):
+    # todo-mac needs to handle ip and port arguments
+    def queue_msg(self, msg, device):
         """..."""
         self.rcvsndqueue.put(msg)
 
@@ -88,12 +87,11 @@ class sender(QThread):
         """..."""
         self.threadshouldstop = True
 
-    # def queue_msg(self, msg):
-    #     """..."""
-    #     self.sndrqueue.put(msg)
-    def queue_msg(self, msg, target_ip, target_port):
+    # def queue_msg(self, msg, target_ip, target_port, mixer):
+    def queue_msg(self, msg, device):
         """..."""
-        cmd_pack = (msg, (target_ip, target_port))
+        # cmd_pack = (msg, (target_ip, target_port))
+        cmd_pack = (msg, (device.IP, device.PORT))
         self.sndrqueue.put(cmd_pack)
 
 class cmd_receiver(QThread):
@@ -125,7 +123,7 @@ class cmd_receiver(QThread):
         """..."""
         self.threadshouldstop = True
 
-    def queue_msg(self, msg):
+    def queue_msg(self, msg, device):
         """..."""
         self.rcvsndqueue.put(msg)
 
@@ -162,10 +160,7 @@ class AMIDIsender(QThread):
         """..."""
         self.threadshouldstop = True
 
-    # def queue_msg(self, msg):
-    #     """..."""
-    #     self.sndrqueue.put(msg)
-    def queue_msg(self, msg):
+    def queue_msg(self, msg, device):
         """..."""
         cmd_pack = msg
         self.MIDIsndrqueue.put(cmd_pack)
@@ -200,18 +195,22 @@ class JMIDIsender(QThread):
         offset = 0
         while not self.MIDIsndrqueue.empty():
             event = self.MIDIsndrqueue.get()
+            print('In midi process: {0} || {1}'.format(event[0], event[1:]))
             self.client.midi_outports[event[0]].write_midi_event(offset, event[1:])
+            sleep(0.100)
             offset += 1
 
     def setport(self, port):
         '''Connect this ouput client (self.outport) to the input of another client or a physical output'''
         self.client.connect(self.outport, port)
 
-    def output_event(self, event):
+    def queue_msg(self, msg, device):
         """Add a MIDI event to the cue
             parameters in:
             event - list [<port index>, <midi chan>, <control number on the midi device>, <value>]
                 multi ports (i.e. port_index) is not implemented as of 1/26/2017
             """
+        event = [0]
+        event.extend(int(v,16) for v in msg.split(','))
         self.MIDIsndrqueue.put(event)
 

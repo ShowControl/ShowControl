@@ -50,7 +50,7 @@ class MixerConf:
             key : OutputControl (object)
     @author: mac
     '''
-    def __init__(self, mixerconf_file, mixername, mixermodel):
+    def __init__(self, mixerconf_file, mixername, mixermodel, mixeraddress):
         #
         # dictionary of input sliders, index format: [Chnn]
         # each entry is a InputControl object
@@ -99,6 +99,14 @@ class MixerConf:
                     break
         self.protocol = mixer.find('protocol').text
         #print('protocol: ' + self.protocol)
+        self.IP = ''
+        self.PORT = 0
+        self.MIDICHAN = 0
+        if self.protocol == 'osc':
+            self.IP, port = mixeraddress.split(',')
+            self.PORT = int(port)
+        elif self.protocol == 'midi':
+            self.MIDICHAN = int(mixeraddress)
         self.mutestyle['mutestyle'] = mixer.find('mutestyle').text
         if self.mutestyle['mutestyle'] == 'illuminated':
             self.mutestyle['mute'] = 0
@@ -118,7 +126,13 @@ class MixerConf:
                     faderattribs = fader.attrib
                     stripcontrols.append('fader')
                     fadercontrol = ControlFactory.create_control('fader', self.protocol)
-                    fadercontrol.fill(faderattribs['cmdtyp'], faderattribs['cmd'], faderattribs['range'])
+                    commandstring = faderattribs['cmd']
+                    if self.protocol == 'midi':
+                        controlchange, changenumbase, val = faderattribs['cmd'].split(',')
+                        commandstring = '{0},{1},{2}'.\
+                                            format(controlchange.replace('#', '{:1x}'.format(self.MIDICHAN)),\
+                                            changenumbase, val)
+                    fadercontrol.fill(faderattribs['cmdtyp'], commandstring, faderattribs['range'])
                     self.mxrstrips[stripattribs['type']].update({'fader':fadercontrol})
                 except:
                     pass

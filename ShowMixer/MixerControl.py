@@ -58,13 +58,15 @@ class ControlFactory:
 
         def fill(self, ctyp, cmdstr, crng):
             self.cmdstr = cmdstr
+            self.controlchange, self.changenumbase, self.waste = cmdstr.split(',')
             self.crng = crng
             self.ctyp = ctyp
 
-        def Set(self, cnum, value):
-            msg = self.cmdstr.replace('#','{:01x}'.format(cnum))
-            msg2 = msg.replace('XX','{:02x}'.format(value))
-            return msg2
+        def Set(self, mixerchan, value):
+            ctlnum = '{:02x}'.format(int(self.changenumbase, 16) + mixerchan)
+            val = '{:02x}'.format(value)
+            msg = '{0},{1},{2}'.format(self.controlchange,ctlnum,val)
+            return msg
 
     class oscmute:
         def __init__(self):
@@ -130,7 +132,7 @@ class ControlFactory:
             self.ctyp = ctyp
 
         def Set(self, cnum, value):
-            pass
+            return None
 
     @staticmethod
     def create_control(control_type, mixer_protocol):

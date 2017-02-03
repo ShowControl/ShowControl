@@ -59,7 +59,7 @@ class ShowConf:
         for mixer in mixers:
             print(mixer.attrib)
             mxrid = int(mixer.attrib['id'])
-            self.settings['mixers'][mxrid] = {'mxrmodel':mixer.attrib['model'], 'mxrmfr':mixer.attrib['mfr']}
+            self.settings['mixers'][mxrid] = {'mxrmodel':mixer.attrib['model'], 'mxrmfr':mixer.attrib['mfr'], 'address':mixer.attrib['address']}
         print(self.settings['mixers'][1]['mxrmodel'])
         #mixer = doc.find('mixer')
         # print('ShowConf::', mixer.attrib)
