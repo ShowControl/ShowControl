@@ -132,6 +132,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         try:
             self.mxr_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         except socket.error:
+            #todo-mac need exception and logging here
             print('Failed to create mixer socket')
             sys.exit()
         for idx in The_Show.mixers:
@@ -144,7 +145,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
                     senderthread.start()  # start the thread
                     self.mixer_sender_threads.append(senderthread)
                 except socket.error:
-                    print('Failed to create mixer socket')
+                    print('Failed to create mixer socket')  #todo-mac need exception and logging here
                     sys.exit()
             elif The_Show.mixers[idx].protocol == 'midi':
                 # Get midi input port (i.e. ports we can send to) list
@@ -171,7 +172,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
             else:
                 raise ValueError('Mixer ID:{0} Unknown or missing protocol.')
         self.comm_threads = []  # a list of threads in use for later use when app exits
-        #todo-mac
+        #todo-mac thread ended at program exit
         #Need to have thread ending method handle mixer_sender_threads
         #as well as commandthread and rcvrthread
         #note: command thread might be special???
@@ -207,7 +208,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         try:
             self.cmd_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         except socket.error:
-            print('Failed to create mixer socket')
+            print('Failed to create mixer socket')  #todo-mac need exception and logging here
             sys.exit()
         self.cmd_sock.bind((CUE_IP, CUE_PORT))
         # setup command receiver thread
@@ -247,8 +248,8 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         # determine max sliders
         #print('Mixer count: {}'.format(The_Show.mixers.__len__()))
         for mxrid in The_Show.mixers:
-            if The_Show.mixers[mxrid].input_count > self.max_slider_count:
-                self.max_slider_count = The_Show.mixers[mxrid].input_count
+            if The_Show.mixers[mxrid].mxrconsole.__len__() > self.max_slider_count:
+                self.max_slider_count = The_Show.mixers[mxrid].mxrconsole.__len__()
         for idx in range(The_Show.mixers.__len__()):
             self.scroller = QtWidgets.QScrollArea()
             self.tablist.append(QtWidgets.QWidget())
@@ -283,7 +284,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
                 scrbl = QtWidgets.QLabel()
                 #scrbl.setObjectName('scr{0:02}'.format(chn))
                 scrbl.setObjectName('M{0}scr{1:02}'.format(idx,chn))
-                print(scrbl.objectName())
+                # print(scrbl.objectName())
                 scrbl.setText(The_Show.mixers[idx].mxrconsole[chn]['name'])
                 #scrbl.setText('M{0} Scribble {1:02}'.format(idx,chn))
                 scrbl.setAlignment(QtCore.Qt.AlignHCenter)
@@ -295,7 +296,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
                 sldr = QtWidgets.QSlider(QtCore.Qt.Vertical)
                 sldr.valueChanged.connect(self.sliderprint)
                 sldr.setObjectName('M{0}sldr{1:02}'.format(idx, chn))
-                print(sldr.objectName())
+                # print(sldr.objectName())
                 sldr.setMinimumSize(self.ChanStrip_MinWidth,200)
                 sldr.setRange(0,1024)
                 sldr.setTickPosition(3)
@@ -305,7 +306,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
                 # Add label for this channel level
                 lev = QtWidgets.QLabel()
                 lev.setObjectName('M{0}lev{1:02}'.format(idx, chn))
-                print(lev.objectName())
+                # print(lev.objectName())
                 lev.setText('000')
                 lev.setMinimumWidth(self.ChanStrip_MinWidth)
                 lev.setAlignment(QtCore.Qt.AlignHCenter)
@@ -315,7 +316,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
                 mute.setCheckable(True)
                 mute.clicked.connect(self.on_buttonMute_clicked)
                 mute.setObjectName('M{0}mute{1:02}'.format(idx, chn))
-                print('Created: {}'.format(mute.objectName()))
+                # print('Created: {}'.format(mute.objectName()))
                 mute.setMinimumWidth(self.ChanStrip_MinWidth)
                 self.tabstripgridlist[idx].addWidget(mute, 1, chn, 1, 1)
                 # Add label for this channel
@@ -328,6 +329,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
             self.tablistvertlayout[idx].addWidget(self.scrollArea[idx])
 
     def sliderprint(self, val):
+        #todo-mac handle scale difference between the midi value (max 127), x32 vals, and slider 0-1024
         if self.blockuser:return
         sending_slider = self.sender()
         #print('sending_slider name: {0}'.format(sending_slider.objectName()))
@@ -443,11 +445,11 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
     def on_buttonMute_clicked(self):
         if self.blockuser:return
         mbtn=self.sender()
-        print('sending_slider name: {0}'.format(mbtn.objectName()))
+        # print('sending_slider name: {0}'.format(mbtn.objectName()))
         mbtnname = mbtn.objectName()
         mxrid = int(mbtnname[1])
         stripGUIindx = int(mbtnname[-2:len(mbtnname)])
-        print(mbtn.objectName())
+        # print(mbtn.objectName())
         chkd = mbtn.isChecked()
         dwn=mbtn.isDown()
         if mbtn.isChecked():
@@ -458,7 +460,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         msg = The_Show.mixers[mxrid].mxrstrips[The_Show.mixers[mxrid].
             mxrconsole[stripGUIindx]['type']]['mute']. \
             Set(The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['channum'], muteval)
-        if msg is not None: self.mixer_sender_threads[mxrid].queue_msg(msg, MXR_IP, MXR_PORT)
+        if msg is not None: self.mixer_sender_threads[mxrid].queue_msg(msg, The_Show.mixers[mxrid])
 
     def setfirstcue(self):
         tblvw = self.findChild(QtWidgets.QTableView)
@@ -477,7 +479,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         #fname = QtWidgets.QFileDialog.getOpenFileName(self, 'Open file', '/home')
         fdlg.close()
 
-        print(fname[0])
+        # print(fname[0])
         The_Show.loadNewShow(fname[0])
         self.set_scribble(The_Show.chrchnmap.maplist)
         self.setWindowTitle(The_Show.show_conf.settings['name'])
@@ -488,7 +490,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
 
     def saveShow(self):
         fname = QtWidgets.QFileDialog.getOpenFileName(self, 'Open file', '/home')
-        print(fname)
+        # print(fname)
 
     def closeShow(self):
         fname = QtWidgets.QFileDialog.getOpenFileName(self, 'Open file', '/home')
@@ -516,7 +518,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
                 mxrconsole[cnum - 1]['type']]['scribble'].\
                 Set(cnum, char.attrib['actor'])
             if msg is not None: self.mixer_sender_threads[mxrid].queue_msg(msg, The_Show.mixers[mxrid])
-            print('M{0}scr{1:02}'.format(mxrid,cnum))
+            # print('M{0}scr{1:02}'.format(mxrid,cnum))
             thislbl = self.findChild(QtWidgets.QLabel, name='M{0}scr{1:02}'.format(mxrid,cnum-1))
             thislbl.setText(char.attrib['actor'][:5])
 
@@ -549,7 +551,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         rowidx = modelidx.row()
         The_Show.cues.selectedcueindex = rowidx
         self.tableView.selectRow(The_Show.cues.selectedcueindex)
-        print('table clicked, row{}'.format(rowidx))
+        # print('table clicked, row{}'.format(rowidx))
 
     def closeEvent(self, event):
         """..."""
@@ -575,13 +577,13 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         - gets called when the signal called 'signal' is emitted from thread called 'thread' '''
     def sndrtestfunc(self, sigstr):
         """..."""
-        print(sigstr)
+        # print(sigstr)
         self.statusBar().showMessage(sigstr)
 
     def cmd_rcvrtestfunc(self, sigstr):
         """..."""
         msg = osc_message.OscMessage(sigstr)
-        print(msg.address)
+        # print(msg.address)
         for param in msg.params:
             print(param)
         if msg.address == '/cue':
@@ -601,7 +603,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         - gets called when the signal called 'signal' is emitted from thread called 'thread' '''
     def rcvrtestfunc(self, sigstr):
         """..."""
-        print(sigstr)
+        # print(sigstr)
         self.statusBar().showMessage(sigstr)
 
     '''gets called by main to tell the thread to stop'''

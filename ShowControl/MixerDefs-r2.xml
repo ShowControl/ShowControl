@@ -4,57 +4,57 @@
   <protocol>osc</protocol>
   <mutestyle>illuminated</mutestyle>
   <strip type="input" cnt="32" name="Ch">
-    <fader cmd="/ch/#/mix/fader" cmdtyp="level" range="0.0,1.0,1024" val="0"/>
-    <mute cmd="/ch/#/mix/on" cmdtyp="enum" val="0"/>
-    <scribble cmd="/ch/#/config/name" cmdtyp="string" text=""/>
+    <fader cmd="/ch/#/mix/fader" cmdtyp="level" range="0.0,1.0,1024" val="0" anoms=""/>
+    <mute cmd="/ch/#/mix/on" cmdtyp="enum" range="0,1" val="0" anoms=""/>
+    <scribble cmd="/ch/#/config/name" cmdtyp="string" range="0,1" val="" anoms=""/>
   </strip>
    <strip type="auxin" cnt="6" name="Aux">
-    <fader cmd="/auxin/#/mix/fader" cmdtyp="level" range="0.0,1.0,1024" val="0"/>
-    <mute cmd="/auxin/#/mix/on" cmdtyp="enum" val="0"/>
-    <scribble cmd="/auxin/#/config/name" cmdtyp="string" text=""/>
+    <fader cmd="/auxin/#/mix/fader" cmdtyp="level" range="0.0,1.0,1024" val="0" anoms=""/>
+    <mute cmd="/auxin/#/mix/on" cmdtyp="enum" range="0,1" val="0" anoms=""/>
+    <scribble cmd="/auxin/#/config/name" cmdtyp="string" range="" val="" anoms=""/>
    </strip>
    <strip type="bus" cnt="16" name="Bus">
-    <fader cmd="/bus/#/mix/fader" cmdtyp="level" range="0.0,1.0,1024" val="0"/>
-   <mute cmd="/bus/#/mix/on" cmdtyp="enum" val="0"/>
-    <scribble cmd="/bus/#/config/name" cmdtyp="string" text=""/>
+    <fader cmd="/bus/#/mix/fader" cmdtyp="level" range="0.0,1.0,1024" val="0" anoms=""/>
+   <mute cmd="/bus/#/mix/on" cmdtyp="enum" range="0,1" val="0" anoms=""/>
+    <scribble cmd="/bus/#/config/name" cmdtyp="string" range="" val="" anoms=""/>
    </strip>
    <strip type="main" cnt="1" name="Main">
-    <mute cmd="/main/st/mix/on" cmdtyp="enum" val="0"/>
-    <fader cmd="/main/st/mix/fader" cmdtyp="level" range="0.0,1.0,1024" val="0"/>
-   <scribble cmd="/main/st/config/name" cmdtyp="string" text=""/>
+    <mute cmd="/main/st/mix/on" cmdtyp="enum" range="0,1" val="0" anoms=""/>
+    <fader cmd="/main/st/mix/fader" cmdtyp="level" range="0.0,1.0,1024" val="0" anoms=""/>
+   <scribble cmd="/main/st/config/name" cmdtyp="string" range="" val="" anoms=""/>
    </strip>
    <commands>
-    <fader cmd="/ch/##/mix/fader" cmdtyp="level" range="0.0,1.0,1024" val="0"/>
-    <mute cmd="/ch/##/mix/on" cmdtyp="enum" val="0"/>
-    <scribble cmd="/ch/##/config/name" cmdtyp="string" text=""/>
+    <fader cmd="/ch/##/mix/fader" cmdtyp="level" range="0.0,1.0,1024" val="0" anoms=""/>
+    <mute cmd="/ch/##/mix/on" cmdtyp="enum" range="0,1" val="0" anoms=""/>
+    <scribble cmd="/ch/##/config/name" cmdtyp="string" range="" val="" anoms=""/>
    </commands>
 </mixer>
 <mixer mfr="Yamaha" model="01V">
   <protocol>midi</protocol>
   <mutestyle>dark</mutestyle>
   <strip type="input" cnt="16" name="Ch">
-    <fader cmd="B#,01,XX" cmdtyp="level" range="0,127" val="0"/>
-    <mute cmd="B#.1C,XX" cmdtyp="enum" val="0"/>
-    <scribble cmd="" cmdtyp="string" text=""/>
+    <fader cmd="B#,01,XX" cmdtyp="level" range="0,127" val="0" anoms="offset=-1"/><!--anoms can be a colon separate list, i.e. "offset=2:gap=32,44" -->
+    <mute cmd="B#,1C,XX" cmdtyp="enum" range="0,127" val="0" anoms="gap=32"/>
+    <scribble cmd="" cmdtyp="string" range="" val="" anoms=""/>
   </strip>
    <strip type="auxmaster" cnt="4" name="Aux">
-    <mute cmd="B#,2D,XX" cmdtyp="enum" val="0"/>
-    <fader cmd="B#,11,XX" cmdtyp="level" range="0,127" val="0"/>
+    <mute cmd="B#,2D,XX" cmdtyp="enum" range="0,127" val="0" anoms=""/>
+    <fader cmd="B#,11,XX" cmdtyp="level" range="0,127" val="0" anoms=""/>
    </strip>
    <strip type="output" cnt="2" name="OUT">
-    <mute cmd="B#,37,XX" cmdtyp="enum" val="0"/>
-    <fader cmd="B#,1B,XX" cmdtyp="level" range="0,127" val="0"/>
+    <mute cmd="B#,37,XX" cmdtyp="enum" range="0,127" val="0" anoms=""/>
+    <fader cmd="B#,1B,XX" cmdtyp="level" range="0,127" val="0" anoms=""/>
    </strip>
 </mixer>
 <mixer mfr="Default" model="">
   <protocol>midi</protocol>
   <strip type="input" cnt="16" name="CH">
-    <fader cmd="B#,01,XX" cmdtyp="level" range="0,127" val="0"/>
-    <mute cmd="B#.1C,XX" cmdtyp="enum" val="0"/>
-    <scribble cmd="" cmdtyp="string" text=""/>
+    <fader cmd="B#,01,XX" cmdtyp="level" range="0,127" val="0" anoms=""/>
+    <mute cmd="B#,1C,XX" cmdtyp="enum" range="0,127" val="0" anoms=""/>
+    <scribble cmd="" cmdtyp="string" range="" val="" anoms=""/>
   </strip>
    <strip type="output" cnt="2" name="OUT">
-    <mute cmd="B#,37,XX" cmdtyp="enum" val="0"/>
+    <mute cmd="B#,37,XX" cmdtyp="enum" range = "0,127" val="0"/>
     <fader cmd="B#,1B,XX" cmdtyp="level" range="0,127" val="0"/>
    </strip>
 </mixer>

@@ -38,7 +38,7 @@ class ControlFactory:
             self.cmdstr = ''
             self.crng = []
 
-        def fill(self, ctyp, cmdstr, crng):
+        def fill(self, ctyp, cmdstr, crng, anom):
             self.cmdstr = cmdstr
             self.crng = crng
             self.ctyp = ctyp
@@ -55,15 +55,41 @@ class ControlFactory:
             self.ctyp = ''
             self.cmdstr = ''
             self.crng = []
+            self.anoms = None
 
-        def fill(self, ctyp, cmdstr, crng):
+        def fill(self, ctyp, cmdstr, crng, anoms):
             self.cmdstr = cmdstr
             self.controlchange, self.changenumbase, self.waste = cmdstr.split(',')
             self.crng = crng
             self.ctyp = ctyp
+            try:
+                self.anoms = dict(item.split("=") for item in anoms.split(":"))
+            except:
+                pass
+
+        def anomaly(self, chan):
+            """Had to add this method to handle various things like gaps or offsets
+            the change number sequence for certain mixers (i.e. Yamaha 01V)
+            anoms is a dictionary of these anomalies from the mixer def file
+            currently supported anoms keys: offset, gap"""
+            if 'offset' in self.anoms:
+                adjusted = int(chan) + int(self.anoms['offset'])
+            else:
+                adjusted = int(chan)
+            if 'gap' in self.anoms:
+                if int(int(self.anoms['gap'])) == adjusted:
+                    adjusted = None
+            return adjusted
 
         def Set(self, mixerchan, value):
-            ctlnum = '{:02x}'.format(int(self.changenumbase, 16) + mixerchan)
+            # handle anomalies
+            if self.anoms != None:
+                cnum = self.anomaly(mixerchan)
+                if cnum == None:
+                    return None
+            else:
+                cnum = mixerchan
+            ctlnum = '{:02x}'.format(int(self.changenumbase, 16) + cnum)
             val = '{:02x}'.format(value)
             msg = '{0},{1},{2}'.format(self.controlchange,ctlnum,val)
             return msg
@@ -74,9 +100,8 @@ class ControlFactory:
             self.cmdstr = ''
             self.crng = []
 
-        def fill(self, ctyp, cmdstr, crng):
+        def fill(self, ctyp, cmdstr, crng, anoms):
             self.cmdstr = cmdstr
-            self.crng = crng
             self.ctyp = ctyp
 
         def Set(self, cnum, muteState):
@@ -90,15 +115,50 @@ class ControlFactory:
         def __init__(self):
             self.ctyp = ''
             self.cmdstr = ''
+            self.controlchange = ''
+            self.changenumbase = ''
             self.crng = []
+            self.anoms = None
 
-        def fill(self, ctyp, cmdstr, crng):
+        def fill(self, ctyp, cmdstr, crng, anoms):
             self.cmdstr = cmdstr
-            self.crng = crng
+            self.controlchange, self.changenumbase, self.waste = cmdstr.split(',')
             self.ctyp = ctyp
+            self.rl, self.rh = crng.split(',')
+            try:
+                self.anoms = dict(item.split("=") for item in anoms.split(":"))
+            except:
+                pass
 
-        def Set(self, muteButton, muteState):
-            pass
+        def anomaly(self, chan):
+            """Had to add this method to handle various things like gaps or offsets
+            the change number sequence for certain mixers (i.e. Yamaha 01V)
+            anoms is a dictionary of these anomalies from the mixer def file
+            currently supported anoms keys: offset, gap"""
+            if 'offset' in self.anoms:
+                adjusted = int(chan) + int(self.anoms['offset'])
+            else:
+                adjusted = int(chan)
+            if 'gap' in self.anoms:
+                if int(int(self.anoms['gap'])) == adjusted:
+                    adjusted = None
+            return adjusted
+
+        def Set(self, mixerchan, value):
+            # handle anomalies
+            if self.anoms != None:
+                cnum = self.anomaly(mixerchan)
+                if cnum == None:
+                    return None
+            else:
+                cnum = mixerchan
+            ctlnum = '{:02x}'.format(int(self.changenumbase, 16) + cnum)
+            if value == 0:
+                val = '{:02x}'.format(value)
+            else:
+                val = '{:02x}'.format(int(self.rh))
+            msg = '{0},{1},{2}'.format(self.controlchange,ctlnum,val)
+            return msg
 
     class oscscribble:
         def __init__(self):
@@ -106,7 +166,7 @@ class ControlFactory:
             self.cmdstr = ''
             self.crng = []
 
-        def fill(self, ctyp, cmdstr, crng):
+        def fill(self, ctyp, cmdstr, crng, anoms):
             self.cmdstr = cmdstr
             self.crng = crng
             self.ctyp = ctyp
@@ -126,7 +186,7 @@ class ControlFactory:
             self.cmdstr = ''
             self.crng = []
 
-        def fill(self, ctyp, cmdstr, crng):
+        def fill(self, ctyp, cmdstr, crng, anoms):
             self.cmdstr = cmdstr
             self.crng = crng
             self.ctyp = ctyp
