@@ -55,11 +55,11 @@ class MixerConf:
         #
         # dictionary of input sliders, index format: [Chnn]
         # each entry is a InputControl object
-        self.inputsliders = {}
+        # self.inputsliders = {}
 
         # dictionary of output sliders, index format: [Chnn]
         # each entry is a OutputControl object
-        self.outputsliders = {}
+        # self.outputsliders = {}
 
         # dictionary of mutestyle for the mixer
         # mutestyle referes to how the mixer indicates the channel is muted
@@ -84,9 +84,9 @@ class MixerConf:
         Each element of the list will have a dictionary with the strip name and strip type'''
         self.mxrconsole = []
 
-        self.fadercontrol = None
-        self.scribblecontrol = None
-        self.mutecontrol = None
+        # self.fadercontrol = None
+        # self.scribblecontrol = None
+        # self.mutecontrol = None
         self.controls = {}
         mixerdefs = ET.parse(mixerconf_file)
         mixers = mixerdefs.getroot()
@@ -115,6 +115,11 @@ class MixerConf:
         else:
             self.mutestyle['mute'] = 1
             self.mutestyle['unmute'] = 0
+        s_countbase = mixer.find('countbase').text
+        i_countbase = int(s_countbase.replace('\"', ''))
+        firstchan = 1  # wonky way to fix issue with X32: CH1 >> 01, yamaha: CH1 is 0 offset from a midi value
+        if i_countbase == 1:
+            firstchan = 0
         strips = mixer.findall('strip')
         stripcontrols = []
         for strip in strips:
@@ -139,9 +144,9 @@ class MixerConf:
                 except:
                     pass
             self.cntrlcount = int(stripattribs['cnt'])
-            for x in range(1, self.cntrlcount + 1):  #todo-mac handle 0 based control (01V) vs 1 based control X32
+            for x in range(i_countbase, self.cntrlcount + i_countbase):
                 self.mxrconsole.append(
-                    {'name': stripattribs['name'] + '{0:02}'.format(x), 'type': stripattribs['type'],
+                    {'name': stripattribs['name'] + '{0:02}'.format(x + firstchan), 'type': stripattribs['type'],
                      'channum': x})
 
 

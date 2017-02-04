@@ -56,11 +56,14 @@ class ControlFactory:
             self.cmdstr = ''
             self.crng = []
             self.anoms = None
+            self.rangehigh = 0
+            self.rangelow = 0
 
         def fill(self, ctyp, cmdstr, crng, anoms):
             self.cmdstr = cmdstr
             self.controlchange, self.changenumbase, self.waste = cmdstr.split(',')
             self.crng = crng
+            self.rangelow, self.rangehigh = crng.split(',')
             self.ctyp = ctyp
             try:
                 self.anoms = dict(item.split("=") for item in anoms.split(":"))
@@ -72,25 +75,40 @@ class ControlFactory:
             the change number sequence for certain mixers (i.e. Yamaha 01V)
             anoms is a dictionary of these anomalies from the mixer def file
             currently supported anoms keys: offset, gap"""
-            if 'offset' in self.anoms:
-                adjusted = int(chan) + int(self.anoms['offset'])
-            else:
-                adjusted = int(chan)
-            if 'gap' in self.anoms:
-                if int(int(self.anoms['gap'])) == adjusted:
-                    adjusted = None
-            return adjusted
+            i_ctlnum = int(self.changenumbase, 16) + int(chan)
+            if self.anoms != None:
+                # Handle offsets
+                if 'offset' in self.anoms:
+                    i_ctlnum += int(self.anoms['offset'])
+                # Handles gap
+                if 'gap' in self.anoms:
+                    if i_ctlnum >= int(self.anoms['gap']):
+                        i_ctlnum +=1
+            return i_ctlnum
+            # if 'offset' in self.anoms:
+            #     adjusted = int(chan) + int(self.anoms['offset'])
+            # else:
+            #     adjusted = int(chan)
+            # if 'gap' in self.anoms:
+            #     if int(int(self.anoms['gap'])) == adjusted:
+            #         adjusted = None
+            # return adjusted
 
         def Set(self, mixerchan, value):
             # handle anomalies
-            if self.anoms != None:
-                cnum = self.anomaly(mixerchan)
-                if cnum == None:
-                    return None
-            else:
-                cnum = mixerchan
-            ctlnum = '{:02x}'.format(int(self.changenumbase, 16) + cnum)
-            val = '{:02x}'.format(value)
+            cnum = self.anomaly(mixerchan)
+            # convert to hex string
+            ctlnum = '{:02x}'.format(cnum)
+            # # handle anomalies
+            # if self.anoms != None:
+            #     cnum = self.anomaly(mixerchan)
+            #     if cnum == None:
+            #         return None
+            # else:
+            #     cnum = mixerchan
+            # ctlnum = '{:02x}'.format(int(self.changenumbase, 16) + cnum)
+            f_val = translate(value, 0, 1024, int(self.rangelow), int(self.rangehigh))
+            val = '{:02x}'.format(int(f_val))
             msg = '{0},{1},{2}'.format(self.controlchange,ctlnum,val)
             return msg
 

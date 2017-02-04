@@ -3,6 +3,7 @@
 <mixer mfr="Behringer" model="X32">
   <protocol>osc</protocol>
   <mutestyle>illuminated</mutestyle>
+  <countbase>"1"</countbase>
   <strip type="input" cnt="32" name="Ch">
     <fader cmd="/ch/#/mix/fader" cmdtyp="level" range="0.0,1.0,1024" val="0" anoms=""/>
     <mute cmd="/ch/#/mix/on" cmdtyp="enum" range="0,1" val="0" anoms=""/>
@@ -32,9 +33,10 @@
 <mixer mfr="Yamaha" model="01V">
   <protocol>midi</protocol>
   <mutestyle>dark</mutestyle>
+  <countbase>"0"</countbase>
   <strip type="input" cnt="14" name="Ch">
-    <fader cmd="B#,01,XX" cmdtyp="level" range="0,127" val="0" anoms="offset=-1"/><!--anoms can be a colon separate list, i.e. "offset=2:gap=32,44" -->
-    <mute cmd="B#,1C,XX" cmdtyp="enum" range="0,127" val="0" anoms="offset=-1:gap=32"/>
+    <fader cmd="B#,01,XX" cmdtyp="level" range="0,127" val="0" anoms="offset=0"/><!--anoms can be a colon separate list, i.e. "offset=2:gap=32,44" -->
+    <mute cmd="B#,1C,XX" cmdtyp="enum" range="0,127" val="0" anoms="offset=0:gap=32"/>
     <scribble cmd="" cmdtyp="string" range="" val="" anoms=""/>
   </strip>
    <strip type="auxmaster" cnt="4" name="Aux">
