@@ -2,6 +2,7 @@ import sys
 import queue
 from time import sleep
 import re
+import threading
 
 from PyQt5.QtCore import *
 
@@ -187,18 +188,54 @@ class JMIDIsender(QThread):
         self.client = jack.Client('jmidi_{}'.format(clientname))
         self.outport = self.client.midi_outports.register("output")
         self.client.set_process_callback(self.process)
+        self.client.set_xrun_callback(self.xrun)
+        self.client.set_shutdown_callback(self.shutdown)
         self.client.activate()
 
+    def print_error(self, *args):
+        print(*args, file=sys.stderr)
+
+    def xrun(self, delay):
+        self.print_error("An xrun occured, increase JACK's period size?")
+
+    def shutdown(self, status, reason):
+        self.print_error('JACK shutdown!')
+        self.print_error('status:', status)
+        self.print_error('reason:', reason)
+        # self.event.set()
+
+    def stop_callback(self, msg=''):
+        if msg:
+            self.print_error(msg)
+        # for port in self.client.outports:
+        #     port.get_array().fill(0)
+        # self.event.set()
+        # raise jack.CallbackExit
+            self.client.deactivate()
+            self.client.close()
+
     def process(self, frames):
+        # self.print_error( 'frames={0}'.format(frames))
         for port in self.client.midi_outports:
             port.clear_buffer()
         offset = 0
-        while not self.MIDIsndrqueue.empty():
-            event = self.MIDIsndrqueue.get()
-            print('In midi process: {0} || {1}'.format(event[0], event[1:]))
-            self.client.midi_outports[event[0]].write_midi_event(offset, event[1:])
+        try:
+            midievent = self.MIDIsndrqueue.get_nowait()
+        # while not self.MIDIsndrqueue.empty():
+        #     event = self.MIDIsndrqueue.get()
+            print('In midi process: {0} || {1}'.format(midievent[0], midievent[1:]))
+            self.client.midi_outports[midievent[0]].write_midi_event(offset, midievent[1:])
             sleep(0.100)
             offset += 1
+        except queue.Empty:
+            # self.print_error('JACK midi queue empty')
+            pass
+
+    '''called from widget.stopthread to flag thread to close'''
+    def setstopflag(self):
+        """..."""
+        self.stop_callback('JACK MIDI thread closing')
+        self.threadshouldstop = True
 
     def setport(self, port):
         '''Connect this ouput client (self.outport) to the input of another client or a physical output'''
@@ -210,7 +247,7 @@ class JMIDIsender(QThread):
             event - list [<port index>, <midi chan>, <control number on the midi device>, <value>]
                 multi ports (i.e. port_index) is not implemented as of 1/26/2017
             """
-        event = [0]
-        event.extend(int(v,16) for v in msg.split(','))
-        self.MIDIsndrqueue.put(event)
+        midievent = [0]
+        midievent.extend(int(v,16) for v in msg.split(','))
+        self.MIDIsndrqueue.put(midievent)
 

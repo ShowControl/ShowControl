@@ -135,28 +135,29 @@ class ControlFactory:
             the change number sequence for certain mixers (i.e. Yamaha 01V)
             anoms is a dictionary of these anomalies from the mixer def file
             currently supported anoms keys: offset, gap"""
-            if 'offset' in self.anoms:
-                adjusted = int(chan) + int(self.anoms['offset'])
-            else:
-                adjusted = int(chan)
-            if 'gap' in self.anoms:
-                if int(int(self.anoms['gap'])) == adjusted:
-                    adjusted = None
-            return adjusted
+            i_ctlnum = int(self.changenumbase, 16) + int(chan)
+            if self.anoms != None:
+                # Handle offsets
+                if 'offset' in self.anoms:
+                    i_ctlnum += int(self.anoms['offset'])
+                # Handles gap
+                if 'gap' in self.anoms:
+                    if i_ctlnum >= int(self.anoms['gap']):
+                        i_ctlnum +=1
+            return i_ctlnum
 
         def Set(self, mixerchan, value):
             # handle anomalies
-            if self.anoms != None:
-                cnum = self.anomaly(mixerchan)
-                if cnum == None:
-                    return None
-            else:
-                cnum = mixerchan
-            ctlnum = '{:02x}'.format(int(self.changenumbase, 16) + cnum)
+            cnum = self.anomaly(mixerchan)
+            # convert to hex string
+            ctlnum = '{:02x}'.format(cnum)
+            #
             if value == 0:
-                val = '{:02x}'.format(value)
-            else:
                 val = '{:02x}'.format(int(self.rh))
+            elif value == 1:
+                val = '{:02x}'.format(int(self.rl))
+            else:
+                val = '00'
             msg = '{0},{1},{2}'.format(self.controlchange,ctlnum,val)
             return msg
 

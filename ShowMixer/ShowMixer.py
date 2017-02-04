@@ -48,6 +48,11 @@ from ui_preferences import Ui_Preferences
 import styles
 
 log = logging.getLogger(__name__)
+parser = argparse.ArgumentParser()
+# parser.add_argument("--ip", default="192.168.53.40", help="The ip of the OSC server")
+# parser.add_argument("--port", type=int, default=10023, help="The port the OSC server is listening on")
+# args = parser.parse_args()
+#
 
 CUE_IP = "127.0.0.1"
 CUE_PORT = 5005
@@ -126,8 +131,9 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         self.scrollArea = []
         self.scrollAreaWidgetContents = []
 
+        self.comm_threads = []  # a list of all threads in use for later use when app exits
         # Set up sender threads for each mixer
-        self.mixer_sender_threads = []  # Ultimately the index into this list will be the mixer id
+        self.mixer_sender_threads = []
         # Setup thread and udp to handle mixer I/O
         try:
             self.mxr_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -144,6 +150,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
                     senderthread.finished.connect(self.sndrthreaddone)  # connect to buitlin signal 'finished'
                     senderthread.start()  # start the thread
                     self.mixer_sender_threads.append(senderthread)
+                    self.comm_threads.append(senderthread)
                 except socket.error:
                     print('Failed to create mixer socket')  #todo-mac need exception and logging here
                     sys.exit()
@@ -166,16 +173,13 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
                     senderthread.start()  # start the thread
                 else:
                     print('{} JACK port selected'.format(self.selidx))
-                    senderthread = CommHandlers.JMIDIsender('MyGreatClient')
+                    senderthread = CommHandlers.JMIDIsender('ShowMixer')
                     senderthread.setport(self.portlist[self.selidx].name)
-                    self.mixer_sender_threads.append(senderthread)
+                self.mixer_sender_threads.append(senderthread)
+                self.comm_threads.append(senderthread)
             else:
                 raise ValueError('Mixer ID:{0} Unknown or missing protocol.')
-        self.comm_threads = []  # a list of threads in use for later use when app exits
-        #todo-mac thread ended at program exit
-        #Need to have thread ending method handle mixer_sender_threads
-        #as well as commandthread and rcvrthread
-        #note: command thread might be special???
+
         # setup receiver thread
         self.mxr_rcvrthread = CommHandlers.receiver(self.mxr_sock, MXR_IP, MXR_PORT)
         self.mxr_rcvrthread.rcvrsignal.connect(self.rcvrtestfunc)  # connect to custom signal called 'signal'
@@ -669,28 +673,32 @@ The_Show = ShowMxr(cfgdict)
 The_Show.displayShow()
 
 if __name__ == "__main__":
-    app = QtWidgets.QApplication(sys.argv)
-#     app.setStyleSheet(""" QPushButton {color: blue;
-#                          background-color: yellow;
-#                          selection-color: blue;
-#                          selection-background-color: green;}""")
-    #app.setStyleSheet("QPushButton {pressed-color: red }")
-    app.setStyleSheet(styles.QLiSPTheme_Dark)
-    chans = 32
-    #ui = ChanStripDlg(path.abspath(path.join(path.dirname(__file__))) + '/Scrooge Moves.xml')
-    ui = ChanStripDlg(path.abspath(path.join(path.dirname(cfgdict['Show']['folder']))))
-    #ui.resize(chans*ui.ChanStrip_MinWidth,800)
-    ui.addChanStrip()
-    ui.resize(ui.max_slider_count * ui.ChanStrip_MinWidth, 800)
-    ui.disptext()
-    ui.set_scribble(The_Show.chrchnmap.maplist)
-    ui.initmutes()
-    ui.initlevels()
-    ui.setfirstcue()
-    # parser = argparse.ArgumentParser()
-    # parser.add_argument("--ip", default="192.168.53.40", help="The ip of the OSC server")
-    # parser.add_argument("--port", type=int, default=10023, help="The port the OSC server is listening on")
-    # args = parser.parse_args()
-    #
-    ui.show()
-    sys.exit(app.exec_())
+    try:
+        app = QtWidgets.QApplication(sys.argv)
+    #     app.setStyleSheet(""" QPushButton {color: blue;
+    #                          background-color: yellow;
+    #                          selection-color: blue;
+    #                          selection-background-color: green;}""")
+        #app.setStyleSheet("QPushButton {pressed-color: red }")
+        app.setStyleSheet(styles.QLiSPTheme_Dark)
+        chans = 32
+        #ui = ChanStripDlg(path.abspath(path.join(path.dirname(__file__))) + '/Scrooge Moves.xml')
+        ui = ChanStripDlg(path.abspath(path.join(path.dirname(cfgdict['Show']['folder']))))
+        #ui.resize(chans*ui.ChanStrip_MinWidth,800)
+        ui.addChanStrip()
+        ui.resize(ui.max_slider_count * ui.ChanStrip_MinWidth, 800)
+        ui.disptext()
+        ui.set_scribble(The_Show.chrchnmap.maplist)
+        ui.initmutes()
+        ui.initlevels()
+        ui.setfirstcue()
+        ui.show()
+    except KeyboardInterrupt:
+        parser.exit('\nInterrupted by user')
+    # except (queue.Full):
+    #     # A timeout occured, i.e. there was an error in the callback
+    #     parser.exit(1)
+    except Exception as e:
+        parser.exit(type(e).__name__ + ': ' + str(e))
+
+sys.exit(app.exec_())

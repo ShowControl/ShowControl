@@ -32,16 +32,20 @@
 <mixer mfr="Yamaha" model="01V">
   <protocol>midi</protocol>
   <mutestyle>dark</mutestyle>
-  <strip type="input" cnt="16" name="Ch">
+  <strip type="input" cnt="14" name="Ch">
     <fader cmd="B#,01,XX" cmdtyp="level" range="0,127" val="0" anoms="offset=-1"/><!--anoms can be a colon separate list, i.e. "offset=2:gap=32,44" -->
-    <mute cmd="B#,1C,XX" cmdtyp="enum" range="0,127" val="0" anoms="gap=32"/>
+    <mute cmd="B#,1C,XX" cmdtyp="enum" range="0,127" val="0" anoms="offset=-1:gap=32"/>
     <scribble cmd="" cmdtyp="string" range="" val="" anoms=""/>
   </strip>
    <strip type="auxmaster" cnt="4" name="Aux">
     <mute cmd="B#,2D,XX" cmdtyp="enum" range="0,127" val="0" anoms=""/>
     <fader cmd="B#,11,XX" cmdtyp="level" range="0,127" val="0" anoms=""/>
    </strip>
-   <strip type="output" cnt="2" name="OUT">
+   <strip type="busmaster" cnt="4" name="Bux">
+    <mute cmd="B#,31,XX" cmdtyp="enum" range="0,127" val="0" anoms=""/>
+    <fader cmd="B#,15,XX" cmdtyp="level" range="0,127" val="0" anoms=""/>
+   </strip>
+   <strip type="stout" cnt="1" name="Out">
     <mute cmd="B#,37,XX" cmdtyp="enum" range="0,127" val="0" anoms=""/>
     <fader cmd="B#,1B,XX" cmdtyp="level" range="0,127" val="0" anoms=""/>
    </strip>

@@ -50,6 +50,7 @@ class MixerConf:
             key : OutputControl (object)
     @author: mac
     '''
+    # todo-mac update doc string above
     def __init__(self, mixerconf_file, mixername, mixermodel, mixeraddress):
         #
         # dictionary of input sliders, index format: [Chnn]
@@ -68,6 +69,7 @@ class MixerConf:
         #                        as read from <mixerdefs>.xml for each particular mixer
         # for mutestyle['illuminated'], mutestyle['mute'] will be 0, mutestyle['unmute'] will be 1
         # for mutestyle['non-illuminated'], mutestyle['mute'] will be 1, mutestyle['unmute'] will be 0
+        # todo-mac update docstring above
         self.mutestyle = {}
 
         '''mxrstrips is a dictionary of controls for a type of strip.
@@ -137,7 +139,7 @@ class MixerConf:
                 except:
                     pass
             self.cntrlcount = int(stripattribs['cnt'])
-            for x in range(1, self.cntrlcount + 1):
+            for x in range(1, self.cntrlcount + 1):  #todo-mac handle 0 based control (01V) vs 1 based control X32
                 self.mxrconsole.append(
                     {'name': stripattribs['name'] + '{0:02}'.format(x), 'type': stripattribs['type'],
                      'channum': x})
