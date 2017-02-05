@@ -24,10 +24,6 @@ class CueList:
         previewcueindex is an integer that indicates the cue being previewed , if a preview is active 
         '''
         self.cuelist = ET.parse(cuefilename)
-        # self.mutestate = {}
-        # for x in range(1, chancount+1):
-        #     self.mutestate['ch' + '{0}'.format(x)] = 0
-        # self.levelstate = {}
         self.currentcueindex = 0
         self.previouscueindex = 0
         self.previewcueindex = 0
@@ -40,11 +36,9 @@ class CueList:
                 '''
         # print('{0:03}'.format(cueindex))
         mutestate = {}
-        #for x in range(1, chancount+1):
-        #    self.mutestate['ch' + '{0}'.format(x)] = 0
 
         thiscue = self.cuelist.find("./cue[@num='" + '{0:03}'.format(cueindex) + "']")
-        print(ET.dump(thiscue))
+        # print(ET.dump(thiscue))
         try:
             ents = thiscue.find('Entrances')
             #             print(ET.dump(ents))

@@ -4,10 +4,13 @@
     <list default="true" id="95f4ee2b-56f1-467f-bb66-46001cf99115" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../TestShow" afterPath="$PROJECT_DIR$/../TestShow" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MixerDefs-r2.xml" afterPath="$PROJECT_DIR$/MixerDefs-r2.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/utils/CommHandlers.py" afterPath="$PROJECT_DIR$/utils/CommHandlers.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/utils/Cues.py" afterPath="$PROJECT_DIR$/utils/Cues.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/utils/Show.py" afterPath="$PROJECT_DIR$/utils/Show.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/utils/ShowConf.py" afterPath="$PROJECT_DIR$/utils/ShowConf.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ShowMixer/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../ShowMixer/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ShowMixer/MixerConf.py" afterPath="$PROJECT_DIR$/../ShowMixer/MixerConf.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ShowMixer/MixerControl.py" afterPath="$PROJECT_DIR$/../ShowMixer/MixerControl.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ShowMixer/ShowMixer.py" afterPath="$PROJECT_DIR$/../ShowMixer/ShowMixer.py" />
     </list>
     <list id="fd382f95-2c49-4489-aeda-508b5e741027" name="soundplayer" comment="Trying to get player ignored on my system" />
     <ignored path="ShowControl.iws" />
@@ -31,8 +34,8 @@
       <file leaf-file-name="configuration.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/utils/configuration.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="1" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+            <state relative-caret-position="390">
+              <caret line="28" column="17" lean-forward="false" selection-start-line="28" selection-start-column="12" selection-end-line="28" selection-end-column="17" />
               <folding>
                 <element signature="e#24#61#0" expanded="true" />
               </folding>
@@ -43,8 +46,8 @@
       <file leaf-file-name="Cues.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/utils/Cues.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="4" column="3" lean-forward="false" selection-start-line="4" selection-start-column="3" selection-end-line="4" selection-end-column="3" />
+            <state relative-caret-position="615">
+              <caret line="41" column="0" lean-forward="false" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -53,11 +56,11 @@
       <file leaf-file-name="Show.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/utils/Show.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="19" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+            <state relative-caret-position="615">
+              <caret line="48" column="14" lean-forward="false" selection-start-line="48" selection-start-column="9" selection-end-line="48" selection-end-column="14" />
               <folding>
                 <element signature="e#0#27#0" expanded="true" />
-                <marker date="1484575124885" expanded="true" signature="264:675" ph="..." />
+                <marker date="1486302923904" expanded="true" signature="264:675" ph="..." />
               </folding>
             </state>
           </provider>
@@ -66,8 +69,8 @@
       <file leaf-file-name="ShowConf.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/utils/ShowConf.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="915">
-              <caret line="61" column="118" lean-forward="false" selection-start-line="61" selection-start-column="118" selection-end-line="61" selection-end-column="118" />
+            <state relative-caret-position="300">
+              <caret line="20" column="5" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="5" />
               <folding>
                 <element signature="e#134#143#0" expanded="true" />
               </folding>
@@ -88,8 +91,8 @@
       <file leaf-file-name="CommHandlers.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/utils/CommHandlers.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="382">
-              <caret line="231" column="16" lean-forward="false" selection-start-line="231" selection-start-column="16" selection-end-line="231" selection-end-column="16" />
+            <state relative-caret-position="470">
+              <caret line="196" column="0" lean-forward="false" selection-start-line="196" selection-start-column="0" selection-end-line="196" selection-end-column="0" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
@@ -106,6 +109,11 @@
       </list>
     </option>
   </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>print</find>
+    </findStrings>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
@@ -115,10 +123,10 @@
         <option value="$PROJECT_DIR$/utils/configuration.py" />
         <option value="$PROJECT_DIR$/ShowBase.py" />
         <option value="$PROJECT_DIR$/utils/ShowBase.py" />
-        <option value="$PROJECT_DIR$/utils/Show.py" />
-        <option value="$PROJECT_DIR$/utils/Cues.py" />
-        <option value="$PROJECT_DIR$/utils/ShowConf.py" />
         <option value="$PROJECT_DIR$/JACKStarter.py" />
+        <option value="$PROJECT_DIR$/utils/Show.py" />
+        <option value="$PROJECT_DIR$/utils/ShowConf.py" />
+        <option value="$PROJECT_DIR$/utils/Cues.py" />
         <option value="$PROJECT_DIR$/utils/CommHandlers.py" />
       </list>
     </option>
@@ -147,7 +155,7 @@
     <panes />
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../jack-select/jackselect" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/utils/CommHandlers.py" />
     <property name="settings.editor.selected.configurable" value="preferences.toDoOptions" />
   </component>
   <component name="RecentsManager">
@@ -442,11 +450,14 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/utils/ShowConf.py</url>
-          <line>101</line>
+          <line>82</line>
           <option name="timeStamp" value="13" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="18" />
+      <breakpoints-dialog>
+        <breakpoints-dialog />
+      </breakpoints-dialog>
+      <option name="time" value="19" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -457,7 +468,7 @@
           <caret line="16" column="19" lean-forward="false" selection-start-line="16" selection-start-column="19" selection-end-line="16" selection-end-column="19" />
           <folding>
             <element signature="e#0#27#0" expanded="true" />
-            <marker date="1484575124885" expanded="true" signature="264:675" ph="..." />
+            <marker date="1486302923904" expanded="true" signature="264:675" ph="..." />
           </folding>
         </state>
       </provider>
@@ -505,7 +516,7 @@
           <caret line="16" column="19" lean-forward="false" selection-start-line="16" selection-start-column="19" selection-end-line="16" selection-end-column="19" />
           <folding>
             <element signature="e#0#27#0" expanded="true" />
-            <marker date="1484575124885" expanded="true" signature="264:675" ph="..." />
+            <marker date="1486302923904" expanded="true" signature="264:675" ph="..." />
           </folding>
         </state>
       </provider>
@@ -857,16 +868,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/utils/ShowConf.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="915">
-          <caret line="61" column="118" lean-forward="false" selection-start-line="61" selection-start-column="118" selection-end-line="61" selection-end-column="118" />
-          <folding>
-            <element signature="e#134#143#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/local/lib/python3.5/dist-packages/rtmidi/midiutil.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
@@ -875,40 +876,50 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/JACKStarter.py" />
     <entry file="file://$PROJECT_DIR$/utils/Show.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="19" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+        <state relative-caret-position="615">
+          <caret line="48" column="14" lean-forward="false" selection-start-line="48" selection-start-column="9" selection-end-line="48" selection-end-column="14" />
           <folding>
             <element signature="e#0#27#0" expanded="true" />
-            <marker date="1484575124885" expanded="true" signature="264:675" ph="..." />
+            <marker date="1486302923904" expanded="true" signature="264:675" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/utils/Cues.py">
+    <entry file="file://$PROJECT_DIR$/utils/ShowConf.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="3" lean-forward="false" selection-start-line="4" selection-start-column="3" selection-end-line="4" selection-end-column="3" />
-          <folding />
+        <state relative-caret-position="300">
+          <caret line="20" column="5" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="5" />
+          <folding>
+            <element signature="e#134#143#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/utils/configuration.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+        <state relative-caret-position="390">
+          <caret line="28" column="17" lean-forward="false" selection-start-line="28" selection-start-column="12" selection-end-line="28" selection-end-column="17" />
           <folding>
             <element signature="e#24#61#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/JACKStarter.py" />
+    <entry file="file://$PROJECT_DIR$/utils/Cues.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="615">
+          <caret line="41" column="0" lean-forward="false" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/utils/CommHandlers.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="382">
-          <caret line="231" column="16" lean-forward="false" selection-start-line="231" selection-start-column="16" selection-end-line="231" selection-end-column="16" />
+        <state relative-caret-position="470">
+          <caret line="196" column="0" lean-forward="false" selection-start-line="196" selection-start-column="0" selection-end-line="196" selection-end-column="0" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>

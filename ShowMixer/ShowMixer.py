@@ -154,11 +154,12 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
                 except socket.error:
                     print('Failed to create mixer socket')  #todo-mac need exception and logging here
                     sys.exit()
-            elif The_Show.mixers[idx].protocol == 'midi':
+            elif The_Show.mixers[idx].protocol == 'midi':  #todo-mac figure out to start jack server when it's not started yet.
                 # Get midi input port (i.e. ports we can send to) list
                 self.client = jack.Client("TempClient")
                 self.portlist = self.client.get_ports(is_midi=True, is_input=True)
                 self.client = None
+                sleep(0.1)
                 self.portlist.extend(self.getrtmidiports())
                 self.selidx = 0  # temporarily hardwie to 0, it's my local jack client on my AF12
                 if isinstance(self.portlist[self.selidx], str):
@@ -298,7 +299,8 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
                 self.tabstripgridlist[idx].addWidget(scrbl,4,chn,1,1)
                 # Add slider for this channel
                 sldr = QtWidgets.QSlider(QtCore.Qt.Vertical)
-                sldr.valueChanged.connect(self.sliderprint)
+                # sldr.valueChanged.connect(self.sliderprint)
+                sldr.sliderMoved.connect(self.sliderprint)
                 sldr.setObjectName('M{0}sldr{1:02}'.format(idx, chn))
                 # print(sldr.objectName())
                 sldr.setMinimumSize(self.ChanStrip_MinWidth,200)
@@ -334,7 +336,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
 
     def sliderprint(self, val):
         #todo-mac handle scale difference between the midi value (max 127), x32 vals, and slider 0-1024
-        if self.blockuser:return
+        # if self.blockuser:return
         sending_slider = self.sender()
         #print('sending_slider name: {0}'.format(sending_slider.objectName()))
         sldrname = sending_slider.objectName()
@@ -422,7 +424,6 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
                 return
 
     def initmutes(self):
-        self.blockuser = True
         for mxrid in range(The_Show.mixers.__len__()):
             for stripGUIindx in range(The_Show.mixers[mxrid].mxrconsole.__len__()):
                 msg = The_Show.mixers[mxrid].mxrstrips[The_Show.mixers[mxrid].
@@ -434,17 +435,14 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
                     mute.setChecked(True)
                 else:
                     mute.setChecked(False)
-        self.blockuser = False
 
     def initlevels(self):
-        self.blockuser = True
         for mxrid in range(The_Show.mixers.__len__()):
             for stripGUIindx in range(The_Show.mixers[mxrid].mxrconsole.__len__()):
                 msg = The_Show.mixers[mxrid].mxrstrips[The_Show.mixers[mxrid].
                     mxrconsole[stripGUIindx]['type']]['fader'].\
                     Set(The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['channum'], 0)
                 if msg is not None: self.mixer_sender_threads[mxrid].queue_msg(msg, The_Show.mixers[mxrid])
-        self.blockuser = False
 
     def on_buttonMute_clicked(self):
         if self.blockuser:return
@@ -454,7 +452,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         mxrid = int(mbtnname[1])
         stripGUIindx = int(mbtnname[-2:len(mbtnname)])
         # print(mbtn.objectName())
-        chkd = mbtn.isChecked()
+        chkd = mbtn.isChecked() # todo-mac fix this for both mixers, see chart on whiteboard
         dwn=mbtn.isDown()
         if mbtn.isChecked():
             muteval = The_Show.mixers[mxrid].mutestyle['mute']
@@ -464,14 +462,13 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         msg = The_Show.mixers[mxrid].mxrstrips[The_Show.mixers[mxrid].
             mxrconsole[stripGUIindx]['type']]['mute']. \
             Set(The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['channum'], muteval)
+        # todo-mac why does this go to main > sys.exit(app.exec_()) for mxrid 1 but not 2?
         if msg is not None: self.mixer_sender_threads[mxrid].queue_msg(msg, The_Show.mixers[mxrid])
 
     def setfirstcue(self):
         tblvw = self.findChild(QtWidgets.QTableView)
         tblvw.selectRow(The_Show.cues.currentcueindex)
-        self.blockuser = True
         self.execute_cue(The_Show.cues.currentcueindex)
-        self.blockuser = False
 
     def openShow(self):
         '''
@@ -701,4 +698,4 @@ if __name__ == "__main__":
     except Exception as e:
         parser.exit(type(e).__name__ + ': ' + str(e))
 
-sys.exit(app.exec_())
+    sys.exit(app.exec_())

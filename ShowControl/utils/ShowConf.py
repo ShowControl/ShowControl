@@ -51,35 +51,16 @@ class ShowConf:
         self.settings = {}
         tree = ET.parse(showconf_file)
         doc = tree.getroot()
-        print(doc)
+        # print(doc)
 
 #Get mixer info
         mixers = doc.find('mixers')
         self.settings['mixers'] = {}
         for mixer in mixers:
-            print(mixer.attrib)
+            # print(mixer.attrib)
             mxrid = int(mixer.attrib['id'])
             self.settings['mixers'][mxrid] = {'mxrmodel':mixer.attrib['model'], 'mxrmfr':mixer.attrib['mfr'], 'address':mixer.attrib['address']}
-        print(self.settings['mixers'][1]['mxrmodel'])
-        #mixer = doc.find('mixer')
-        # print('ShowConf::', mixer.attrib)
-        # mxattribs = mixer.attrib
-        # try:
-        #     print(mxattribs['model'])
-        #     self.settings['mxrmodel'] = mxattribs['model']
-        # except:
-        #     self.settings['mxrmodel'] = ''
-        #     print('No Mixer model defined')
-        # if self.settings['mxrmodel'] == '':
-        #     self.settings['mxrmodel'] = ''
-        # try:
-        #     print(mxattribs['mfr'])
-        #     self.settings['mxrmfr'] = mxattribs['mfr']
-        # except:
-        #     self.settings['mxrmfr'] = 'Default'
-        #     print('No Mixer manufacturer defined')
-        # if self.settings['mxrmfr'] == '':
-        #     self.settings['mxrmfr'] = 'Default'
+        # print(self.settings['mixers'][1]['mxrmodel'])
 
         #Get mixer chan to actor/char map file name
         mxrmap = doc.find('mixermap')
@@ -91,9 +72,9 @@ class ShowConf:
         attribs = mxrcues.attrib
         self.settings["mxrcue"] = attribs['file']
         
-        print(self.settings)
+        # print(self.settings)
         self.name = doc.find('name')
-        print('ShowConf.__init__ name: ',self.name.text)
+        # print('ShowConf.__init__ name: ',self.name.text)
         self.settings['name'] = self.name.text
 
 if __name__ == "__main__":

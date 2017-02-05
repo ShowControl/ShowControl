@@ -28,7 +28,7 @@ class Show:
             :param sho_configpath: path to new ShowConf.xml
             :return:
         '''
-        print(cfgdict)
+        # print(cfgdict)
         self.show_confpath, showfile = path.split(newpath)
         #self.show_confpath = path.dirname(newpath)
         self.show_confpath = self.show_confpath + '/'
@@ -48,5 +48,5 @@ class Show:
         '''
         #print(self.cues)
         qs = self.cues.cuelist.findall('cue')
-        for q in qs:
-             print(q.attrib)
+        # for q in qs:
+        #      print(q.attrib)

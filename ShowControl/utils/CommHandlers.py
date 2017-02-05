@@ -215,20 +215,15 @@ class JMIDIsender(QThread):
             self.client.close()
 
     def process(self, frames):
-        # self.print_error( 'frames={0}'.format(frames))
         for port in self.client.midi_outports:
             port.clear_buffer()
         offset = 0
         try:
             midievent = self.MIDIsndrqueue.get_nowait()
-        # while not self.MIDIsndrqueue.empty():
-        #     event = self.MIDIsndrqueue.get()
             print('In midi process: {0} || {1}'.format(midievent[0], midievent[1:]))
             self.client.midi_outports[midievent[0]].write_midi_event(offset, midievent[1:])
-            sleep(0.100)
-            offset += 1
+            # offset += 1
         except queue.Empty:
-            # self.print_error('JACK midi queue empty')
             pass
 
     '''called from widget.stopthread to flag thread to close'''
