@@ -93,13 +93,23 @@ JACK and ALSA midi capabilities.
 Thu Feb  2 09:31:26 EST 2017
 for doc/memory purposes:
 
-mixer               |   X32            |   01V
+mixer               |   X32             |   01V
 --------------------------------------------------
-mute style          | illuminated      |  dark
-muted indication    | light on         | light off
-value sent to mixer | 0                | 0x00
-GUI setting         | setChecked(True) | setChecked(False)
-                    |                  |
-unmute indication   | light off        | light on
-value sent to mixer | 1                | 0x7F
+mute style          | illuminated       |  dark
+muted indication    | light on          | light off
+value sent to mixer | 0                 | 0x00
+GUI setting         | setChecked(True)  | setChecked(False)
+                    |                   |
+unmute indication   | light off         | light on
+value sent to mixer | 1                 | 0x7F
 GUI setting         | setChecked(False) | setChecked(True)
+
+Thu Feb  9 10:55:45 EST 2017
+
+define:
+slider levels from a gui widget will be in the range 0 - 1023
+slider levels from the cue file will be 0 - 1023
+these values need to be scled to match the particualr mixers range (i.e. X32 is 0.0 1.0, 01V is 0 - 127)
+
+
+

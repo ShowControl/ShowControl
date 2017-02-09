@@ -15,7 +15,6 @@ from time import sleep
 from pythonosc import osc_message_builder
 from pythonosc import udp_client
 from rtmidi.midiconstants import CONTROL_CHANGE
-#from ShowMixer import Show
 
 supported_protocols = ['osc','midi']
 supported_controls = ['fader','mute','scribble']
@@ -32,6 +31,13 @@ def translate(value, leftMin, leftMax, rightMin, rightMax):
     return rightMin + (valueScaled * rightSpan)
 
 class ControlFactory:
+    """Create control objects.
+    Each type of control (i.e. fader, mute, scribble, etc.)
+    are used to control the mixer. Typically a mixer channel or strip
+    will have one of each of these objects (if the mixer supports it)
+    While all strips might have a fader, the instructions for a auxin strip will
+    be different from an input strip. These objects allow the application
+    to nothing about the actual thing it's trying to control."""
     class oscfader:
         def __init__(self):
             self.ctyp = ''
@@ -85,28 +91,12 @@ class ControlFactory:
                     if i_ctlnum >= int(self.anoms['gap']):
                         i_ctlnum +=1
             return i_ctlnum
-            # if 'offset' in self.anoms:
-            #     adjusted = int(chan) + int(self.anoms['offset'])
-            # else:
-            #     adjusted = int(chan)
-            # if 'gap' in self.anoms:
-            #     if int(int(self.anoms['gap'])) == adjusted:
-            #         adjusted = None
-            # return adjusted
 
         def Set(self, mixerchan, value):
             # handle anomalies
             cnum = self.anomaly(mixerchan)
             # convert to hex string
             ctlnum = '{:02x}'.format(cnum)
-            # # handle anomalies
-            # if self.anoms != None:
-            #     cnum = self.anomaly(mixerchan)
-            #     if cnum == None:
-            #         return None
-            # else:
-            #     cnum = mixerchan
-            # ctlnum = '{:02x}'.format(int(self.changenumbase, 16) + cnum)
             f_val = translate(value, 0, 1024, int(self.rangelow), int(self.rangehigh))
             val = '{:02x}'.format(int(f_val))
             msg = '{0},{1},{2}'.format(self.controlchange,ctlnum,val)
@@ -170,12 +160,13 @@ class ControlFactory:
             # convert to hex string
             ctlnum = '{:02x}'.format(cnum)
             #
-            if value == 0:
-                val = '{:02x}'.format(int(self.rh))
-            elif value == 1:
-                val = '{:02x}'.format(int(self.rl))
-            else:
-                val = '00'
+            # if value == 0:
+            #     val = '{:02x}'.format(int(self.rh))
+            # elif value == 1:
+            #     val = '{:02x}'.format(int(self.rl))
+            # else:
+            #     val = '00'
+            val = '{:02x}'.format(value)
             msg = '{0},{1},{2}'.format(self.controlchange,ctlnum,val)
             return msg
 

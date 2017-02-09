@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-'''
+"""
 Created on Oct 19, 2014
 MixerConf mixer configuration object
 
 @author: mac
-'''
+"""
 try:
     from lxml import ET
 except ImportError:
@@ -12,25 +12,6 @@ except ImportError:
 
 from MixerControl import ControlFactory, supported_protocols, supported_controls
 
-
-class InputControl:
-    def __init__(self, level, scribble_text, fadercmd, mutecmd, scribblecmd):
-        # self.level = level
-        # self.scribble_text = scribble_text
-        self.fadercmd = fadercmd
-        self.mutecmd = mutecmd
-        self.scribblecmd = scribblecmd
-
-class OutputControl:
-    def __init__(self, level, scribble_text):
-        self.level = level
-        self.scribble_text = scribble_text
-
-# class Strip():
-#     def __init__(self, controls, protocol):
-#         """controls - list of controls on this strip"""
-#         for control in controls:
-#             self.control = ControlFactory.create_control(control, protocol)
 
 class MixerConf:
     '''
@@ -44,37 +25,28 @@ class MixerConf:
     MixerConf structure:
     MixerConf
         protocol (string)
-        inputsliders {dictionary} containing cnt keys, where each key:
-            key : InputControl (object)
-        outputsliders {dictionary} containing cnt keys, where each key:
-            key : OutputControl (object)
+        mutestyle (dictionary)
+        mxrstrips (dictionary)
+        mxrconsole (list)
+        IP (string)
+        PORT (int)
+        MIDICHAN (int)
     @author: mac
     '''
-    # todo-mac update doc string above
     def __init__(self, mixerconf_file, mixername, mixermodel, mixeraddress):
-        #
-        # dictionary of input sliders, index format: [Chnn]
-        # each entry is a InputControl object
-        # self.inputsliders = {}
-
-        # dictionary of output sliders, index format: [Chnn]
-        # each entry is a OutputControl object
-        # self.outputsliders = {}
-
-        # dictionary of mutestyle for the mixer
-        # mutestyle referes to how the mixer indicates the channel is muted
-        # for example, the Yamaha 01V indicates a channel is un-muted with an illuminated light
-        # other mixer indicate a muted channel with an illuminated light
-        # mutestyle['mutestyle'] will be the string 'illuminated' or 'non-illumnated'
-        #                        as read from <mixerdefs>.xml for each particular mixer
-        # for mutestyle['illuminated'], mutestyle['mute'] will be 0, mutestyle['unmute'] will be 1
-        # for mutestyle['non-illuminated'], mutestyle['mute'] will be 1, mutestyle['unmute'] will be 0
-        # todo-mac update docstring above
         self.mutestyle = {}
+        ''' dictionary of mutestyle  and values that activate a mute or unmute for the mixer
+        mutestyle referes to how the mixer indicates the channel is muted
+        for example, the Yamaha 01V indicates a channel is un-muted with an illuminated light
+        other mixer indicate a muted channel with an illuminated light
+        mutestyle['mutestyle'] will be the string 'illuminated' or 'dark'
+                               as read from <mixerdefs>.xml for each particular mixer
+        for mutestyle['mute'] will be the value to send to mute the mixer
+        for mutestyle['unmute'] will be the value to send to unmute the mixer'''
 
         '''mxrstrips is a dictionary of controls for a type of strip.
         mxrstrips will have a key for each strip type (input, output, auuxin, etc.)
-        each strip type wil have a dictionary of it's associated control objects.
+        each strip type will have a dictionary of it's associated control objects.
         Controls objects are based on the protocol of the mixer. (See MixerControl.py)'''
         self.mxrstrips = {}
 
@@ -84,7 +56,6 @@ class MixerConf:
         Each element of the list will have a dictionary with the strip name and strip type'''
         self.mxrconsole = []
 
-        self.controls = {}
         mixerdefs = ET.parse(mixerconf_file)
         mixers = mixerdefs.getroot()
         #print('mixers: ' + str(mixers))
@@ -105,20 +76,20 @@ class MixerConf:
             self.PORT = int(port)
         elif self.protocol == 'midi':
             self.MIDICHAN = int(mixeraddress)
-        self.mutestyle['mutestyle'] = mixer.find('mutestyle').text
-        if self.mutestyle['mutestyle'] == 'illuminated':
-            self.mutestyle['mute'] = 0
-            self.mutestyle['unmute'] = 1
+        mutestyleattribs = mixer.find('mutestyle').attrib
+        if 'illuminated' in mutestyleattribs:
+            self.mutestyle['mutestyle'] = 'illuminated'
         else:
-            self.mutestyle['mute'] = 1
-            self.mutestyle['unmute'] = 0
+            self.mutestyle['mutestyle'] = 'dark'
+        self.mutestyle['mute'] = int(mutestyleattribs['mute'])
+        self.mutestyle['unmute'] = int(mutestyleattribs['unmute'])
+
         s_countbase = mixer.find('countbase').text
         i_countbase = int(s_countbase.replace('\"', ''))
         firstchan = 1  # wonky way to fix issue with X32: CH1 >> 01, yamaha: CH1 is 0 offset from a midi value
         if i_countbase == 1:
             firstchan = 0
         strips = mixer.findall('strip')
-        # stripcontrols = []
         for strip in strips:
             stripattribs = strip.attrib
             self.mxrstrips[stripattribs['type']] = {}

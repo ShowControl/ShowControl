@@ -38,6 +38,12 @@ from CueEdit_ui import Ui_dlgEditCue
 
 from pythonosc import osc_message_builder
 
+
+class CommAddresses:
+    def __init__(self, IP, PORT):
+        self.IP = IP
+        self.PORT = PORT
+
 CUE_IP = "127.0.0.1"
 CUE_PORT = 5005
 
@@ -109,6 +115,7 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         QtGui.QIcon.setThemeSearchPaths(styles.QLiSPIconsThemePaths)
         QtGui.QIcon.setThemeName(styles.QLiSPIconsThemeName)
         self.__index = 0
+        self.CueAppDev = CommAddresses(CUE_IP, CUE_PORT)
         self.setupUi(self)
         self.setWindowTitle(The_Show.show_conf.settings['name'])
         self.nextButton.clicked.connect(self.on_buttonNext_clicked)
@@ -134,25 +141,6 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
 
         self.editcuedlg = EditCue('0')
         self.comm_threads = []  # a list of threads in use for later use when app exits
-        # try:
-        #     self.mxr_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        # except socket.error:
-        #     print('Failed to create mixer socket')
-        #     sys.exit()
-
-        # # setup mixer sender thread
-        # self.mxr_sndrthread = CommHandlers.sender(self.mxr_sock, CUE_IP, CUE_PORT)
-        # self.mxr_sndrthread.sndrsignal.connect(self.sndrtestfunc)  # connect to custom signal called 'signal'
-        # self.mxr_sndrthread.finished.connect(self.sndrthreaddone)  # connect to buitlin signal 'finished'
-        # self.mxr_sndrthread.start()  # start the thread
-        # self.comm_threads.append(self.mxr_sndrthread)
-
-        # # setup sound sender thread
-        # self.snd_sndrthread = CommHandlers.MIDIsender('x')
-        # self.snd_sndrthread.snd_sndrsignal.connect(self.snd_sndrtestfunc)  # connect to custom signal called 'signal'
-        # self.snd_sndrthread.finished.connect(self.snd_sndrthreaddone)  # connect to buitlin signal 'finished'
-        # self.snd_sndrthread.start()  # start the thread
-        # self.comm_threads.append(self.snd_sndrthread)
 
     def on_buttonNext_clicked(self):
         print('Next')
@@ -191,10 +179,10 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
             msg = osc_message_builder.OscMessageBuilder(address='/cue/#')
             msg.add_arg(The_Show.cues.currentcueindex)
             msg = msg.build()
-            self.mxr_sndrthread.queue_msg(msg, CUE_IP, CUE_PORT)
+            self.mxr_sndrthread.queue_msg(msg, self.CueAppDev)
         elif The_Show.cues.getcuetype(The_Show.cues.currentcueindex) == 'Sound':
             msg = [NOTE_ON, 60, 112]
-            self.snd_sndrthread.queue_msg(msg)
+            self.snd_sndrthread.queue_msg(msg, self.CueAppDev)
 
 
     def on_table_click(self,index):
@@ -372,7 +360,7 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
             msg = osc_message_builder.OscMessageBuilder(address='/cue/quit')
             #msg.add_arg(The_Show.cues.currentcueindex)
             msg = msg.build()
-            self.mxr_sndrthread.queue_msg(msg, CUE_IP, CUE_PORT)
+            self.mxr_sndrthread.queue_msg(msg, self.CueAppDev)
             self.MxrAppProc = None
         else:
             print("Launch Mxr App.")
@@ -383,7 +371,7 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
             except socket.error:
                 print('Failed to create mixer socket')
                 sys.exit()
-            self.mxr_sndrthread = CommHandlers.sender(self.mxr_sock, CUE_IP, CUE_PORT)
+            self.mxr_sndrthread = CommHandlers.sender(self.mxr_sock)
             self.mxr_sndrthread.sndrsignal.connect(self.sndrtestfunc)  # connect to custom signal called 'signal'
             self.mxr_sndrthread.finished.connect(self.sndrthreaddone)  # connect to buitlin signal 'finished'
             self.mxr_sndrthread.start()  # start the thread
@@ -401,10 +389,10 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
                 if self.MxrAppProc != None:
                     msg = osc_message_builder.OscMessageBuilder(address='/cue/quit')
                     msg = msg.build()
-                    self.mxr_sndrthread.queue_msg(msg, CUE_IP, CUE_PORT)
+                    self.mxr_sndrthread.queue_msg(msg, self.CueAppDev)
                     sleep(2)  # wait for message to be sent before killing threads
             except:
-                pass
+                raise
             self.stopthreads()
             event.accept()
         else:

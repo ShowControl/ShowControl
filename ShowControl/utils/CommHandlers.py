@@ -51,19 +51,18 @@ class receiver(QThread):
     # todo-mac needs to handle ip and port arguments
     def queue_msg(self, msg, device):
         """..."""
-        self.rcvsndqueue.put(msg)
+        cmd_pack = (msg, (device.IP, device.PORT))
+        self.rcvsndqueue.put(cmd_pack)
 
 class sender(QThread):
     """..."""
     sndrsignal = pyqtSignal(str, name='sndrsignaled') #define a custom signal called 'signal' whose name is 'signaled'
 
-    def __init__(self, socket, mixer_ip, mixer_port):
+    def __init__(self, socket):
         """..."""
         QThread.__init__(self)
         self.threadshouldstop = False
         self.sndrqueue = queue.Queue()
-        self.mixer_ip = mixer_ip
-        self.mixer_port = mixer_port
         self.socket = socket
 
     '''overloads QThread run() function'''
@@ -75,7 +74,6 @@ class sender(QThread):
                 print("in sender thread")
                 #self.sndrsignal.emit("hi from sender thread")
                 while not self.sndrqueue.empty():
-                    #self.socket.sendto(self.sndrqueue.get().dgram, (self.mixer_ip, self.mixer_port))
                     packet =  self.sndrqueue.get()
                     msg = packet[0].dgram
                     self.socket.sendto(msg, packet[1])

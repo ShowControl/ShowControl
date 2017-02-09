@@ -10,6 +10,7 @@ import re
 from os import path
 import logging
 from time import sleep
+from math import ceil
 
 import jack
 import rtmidi
@@ -74,6 +75,19 @@ def translate(value, leftMin, leftMax, rightMin, rightMax):
     # Convert the 0-1 range into a value in the right range.
     return rightMin + (valueScaled * rightSpan)
 
+def int_to_db( value ):
+    if value >= 512:
+        d = ((value/1024) * 40.0) - 30.0
+    elif value >= 256:
+        d = ((value/1024) * 80.0) - 50.0
+    elif value >= 64:
+        d = ((value/1024) * 160.0) - 70.0
+    elif value > 0:
+        d = ((value/1024) * 480.0) - 90.0
+    elif value == 0:
+        d = -90.0
+    return d
+
 class ShowPreferences(QDialog, Ui_Preferences):
     def __init__(self, parent=None):
         QDialog.__init__(self, parent)
@@ -123,7 +137,6 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         QtGui.QIcon.setThemeName(styles.QLiSPIconsThemeName)
         self.__index = 0
         self.max_slider_count = 0
-        self.blockuser = False
         self.tablist = []
         self.tablistvertlayout = []
         self.tabgridlayoutlist = []
@@ -145,7 +158,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
             if The_Show.mixers[idx].protocol == 'osc':
                 # Setup thread and udp to handle mixer I/O
                 try:
-                    senderthread = CommHandlers.sender(self.mxr_sock, MXR_IP, MXR_PORT)
+                    senderthread = CommHandlers.sender(self.mxr_sock)  #, MXR_IP, MXR_PORT)
                     senderthread.sndrsignal.connect(self.sndrtestfunc)  # connect to custom signal called 'signal'
                     senderthread.finished.connect(self.sndrthreaddone)  # connect to buitlin signal 'finished'
                     senderthread.start()  # start the thread
@@ -252,9 +265,10 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
     def addChanStrip(self):
         # determine max sliders
         #print('Mixer count: {}'.format(The_Show.mixers.__len__()))
-        for mxrid in The_Show.mixers:
-            if The_Show.mixers[mxrid].mxrconsole.__len__() > self.max_slider_count:
-                self.max_slider_count = The_Show.mixers[mxrid].mxrconsole.__len__()
+        # for mxrid in The_Show.mixers:
+        #     if The_Show.mixers[mxrid].mxrconsole.__len__() > self.max_slider_count:
+        #         self.max_slider_count = The_Show.mixers[mxrid].mxrconsole.__len__()
+        self.max_slider_count = 32
         for idx in range(The_Show.mixers.__len__()):
             self.scroller = QtWidgets.QScrollArea()
             self.tablist.append(QtWidgets.QWidget())
@@ -335,8 +349,6 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
             self.tablistvertlayout[idx].addWidget(self.scrollArea[idx])
 
     def sliderprint(self, val):
-        #todo-mac handle scale difference between the midi value (max 127), x32 vals, and slider 0-1024
-        # if self.blockuser:return
         sending_slider = self.sender()
         #print('sending_slider name: {0}'.format(sending_slider.objectName()))
         sldrname = sending_slider.objectName()
@@ -344,7 +356,8 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         stripGUIindx = int(sldrname[-2:len(sldrname)])
         scrLblname = sldrname.replace('sldr', 'lev')
         scrLbl = self.findChild(QtWidgets.QLabel, name=scrLblname)
-        scrLbl.setText('{0:03}'.format(val))
+        val_db = int_to_db(val)
+        scrLbl.setText('{0:>.2f}'.format(val_db))
         msg = The_Show.mixers[mxrid].mxrstrips[The_Show.mixers[mxrid].
             mxrconsole[stripGUIindx]['type']]['fader']. \
             Set(The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['channum'], val)
@@ -357,7 +370,6 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         self.execute_cue(The_Show.cues.selectedcueindex)
 
     def execute_cue(self, num):
-        self.blockuser = True
         The_Show.cues.previouscueindex = The_Show.cues.currentcueindex
         The_Show.cues.currentcueindex = num
         tblvw = self.findChild(QtWidgets.QTableView)
@@ -367,10 +379,18 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         # iterate through mute changes, if any
         if mute_changes != None:
             for key, value in mute_changes.items():
-                #channum = int(key.strip('ch'))
-                nbrs = re.findall(r'\d+',key)
+                # find the channel name in the mxrconsole list
+                # that should be the stripGUIindex
+                #get name from key
+                nbrs = re.findall(r'\d+',key)  # old way to striGUIindex
                 mxrid = int(nbrs[0])
-                stripGUIindx = int(nbrs[1]) - 1
+                chname = key[re.search('\d', key).end():]
+                for cons_idx in range(The_Show.mixers[mxrid].mxrconsole.__len__()):
+                    if The_Show.mixers[mxrid].mxrconsole[cons_idx]['name'].lower() == chname.lower():
+                        print('found in stp {0}'.format(cons_idx))
+                        stripGUIindx = cons_idx
+                        break
+                # stripGUIindx = int(nbrs[1]) - 1
                 mute = self.findChild(QtWidgets.QPushButton, name='M{0}mute{1:02}'.format(mxrid, stripGUIindx))
                 if value == 1:  # 1 >> unmute  0 >> mute
                     # Handle unmute
@@ -399,17 +419,16 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
                 mxrid = int(nbrs[0])
                 stripGUIindx = int(nbrs[1]) - 1
                 sldr = self.findChild(QtWidgets.QSlider, name='M{0}sldr{1:02}'.format(mxrid, stripGUIindx))
-                # todo-mac fix range handling for different mixers
-                newsldlev = translate(int(value), 0, 1024, 0.0, 1.0)
-                currentlevel = translate(sldr.sliderPosition(), 0, 1024, 0.0, 1.0)
-                if currentlevel != newsldlev:
+                scrLbl = self.findChild(QtWidgets.QLabel, name='M{0}lev{1:02}'.format(mxrid, stripGUIindx))
+                val_db = int_to_db(int(value))
+                scrLbl.setText('{0:>.2f}'.format(val_db))
+                if sldr.sliderPosition() != value:
                     msg = The_Show.mixers[mxrid].mxrstrips[The_Show.mixers[mxrid].
                         mxrconsole[stripGUIindx]['type']]['fader']. \
                         Set(The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['channum'], int(value))
                     sldr.setSliderPosition(int(value))
                     if msg is not None: self.mixer_sender_threads[mxrid].queue_msg(msg, The_Show.mixers[mxrid])
                 pass
-            self.blockuser = False
 
     def next_cue(self):
         nextmxrcuefound = False
@@ -445,24 +464,27 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
                 if msg is not None: self.mixer_sender_threads[mxrid].queue_msg(msg, The_Show.mixers[mxrid])
 
     def on_buttonMute_clicked(self):
-        if self.blockuser:return
         mbtn=self.sender()
-        # print('sending_slider name: {0}'.format(mbtn.objectName()))
+        print('sending_slider name: {0}'.format(mbtn.objectName()))
         mbtnname = mbtn.objectName()
         mxrid = int(mbtnname[1])
         stripGUIindx = int(mbtnname[-2:len(mbtnname)])
         # print(mbtn.objectName())
-        chkd = mbtn.isChecked() # todo-mac fix this for both mixers, see chart on whiteboard
+        chkd = mbtn.isChecked()
         dwn=mbtn.isDown()
-        if mbtn.isChecked():
+        if mbtn.isChecked() and The_Show.mixers[mxrid].mutestyle['mutestyle'] == 'illuminated':
             muteval = The_Show.mixers[mxrid].mutestyle['mute']
-        else:
+        elif mbtn.isChecked() and The_Show.mixers[mxrid].mutestyle['mutestyle'] == 'dark':
             muteval = The_Show.mixers[mxrid].mutestyle['unmute']
+        elif not mbtn.isChecked() and The_Show.mixers[mxrid].mutestyle['mutestyle'] == 'illuminated':
+            muteval = The_Show.mixers[mxrid].mutestyle['unmute']
+        elif not mbtn.isChecked() and The_Show.mixers[mxrid].mutestyle['mutestyle'] == 'dark':
+            muteval = The_Show.mixers[mxrid].mutestyle['mute']
 
         msg = The_Show.mixers[mxrid].mxrstrips[The_Show.mixers[mxrid].
             mxrconsole[stripGUIindx]['type']]['mute']. \
             Set(The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['channum'], muteval)
-        # todo-mac why does this go to main > sys.exit(app.exec_()) for mxrid 1 but not 2?
+        # todo-mac why does this go to main > sys.exit(app.exec_())?
         if msg is not None: self.mixer_sender_threads[mxrid].queue_msg(msg, The_Show.mixers[mxrid])
 
     def setfirstcue(self):
@@ -670,32 +692,32 @@ The_Show = ShowMxr(cfgdict)
 The_Show.displayShow()
 
 if __name__ == "__main__":
-    try:
-        app = QtWidgets.QApplication(sys.argv)
-    #     app.setStyleSheet(""" QPushButton {color: blue;
-    #                          background-color: yellow;
-    #                          selection-color: blue;
-    #                          selection-background-color: green;}""")
-        #app.setStyleSheet("QPushButton {pressed-color: red }")
-        app.setStyleSheet(styles.QLiSPTheme_Dark)
-        chans = 32
-        #ui = ChanStripDlg(path.abspath(path.join(path.dirname(__file__))) + '/Scrooge Moves.xml')
-        ui = ChanStripDlg(path.abspath(path.join(path.dirname(cfgdict['Show']['folder']))))
-        #ui.resize(chans*ui.ChanStrip_MinWidth,800)
-        ui.addChanStrip()
-        ui.resize(ui.max_slider_count * ui.ChanStrip_MinWidth, 800)
-        ui.disptext()
-        ui.set_scribble(The_Show.chrchnmap.maplist)
-        ui.initmutes()
-        ui.initlevels()
-        ui.setfirstcue()
-        ui.show()
-    except KeyboardInterrupt:
-        parser.exit('\nInterrupted by user')
-    # except (queue.Full):
-    #     # A timeout occured, i.e. there was an error in the callback
-    #     parser.exit(1)
-    except Exception as e:
-        parser.exit(type(e).__name__ + ': ' + str(e))
+    # try:
+    app = QtWidgets.QApplication(sys.argv)
+#     app.setStyleSheet(""" QPushButton {color: blue;
+#                          background-color: yellow;
+#                          selection-color: blue;
+#                          selection-background-color: green;}""")
+    #app.setStyleSheet("QPushButton {pressed-color: red }")
+    app.setStyleSheet(styles.QLiSPTheme_Dark)
+    chans = 32
+    #ui = ChanStripDlg(path.abspath(path.join(path.dirname(__file__))) + '/Scrooge Moves.xml')
+    ui = ChanStripDlg(path.abspath(path.join(path.dirname(cfgdict['Show']['folder']))))
+    #ui.resize(chans*ui.ChanStrip_MinWidth,800)
+    ui.addChanStrip()
+    ui.resize(ui.max_slider_count * ui.ChanStrip_MinWidth, 800)
+    ui.disptext()
+    ui.set_scribble(The_Show.chrchnmap.maplist)
+    ui.initmutes()
+    ui.initlevels()
+    ui.setfirstcue()
+    ui.show()
+    # except KeyboardInterrupt:
+    #     parser.exit('\nInterrupted by user')
+    # # except (queue.Full):
+    # #     # A timeout occured, i.e. there was an error in the callback
+    # #     parser.exit(1)
+    # except Exception as e:
+    #     parser.exit(type(e).__name__ + ': ' + str(e))
 
     sys.exit(app.exec_())

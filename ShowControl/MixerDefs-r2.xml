@@ -2,7 +2,7 @@
 <mixers>
 <mixer mfr="Behringer" model="X32">
   <protocol>osc</protocol>
-  <mutestyle>illuminated</mutestyle>
+  <mutestyle illuminated="1" mute="0" unmute="1"/>
   <countbase>"1"</countbase>
   <strip type="input" cnt="32" name="Ch">
     <fader cmd="/ch/#/mix/fader" cmdtyp="level" range="0.0,1.0,1024" val="0" anoms=""/>
@@ -32,7 +32,7 @@
 </mixer>
 <mixer mfr="Yamaha" model="01V">
   <protocol>midi</protocol>
-  <mutestyle>dark</mutestyle>
+  <mutestyle dark="1" mute="0" unmute="127"/>
   <countbase>"0"</countbase>
   <strip type="input" cnt="14" name="Ch">
     <fader cmd="B#,01,XX" cmdtyp="level" range="0,127" val="0" anoms="offset=0"/><!--anoms can be a colon separate list, i.e. "offset=2:gap=32,44" -->
@@ -54,12 +54,12 @@
 </mixer>
 <mixer mfr="Default" model="">
   <protocol>midi</protocol>
-  <strip type="input" cnt="16" name="CH">
+  <strip type="input" cnt="16" name="Ch">
     <fader cmd="B#,01,XX" cmdtyp="level" range="0,127" val="0" anoms=""/>
     <mute cmd="B#,1C,XX" cmdtyp="enum" range="0,127" val="0" anoms=""/>
     <scribble cmd="" cmdtyp="string" range="" val="" anoms=""/>
   </strip>
-   <strip type="output" cnt="2" name="OUT">
+   <strip type="output" cnt="2" name="Out">
     <mute cmd="B#,37,XX" cmdtyp="enum" range = "0,127" val="0"/>
     <fader cmd="B#,1B,XX" cmdtyp="level" range="0,127" val="0"/>
    </strip>
