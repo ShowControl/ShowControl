@@ -415,9 +415,20 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         levels = The_Show.cues.get_cue_levels(The_Show.cues.currentcueindex)
         if levels != None:
             for key, value in levels.items():
+                # find the channel name in the mxrconsole list
+                # that should be the stripGUIindex
+                #get name from key
                 nbrs = re.findall(r'\d+',key)
                 mxrid = int(nbrs[0])
-                stripGUIindx = int(nbrs[1]) - 1
+                chname = key[re.search('\d', key).end():]
+                for cons_idx in range(The_Show.mixers[mxrid].mxrconsole.__len__()):
+                    if The_Show.mixers[mxrid].mxrconsole[cons_idx]['name'].lower() == chname.lower():
+                        print('found in stp {0}'.format(cons_idx))
+                        stripGUIindx = cons_idx
+                        break
+
+                ####
+                # stripGUIindx = int(nbrs[1]) - 1
                 sldr = self.findChild(QtWidgets.QSlider, name='M{0}sldr{1:02}'.format(mxrid, stripGUIindx))
                 scrLbl = self.findChild(QtWidgets.QLabel, name='M{0}lev{1:02}'.format(mxrid, stripGUIindx))
                 val_db = int_to_db(int(value))

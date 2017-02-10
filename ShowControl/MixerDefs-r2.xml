@@ -43,7 +43,7 @@
     <mute cmd="B#,2D,XX" cmdtyp="enum" range="0,127" val="0" anoms=""/>
     <fader cmd="B#,11,XX" cmdtyp="level" range="0,127" val="0" anoms=""/>
    </strip>
-   <strip type="busmaster" cnt="4" name="Bux">
+   <strip type="busmaster" cnt="4" name="Bus">
     <mute cmd="B#,31,XX" cmdtyp="enum" range="0,127" val="0" anoms=""/>
     <fader cmd="B#,15,XX" cmdtyp="level" range="0,127" val="0" anoms=""/>
    </strip>
