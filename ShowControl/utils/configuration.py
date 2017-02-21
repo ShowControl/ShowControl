@@ -38,8 +38,7 @@ checkUserConf()
 
 config = ConfigParser()
 config.read(CFG_PATH)
-config.keys()
-
+#config.keys()
 
 def toDict():
     conf_dict = {}

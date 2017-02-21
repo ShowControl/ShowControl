@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'ShowMixer_r3.ui'
+# Form implementation generated from reading ui file 'ShowMixer_r4.ui'
 #
 # Created by: PyQt5 UI code generator 5.7
 #
@@ -26,7 +26,7 @@ class Ui_MainWindow(object):
         self.tabWidget = QtWidgets.QTabWidget(self.centralwidget)
         self.tabWidget.setObjectName("tabWidget")
         self.verticalLayout.addWidget(self.tabWidget)
-        spacerItem1 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        spacerItem1 = QtWidgets.QSpacerItem(20, 200, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout.addItem(spacerItem1)
         self.tableView = QtWidgets.QTableView(self.centralwidget)
         self.tableView.setObjectName("tableView")
@@ -60,6 +60,11 @@ class Ui_MainWindow(object):
         self.butonsLayout.addWidget(self.jumpButton)
         spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.butonsLayout.addItem(spacerItem2)
+        self.savecueButton = QtWidgets.QPushButton(self.centralwidget)
+        self.savecueButton.setObjectName("savecueButton")
+        self.butonsLayout.addWidget(self.savecueButton)
+        spacerItem3 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.butonsLayout.addItem(spacerItem3)
         self.quitButton = QtWidgets.QPushButton(self.centralwidget)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -114,6 +119,7 @@ class Ui_MainWindow(object):
         self.nextButton.setText(_translate("MainWindow", "Next"))
         self.prevButton.setText(_translate("MainWindow", "Previous"))
         self.jumpButton.setText(_translate("MainWindow", "Jump"))
+        self.savecueButton.setText(_translate("MainWindow", "Save Cue"))
         self.quitButton.setText(_translate("MainWindow", "Quit"))
         self.menuFile.setTitle(_translate("MainWindow", "File"))
         self.menuEdit.setTitle(_translate("MainWindow", "Edit"))

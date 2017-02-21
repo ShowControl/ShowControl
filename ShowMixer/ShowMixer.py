@@ -9,6 +9,9 @@ import sys
 import re
 from os import path
 import logging
+
+logging.basicConfig(filename='ShowMixer.log', filemode='w', level=logging.DEBUG)
+
 from time import sleep
 from math import ceil
 
@@ -48,7 +51,6 @@ from ui_preferences import Ui_Preferences
 
 import styles
 
-log = logging.getLogger(__name__)
 parser = argparse.ArgumentParser()
 # parser.add_argument("--ip", default="192.168.53.40", help="The ip of the OSC server")
 # parser.add_argument("--port", type=int, default=10023, help="The port the OSC server is listening on")
@@ -129,10 +131,13 @@ class ShowMxr(Show):
         self.chrchnmap = MixerCharMap(self.show_confpath + self.show_conf.settings['mxrmap'])
 
 class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
+    CSD_log = logging.getLogger(__name__)
+    CSD_log.debug('ChanStripDlg')
     ChanStrip_MinWidth = 50
 
     def __init__(self, cuelistfile, parent=None):
         super(ChanStripDlg, self).__init__(parent)
+        self.CSD_log.debug('in init')
         QtGui.QIcon.setThemeSearchPaths(styles.QLiSPIconsThemePaths)
         QtGui.QIcon.setThemeName(styles.QLiSPIconsThemeName)
         self.__index = 0
@@ -241,6 +246,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         self.tabWidget.setCurrentIndex(0)
         self.nextButton.clicked.connect(self.on_buttonNext_clicked)
         self.jumpButton.clicked.connect(self.on_buttonJump_clicked)
+        self.savecueButton.clicked.connect(self.on_buttonSaveCue_clicked)
         self.tableView.clicked.connect(self.tableClicked)
         self.actionOpen_Show.triggered.connect(self.openShow)
         self.actionSave_Show.triggered.connect(self.saveShow)
@@ -250,7 +256,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
 
     def getrtmidiports(self):
         midiclass_ = rtmidi.MidiOut
-        log.debug("Creating %s object.", midiclass_.__name__)
+        logging.debug("Creating %s object.", midiclass_.__name__)
 
         api = get_api_from_environment(rtmidi.API_UNSPECIFIED)
 
@@ -369,6 +375,21 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
     def on_buttonJump_clicked(self):
         self.execute_cue(The_Show.cues.selectedcueindex)
 
+    def on_buttonSaveCue_clicked(self):
+        print('Save Cue clicked!')
+        levels = ''
+        for mxrid in range(The_Show.mixers.__len__()):
+            for stripGUIindx in range(The_Show.mixers[mxrid].mxrconsole.__len__()):
+                sldr = self.findChild(QtWidgets.QSlider, name='M{0}sldr{1:02}'.format(mxrid, stripGUIindx))
+                levels += 'M{0}{1}:{2},'.format(mxrid, The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['name'], sldr.value())
+                # print('M{0}sldr{1:02}:{2:3}'.format(mxrid, stripGUIindx, sldr.value()))
+        print(levels)
+        The_Show.cues.setcueelement(The_Show.cues.currentcueindex, levels)
+        # thiscue = The_Show.cues.cuelist.find("./cue[@num='" + '{0:03}'.format(The_Show.cues.currentcueindex) + "']")
+        # newcuetype = thiscue.find('Exits')
+        # print(newcuetype.text)
+        The_Show.cues.addnewcue()
+
     def execute_cue(self, num):
         The_Show.cues.previouscueindex = The_Show.cues.currentcueindex
         The_Show.cues.currentcueindex = num
@@ -387,7 +408,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
                 chname = key[re.search('\d', key).end():]
                 for cons_idx in range(The_Show.mixers[mxrid].mxrconsole.__len__()):
                     if The_Show.mixers[mxrid].mxrconsole[cons_idx]['name'].lower() == chname.lower():
-                        print('found in stp {0}'.format(cons_idx))
+                        # print('found in stp {0}'.format(cons_idx))
                         stripGUIindx = cons_idx
                         break
                 # stripGUIindx = int(nbrs[1]) - 1
@@ -423,7 +444,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
                 chname = key[re.search('\d', key).end():]
                 for cons_idx in range(The_Show.mixers[mxrid].mxrconsole.__len__()):
                     if The_Show.mixers[mxrid].mxrconsole[cons_idx]['name'].lower() == chname.lower():
-                        print('found in stp {0}'.format(cons_idx))
+                        # print('found in stp {0}'.format(cons_idx))
                         stripGUIindx = cons_idx
                         break
 
@@ -698,11 +719,12 @@ class MyTableModel(QtCore.QAbstractTableModel):
             return QtCore.QVariant(self.headerdata[col])
         return QtCore.QVariant()
 
-
 The_Show = ShowMxr(cfgdict)
 The_Show.displayShow()
 
 if __name__ == "__main__":
+    logger_main = logging.getLogger(__name__)
+    logger_main.info('Begin')
     # try:
     app = QtWidgets.QApplication(sys.argv)
 #     app.setStyleSheet(""" QPushButton {color: blue;
@@ -730,5 +752,5 @@ if __name__ == "__main__":
     # #     parser.exit(1)
     # except Exception as e:
     #     parser.exit(type(e).__name__ + ': ' + str(e))
-
+    logging.info('Shutdown')
     sys.exit(app.exec_())

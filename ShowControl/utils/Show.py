@@ -1,12 +1,7 @@
 import configuration as cfg
 
-import styles
-
-#cfgdict = cfg.toDict()
-
 from ShowConf import ShowConf
 from Cues import CueList
-
 
 class Show:
     '''

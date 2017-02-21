@@ -5,6 +5,11 @@ MixerConf mixer configuration object
 
 @author: mac
 """
+__author__ = 'mac'
+import logging
+# logger = logging.getLogger(__name__)
+# logger.info('Top of MixerConf')
+# logger.debug('debug message')
 try:
     from lxml import ET
 except ImportError:
@@ -34,6 +39,8 @@ class MixerConf:
     @author: mac
     '''
     def __init__(self, mixerconf_file, mixername, mixermodel, mixeraddress):
+        logger = logging.getLogger(__name__)
+        logger.debug('MixerConf __init__')
         self.mutestyle = {}
         ''' dictionary of mutestyle  and values that activate a mute or unmute for the mixer
         mutestyle referes to how the mixer indicates the channel is muted

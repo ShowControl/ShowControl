@@ -218,7 +218,7 @@ class JMIDIsender(QThread):
         offset = 0
         try:
             midievent = self.MIDIsndrqueue.get_nowait()
-            print('In midi process: {0} || {1}'.format(midievent[0], midievent[1:]))
+            # print('In midi process: {0} || {1}'.format(midievent[0], midievent[1:]))
             self.client.midi_outports[midievent[0]].write_midi_event(offset, midievent[1:])
             # offset += 1
         except queue.Empty:
