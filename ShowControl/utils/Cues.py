@@ -125,39 +125,70 @@ class CueList:
                 newele.text = '{0}'.format(self.cuecount)
         show.append(newcue)
 
-
-        # newmove = ET.SubElement(newcue, 'Move')
-        # newmove.text = '{0}'.format(self.cuecount)
-        # newid = ET.SubElement(newcue, 'Move')
-        # newid.text = '{0}'.format(self.cuecount)
-        # # ET.SubElement( newcue, newmove)
-        # ET.dump(newcue)
-        # # show = self.cuetree.getroot()
-        # # print('show length: {0}'.format(show.__len__()))
-        # show1 = self.cuelist.getroot()
-        # print('show length: {0}'.format(show1.__len__()))
-        # try:
-        #     # show.append(newcue)
-        #     # print('show length: {0}'.format(show.__len__()))
-        #     show1.append(newcue)
-        #     print('show length: {0}'.format(show1.__len__()))
-        # except:
-        #     print('Error')
         ET.dump(show)
         cues = self.cuelist.findall('cue')
         self.cuecount = len(cues)
-        self.cuelist.write('addelementtest.xml')
+        # self.cuelist.write('addelementtest.xml')
 
-    # def setpreviewcuestate(self, cueindex):
-    #     '''
-    #     Constructor
-    #     '''
-        
+    def insertcue(self, cueindex, cue_dict={}):
+        # cueidx is the index that we're inserting above, so
+        # create an empty place by incrementing the cue num for this and each subsequent cue
+        for anidx in range(cueindex, self.cuecount):
+            cuenum = '{0:03}'.format(anidx)
+            thiscue = self.cuelist.find("cue[@num='"+cuenum+"']")
+            thisidx = thiscue.get('num')
+            thiscue.set('num', '{0:03}'.format(int(thisidx) + 1))
+            print(thiscue.get('num'))
+        # now we have an empty place
+        # create the ne cue
+        show = self.cuelist.getroot()
+        newcue = ET.Element('cue',attrib={'num':'{0:03}'.format(cueindex)})
+        for subele in cue_subelements:
+            newele = ET.SubElement(newcue, subele)
+            if subele in cue_dict:
+                newele.text = cue_dict[subele]
+            else:
+                newele.text = '{0}'.format(self.cuecount)
+        show.insert(cueindex, newcue)
+
+        # ET.dump(show)
+        cues = self.cuelist.findall('cue')
+        self.cuecount = len(cues)
+
+    def updatecue(self, cueindex, newcuelist):
+        '''
+                newcuelist = ['Cue Number', 'Act', 'Scene', 'Page', 'ID', 'Title','Dialog/Prompt']
+                xml tag      ['Move',       'Act', 'Scene', 'Page', 'Id', 'Title','Cue']
+        '''
+        print('Begin---------updatecue---------')
+        cuenum = '{0:03}'.format(cueindex)
+        cuetomod = self.cuelist.find("cue[@num='"+cuenum+"']")
+
+        print(cuetomod.find("Move").text)
+        print(cuetomod.find("Id").text)
+
+        cuetomod.find("Move").text =newcuelist[0]
+        cuetomod.find("Act").text =newcuelist[1]
+        cuetomod.find("Scene").text =newcuelist[2]
+        cuetomod.find("Page").text =newcuelist[3]
+        cuetomod.find("Id").text =newcuelist[4]
+        cuetomod.find("Title").text =newcuelist[5]
+        cuetomod.find("Cue").text =newcuelist[6]
+        cuetomod.find("CueType").text =newcuelist[7]
+
+        print('End---------updatecue---------')
+
+    def savecuelist(self):
+        self.cuelist.write('/home/mac/Shows/Pauline/Update.xml')
+
 if __name__ == "__main__":
-    cues = CueList('/home/mac/Shows/Pauline/OneCue.xml')
-    ET.dump(cues.cuelist)
-    cues.addnewcue({'Scene':'1','Title':'A new Cue'})
-    ET.dump(cues.cuelist)
+    cues = CueList('/home/mac/Shows/Pauline/ThreeCue.xml')
+    # ET.dump(cues.cuelist)
+    # cues.addnewcue({'Scene':'1','Title':'A new Cue'})
+    # ET.dump(cues.cuelist)
+    # cues.savecuelist()
+    cues.insertcue(2, {'Scene':'1','Title':'A new inserted Cue'})
+    cues.savecuelist()
     # a = ET.Element('cue',attrib={'num':'000'})
     # c = ET.SubElement(a, 'child1')
     # c.text = "some text"
