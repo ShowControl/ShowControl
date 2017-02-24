@@ -13,7 +13,7 @@ class Show:
         '''
         self.show_confpath = cfgdict['Show']['folder'] + '/'
         self.show_conf = ShowConf(self.show_confpath + cfgdict['Show']['file'])
-        self.cues = CueList(self.show_confpath + self.show_conf.settings['mxrcue'])
+        self.cues = CueList(self.show_confpath + self.show_conf.settings['cuefile'])
         self.cues.currentcueindex = 0
         self.cues.previouscueindex = 0
 #        self.cues.setcurrentcuestate(self.cues.currentcueindex)

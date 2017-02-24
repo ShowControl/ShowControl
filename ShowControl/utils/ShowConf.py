@@ -44,7 +44,7 @@ class ShowConf:
         xxx mxrmfr     : <mixer manufacturer> xxx
         xxx mxrmodel   : <mixer model> xxx
         mxrmapfile : <xml file containing channel to actor map>
-        mxrcuefile : <xml file containing mixer cues for the show>
+        cuefile : <xml file containing mixer cues for the show>
     @author: mac
     '''
     def __init__(self, showconf_file):
@@ -68,9 +68,9 @@ class ShowConf:
         self.settings["mxrmap"] = attribs['file']
 
         #Get mixer chan to actor/char map file name
-        mxrcues = doc.find('mixercues')
-        attribs = mxrcues.attrib
-        self.settings["mxrcue"] = attribs['file']
+        cues = doc.find('cuefile')
+        attribs = cues.attrib
+        self.settings["cuefile"] = attribs['file']
         
         # print(self.settings)
         self.name = doc.find('name')

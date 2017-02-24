@@ -31,7 +31,7 @@ print(sys.path)
 #from MixerConf import MixerConf
 from Show import Show
 import CommHandlers
-
+from Cues import cue_types, cue_subelements
 
 import CueEngine_ui
 from CueEdit_ui import Ui_dlgEditCue
@@ -63,6 +63,14 @@ class EditCue(QDialog, Ui_dlgEditCue):
         self.editidx = index
         self.setupUi(self)
         self.chgdict = {}
+        self.toolButton.setText('Select cue type/s ')
+        self.toolmenu = QtWidgets.QMenu(self)
+        # self.toolmenu.triggered[QtWidgets.QAction].connect(self.processtrig)
+        for i in range(cue_types.__len__()):
+            action = self.toolmenu.addAction(cue_types[i])
+            action.setCheckable(True)
+        self.toolButton.setMenu(self.toolmenu)
+        self.toolButton.setPopupMode(QtWidgets.QToolButton.InstantPopup)
         #self.changeflag = False
         #self.plainTextEditAct.textChanged.connect(self.setChangeFlag)
 
@@ -73,6 +81,8 @@ class EditCue(QDialog, Ui_dlgEditCue):
             if tobj.isModified():
                 somethingchanged = True
             #print(dobj)
+        toolbut = self.findChild(QtWidgets.QToolButton)
+        toolmenu = toolbut.menu()
         if somethingchanged:
             print('editidx',self.editidx)
             for dobj in self.findChildren(QtWidgets.QPlainTextEdit):
@@ -123,6 +133,12 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         self.jumpButton.clicked.connect(self.on_buttonJump_clicked)
         self.tableView.doubleClicked.connect(self.on_table_dblclick)
         self.tableView.clicked.connect(self.on_table_click)
+
+        self.tableView.setContextMenuPolicy(Qt.ActionsContextMenu)
+        self.insertAction = QAction("Insert", None)
+        self.insertAction.triggered.connect(self.on_table_rightclick)
+        self.tableView.addAction(self.insertAction)
+
         self.tabledata = []
         self.actionOpen_Show.triggered.connect(self.openShow)
         self.actionSave.triggered.connect(self.saveShow)
@@ -184,6 +200,15 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
             msg = [NOTE_ON, 60, 112]
             self.snd_sndrthread.queue_msg(msg, self.CueAppDev)
 
+    def on_table_rightclick(self):
+        """insert a new cue before the selected row"""
+        tblvw = self.findChild(QtWidgets.QTableView)
+        # index[0].row() will be where the user clicked
+        index = tblvw.selectedIndexes()
+        The_Show.cues.insertcue(index[0].row(), {'Scene': '1', 'Title': 'A new inserted Cue'})
+        The_Show.cues.savecuelist()
+
+        pass
 
     def on_table_click(self,index):
         """index is the row in the tableview (thus the row of the tabledata)"""
@@ -194,6 +219,24 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
 
     def on_table_dblclick(self,index):
         print(index.row())
+        cueindex = index.row()
+        # self.editcuedlg.toolButton.setText('Select cue type/s ')
+        # self.toolmenu = QtWidgets.QMenu(self)
+        # self.toolmenu.triggered[QtWidgets.QAction].connect(self.processtrig)
+        # for i in range(cue_types.__len__()):
+        #     action = self.toolmenu.addAction(cue_types[i])
+        #     action.setCheckable(True)
+        # self.editcuedlg.toolButton.setMenu(self.toolmenu)
+        # self.editcuedlg.toolButton.setPopupMode(QtWidgets.QToolButton.InstantPopup)
+        action_list = self.editcuedlg.toolmenu.actions()
+        type_list = The_Show.cues.getcuetype(cueindex)
+        for type in type_list:
+            for i in range(action_list.__len__()):
+                if action_list[i].text() == type:
+                    action_list[i].setChecked(True)
+                    break
+        pass
+
         self.editcuedlg.editidx = index.row()
         print(self.tabledata[index.row()])
         rowlist = self.tabledata[index.row()]
@@ -237,7 +280,8 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
             print('No table changes')
         print(self.tabledata[index.row()])
         The_Show.cues.updatecue(index.row(),self.tabledata[index.row()])
-        The_Show.cues.savecuelist()
+        The_Show.cues.savecuelist(True, cfgdict['Show']['folder'] + The_Show.show_conf.settings['cuefile'])
+        pass
 
     def setfirstcue(self):
         tblvw = self.findChild(QtWidgets.QTableView)
@@ -264,6 +308,8 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
             elif q.find('CueType').text == 'Stage' and self.StageCuesVisible:
                 self.append_table_data(q)
             elif q.find('CueType').text == 'Light' and self.LightCuesVisible:
+                self.append_table_data(q)
+            else:
                 self.append_table_data(q)
         print(self.tabledata)
 
@@ -400,7 +446,7 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
 
     def confirmQuit(self):
         reply = QMessageBox.question(self, 'Message',
-            "Are you sure to quit?", QMessageBox.Yes |
+            "Are you sure you want to quit?", QMessageBox.Yes |
             QMessageBox.No, QMessageBox.No)
         return reply
 
@@ -464,6 +510,8 @@ class MyTableModel(QtCore.QAbstractTableModel):
                 return QBrush(Qt.darkGreen)
             elif self.arraydata[index.row()][7] == 'Mixer':
                 return QBrush(Qt.darkYellow)
+            else:
+                return QBrush(Qt.darkMagenta)
         elif role != QtCore.Qt.DisplayRole:
             return QtCore.QVariant()
         return QtCore.QVariant(self.arraydata[index.row()][index.column()])

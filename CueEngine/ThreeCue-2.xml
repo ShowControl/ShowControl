@@ -1,0 +1,53 @@
+<show>
+  <cue num="000">
+    <Move>0</Move>
+    <Id>0</Id>
+    <Act>0</Act>
+    <Scene> 0</Scene>
+    <Page>0</Page>
+    <Title>Top of Show</Title>
+    <Cue>None</Cue>
+    <CueType>Stage</CueType>
+    <Entrances>M0main01,M1out01</Entrances>
+    <Exits>M0ch01,M0ch02,M0ch03,M0ch04,M0ch05,M0ch06,M0ch07,M0ch08,M0ch09,M0ch10,M0ch11,M0ch12,M0ch13,M0ch14,M0ch15,M0ch16,M0ch17,M0ch18,M0ch19,M0ch20,M0ch21,M0ch22,M0ch23,M0ch24,M0ch25,M0ch26,M0ch27,M0ch28,M0ch29,M0ch30,M0ch31,M0ch32,M1ch01,M1ch02,M1ch03,M1ch04,M1ch05,M1ch06,M1ch07,M1ch08,M1ch09,M1ch10,M1ch11,M1ch12,M1ch13,M1ch14,M1aux01,M1bus01</Exits>
+    <Levels>M0ch01:512,M0ch02:0,M0ch03:0,M0ch04:0,M0ch05:512,M0ch06:0,M0ch07:0,M0ch08:0,M0ch09:0,M0ch10:512,M0ch11:0,M0ch12:0,M0ch13:0,M0ch14:0,M0ch15:0,M0ch16:0,M0ch17:0,M0ch18:0,M0ch19:0,M0ch20:0,M0ch21:0,M0ch22:0,M0ch23:0,M0ch24:0,M0ch25:0,M0ch26:0,M0ch27:0,M0ch28:0,M0ch29:0,M0ch30:0,M0ch31:0,M0ch32:0,M0main01:512,M1ch01:512,M1ch02:0,M1ch03:0,M1ch04:0,M1ch05:512,M1ch06:0,M1ch07:0,M1ch08:0,M1ch09:0,M1ch10:512,M1ch11:0,M1ch12:0,M1ch13:0,M1ch14:0,M1aux01:0,M1bus01:0,M1out01:512</Levels>
+    <On_Stage />
+    <Note_1 />
+    <Note_2 />
+    <Note_3 />
+  </cue>
+  <cue num="001">
+    <Move>2</Move>
+    <Id>2</Id>
+    <Act>2</Act>
+    <Scene>1</Scene>
+    <Page>2</Page>
+    <Title>A old inserted Cue</Title>
+    <Cue>2</Cue>
+    <CueType>Mixer</CueType>
+    <Entrances>2</Entrances>
+    <Exits>2</Exits>
+    <Levels>2</Levels>
+    <On_Stage>2</On_Stage>
+    <Note_1>2</Note_1>
+    <Note_2>2</Note_2>
+    <Note_3>2</Note_3>
+  </cue>
+  <cue num="002">
+    <Move>2</Move>
+    <Id>1</Id>
+    <Act>1</Act>
+    <Scene>2</Scene>
+    <Page>10</Page>
+    <Title>Bombs away.</Title>
+    <Cue>Incoming!!!</Cue>
+    <CueType>Light</CueType>
+    <Entrances>M0main01,M1out01</Entrances>
+    <Exits>M0ch01,M0ch02,M0ch03,M0ch04,M0ch05,M0ch06,M0ch07,M0ch08,M0ch09,M0ch10,M0ch11,M0ch12,M0ch13,M0ch14,M0ch15,M0ch16,M0ch17,M0ch18,M0ch19,M0ch20,M0ch21,M0ch22,M0ch23,M0ch24,M0ch25,M0ch26,M0ch27,M0ch28,M0ch29,M0ch30,M0ch31,M0ch32,M1ch01,M1ch02,M1ch03,M1ch04,M1ch05,M1ch06,M1ch07,M1ch08,M1ch09,M1ch10,M1ch11,M1ch12,M1ch13,M1ch14,M1aux01,M1bus01</Exits>
+    <Levels>M0ch01:512,M0ch02:0,M0ch03:0,M0ch04:0,M0ch05:512,M0ch06:0,M0ch07:0,M0ch08:0,M0ch09:0,M0ch10:512,M0ch11:0,M0ch12:0,M0ch13:0,M0ch14:0,M0ch15:0,M0ch16:0,M0ch17:0,M0ch18:0,M0ch19:0,M0ch20:0,M0ch21:0,M0ch22:0,M0ch23:0,M0ch24:0,M0ch25:0,M0ch26:0,M0ch27:0,M0ch28:0,M0ch29:0,M0ch30:0,M0ch31:0,M0ch32:0,M0main01:512,M1ch01:512,M1ch02:0,M1ch03:0,M1ch04:0,M1ch05:512,M1ch06:0,M1ch07:0,M1ch08:0,M1ch09:0,M1ch10:512,M1ch11:0,M1ch12:0,M1ch13:0,M1ch14:0,M1aux01:0,M1bus01:0,M1out01:512</Levels>
+    <On_Stage />
+    <Note_1 />
+    <Note_2 />
+    <Note_3 />
+  </cue>
+</show>

@@ -5,12 +5,17 @@ Cue object that maintains the current cue list
 '''
 
 import sys
+from os import path
+from PyQt5 import Qt, QtCore, QtGui, QtWidgets
+
 try:
     from lxml import ET
 except ImportError:
     import xml.etree.ElementTree as ET
 
-cue_subelements = ['Move', 'ID', 'Act', 'Scene', 'Page', 'Title', 'Cue', 'CueType', 'Entrances', 'Exits', 'Levels', 'On_Stage', 'Note_1', 'Note_2', 'Note_3']
+cue_types = ['Stage','Mixer','Sound','SFX', 'Light']
+cue_subelements = ['Move', 'Id', 'Act', 'Scene', 'Page', 'Title', 'Cue', 'CueType', 'Entrances', 'Exits', 'Levels', 'On_Stage', 'Note_1', 'Note_2', 'Note_3']
+
 
 class CueList:
     '''
@@ -90,9 +95,11 @@ class CueList:
         try:
             cuetype = thiscue.find('CueType')
             if cuetype != None:
-                return cuetype.text
+                type_list = cuetype.text.split(',')
+                # return cuetype.text
+                return type_list
             else:
-                return ''
+                return ['']
         except:
             print('Cue type for index ' + '{0:03}'.format(cueindex) + ' not found!')
 
@@ -178,17 +185,37 @@ class CueList:
 
         print('End---------updatecue---------')
 
-    def savecuelist(self):
-        self.cuelist.write('/home/mac/Shows/Pauline/Update.xml')
+    def savecuelist(self, revision=True, filename=''):
+        """save the current state of the cuelist.
+        If revision is true, save with a revision number
+        i.e. this essentially makes a backup of the cuelist,
+        typically call with revision=True before an add or insert
+        If revision=False, save the current state of the cuelist
+        in the file specified by filename"""
+        if filename == '':
+            msgBox = QtWidgets.QMessageBox()
+            msgBox.setText('The cues not saved, no filename provided!')
+            msgBox.exec_()
+            return
+        rev = 1
+        if revision:
+            oldroot, extension = path.splitext(filename)
+            while path.isfile(oldroot + '-{0}'.format(rev) + extension):
+                rev += 1
+            self.cuelist.write(oldroot + '-{0}'.format(rev) + extension)
+        else:
+            self.cuelist.write(filename)
 
 if __name__ == "__main__":
+    app = QtWidgets.QApplication([''])
     cues = CueList('/home/mac/Shows/Pauline/ThreeCue.xml')
     # ET.dump(cues.cuelist)
     # cues.addnewcue({'Scene':'1','Title':'A new Cue'})
     # ET.dump(cues.cuelist)
     # cues.savecuelist()
+    cues.savecuelist(True, '/home/mac/Shows/Pauline/ThreeCue.xml')
     cues.insertcue(2, {'Scene':'1','Title':'A new inserted Cue'})
-    cues.savecuelist()
+    cues.savecuelist(False, '/home/mac/Shows/Pauline/Update.xml')
     # a = ET.Element('cue',attrib={'num':'000'})
     # c = ET.SubElement(a, 'child1')
     # c.text = "some text"
