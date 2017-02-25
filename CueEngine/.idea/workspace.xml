@@ -20,17 +20,13 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="CueEngine.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/CueEngine.py">
+      <file leaf-file-name="TestCueEditAlt.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/TestCueEditAlt.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="171">
-              <caret line="503" column="18" lean-forward="false" selection-start-line="503" selection-start-column="18" selection-end-line="503" selection-end-column="18" />
+            <state relative-caret-position="437">
+              <caret line="89" column="17" lean-forward="false" selection-start-line="89" selection-start-column="17" selection-end-line="89" selection-end-column="17" />
               <folding>
                 <element signature="e#43#78#0" expanded="true" />
-                <element signature="e#18334#18410#0" expanded="false" />
-                <element signature="e#18460#18536#0" expanded="false" />
-                <element signature="e#18652#18697#0" expanded="false" />
-                <element signature="e#18741#18786#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -39,8 +35,8 @@
       <file leaf-file-name="CueEdit_ui.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/CueEdit_ui.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-45">
-              <caret line="21" column="30" lean-forward="false" selection-start-line="21" selection-start-column="30" selection-end-line="21" selection-end-column="30" />
+            <state relative-caret-position="255">
+              <caret line="125" column="20" lean-forward="false" selection-start-line="125" selection-start-column="20" selection-end-line="125" selection-end-column="20" />
               <folding>
                 <marker date="1487965065645" expanded="true" signature="9566:9569" ph="..." />
               </folding>
@@ -48,14 +44,12 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="test_multicombo.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test_multicombo.py">
+      <file leaf-file-name="CueEdit_alt_ui.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CueEdit_alt_ui.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="227">
-              <caret line="31" column="6" lean-forward="true" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="76" />
-              <folding>
-                <element signature="e#0#42#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="390">
+              <caret line="26" column="23" lean-forward="false" selection-start-line="26" selection-start-column="23" selection-end-line="26" selection-end-column="23" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -67,6 +61,22 @@
               <caret line="37" column="36" lean-forward="false" selection-start-line="37" selection-start-column="36" selection-end-line="37" selection-end-column="36" />
               <folding>
                 <marker date="1484847899943" expanded="true" signature="10773:10844" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CueEngine.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CueEngine.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="180">
+              <caret line="93" column="46" lean-forward="true" selection-start-line="93" selection-start-column="46" selection-end-line="93" selection-end-column="46" />
+              <folding>
+                <element signature="e#43#78#0" expanded="true" />
+                <element signature="e#18207#18283#0" expanded="false" />
+                <element signature="e#18333#18409#0" expanded="false" />
+                <element signature="e#18525#18570#0" expanded="false" />
+                <element signature="e#18614#18659#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -90,6 +100,8 @@
       <find>except</find>
       <find>cue</find>
       <find>color</find>
+      <find>tool</find>
+      <find>s</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -107,6 +119,8 @@
         <option value="$PROJECT_DIR$/CueEdit_ui.py" />
         <option value="$PROJECT_DIR$/test_multicombo.py" />
         <option value="$PROJECT_DIR$/CueEngine.py" />
+        <option value="$PROJECT_DIR$/CueEdit_alt_ui.py" />
+        <option value="$PROJECT_DIR$/TestCueEditAlt.py" />
       </list>
     </option>
   </component>
@@ -160,7 +174,7 @@
       <recent name="$PROJECT_DIR$/../../SafeKeeping" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.CueEngine">
+  <component name="RunManager" selected="Python.TestCueEditAlt">
     <configuration default="false" name="CueEngine" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -174,23 +188,6 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="CueEngine" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/CueEngine.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <method />
-    </configuration>
-    <configuration default="false" name="ShowBase" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../ShowControl/utils" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="CueEngine" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../ShowControl/utils/ShowBase.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
@@ -242,6 +239,23 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="CueEngine" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test_multicombo.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="TestCueEditAlt" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="CueEngine" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/TestCueEditAlt.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
@@ -382,18 +396,18 @@
     </configuration>
     <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Python.CueEngine" />
-      <item index="1" class="java.lang.String" itemvalue="Python.ShowBase" />
-      <item index="2" class="java.lang.String" itemvalue="Python.CueEngine_ui" />
-      <item index="3" class="java.lang.String" itemvalue="Python.test" />
-      <item index="4" class="java.lang.String" itemvalue="Python.test_multicombo" />
+      <item index="1" class="java.lang.String" itemvalue="Python.CueEngine_ui" />
+      <item index="2" class="java.lang.String" itemvalue="Python.test" />
+      <item index="3" class="java.lang.String" itemvalue="Python.test_multicombo" />
+      <item index="4" class="java.lang.String" itemvalue="Python.TestCueEditAlt" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.CueEngine" />
-        <item index="1" class="java.lang.String" itemvalue="Python.test_multicombo" />
-        <item index="2" class="java.lang.String" itemvalue="Python.test" />
-        <item index="3" class="java.lang.String" itemvalue="Python.CueEngine_ui" />
-        <item index="4" class="java.lang.String" itemvalue="Python.ShowBase" />
+        <item index="0" class="java.lang.String" itemvalue="Python.TestCueEditAlt" />
+        <item index="1" class="java.lang.String" itemvalue="Python.CueEngine" />
+        <item index="2" class="java.lang.String" itemvalue="Python.test_multicombo" />
+        <item index="3" class="java.lang.String" itemvalue="Python.test" />
+        <item index="4" class="java.lang.String" itemvalue="Python.CueEngine_ui" />
       </list>
     </recent_temporary>
   </component>
@@ -420,6 +434,7 @@
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17555197" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3292683" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296433" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32705098" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -433,7 +448,6 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3292683" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -463,23 +477,13 @@
         </line-breakpoint>
         <line-breakpoint suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/CueEngine.py</url>
-          <line>392</line>
+          <line>388</line>
           <option name="timeStamp" value="44" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/CueEngine.py</url>
-          <line>405</line>
+          <line>401</line>
           <option name="timeStamp" value="45" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/CueEngine.py</url>
-          <line>210</line>
-          <option name="timeStamp" value="52" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/CueEngine.py</url>
-          <line>84</line>
-          <option name="timeStamp" value="55" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/test_multicombo.py</url>
@@ -488,13 +492,23 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/CueEngine.py</url>
-          <line>239</line>
-          <option name="timeStamp" value="59" />
+          <line>110</line>
+          <option name="timeStamp" value="63" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/CueEngine.py</url>
-          <line>231</line>
-          <option name="timeStamp" value="61" />
+          <line>277</line>
+          <option name="timeStamp" value="65" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/TestCueEditAlt.py</url>
+          <line>86</line>
+          <option name="timeStamp" value="68" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/TestCueEditAlt.py</url>
+          <line>66</line>
+          <option name="timeStamp" value="70" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
@@ -507,11 +521,26 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="62" />
+      <option name="time" value="71" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/UDPClient.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="12" column="29" lean-forward="false" selection-start-line="12" selection-start-column="29" selection-end-line="12" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../SafeKeeping/Cues.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="9" column="23" lean-forward="false" selection-start-line="9" selection-start-column="23" selection-end-line="9" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/CueEngine_ui.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -528,10 +557,10 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#43#78#0" expanded="true" />
-            <element signature="e#18334#18410#0" expanded="false" />
-            <element signature="e#18460#18536#0" expanded="false" />
-            <element signature="e#18652#18697#0" expanded="false" />
-            <element signature="e#18741#18786#0" expanded="false" />
+            <element signature="e#18207#18283#0" expanded="false" />
+            <element signature="e#18333#18409#0" expanded="false" />
+            <element signature="e#18525#18570#0" expanded="false" />
+            <element signature="e#18614#18659#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -567,10 +596,10 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#43#78#0" expanded="true" />
-            <element signature="e#18334#18410#0" expanded="false" />
-            <element signature="e#18460#18536#0" expanded="false" />
-            <element signature="e#18652#18697#0" expanded="false" />
-            <element signature="e#18741#18786#0" expanded="false" />
+            <element signature="e#18207#18283#0" expanded="false" />
+            <element signature="e#18333#18409#0" expanded="false" />
+            <element signature="e#18525#18570#0" expanded="false" />
+            <element signature="e#18614#18659#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -606,49 +635,10 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#43#78#0" expanded="true" />
-            <element signature="e#18334#18410#0" expanded="false" />
-            <element signature="e#18460#18536#0" expanded="false" />
-            <element signature="e#18652#18697#0" expanded="false" />
-            <element signature="e#18741#18786#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/UDPClient.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="12" column="29" lean-forward="false" selection-start-line="12" selection-start-column="29" selection-end-line="12" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../SafeKeeping/Cues.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="9" column="23" lean-forward="false" selection-start-line="9" selection-start-column="23" selection-end-line="9" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CueEngine_ui.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="79" column="59" lean-forward="false" selection-start-line="79" selection-start-column="59" selection-end-line="79" selection-end-column="59" />
-          <folding>
-            <marker date="1484847899943" expanded="true" signature="10773:10844" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CueEngine.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#43#78#0" expanded="true" />
-            <element signature="e#18334#18410#0" expanded="false" />
-            <element signature="e#18460#18536#0" expanded="false" />
-            <element signature="e#18652#18697#0" expanded="false" />
-            <element signature="e#18741#18786#0" expanded="false" />
+            <element signature="e#18207#18283#0" expanded="false" />
+            <element signature="e#18333#18409#0" expanded="false" />
+            <element signature="e#18525#18570#0" expanded="false" />
+            <element signature="e#18614#18659#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -677,10 +667,10 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#43#78#0" expanded="true" />
-            <element signature="e#18334#18410#0" expanded="false" />
-            <element signature="e#18460#18536#0" expanded="false" />
-            <element signature="e#18652#18697#0" expanded="false" />
-            <element signature="e#18741#18786#0" expanded="false" />
+            <element signature="e#18207#18283#0" expanded="false" />
+            <element signature="e#18333#18409#0" expanded="false" />
+            <element signature="e#18525#18570#0" expanded="false" />
+            <element signature="e#18614#18659#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -709,10 +699,10 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#43#78#0" expanded="true" />
-            <element signature="e#18334#18410#0" expanded="false" />
-            <element signature="e#18460#18536#0" expanded="false" />
-            <element signature="e#18652#18697#0" expanded="false" />
-            <element signature="e#18741#18786#0" expanded="false" />
+            <element signature="e#18207#18283#0" expanded="false" />
+            <element signature="e#18333#18409#0" expanded="false" />
+            <element signature="e#18525#18570#0" expanded="false" />
+            <element signature="e#18614#18659#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -741,10 +731,10 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#43#78#0" expanded="true" />
-            <element signature="e#18334#18410#0" expanded="false" />
-            <element signature="e#18460#18536#0" expanded="false" />
-            <element signature="e#18652#18697#0" expanded="false" />
-            <element signature="e#18741#18786#0" expanded="false" />
+            <element signature="e#18207#18283#0" expanded="false" />
+            <element signature="e#18333#18409#0" expanded="false" />
+            <element signature="e#18525#18570#0" expanded="false" />
+            <element signature="e#18614#18659#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -773,10 +763,10 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#43#78#0" expanded="true" />
-            <element signature="e#18334#18410#0" expanded="false" />
-            <element signature="e#18460#18536#0" expanded="false" />
-            <element signature="e#18652#18697#0" expanded="false" />
-            <element signature="e#18741#18786#0" expanded="false" />
+            <element signature="e#18207#18283#0" expanded="false" />
+            <element signature="e#18333#18409#0" expanded="false" />
+            <element signature="e#18525#18570#0" expanded="false" />
+            <element signature="e#18614#18659#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -805,10 +795,10 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#43#78#0" expanded="true" />
-            <element signature="e#18334#18410#0" expanded="false" />
-            <element signature="e#18460#18536#0" expanded="false" />
-            <element signature="e#18652#18697#0" expanded="false" />
-            <element signature="e#18741#18786#0" expanded="false" />
+            <element signature="e#18207#18283#0" expanded="false" />
+            <element signature="e#18333#18409#0" expanded="false" />
+            <element signature="e#18525#18570#0" expanded="false" />
+            <element signature="e#18614#18659#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -911,6 +901,31 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="16" lean-forward="false" selection-start-line="6" selection-start-column="16" selection-end-line="6" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test_multicombo.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="245">
+          <caret line="31" column="6" lean-forward="false" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="76" />
+          <folding>
+            <element signature="e#0#42#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../ShowControl/utils/Cues.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2505">
+          <caret line="169" column="0" lean-forward="false" selection-start-line="169" selection-start-column="0" selection-end-line="169" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/CueEngine_ui.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="555">
@@ -921,52 +936,44 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="16" lean-forward="false" selection-start-line="6" selection-start-column="16" selection-end-line="6" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/CueEdit_ui.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-45">
-          <caret line="21" column="30" lean-forward="false" selection-start-line="21" selection-start-column="30" selection-end-line="21" selection-end-column="30" />
+        <state relative-caret-position="255">
+          <caret line="125" column="20" lean-forward="false" selection-start-line="125" selection-start-column="20" selection-end-line="125" selection-end-column="20" />
           <folding>
             <marker date="1487965065645" expanded="true" signature="9566:9569" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test_multicombo.py">
+    <entry file="file://$PROJECT_DIR$/CueEngine.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="227">
-          <caret line="31" column="6" lean-forward="true" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="76" />
+        <state relative-caret-position="180">
+          <caret line="93" column="46" lean-forward="true" selection-start-line="93" selection-start-column="46" selection-end-line="93" selection-end-column="46" />
           <folding>
-            <element signature="e#0#42#0" expanded="true" />
+            <element signature="e#43#78#0" expanded="true" />
+            <element signature="e#18207#18283#0" expanded="false" />
+            <element signature="e#18333#18409#0" expanded="false" />
+            <element signature="e#18525#18570#0" expanded="false" />
+            <element signature="e#18614#18659#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../ShowControl/utils/Cues.py">
+    <entry file="file://$PROJECT_DIR$/CueEdit_alt_ui.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="125">
-          <caret line="89" column="19" lean-forward="true" selection-start-line="89" selection-start-column="19" selection-end-line="89" selection-end-column="19" />
+        <state relative-caret-position="390">
+          <caret line="26" column="23" lean-forward="false" selection-start-line="26" selection-start-column="23" selection-end-line="26" selection-end-column="23" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CueEngine.py">
+    <entry file="file://$PROJECT_DIR$/TestCueEditAlt.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="503" column="18" lean-forward="false" selection-start-line="503" selection-start-column="18" selection-end-line="503" selection-end-column="18" />
+        <state relative-caret-position="437">
+          <caret line="89" column="17" lean-forward="false" selection-start-line="89" selection-start-column="17" selection-end-line="89" selection-end-column="17" />
           <folding>
             <element signature="e#43#78#0" expanded="true" />
-            <element signature="e#18334#18410#0" expanded="false" />
-            <element signature="e#18460#18536#0" expanded="false" />
-            <element signature="e#18652#18697#0" expanded="false" />
-            <element signature="e#18741#18786#0" expanded="false" />
           </folding>
         </state>
       </provider>

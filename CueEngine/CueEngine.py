@@ -54,7 +54,10 @@ import styles
 
 cfgdict = cfg.toDict()
 
-columndict = {'Number': 0, 'Act':1, 'Scene':2, 'Page':3, 'ID':4, 'Title':5,'Dialog/Prompt':6}
+columndict = {'Number': 0, 'Act':1, 'Scene':2, 'Page':3, 'ID':4, 'Title':5, 'Dialog/Prompt':6}
+header = ['Cue Number', 'Act', 'Scene', 'Page', 'Id', 'Title', 'Dialog/Prompt', 'Cue Type']
+cue_subelements = ['Move', 'Id', 'Act', 'Scene', 'Page', 'Title', 'Cue', 'CueType', 'Entrances', 'Exits', 'Levels', 'On_Stage', 'Note_1', 'Note_2', 'Note_3']
+
 
 class EditCue(QDialog, Ui_dlgEditCue):
     def __init__(self, index, parent=None):
@@ -75,12 +78,11 @@ class EditCue(QDialog, Ui_dlgEditCue):
         #self.plainTextEditAct.textChanged.connect(self.setChangeFlag)
 
     def accept(self):
-        somethingchanged = False
-        for dobj in self.findChildren(QtWidgets.QPlainTextEdit):
-            tobj = dobj.document()
-            if tobj.isModified():
-                somethingchanged = True
-            #print(dobj)
+        somethingchanged = True
+        # for dobj in self.findChildren(QtWidgets.QPlainTextEdit):
+        #     tobj = dobj.document()
+        #     if tobj.isModified():
+        #         somethingchanged = True
         toolbut = self.findChild(QtWidgets.QToolButton)
         toolmenu = toolbut.menu()
         if somethingchanged:
@@ -96,16 +98,16 @@ class EditCue(QDialog, Ui_dlgEditCue):
         print('Something changed: ', somethingchanged)
         docobj = self.plainTextEditTitle.document()
         print('Window modded:',self.isWindowModified())
-        #print(docobj.isModified())
-        # if docobj.isModified():
-        #     print(self.plainTextEditTitle.toPlainText())
-        #     self.chgdict.update()
-        #     #save changes
-        #     #save to cue file
-        #     #redisplay
-        # self.chglist.append('ddd')
-        # #rowlist = self.sender().tableview #.tabledata[self.editidx]
-        # #print('rowlist', rowlist)
+        # get the cue type/s
+        type_str = ''
+        action_list = self.toolmenu.actions()
+        for i in range(action_list.__len__()):
+            if action_list[i].isChecked():
+                if type_str == '':
+                    type_str = action_list[i].text()
+                else:
+                    type_str = '{0},{1}'.format(type_str, action_list[i].text())
+        self.chgdict.update({'CueType':type_str})
         super(EditCue, self).accept()
 
     def reject(self):
@@ -220,15 +222,9 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
     def on_table_dblclick(self,index):
         print(index.row())
         cueindex = index.row()
-        # self.editcuedlg.toolButton.setText('Select cue type/s ')
-        # self.toolmenu = QtWidgets.QMenu(self)
-        # self.toolmenu.triggered[QtWidgets.QAction].connect(self.processtrig)
-        # for i in range(cue_types.__len__()):
-        #     action = self.toolmenu.addAction(cue_types[i])
-        #     action.setCheckable(True)
-        # self.editcuedlg.toolButton.setMenu(self.toolmenu)
-        # self.editcuedlg.toolButton.setPopupMode(QtWidgets.QToolButton.InstantPopup)
         action_list = self.editcuedlg.toolmenu.actions()
+        for i in range(action_list.__len__()):
+            action_list[i].setChecked(False)
         type_list = The_Show.cues.getcuetype(cueindex)
         for type in type_list:
             for i in range(action_list.__len__()):
@@ -253,7 +249,7 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         self.editcuedlg.plainTextEditPage.setDocumentTitle('Page')
 
         self.editcuedlg.plainTextEditId.setPlainText(rowlist[4])
-        self.editcuedlg.plainTextEditId.setDocumentTitle('ID')
+        self.editcuedlg.plainTextEditId.setDocumentTitle('Id')
 
         self.editcuedlg.plainTextEditTitle.setPlainText(rowlist[5])
         self.editcuedlg.plainTextEditTitle.setDocumentTitle('Title')
@@ -290,7 +286,7 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
     def disptext(self):
         self.get_table_data()
         # set the table model
-        header = ['Cue Number', 'Act', 'Scene', 'Page', 'ID', 'Title','Dialog/Prompt','Cue Type']
+        header = ['Cue Number', 'Act', 'Scene', 'Page', 'Id', 'Title', 'Dialog/Prompt', 'Cue Type']
         tablemodel = MyTableModel(self.tabledata, header, self)
         self.tableView.setModel(tablemodel)
         self.tableView.resizeColumnsToContents()

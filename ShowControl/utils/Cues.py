@@ -14,6 +14,7 @@ except ImportError:
     import xml.etree.ElementTree as ET
 
 cue_types = ['Stage','Mixer','Sound','SFX', 'Light']
+
 cue_subelements = ['Move', 'Id', 'Act', 'Scene', 'Page', 'Title', 'Cue', 'CueType', 'Entrances', 'Exits', 'Levels', 'On_Stage', 'Note_1', 'Note_2', 'Note_3']
 
 
