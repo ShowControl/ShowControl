@@ -17,7 +17,7 @@ print(sys.path)
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from Cues import cue_types, cue_subelements
+from Cues import cue_types, cue_subelements, cue_edit_sizes, cue_subelements_tooltips
 
 class Ui_dlgEditCue(object):
     def setupUi(self, dlgEditCue):
@@ -39,15 +39,17 @@ class Ui_dlgEditCue(object):
             self.lbl_list[i].setIndent(0)
             self.lbl_list[i].setObjectName('lbl{0}'.format(cue_subelements[i]))
             self.gridLayout.addWidget(self.lbl_list[i], i, 0, 1, 1)
-            if cue_subelements[i] == 'CueType':
+            if cue_subelements[i] == 'Cue_Type':
                 self.edt_list.append(QtWidgets.QToolButton(dlgEditCue))
                 self.edt_list[i].setObjectName('tbt{0}'.format(cue_subelements[i]))
             else:
                 self.edt_list.append(QtWidgets.QPlainTextEdit(dlgEditCue))
-                self.edt_list[i].setMaximumSize(QtCore.QSize(16777215, 20))
+                size_list = cue_edit_sizes[i].split(',')
+                self.edt_list[i].setMaximumSize(QtCore.QSize(int(size_list[0]),int(size_list[1])))
                 self.edt_list[i].setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
                 self.edt_list[i].setTabChangesFocus(True)
                 self.edt_list[i].setObjectName("plainTextEditTitle")
+            self.edt_list[i].setToolTip(cue_subelements_tooltips[i])
             self.gridLayout.addWidget(self.edt_list[i], i, 1, 1, 1)
 
         # self.lblCue = QtWidgets.QLabel(dlgEditCue)
@@ -172,7 +174,7 @@ class Ui_dlgEditCue(object):
 
         for i in range(cue_subelements.__len__()):
             self.lbl_list[i].setText(_translate("dlgEditCue", cue_subelements[i]))
-            if cue_subelements[i] == 'CueType':
+            if cue_subelements[i] == 'Cue_Type':
                 self.edt_list[i].setText(_translate("dlgEditCue", "..."))
             else:
                 self.edt_list[i].setDocumentTitle(_translate("dlgEditCue", cue_subelements[i]))

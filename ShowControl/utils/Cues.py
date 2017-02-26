@@ -15,7 +15,23 @@ except ImportError:
 
 cue_types = ['Stage','Mixer','Sound','SFX', 'Light']
 
-cue_subelements = ['Move', 'Id', 'Act', 'Scene', 'Page', 'Title', 'Cue', 'CueType', 'Entrances', 'Exits', 'Levels', 'On_Stage', 'Note_1', 'Note_2', 'Note_3']
+cue_subelements = ['Cue_Number',  'Id',    'Act',   'Scene', 'Page',  'Title',       'Cue_Call',   'Cue_Type', 'Entrances',   'Exits',       'Levels',      'On_Stage',    'Note_1',      'Note_2',      'Note_3']
+cue_edit_sizes =  ['60,20',       '60,20', '60,20', '60,20', '60,20', '16000000,20', '60,20',      '60,20',    '16000000,20', '16000000,20', '16000000,20', '16000000,20', '16000000,20', '16000000,20', '16000000,20']
+cue_subelements_tooltips = ['Cue number',
+                            'Unique id for this cue',
+                            'Enter act number for this cue',
+                            'Enter scene number for this cue',
+                            'Enter page number in script where this cue happens',
+                            'Enter title for this cue',
+                            'Enter cue call for this cue',
+                            'Select one or more cue types for this cue',
+                            'Specifies the channels to be unmuted for this cue',
+                            'Specifies the channels to be muted for this cue',
+                            'Specifies the fader level for all channels',
+                            'Specifies who is on stage',
+                            'Enter notes about this cue',
+                            'Enter notes about this cue',
+                            'Enter notes about this cue']
 
 
 class CueList:
@@ -165,8 +181,8 @@ class CueList:
 
     def updatecue(self, cueindex, newcuelist):
         '''
-                newcuelist = ['Cue Number', 'Act', 'Scene', 'Page', 'ID', 'Title','Dialog/Prompt']
-                xml tag      ['Move',       'Act', 'Scene', 'Page', 'Id', 'Title','Cue']
+                newcuelist = ['Cue_Number',  'Act', 'Scene', 'Page', 'Id', 'Title', 'Cue_Call']
+                xml tag      ['Cue_Number',  'Act', 'Scene', 'Page', 'Id', 'Title', 'Cue_Call']
         '''
         print('Begin---------updatecue---------')
         cuenum = '{0:03}'.format(cueindex)
@@ -175,13 +191,13 @@ class CueList:
         print(cuetomod.find("Move").text)
         print(cuetomod.find("Id").text)
 
-        cuetomod.find("Move").text =newcuelist[0]
+        cuetomod.find("CueNumber").text =newcuelist[0]
         cuetomod.find("Act").text =newcuelist[1]
         cuetomod.find("Scene").text =newcuelist[2]
         cuetomod.find("Page").text =newcuelist[3]
         cuetomod.find("Id").text =newcuelist[4]
         cuetomod.find("Title").text =newcuelist[5]
-        cuetomod.find("Cue").text =newcuelist[6]
+        cuetomod.find("CueCall").text =newcuelist[6]
         cuetomod.find("CueType").text =newcuelist[7]
 
         print('End---------updatecue---------')

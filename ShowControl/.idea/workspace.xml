@@ -4,7 +4,8 @@
     <list default="true" id="95f4ee2b-56f1-467f-bb66-46001cf99115" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../TestShow" afterPath="$PROJECT_DIR$/../TestShow" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../CueEngine/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../CueEngine/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../CueEngine/CueEngine.py" afterPath="$PROJECT_DIR$/../CueEngine/CueEngine.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../CueEngine/CueEdit_alt_ui.py" afterPath="$PROJECT_DIR$/../CueEngine/CueEdit_alt_ui.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../CueEngine/TestCueEditAlt.py" afterPath="$PROJECT_DIR$/../CueEngine/TestCueEditAlt.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/utils/Cues.py" afterPath="$PROJECT_DIR$/utils/Cues.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ShowMixer/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../ShowMixer/.idea/workspace.xml" />
@@ -43,8 +44,8 @@
       <file leaf-file-name="Cues.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/utils/Cues.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="17" column="111" lean-forward="true" selection-start-line="17" selection-start-column="84" selection-end-line="17" selection-end-column="114" />
+            <state relative-caret-position="2520">
+              <caret line="174" column="16" lean-forward="false" selection-start-line="174" selection-start-column="16" selection-end-line="174" selection-end-column="16" />
               <folding>
                 <element signature="e#92#102#0" expanded="true" />
               </folding>
@@ -495,27 +496,27 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/utils/Cues.py</url>
-          <line>138</line>
+          <line>154</line>
           <option name="timeStamp" value="24" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/utils/Cues.py</url>
-          <line>125</line>
+          <line>141</line>
           <option name="timeStamp" value="25" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/utils/Cues.py</url>
-          <line>217</line>
+          <line>233</line>
           <option name="timeStamp" value="26" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/utils/Cues.py</url>
-          <line>143</line>
+          <line>159</line>
           <option name="timeStamp" value="27" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/utils/Cues.py</url>
-          <line>162</line>
+          <line>178</line>
           <option name="timeStamp" value="28" />
         </line-breakpoint>
       </breakpoints>
@@ -976,8 +977,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/utils/Cues.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="111" lean-forward="true" selection-start-line="17" selection-start-column="84" selection-end-line="17" selection-end-column="114" />
+        <state relative-caret-position="2520">
+          <caret line="174" column="16" lean-forward="false" selection-start-line="174" selection-start-column="16" selection-end-line="174" selection-end-column="16" />
           <folding>
             <element signature="e#92#102#0" expanded="true" />
           </folding>

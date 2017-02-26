@@ -28,7 +28,7 @@ print(sys.path)
 
 from Show import Show
 
-from Cues import cue_types, cue_subelements
+from Cues import cue_types, cue_subelements, cue_edit_sizes, cue_subelements_tooltips
 
 from CueEdit_alt_ui import Ui_dlgEditCue
 
@@ -42,7 +42,7 @@ class EditCue(QDialog, Ui_dlgEditCue):
         self.setupUi(self)
         self.chgdict = {}
         for cuetypectlidx in range(cue_subelements.__len__()):
-            if cue_subelements[cuetypectlidx] == 'CueType':
+            if cue_subelements[cuetypectlidx] == 'Cue_Type':
                 break
         self.edt_list[cuetypectlidx].setText('Select cue type/s ')
         # self.toolButton.setText('Select cue type/s ')
@@ -63,7 +63,7 @@ class EditCue(QDialog, Ui_dlgEditCue):
         thing = []
         type_str = ''
         for i in range(cue_subelements.__len__()):
-            if cue_subelements[i] == 'CueType':
+            if cue_subelements[i] == 'Cue_Type':
                 action_list = self.toolmenu.actions()
                 for i in range(action_list.__len__()):
                     if action_list[i].isChecked():
@@ -93,6 +93,7 @@ class EditCue(QDialog, Ui_dlgEditCue):
         for i in range(cue_subelements.__len__()):
             if cue_subelements[i] in RO_list:
                 self.edt_list[i].setReadOnly(True)
+                self.edt_list[i].setToolTip('{0} (read only)'.format(cue_subelements_tooltips[i]))
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
@@ -103,7 +104,7 @@ if __name__ == "__main__":
     #app.setStyleSheet("QPushButton {pressed-color: red }")
     app.setStyleSheet(styles.QLiSPTheme_Dark)
     ui = EditCue(0)
-    ui.setROcueelements(['Entrances', 'Exits', 'Levels'])
+    ui.setROcueelements(['Entrances', 'Exits', 'Levels', 'On_Stage'])
     parser = argparse.ArgumentParser()
     parser.add_argument("--ip", default="192.168.53.40", help="The ip of the OSC server")
     parser.add_argument("--port", type=int, default=5005, help="The port the OSC server is listening on")
