@@ -47,8 +47,10 @@ class Ui_dlgEditCue(object):
                 size_list = cue_edit_sizes[i].split(',')
                 self.edt_list[i].setMaximumSize(QtCore.QSize(int(size_list[0]),int(size_list[1])))
                 self.edt_list[i].setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+                self.edt_list[i].setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+                self.edt_list[i].setLineWrapMode(QtWidgets.QPlainTextEdit.NoWrap)
                 self.edt_list[i].setTabChangesFocus(True)
-                self.edt_list[i].setObjectName("plainTextEditTitle")
+                self.edt_list[i].setObjectName('pedt{0}'.format(cue_subelements[i]))
             self.edt_list[i].setToolTip(cue_subelements_tooltips[i])
             self.gridLayout.addWidget(self.edt_list[i], i, 1, 1, 1)
 
@@ -173,11 +175,11 @@ class Ui_dlgEditCue(object):
         dlgEditCue.setWindowTitle(_translate("dlgEditCue", "Edit Cue"))
 
         for i in range(cue_subelements.__len__()):
-            self.lbl_list[i].setText(_translate("dlgEditCue", cue_subelements[i]))
+            self.lbl_list[i].setText(_translate("dlgEditCue", cue_subelements[i].replace('_', ' ')))
             if cue_subelements[i] == 'Cue_Type':
                 self.edt_list[i].setText(_translate("dlgEditCue", "..."))
             else:
-                self.edt_list[i].setDocumentTitle(_translate("dlgEditCue", cue_subelements[i]))
+                self.edt_list[i].setDocumentTitle(_translate("dlgEditCue", cue_subelements[i].replace('_', ' ')))
         # self.lblCue.setText(_translate("dlgEditCue", "Cue Number"))
         # self.lblTitle.setText(_translate("dlgEditCue", "Title"))
         # self.llblId.setText(_translate("dlgEditCue", "Id"))

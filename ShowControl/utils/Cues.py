@@ -15,8 +15,8 @@ except ImportError:
 
 cue_types = ['Stage','Mixer','Sound','SFX', 'Light']
 
-cue_subelements = ['Cue_Number',  'Id',    'Act',   'Scene', 'Page',  'Title',       'Cue_Call',   'Cue_Type', 'Entrances',   'Exits',       'Levels',      'On_Stage',    'Note_1',      'Note_2',      'Note_3']
-cue_edit_sizes =  ['60,20',       '60,20', '60,20', '60,20', '60,20', '16000000,20', '60,20',      '60,20',    '16000000,20', '16000000,20', '16000000,20', '16000000,20', '16000000,20', '16000000,20', '16000000,20']
+cue_subelements = ['Cue_Number',  'Id',    'Act',   'Scene', 'Page',  'Title',       'Cue_Call',    'Cue_Type', 'Entrances',   'Exits',       'Levels',      'On_Stage',    'Note_1',      'Note_2',      'Note_3']
+cue_edit_sizes =  ['60,20',       '60,20', '60,20', '60,20', '60,20', '16000000,20', '16000000,20', '60,20',    '16000000,20', '16000000,20', '16000000,20', '16000000,20', '16000000,20', '16000000,20', '16000000,20']
 cue_subelements_tooltips = ['Cue number',
                             'Unique id for this cue',
                             'Enter act number for this cue',
@@ -32,6 +32,7 @@ cue_subelements_tooltips = ['Cue number',
                             'Enter notes about this cue',
                             'Enter notes about this cue',
                             'Enter notes about this cue']
+header = ['Cue Number', 'Act', 'Scene', 'Page', 'Id', 'Title', 'Cue Call', 'Cue Type', 'Note 1']
 
 
 class CueList:
@@ -154,7 +155,7 @@ class CueList:
         self.cuecount = len(cues)
         # self.cuelist.write('addelementtest.xml')
 
-    def insertcue(self, cueindex, cue_dict={}):
+    def insertcue(self, cueindex, cue_data=[]):
         # cueidx is the index that we're inserting above, so
         # create an empty place by incrementing the cue num for this and each subsequent cue
         for anidx in range(cueindex, self.cuecount):
@@ -167,40 +168,54 @@ class CueList:
         # create the ne cue
         show = self.cuelist.getroot()
         newcue = ET.Element('cue',attrib={'num':'{0:03}'.format(cueindex)})
-        for subele in cue_subelements:
-            newele = ET.SubElement(newcue, subele)
-            if subele in cue_dict:
-                newele.text = cue_dict[subele]
-            else:
-                newele.text = '{0}'.format(self.cuecount)
+        for i in range(cue_subelements.__len__()):
+            newele = ET.SubElement(newcue, cue_subelements[i])
+            newele.text = cue_data[i]
         show.insert(cueindex, newcue)
 
         # ET.dump(show)
         cues = self.cuelist.findall('cue')
         self.cuecount = len(cues)
 
+    # def insertcue(self, cueindex, cue_dict={}):
+    #     # cueidx is the index that we're inserting above, so
+    #     # create an empty place by incrementing the cue num for this and each subsequent cue
+    #     for anidx in range(cueindex, self.cuecount):
+    #         cuenum = '{0:03}'.format(anidx)
+    #         thiscue = self.cuelist.find("cue[@num='"+cuenum+"']")
+    #         thisidx = thiscue.get('num')
+    #         thiscue.set('num', '{0:03}'.format(int(thisidx) + 1))
+    #         print(thiscue.get('num'))
+    #     # now we have an empty place
+    #     # create the ne cue
+    #     show = self.cuelist.getroot()
+    #     newcue = ET.Element('cue',attrib={'num':'{0:03}'.format(cueindex)})
+    #     for subele in cue_subelements:
+    #         newele = ET.SubElement(newcue, subele)
+    #         if subele in cue_dict:
+    #             newele.text = cue_dict[subele]
+    #         else:
+    #             newele.text = '{0}'.format(self.cuecount)
+    #     show.insert(cueindex, newcue)
+    #
+    #     # ET.dump(show)
+    #     cues = self.cuelist.findall('cue')
+    #     self.cuecount = len(cues)
+
+    def getcuelist(self, cueindex):
+        cuenum = '{0:03}'.format(cueindex)
+        thiscue = self.cuelist.find("cue[@num='"+cuenum+"']")
+        cuecontents_list = []
+        for i in range(cue_subelements.__len__()):
+            cuecontents_list.append(thiscue.find(cue_subelements[i].replace('_','')).text)
+        return cuecontents_list
+
     def updatecue(self, cueindex, newcuelist):
-        '''
-                newcuelist = ['Cue_Number',  'Act', 'Scene', 'Page', 'Id', 'Title', 'Cue_Call']
-                xml tag      ['Cue_Number',  'Act', 'Scene', 'Page', 'Id', 'Title', 'Cue_Call']
-        '''
-        print('Begin---------updatecue---------')
         cuenum = '{0:03}'.format(cueindex)
         cuetomod = self.cuelist.find("cue[@num='"+cuenum+"']")
 
-        print(cuetomod.find("Move").text)
-        print(cuetomod.find("Id").text)
-
-        cuetomod.find("CueNumber").text =newcuelist[0]
-        cuetomod.find("Act").text =newcuelist[1]
-        cuetomod.find("Scene").text =newcuelist[2]
-        cuetomod.find("Page").text =newcuelist[3]
-        cuetomod.find("Id").text =newcuelist[4]
-        cuetomod.find("Title").text =newcuelist[5]
-        cuetomod.find("CueCall").text =newcuelist[6]
-        cuetomod.find("CueType").text =newcuelist[7]
-
-        print('End---------updatecue---------')
+        for i in range(cue_subelements.__len__()):
+            cuetomod.find(cue_subelements[i].replace('_','')).text = newcuelist[i]
 
     def savecuelist(self, revision=True, filename=''):
         """save the current state of the cuelist.

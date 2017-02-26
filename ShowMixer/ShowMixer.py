@@ -22,6 +22,7 @@ from rtmidi.midiconstants import CONTROL_CHANGE, NOTE_ON
 
 
 from PyQt5 import Qt, QtCore, QtGui, QtWidgets
+from PyQt5.QtGui import QColor, QBrush
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from pythonosc import osc_message
@@ -41,6 +42,7 @@ print(sys.path)
 from Show import Show
 import configuration as cfg
 import CommHandlers
+from Cues import cue_types, cue_subelements, cue_edit_sizes, cue_subelements_tooltips, header
 
 from MixerConf import MixerConf
 from MixerMap import MixerCharMap
@@ -148,7 +150,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         self.tabstripgridlist = []
         self.scrollArea = []
         self.scrollAreaWidgetContents = []
-
+        self.MixerCuesVisible = True
         self.comm_threads = []  # a list of all threads in use for later use when app exits
         # Set up sender threads for each mixer
         self.mixer_sender_threads = []
@@ -582,7 +584,6 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
     def disptext(self):
         self.get_table_data()
         # set the table model
-        header = ['Cue', 'Id', 'Act', 'Scene', 'Page','Title','Dialog/Prompt']
         tablemodel = MyTableModel(self.tabledata, header, self)
         self.tableView.setModel(tablemodel)
         self.tableView.resizeColumnsToContents()
@@ -592,15 +593,32 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         qs = The_Show.cues.cuelist.findall('cue')
         self.tabledata =[]
         for q in qs:
-            #print(q.attrib)
-            #print(q.find('Move').text)
-            self.tabledata.append([q.find('Move').text,
-                     q.find('Id').text,
-                     q.find('Scene').text,
-                     q.find('Page').text,
-                     q.find('Title').text,
-                     q.find('Cue').text])
-        #print(self.tabledata)
+            if q.find('CueType').text == 'Mixer' and self.MixerCuesVisible:
+                self.append_table_data(q)
+
+            # self.tabledata.append([q.find('Move').text,
+            #          q.find('Id').text,
+            #          q.find('Scene').text,
+            #          q.find('Page').text,
+            #          q.find('Title').text,
+            #          q.find('Cue').text])
+
+    def append_table_data(self, q):
+        tmp_list = []
+        for i in range(header.__len__()):
+            tmp_list.append(q.find(header[i].replace(' ','')).text)
+        self.tabledata.append(tmp_list)
+
+        # self.tabledata.append(
+        #     [q.find('CueNumber').text,
+        #      q.find('Act').text,
+        #      q.find('Scene').text,
+        #      q.find('Page').text,
+        #      q.find('Id').text,
+        #      q.find('Title').text,
+        #      q.find('CueCall').text,
+        #      q.find('CueType').text])
+
 
     def tableClicked(self, modelidx):
         rowidx = modelidx.row()
@@ -707,6 +725,19 @@ class MyTableModel(QtCore.QAbstractTableModel):
     def data(self, index, role):
         if not index.isValid():
             return QVariant()
+        elif role == Qt.BackgroundColorRole:
+            #print (self.arraydata[index.row()][7])
+            if self.arraydata[index.row()][7] == 'Stage':
+                return QBrush(Qt.blue)
+            elif self.arraydata[index.row()][7] == 'Sound':
+                return QBrush(Qt.yellow)
+            elif self.arraydata[index.row()][7] == 'Light':
+                return QBrush(Qt.darkGreen)
+            elif self.arraydata[index.row()][7] == 'Mixer':
+                return QBrush(Qt.darkYellow)
+            else:
+                return QBrush(Qt.darkMagenta)
+
         elif role != QtCore.Qt.DisplayRole:
             return QtCore.QVariant()
         return QtCore.QVariant(self.arraydata[index.row()][index.column()])

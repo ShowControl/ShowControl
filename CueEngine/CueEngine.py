@@ -31,10 +31,10 @@ print(sys.path)
 #from MixerConf import MixerConf
 from Show import Show
 import CommHandlers
-from Cues import cue_types, cue_subelements
+from Cues import cue_types, cue_subelements, cue_edit_sizes, cue_subelements_tooltips, header
 
 import CueEngine_ui
-from CueEdit_ui import Ui_dlgEditCue
+from CueEdit_alt_ui import Ui_dlgEditCue
 
 from pythonosc import osc_message_builder
 
@@ -54,9 +54,8 @@ import styles
 
 cfgdict = cfg.toDict()
 
-columndict = {'Number': 0, 'Act':1, 'Scene':2, 'Page':3, 'ID':4, 'Title':5, 'Dialog/Prompt':6}
-header = ['Cue Number', 'Act', 'Scene', 'Page', 'Id', 'Title', 'Dialog/Prompt', 'Cue Type']
-cue_subelements = ['Move', 'Id', 'Act', 'Scene', 'Page', 'Title', 'Cue', 'CueType', 'Entrances', 'Exits', 'Levels', 'On_Stage', 'Note_1', 'Note_2', 'Note_3']
+columndict = {'Cue Number': 0, 'Act':1, 'Scene':2, 'Page':3, 'ID':4, 'Title':5, 'Cue call':6}
+# header = ['Cue Number', 'Act', 'Scene', 'Page', 'Id', 'Title', 'Cue Call', 'Cue Type']
 
 
 class EditCue(QDialog, Ui_dlgEditCue):
@@ -66,48 +65,40 @@ class EditCue(QDialog, Ui_dlgEditCue):
         self.editidx = index
         self.setupUi(self)
         self.chgdict = {}
-        self.toolButton.setText('Select cue type/s ')
+        self.chglist = []
+        self.changeflag = False
+        for cuetypectlidx in range(cue_subelements.__len__()):
+            if cue_subelements[cuetypectlidx] == 'Cue_Type':
+                break
+        self.edt_list[cuetypectlidx].setText('Select cue type/s ')
+        # self.toolButton.setText('Select cue type/s ')
         self.toolmenu = QtWidgets.QMenu(self)
         # self.toolmenu.triggered[QtWidgets.QAction].connect(self.processtrig)
         for i in range(cue_types.__len__()):
             action = self.toolmenu.addAction(cue_types[i])
             action.setCheckable(True)
-        self.toolButton.setMenu(self.toolmenu)
-        self.toolButton.setPopupMode(QtWidgets.QToolButton.InstantPopup)
-        #self.changeflag = False
+        # self.toolButton.setMenu(self.toolmenu)
+        # self.toolButton.setPopupMode(QtWidgets.QToolButton.InstantPopup)
+        self.edt_list[cuetypectlidx].setMenu(self.toolmenu)
+        self.edt_list[cuetypectlidx].setPopupMode(QtWidgets.QToolButton.InstantPopup)
         #self.plainTextEditAct.textChanged.connect(self.setChangeFlag)
 
     def accept(self):
-        somethingchanged = True
-        # for dobj in self.findChildren(QtWidgets.QPlainTextEdit):
-        #     tobj = dobj.document()
-        #     if tobj.isModified():
-        #         somethingchanged = True
-        toolbut = self.findChild(QtWidgets.QToolButton)
-        toolmenu = toolbut.menu()
-        if somethingchanged:
-            print('editidx',self.editidx)
-            for dobj in self.findChildren(QtWidgets.QPlainTextEdit):
-                objnam = dobj.objectName()
-                flddoc = dobj.documentTitle()
-                print('documentTitle: ', flddoc)
-                print('object name: ', objnam)
-                fldtxt = dobj.toPlainText()
-                self.chgdict.update({flddoc:fldtxt})
-
-        print('Something changed: ', somethingchanged)
-        docobj = self.plainTextEditTitle.document()
-        print('Window modded:',self.isWindowModified())
-        # get the cue type/s
+        self.changeflag = True
+        thing = []
         type_str = ''
-        action_list = self.toolmenu.actions()
-        for i in range(action_list.__len__()):
-            if action_list[i].isChecked():
-                if type_str == '':
-                    type_str = action_list[i].text()
-                else:
-                    type_str = '{0},{1}'.format(type_str, action_list[i].text())
-        self.chgdict.update({'CueType':type_str})
+        for i in range(cue_subelements.__len__()):
+            if cue_subelements[i] == 'Cue_Type':
+                action_list = self.toolmenu.actions()
+                for i in range(action_list.__len__()):
+                    if action_list[i].isChecked():
+                        if type_str == '':
+                            type_str = action_list[i].text()
+                        else:
+                            type_str = '{0},{1}'.format(type_str, action_list[i].text())
+                self.chglist.append(type_str)
+            else:
+                self.chglist.append(self.edt_list[i].toPlainText())
         super(EditCue, self).accept()
 
     def reject(self):
@@ -116,9 +107,11 @@ class EditCue(QDialog, Ui_dlgEditCue):
     def getchange(self):
         return self.chglist
 
-    #def setChangeFlag(self):
-    #    print('textchanged')
-    #    self.changeflag = True
+    def setROcueelements(self, RO_list):
+        for i in range(cue_subelements.__len__()):
+            if cue_subelements[i] in RO_list:
+                self.edt_list[i].setReadOnly(True)
+                self.edt_list[i].setToolTip('{0} (read only)'.format(cue_subelements_tooltips[i]))
 
 class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
 
@@ -157,7 +150,7 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         self.SFXAppProc = None
         self.MxrAppProc = None
 
-        self.editcuedlg = EditCue('0')
+        # self.editcuedlg = EditCue('0')
         self.comm_threads = []  # a list of threads in use for later use when app exits
 
     def on_buttonNext_clicked(self):
@@ -207,8 +200,35 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         tblvw = self.findChild(QtWidgets.QTableView)
         # index[0].row() will be where the user clicked
         index = tblvw.selectedIndexes()
-        The_Show.cues.insertcue(index[0].row(), {'Scene': '1', 'Title': 'A new inserted Cue'})
-        The_Show.cues.savecuelist()
+        cueindex = index[0].row()
+        self.editcuedlg = EditCue('0')
+        self.editcuedlg.editidx = cueindex
+        self.editcuedlg.setROcueelements(['Cue_Number','Entrances', 'Exits', 'Levels', 'On_Stage'])
+        thiscue = The_Show.cues.getcuelist(cueindex)
+        for i in range(cue_subelements.__len__()):
+            if cue_subelements[i] == 'Cue_Type':
+                action_list = self.editcuedlg.toolmenu.actions()
+                for i in range(action_list.__len__()):
+                    action_list[i].setChecked(False)
+                type_list = The_Show.cues.getcuetype(cueindex)
+                for type in type_list:
+                    for i in range(action_list.__len__()):
+                        if action_list[i].text() == type:
+                            action_list[i].setChecked(True)
+                            break
+
+                pass
+            else:
+                self.editcuedlg.edt_list[i].setPlainText(thiscue[i])
+        self.editcuedlg.exec_()
+        if self.editcuedlg.changeflag:
+            chg_list = self.editcuedlg.getchange()
+            for col in range(header.__len__()):
+                changeddataindex = cue_subelements.index(header[col].replace(' ', '_'))
+                self.tabledata[cueindex][col] = chg_list[changeddataindex]
+
+        The_Show.cues.insertcue(cueindex, chg_list)
+        The_Show.cues.savecuelist(True, cfgdict['Show']['folder'] + The_Show.show_conf.settings['cuefile'])
 
         pass
 
@@ -220,64 +240,35 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         The_Show.cues.selectedcueindex = int(self.tabledata[index.row()][0])
 
     def on_table_dblclick(self,index):
+        self.editcuedlg = EditCue('0')
         print(index.row())
         cueindex = index.row()
-        action_list = self.editcuedlg.toolmenu.actions()
-        for i in range(action_list.__len__()):
-            action_list[i].setChecked(False)
-        type_list = The_Show.cues.getcuetype(cueindex)
-        for type in type_list:
-            for i in range(action_list.__len__()):
-                if action_list[i].text() == type:
-                    action_list[i].setChecked(True)
-                    break
-        pass
+        self.editcuedlg.editidx = cueindex
+        self.editcuedlg.setROcueelements(['Entrances', 'Exits', 'Levels', 'On_Stage'])
+        thiscue = The_Show.cues.getcuelist(cueindex)
+        for i in range(cue_subelements.__len__()):
+            if cue_subelements[i] == 'Cue_Type':
+                action_list = self.editcuedlg.toolmenu.actions()
+                for i in range(action_list.__len__()):
+                    action_list[i].setChecked(False)
+                type_list = The_Show.cues.getcuetype(cueindex)
+                for type in type_list:
+                    for i in range(action_list.__len__()):
+                        if action_list[i].text() == type:
+                            action_list[i].setChecked(True)
+                            break
 
-        self.editcuedlg.editidx = index.row()
-        print(self.tabledata[index.row()])
-        rowlist = self.tabledata[index.row()]
-        self.editcuedlg.plainTextEditCueNum.setPlainText(rowlist[0])
-        self.editcuedlg.plainTextEditCueNum.setDocumentTitle('Cue Number')
-
-        self.editcuedlg.plainTextEditAct.setPlainText(rowlist[1])
-        self.editcuedlg.plainTextEditAct.setDocumentTitle('Act')
-
-        self.editcuedlg.plainTextEditScene.setPlainText(rowlist[2])
-        self.editcuedlg.plainTextEditScene.setDocumentTitle('Scene')
-
-        self.editcuedlg.plainTextEditPage.setPlainText(rowlist[3])
-        self.editcuedlg.plainTextEditPage.setDocumentTitle('Page')
-
-        self.editcuedlg.plainTextEditId.setPlainText(rowlist[4])
-        self.editcuedlg.plainTextEditId.setDocumentTitle('Id')
-
-        self.editcuedlg.plainTextEditTitle.setPlainText(rowlist[5])
-        self.editcuedlg.plainTextEditTitle.setDocumentTitle('Title')
-
-        self.editcuedlg.plainTextEditPrompt.setPlainText(rowlist[6])
-        self.editcuedlg.plainTextEditPrompt.setDocumentTitle('Dialog/Prompt')
-
-        #self.editcuedlg.show()
+                pass
+            else:
+                self.editcuedlg.edt_list[i].setPlainText(thiscue[i])
         self.editcuedlg.exec_()
-        changedict = self.editcuedlg.chgdict
-        print('returned list:',self.editcuedlg.chgdict)
-        if changedict:
-            print('Updating table.')
-            for key, newdata in changedict.items():
-                print('--------------',key,newdata)
-                for coltxt, colidx in columndict.items():
-                    if coltxt in key:
-                        print('colidx: ', colidx, ' row: ', index.row())
-                        print('coltxt: ',coltxt, ' newdata: ',newdata)
-                        self.tabledata[index.row()][colidx] = newdata
-
-                        break
-        else:
-            print('No table changes')
-        print(self.tabledata[index.row()])
-        The_Show.cues.updatecue(index.row(),self.tabledata[index.row()])
-        The_Show.cues.savecuelist(True, cfgdict['Show']['folder'] + The_Show.show_conf.settings['cuefile'])
-        pass
+        if self.editcuedlg.changeflag:
+            chg_list = self.editcuedlg.getchange()
+            for col in range(header.__len__()):
+                changeddataindex = cue_subelements.index(header[col].replace(' ', '_'))
+                self.tabledata[cueindex][col] = chg_list[changeddataindex]
+            The_Show.cues.updatecue(cueindex, chg_list)
+            The_Show.cues.savecuelist(True, cfgdict['Show']['folder'] + The_Show.show_conf.settings['cuefile'])
 
     def setfirstcue(self):
         tblvw = self.findChild(QtWidgets.QTableView)
@@ -286,7 +277,6 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
     def disptext(self):
         self.get_table_data()
         # set the table model
-        header = ['Cue Number', 'Act', 'Scene', 'Page', 'Id', 'Title', 'Dialog/Prompt', 'Cue Type']
         tablemodel = MyTableModel(self.tabledata, header, self)
         self.tableView.setModel(tablemodel)
         self.tableView.resizeColumnsToContents()
@@ -310,15 +300,19 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         print(self.tabledata)
 
     def append_table_data(self, q):
-        self.tabledata.append(
-            [q.find('Move').text,
-             q.find('Act').text,
-             q.find('Scene').text,
-             q.find('Page').text,
-             q.find('Id').text,
-             q.find('Title').text,
-             q.find('Cue').text,
-             q.find('CueType').text])
+        tmp_list = []
+        for i in range(header.__len__()):
+            tmp_list.append(q.find(header[i].replace(' ','')).text)
+        self.tabledata.append(tmp_list)
+        # self.tabledata.append(
+        #     [q.find('CueNumber').text,
+        #      q.find('Act').text,
+        #      q.find('Scene').text,
+        #      q.find('Page').text,
+        #      q.find('Id').text,
+        #      q.find('Title').text,
+        #      q.find('CueCall').text,
+        #      q.find('CueType').text])
 
     #Menu and Tool Bar functions
 
