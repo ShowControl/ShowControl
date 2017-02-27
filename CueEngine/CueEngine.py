@@ -15,6 +15,8 @@ from PyQt5.QtWidgets import *
 import xml.etree.ElementTree as ET
 from os import path
 
+_translate = QtCore.QCoreApplication.translate
+
 from rtmidi.midiconstants import CONTROL_CHANGE, NOTE_ON
 
 currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
@@ -102,10 +104,26 @@ class EditCue(QDialog, Ui_dlgEditCue):
         super(EditCue, self).accept()
 
     def reject(self):
+        self.changeflag = False
         super(EditCue, self).reject()
 
     def getchange(self):
         return self.chglist
+
+    def fillfields(self, cueindex, cue_list):
+        for i in range(cue_subelements.__len__()):
+            if cue_subelements[i] == 'Cue_Type':
+                action_list = self.toolmenu.actions()
+                for i in range(action_list.__len__()):
+                    action_list[i].setChecked(False)
+                type_list = The_Show.cues.getcuetype(cueindex)
+                for type in type_list:
+                    for i in range(action_list.__len__()):
+                        if action_list[i].text() == type:
+                            action_list[i].setChecked(True)
+                            break
+            else:
+                self.edt_list[i].setPlainText(cue_list[i])
 
     def setROcueelements(self, RO_list):
         for i in range(cue_subelements.__len__()):
@@ -137,20 +155,26 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         self.tabledata = []
         self.actionOpen_Show.triggered.connect(self.openShow)
         self.actionSave.triggered.connect(self.saveShow)
-        self.action_Stage_Cues.triggered.connect(self.ShowStageCues)
-        self.StageCuesVisible = True
-        self.action_Sound_FX_Cues.triggered.connect(self.ShowSoundFXCues)
-        self.SoundFXCuesVisible = True
-        self.action_Mixer_Cues.triggered.connect(self.ShowMixerCues)
-        self.MixerCuesVisible = True
-        self.action_Lighting_Cues.triggered.connect(self.ShowLightCues)
-        self.LightCuesVisible = True
+        # start with all cue types visible
+        self.CueTypeVisible = {}
+        for type in cue_types:
+            self.CueTypeVisible[type] = True
+        self.action_Stage_Cues.triggered.connect(self.hide_show_cues)  # todo-mac probably should setup actions
+                                                                        # in lists in the gui so the cuetype
+                                                                        # isn't hardwired as in the next few lines
+        self.action_Stage_Cues.cuetype = 'Stage'
+        self.action_Sound_FX_Cues.triggered.connect(self.hide_show_cues)
+        self.action_Sound_FX_Cues.cuetype = 'Sound'
+        self.action_Mixer_Cues.triggered.connect(self.hide_show_cues)
+        self.action_Mixer_Cues.cuetype = 'Mixer'
+        self.action_Lighting_Cues.triggered.connect(self.hide_show_cues)
+        self.action_Lighting_Cues.cuetype = 'Light'
+        # connect callbacks for launching external apps
         self.action_Sound_FX.triggered.connect(self.ShowSFXApp)
         self.action_Mixer.triggered.connect(self.ShowMxrApp)
         self.SFXAppProc = None
         self.MxrAppProc = None
 
-        # self.editcuedlg = EditCue('0')
         self.comm_threads = []  # a list of threads in use for later use when app exits
 
     def on_buttonNext_clicked(self):
@@ -197,70 +221,50 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
 
     def on_table_rightclick(self):
         """insert a new cue before the selected row"""
+        # save the old state of the cuefile with a revision number appended
+        The_Show.cues.savecuelist(True, cfgdict['Show']['folder'] + The_Show.show_conf.settings['cuefile'])
         tblvw = self.findChild(QtWidgets.QTableView)
         # index[0].row() will be where the user clicked
         index = tblvw.selectedIndexes()
         cueindex = index[0].row()
-        self.editcuedlg = EditCue('0')
-        self.editcuedlg.editidx = cueindex
+        self.editcuedlg = EditCue(cueindex)
+        self.editcuedlg.setWindowTitle(_translate("dlgEditCue", "Edit Cue"))
+
+        # self.editcuedlg.editidx = cueindex
         self.editcuedlg.setROcueelements(['Cue_Number','Entrances', 'Exits', 'Levels', 'On_Stage'])
         thiscue = The_Show.cues.getcuelist(cueindex)
-        for i in range(cue_subelements.__len__()):
-            if cue_subelements[i] == 'Cue_Type':
-                action_list = self.editcuedlg.toolmenu.actions()
-                for i in range(action_list.__len__()):
-                    action_list[i].setChecked(False)
-                type_list = The_Show.cues.getcuetype(cueindex)
-                for type in type_list:
-                    for i in range(action_list.__len__()):
-                        if action_list[i].text() == type:
-                            action_list[i].setChecked(True)
-                            break
-
-                pass
-            else:
-                self.editcuedlg.edt_list[i].setPlainText(thiscue[i])
+        self.editcuedlg.fillfields(cueindex, thiscue)
         self.editcuedlg.exec_()
         if self.editcuedlg.changeflag:
             chg_list = self.editcuedlg.getchange()
-            for col in range(header.__len__()):
-                changeddataindex = cue_subelements.index(header[col].replace(' ', '_'))
-                self.tabledata[cueindex][col] = chg_list[changeddataindex]
-
-        The_Show.cues.insertcue(cueindex, chg_list)
-        The_Show.cues.savecuelist(True, cfgdict['Show']['folder'] + The_Show.show_conf.settings['cuefile'])
-
-        pass
+            The_Show.cues.insertcue(cueindex, chg_list)
+            # save the new version of cue file, overwriting old version
+            The_Show.cues.savecuelist(False, cfgdict['Show']['folder'] + The_Show.show_conf.settings['cuefile'])
+            # display the new state of the cuefile
+            The_Show.cues.setup_cues(cfgdict['Show']['folder'] + The_Show.show_conf.settings['cuefile'])
+        The_Show.cues.currentcueindex = cueindex
+        self.disptext()
+        tblvw.selectRow(The_Show.cues.currentcueindex)
 
     def on_table_click(self,index):
-        """index is the row in the tableview (thus the row of the tabledata)"""
+        """Set a selected cue
+        simply sets the selected row of the table/cue list
+        Doesn't get executed, jump button executes the selected cue.
+        index is the row in the tableview (thus the row of the tabledata)"""
         tblvw = self.findChild(QtWidgets.QTableView)
         tblvw.selectRow(index.row())
         cuedata = self.tabledata[index.row()]
         The_Show.cues.selectedcueindex = int(self.tabledata[index.row()][0])
 
     def on_table_dblclick(self,index):
-        self.editcuedlg = EditCue('0')
-        print(index.row())
+        """Edit the double clicked cue"""
+        tblvw = self.findChild(QtWidgets.QTableView)
         cueindex = index.row()
-        self.editcuedlg.editidx = cueindex
+        self.editcuedlg = EditCue(cueindex)  # create the edit dialog
+        # self.editcuedlg.editidx = cueindex
         self.editcuedlg.setROcueelements(['Entrances', 'Exits', 'Levels', 'On_Stage'])
         thiscue = The_Show.cues.getcuelist(cueindex)
-        for i in range(cue_subelements.__len__()):
-            if cue_subelements[i] == 'Cue_Type':
-                action_list = self.editcuedlg.toolmenu.actions()
-                for i in range(action_list.__len__()):
-                    action_list[i].setChecked(False)
-                type_list = The_Show.cues.getcuetype(cueindex)
-                for type in type_list:
-                    for i in range(action_list.__len__()):
-                        if action_list[i].text() == type:
-                            action_list[i].setChecked(True)
-                            break
-
-                pass
-            else:
-                self.editcuedlg.edt_list[i].setPlainText(thiscue[i])
+        self.editcuedlg.fillfields(cueindex, thiscue)
         self.editcuedlg.exec_()
         if self.editcuedlg.changeflag:
             chg_list = self.editcuedlg.getchange()
@@ -269,6 +273,9 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
                 self.tabledata[cueindex][col] = chg_list[changeddataindex]
             The_Show.cues.updatecue(cueindex, chg_list)
             The_Show.cues.savecuelist(True, cfgdict['Show']['folder'] + The_Show.show_conf.settings['cuefile'])
+        The_Show.cues.currentcueindex = cueindex
+        self.disptext()
+        tblvw.selectRow(The_Show.cues.currentcueindex)
 
     def setfirstcue(self):
         tblvw = self.findChild(QtWidgets.QTableView)
@@ -285,34 +292,19 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         qs = The_Show.cues.cuelist.findall('cue')
         self.tabledata =[]
         for q in qs:
-            #print(q.attrib)
-            #print(q.find('Move').text)
-            if q.find('CueType').text == 'Sound' and self.SoundFXCuesVisible:
-                self.append_table_data(q)
-            elif q.find('CueType').text == 'Mixer' and self.MixerCuesVisible:
-                self.append_table_data(q)
-            elif q.find('CueType').text == 'Stage' and self.StageCuesVisible:
-                self.append_table_data(q)
-            elif q.find('CueType').text == 'Light' and self.LightCuesVisible:
-                self.append_table_data(q)
-            else:
-                self.append_table_data(q)
-        print(self.tabledata)
+            ET.dump(q)
+            type_list = q.find('CueType').text.split(',')
+            for type in cue_types:
+                 if type in type_list and self.CueTypeVisible[type]:
+                     self.append_table_data(q)
+                     break
+        # print(self.tabledata)
 
     def append_table_data(self, q):
         tmp_list = []
         for i in range(header.__len__()):
             tmp_list.append(q.find(header[i].replace(' ','')).text)
         self.tabledata.append(tmp_list)
-        # self.tabledata.append(
-        #     [q.find('CueNumber').text,
-        #      q.find('Act').text,
-        #      q.find('Scene').text,
-        #      q.find('Page').text,
-        #      q.find('Id').text,
-        #      q.find('Title').text,
-        #      q.find('CueCall').text,
-        #      q.find('CueType').text])
 
     #Menu and Tool Bar functions
 
@@ -337,42 +329,16 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         print("Save show.")
         pass
 
-    def ShowStageCues(self):
+    def hide_show_cues(self):
         """Toggle visibility of stage cues"""
-        if self.StageCuesVisible:
-            self.StageCuesVisible = False
+        who = self.sender()
+        cuetype = who.cuetype
+        if self.CueTypeVisible[cuetype]:
+            self.CueTypeVisible[cuetype] = False
         else:
-            self.StageCuesVisible = True
+            self.CueTypeVisible[cuetype] = True
         self.disptext()
         self.setfirstcue()
-
-    def ShowSoundFXCues(self):
-        """Toggle visibility of sound cues"""
-        if self.SoundFXCuesVisible:
-            self.SoundFXCuesVisible = False
-        else:
-            self.SoundFXCuesVisible = True
-        self.disptext()
-        self.setfirstcue()
-
-    def ShowMixerCues(self):
-        """Toggle visibility of sound cues"""
-        if self.MixerCuesVisible:
-            self.MixerCuesVisible = False
-        else:
-            self.MixerCuesVisible = True
-        self.disptext()
-        self.setfirstcue()
-
-    def ShowLightCues(self):
-        """Toggle visibility of Light cues"""
-        if self.LightCuesVisible:
-            self.LightCuesVisible = False
-        else:
-            self.LightCuesVisible = True
-        self.disptext()
-        self.setfirstcue()
-
 
     def ShowSFXApp(self):
         print("Launch SFX App.")

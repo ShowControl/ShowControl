@@ -49,6 +49,17 @@ class CueList:
         currentindex is an integer that indicates the current cue
         previewcueindex is an integer that indicates the cue being previewed , if a preview is active 
         '''
+        self.setup_cues(cuefilename)
+        # self.cuetree = ET.ElementTree(file=cuefilename)
+        # self.cuelist = ET.parse(cuefilename)
+        # self.cuelist_root = self.cuelist.getroot()
+        # self.currentcueindex = 0
+        # self.previouscueindex = 0
+        # self.previewcueindex = 0
+        # cues = self.cuelist.findall('cue')
+        # self.cuecount = len(cues)
+
+    def setup_cues(self, cuefilename):
         self.cuetree = ET.ElementTree(file=cuefilename)
         self.cuelist = ET.parse(cuefilename)
         self.cuelist_root = self.cuelist.getroot()
@@ -57,6 +68,7 @@ class CueList:
         self.previewcueindex = 0
         cues = self.cuelist.findall('cue')
         self.cuecount = len(cues)
+
 
     def get_cue_mute_state(self, cueindex):
         '''
@@ -109,7 +121,6 @@ class CueList:
 
     def getcuetype(self, cueindex):
         thiscue = self.cuelist.find("./cue[@num='" + '{0:03}'.format(cueindex) + "']")
-        print(ET.dump(thiscue))
         try:
             cuetype = thiscue.find('CueType')
             if cuetype != None:
@@ -123,7 +134,6 @@ class CueList:
 
     def setcueelement(self, cueindex, levels):
         thiscue = self.cuelist.find("./cue[@num='" + '{0:03}'.format(cueindex) + "']")
-        print(ET.dump(thiscue))
         try:
             cuetype = thiscue.find('Levels')
             if cuetype != None:
@@ -131,15 +141,11 @@ class CueList:
             else:
                 cuetype = ET.SubElement(thiscue, 'Levels')
                 cuetype.text = levels
-            # thiscue = self.cuelist.find("./cue[@num='" + '{0:03}'.format(cueindex) + "']")
-            # newcuetype = thiscue.find('Exits')
-            # print(newcuetype.text)
         except:
             print('Cue type for index ' + '{0:03}'.format(cueindex) + ' not found!')
         self.cuelist.write('update.xml')
 
     def addnewcue(self, cue_dict={}):
-
         show = self.cuelist.getroot()
         newcue = ET.Element('cue',attrib={'num':'{0:03}'.format(self.cuecount)})
         for subele in cue_subelements:
@@ -158,49 +164,24 @@ class CueList:
     def insertcue(self, cueindex, cue_data=[]):
         # cueidx is the index that we're inserting above, so
         # create an empty place by incrementing the cue num for this and each subsequent cue
-        for anidx in range(cueindex, self.cuecount):
+        for anidx in reversed(range(cueindex, self.cuecount)):
             cuenum = '{0:03}'.format(anidx)
             thiscue = self.cuelist.find("cue[@num='"+cuenum+"']")
             thisidx = thiscue.get('num')
             thiscue.set('num', '{0:03}'.format(int(thisidx) + 1))
             print(thiscue.get('num'))
         # now we have an empty place
-        # create the ne cue
+        # create the new cue
         show = self.cuelist.getroot()
         newcue = ET.Element('cue',attrib={'num':'{0:03}'.format(cueindex)})
         for i in range(cue_subelements.__len__()):
-            newele = ET.SubElement(newcue, cue_subelements[i])
+            newele = ET.SubElement(newcue, cue_subelements[i].replace('_',''))
             newele.text = cue_data[i]
         show.insert(cueindex, newcue)
 
         # ET.dump(show)
         cues = self.cuelist.findall('cue')
         self.cuecount = len(cues)
-
-    # def insertcue(self, cueindex, cue_dict={}):
-    #     # cueidx is the index that we're inserting above, so
-    #     # create an empty place by incrementing the cue num for this and each subsequent cue
-    #     for anidx in range(cueindex, self.cuecount):
-    #         cuenum = '{0:03}'.format(anidx)
-    #         thiscue = self.cuelist.find("cue[@num='"+cuenum+"']")
-    #         thisidx = thiscue.get('num')
-    #         thiscue.set('num', '{0:03}'.format(int(thisidx) + 1))
-    #         print(thiscue.get('num'))
-    #     # now we have an empty place
-    #     # create the ne cue
-    #     show = self.cuelist.getroot()
-    #     newcue = ET.Element('cue',attrib={'num':'{0:03}'.format(cueindex)})
-    #     for subele in cue_subelements:
-    #         newele = ET.SubElement(newcue, subele)
-    #         if subele in cue_dict:
-    #             newele.text = cue_dict[subele]
-    #         else:
-    #             newele.text = '{0}'.format(self.cuecount)
-    #     show.insert(cueindex, newcue)
-    #
-    #     # ET.dump(show)
-    #     cues = self.cuelist.findall('cue')
-    #     self.cuecount = len(cues)
 
     def getcuelist(self, cueindex):
         cuenum = '{0:03}'.format(cueindex)

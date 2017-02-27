@@ -1,0 +1,1725 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<show>
+  <cue num="000">
+    <CueNumber>0</CueNumber>
+    <Id>0</Id>
+    <Act>0</Act>
+    <Scene> 0</Scene>
+    <Page>0</Page>
+    <Title>Top of Show</Title>
+    <CueCall>None</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances>M0main01,M1out01</Entrances>
+    <Exits>M0ch01,M0ch02,M0ch03,M0ch04,M0ch05,M0ch06,M0ch07,M0ch08,M0ch09,M0ch10,M0ch11,M0ch12,M0ch13,M0ch14,M0ch15,M0ch16,M0ch17,M0ch18,M0ch19,M0ch20,M0ch21,M0ch22,M0ch23,M0ch24,M0ch25,M0ch26,M0ch27,M0ch28,M0ch29,M0ch30,M0ch31,M0ch32,M1ch01,M1ch02,M1ch03,M1ch04,M1ch05,M1ch06,M1ch07,M1ch08,M1ch09,M1ch10,M1ch11,M1ch12,M1ch13,M1ch14,M1aux01,M1bus01</Exits>
+    <Levels>M0ch01:512,M0ch02:0,M0ch03:0,M0ch04:0,M0ch05:512,M0ch06:0,M0ch07:0,M0ch08:0,M0ch09:0,M0ch10:512,M0ch11:0,M0ch12:0,M0ch13:0,M0ch14:0,M0ch15:0,M0ch16:0,M0ch17:0,M0ch18:0,M0ch19:0,M0ch20:0,M0ch21:0,M0ch22:0,M0ch23:0,M0ch24:0,M0ch25:0,M0ch26:0,M0ch27:0,M0ch28:0,M0ch29:0,M0ch30:0,M0ch31:0,M0ch32:0,M0main01:512,M1ch01:512,M1ch02:0,M1ch03:0,M1ch04:0,M1ch05:512,M1ch06:0,M1ch07:0,M1ch08:0,M1ch09:0,M1ch10:512,M1ch11:0,M1ch12:0,M1ch13:0,M1ch14:0,M1aux01:0,M1bus01:0,M1out01:512</Levels>
+    <OnStage/>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="001">
+    <CueNumber>1</CueNumber>
+    <Id>1A</Id>
+    <Act>1</Act>
+    <Scene> 1</Scene>
+    <Page>1</Page>
+    <Title>Pauline enters</Title>
+    <CueCall>Lights up</CueCall>
+    <CueType>Light</CueType>
+    <Entrances>ch1</Entrances>
+    <Exits/>
+    <Levels>ch01:512,ch02:512,ch03:0,ch04:0,ch05:0,ch06:0,ch07:0,ch08:0,ch09:0,ch10:0,ch11:0,ch12:0,ch13:0,ch14:0,ch15:0,ch16:0,ch17:0,ch18:0,ch19:0,ch20:0,ch21:0,ch22:0,ch23:0,ch24:0,ch25:0,ch26:0,ch27:0,ch28:0,ch29:0,ch30:0,ch31:0,ch32:0</Levels>
+    <OnStage>ch1</OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="002">
+    <CueNumber>2</CueNumber>
+    <Id>1B</Id>
+    <Act>1</Act>
+    <Scene> 1</Scene>
+    <Page>1</Page>
+    <Title>Top of show</Title>
+    <CueCall>Church bells chime</CueCall>
+    <CueType>Sound</CueType>
+    <Entrances>ch10,ch2,ch4,ch5,ch6,ch7,ch8 </Entrances>
+    <Exits>ch32</Exits>
+    <OnStage>ch10,ch2,ch4,ch5,ch6,ch7,ch8 </OnStage>
+    <Levels>M0ch01:64,M0ch02:128,M0ch03:194,M0ch04:256,M0ch05:320,M0ch06:384,M0ch07:448,M0ch08:512,M0ch09:576,M0ch10:640,M0ch11:704,M0ch12:768,M0ch13:832,M0ch14:896,M0ch15:960,M0ch16:1024,M0ch17:1024,M0ch18:960,M0ch19:896,M0ch20:832,M0ch21:768,M0ch22:704,M0ch23:640,M0ch24:576,M0ch25:512,M0ch26:448,M0ch27:384,M0ch28:320,M0ch29:256,M0ch30:194,M0ch31:128,M0ch32:64,M1ch01:64,M1ch02:128,M1ch03:194,M1ch04:256,M1ch05:320,M1ch06:384,M1ch07:448,M1ch08:512,M1ch09:576,M1ch10:640,M1ch11:704,M1ch12:768,M1ch13:832,M1ch14:896,M1aux01:960,M1bus01:1024</Levels>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="003">
+    <CueNumber>3</CueNumber>
+    <Id>2A</Id>
+    <Act>1</Act>
+    <Scene> 2</Scene>
+    <Page>2</Page>
+    <Title>end of "Opening"</Title>
+    <CueCall>Song ends/scene change</CueCall>
+    <CueType>Mixer</CueType>
+    <Entrances>M0ch01,M1ch01</Entrances>
+    <Exits>M0ch10,M0ch02,M0ch04,M0ch05,M0ch06,M0ch07,M0ch08,M1ch10,M1ch02,M1ch04,M1ch05,M1ch06,M1ch07,M1ch08 </Exits>
+    <OnStage/>
+    <Levels>M0ch01:64,M0ch02:128,M0ch03:194,M0ch04:256,M0ch05:320,M0ch06:384,M0ch07:448,M0ch08:512,M0ch09:576,M0ch10:640,M0ch11:704,M0ch12:768,M0ch13:832,M0ch14:896,M0ch15:960,M0ch16:1024,M0ch17:1024,M0ch18:960,M0ch19:896,M0ch20:832,M0ch21:768,M0ch22:704,M0ch23:640,M0ch24:576,M0ch25:512,M0ch26:448,M0ch27:384,M0ch28:320,M0ch29:256,M0ch30:194,M0ch31:128,M0ch32:64,M1ch01:64,M1ch02:128,M1ch03:194,M1ch04:256,M1ch05:320,M1ch06:384,M1ch07:448,M1ch08:512,M1ch09:576,M1ch10:640,M1ch11:704,M1ch12:768,M1ch13:832,M1ch14:896,M1aux01:960,M1bus01:1024</Levels>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="004">
+    <CueNumber>4</CueNumber>
+    <Id>2B</Id>
+    <Act>1</Act>
+    <Scene> 2</Scene>
+    <Page>2</Page>
+    <Title>Scene 2</Title>
+    <CueCall>Scene change ends</CueCall>
+    <CueType>Mixer</CueType>
+    <Entrances>M0ch01 </Entrances>
+    <Exits/>
+    <OnStage>ch1 </OnStage>
+    <Levels>M0ch01:812,M0ch02:812,M0ch03:0,M0ch04:0,M0ch05:0,M0ch06:0,M0ch07:0,M0ch08:0,M0ch09:0,M0ch10:0,M0ch11:0,M0ch12:0,M0ch13:0,M0ch14:0,M0ch15:0,M0ch16:0,M0ch17:0,M0ch18:0,M0ch19:0,M0ch20:0,M0ch21:0,M0ch22:0,M0ch23:0,M0ch24:0,M0ch25:0,M0ch26:0,M0ch27:0,M0ch28:0,M0ch29:0,M0ch30:0,M0ch31:0,M0ch32:0,M1ch01:812,M1ch02:812,M1ch03:0,M1ch04:0,M1ch05:0,M1ch06:0,M1ch07:0,M1ch08:0,M1ch09:0,M1ch10:0,M1ch11:0,M1ch12:0,M1ch13:0,M1ch14:0,M1aux01:0,M1bus01:0</Levels>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="005">
+    <CueNumber>5</CueNumber>
+    <Id>3A</Id>
+    <Act>1</Act>
+    <Scene> 2</Scene>
+    <Page>3</Page>
+    <Title>enter Nephew and Bob</Title>
+    <CueCall>"leave a man in peace!"</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances>ch2,ch9 </Entrances>
+    <Exits/>
+    <OnStage>ch1,ch2,ch9 </OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="006">
+    <CueNumber>6</CueNumber>
+    <Id>5A</Id>
+    <Act>1</Act>
+    <Scene> 3</Scene>
+    <Page>5</Page>
+    <Title>Nephew exits</Title>
+    <CueCall>"A happy New Year!"</CueCall>
+    <CueType>Mixer</CueType>
+    <Entrances/>
+    <Exits>M0ch09 ,M1ch01</Exits>
+    <OnStage>ch1,ch2 </OnStage>
+    <Levels>M0ch01:64,M0ch02:128,M0ch03:194,M0ch04:256,M0ch05:320,M0ch06:384,M0ch07:448,M0ch08:512,M0ch09:576,M0ch10:640,M0ch11:704,M0ch12:768,M0ch13:832,M0ch14:896,M0ch15:960,M0ch16:1024,M0ch17:1024,M0ch18:960,M0ch19:896,M0ch20:832,M0ch21:768,M0ch22:704,M0ch23:640,M0ch24:576,M0ch25:512,M0ch26:448,M0ch27:384,M0ch28:320,M0ch29:256,M0ch30:194,M0ch31:128,M0ch32:64,M1ch01:64,M1ch02:128,M1ch03:194,M1ch04:256,M1ch05:320,M1ch06:384,M1ch07:448,M1ch08:512,M1ch09:576,M1ch10:640,M1ch11:704,M1ch12:768,M1ch13:832,M1ch14:896,M1aux01:960,M1bus01:1024</Levels>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="007">
+    <CueNumber>7</CueNumber>
+    <Id>5B</Id>
+    <Act>1</Act>
+    <Scene> 3</Scene>
+    <Page>5</Page>
+    <Title>SOUND FX - 7:00</Title>
+    <CueCall>"Good after-noon sir!"</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances/>
+    <Exits/>
+    <OnStage>ch1,ch2 </OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="008">
+    <CueNumber>8</CueNumber>
+    <Id>6A</Id>
+    <Act>1</Act>
+    <Scene> 3</Scene>
+    <Page>6</Page>
+    <Title>Bob exits, "M.O.N.E.Y"</Title>
+    <CueCall>"No offence, sir!"</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances/>
+    <Exits>ch2 </Exits>
+    <OnStage>ch1 </OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="009">
+    <CueNumber>9</CueNumber>
+    <Id>7A</Id>
+    <Act>1</Act>
+    <Scene> 3</Scene>
+    <Page>7</Page>
+    <Title>end of "M.O.N.E.Y"</Title>
+    <CueCall>"M.O.N.E.Y!" blackout</CueCall>
+    <CueType>Mixer</CueType>
+    <Entrances/>
+    <Exits>M0ch01</Exits>
+    <Levels>M0ch01:812,M0ch02:812,M0ch03:0,M0ch04:0,M0ch05:0,M0ch06:0,M0ch07:0,M0ch08:0,M0ch09:0,M0ch10:0,M0ch11:0,M0ch12:0,M0ch13:0,M0ch14:0,M0ch15:0,M0ch16:0,M0ch17:0,M0ch18:0,M0ch19:0,M0ch20:0,M0ch21:0,M0ch22:0,M0ch23:0,M0ch24:0,M0ch25:0,M0ch26:0,M0ch27:0,M0ch28:0,M0ch29:0,M0ch30:0,M0ch31:0,M0ch32:0,M1ch01:812,M1ch02:812,M1ch03:0,M1ch04:0,M1ch05:0,M1ch06:0,M1ch07:0,M1ch08:0,M1ch09:0,M1ch10:0,M1ch11:0,M1ch12:0,M1ch13:0,M1ch14:0,M1aux01:0,M1bus01:0</Levels>
+    <OnStage/>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="010">
+    <CueNumber>10</CueNumber>
+    <Id>7B</Id>
+    <Act>1</Act>
+    <Scene> 3</Scene>
+    <Page>7</Page>
+    <Title>Scene 3</Title>
+    <CueCall>Lights up</CueCall>
+    <CueType>Mixer</CueType>
+    <Entrances>M0ch02,M0ch04,M0ch03,M0ch20,M0ch22 ,M0ch23</Entrances>
+    <Exits/>
+    <OnStage>ch2,ch4,ch3,Baker Woman ,ch23,Mrs. Carstairs (Susannah Meszynski)</OnStage>
+    <Levels>M0ch01:64,M0ch02:128,M0ch03:194,M0ch04:256,M0ch05:320,M0ch06:384,M0ch07:448,M0ch08:512,M0ch09:576,M0ch10:640,M0ch11:704,M0ch12:768,M0ch13:832,M0ch14:896,M0ch15:960,M0ch16:1024,M0ch17:1024,M0ch18:960,M0ch19:896,M0ch20:832,M0ch21:768,M0ch22:704,M0ch23:640,M0ch24:576,M0ch25:512,M0ch26:448,M0ch27:384,M0ch28:320,M0ch29:256,M0ch30:194,M0ch31:128,M0ch32:64,M1ch01:64,M1ch02:128,M1ch03:194,M1ch04:256,M1ch05:320,M1ch06:384,M1ch07:448,M1ch08:512,M1ch09:576,M1ch10:640,M1ch11:704,M1ch12:768,M1ch13:832,M1ch14:896,M1aux01:960,M1bus01:1024</Levels>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="011">
+    <CueNumber>11</CueNumber>
+    <Id>9A</Id>
+    <Act>1</Act>
+    <Scene> 3</Scene>
+    <Page>9</Page>
+    <Title>"Christmas Children"</Title>
+    <CueCall>"Well, that's about a million,</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances/>
+    <Exits>Baker Woman ,ch23,Mrs. Carstairs (Susannah Meszynski)</Exits>
+    <OnStage>ch2,ch4,ch3 </OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="012">
+    <CueNumber>12</CueNumber>
+    <Id>10A</Id>
+    <Act>1</Act>
+    <Scene> 3</Scene>
+    <Page>10</Page>
+    <Title>Scene 3 cont.</Title>
+    <CueCall>end of song "...young and old.</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances>ch1,ch5,ch6 </Entrances>
+    <Exits>ch2,ch4,ch3 </Exits>
+    <OnStage>ch1,ch5,ch6 </OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="013">
+    <CueNumber>13</CueNumber>
+    <Id>11A</Id>
+    <Act>1</Act>
+    <Scene> 3</Scene>
+    <Page>11</Page>
+    <Title>Dilbers exit</Title>
+    <CueCall>"No sir, we'll pay, sir."</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances>ch14 </Entrances>
+    <Exits>ch5,ch6 </Exits>
+    <OnStage>ch1,ch14 </OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="014">
+    <CueNumber>14</CueNumber>
+    <Id>11B</Id>
+    <Act>1</Act>
+    <Scene> 3</Scene>
+    <Page>11</Page>
+    <Title>Bissett exits</Title>
+    <CueCall>"I'll take them home."</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances>ch16 </Entrances>
+    <Exits>ch14 </Exits>
+    <OnStage>ch1,ch16 </OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="015">
+    <CueNumber>15</CueNumber>
+    <Id>11C</Id>
+    <Act>1</Act>
+    <Scene> 3</Scene>
+    <Page>11</Page>
+    <Title>Punch and Judy exits</Title>
+    <CueCall>"meaner than you are!"</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances>ch21, ch13 </Entrances>
+    <Exits>ch16 </Exits>
+    <OnStage>ch1,ch21, ch13 </OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="016">
+    <CueNumber>16</CueNumber>
+    <Id>12A</Id>
+    <Act>1</Act>
+    <Scene> 3</Scene>
+    <Page>12</Page>
+    <Title>"Father Christmas"</Title>
+    <CueCall>"A word."</CueCall>
+    <CueType>Mixer</CueType>
+    <Entrances>M0ch10,M0ch22,M0ch23,M0ch5,M0ch6,M0ch14 </Entrances>
+    <Exits>M0ch01,M0ch13 </Exits>
+    <OnStage>ch10,ch21, ch22,ch23,ch5,ch6,ch14 </OnStage>
+    <Levels>M0ch01:812,M0ch02:812,M0ch03:0,M0ch04:0,M0ch05:0,M0ch06:0,M0ch07:0,M0ch08:0,M0ch09:0,M0ch10:0,M0ch11:0,M0ch12:0,M0ch13:0,M0ch14:0,M0ch15:0,M0ch16:0,M0ch17:0,M0ch18:0,M0ch19:0,M0ch20:0,M0ch21:0,M0ch22:0,M0ch23:0,M0ch24:0,M0ch25:0,M0ch26:0,M0ch27:0,M0ch28:0,M0ch29:0,M0ch30:0,M0ch31:0,M0ch32:0,M1ch01:812,M1ch02:812,M1ch03:0,M1ch04:0,M1ch05:0,M1ch06:0,M1ch07:0,M1ch08:0,M1ch09:0,M1ch10:0,M1ch11:0,M1ch12:0,M1ch13:0,M1ch14:0,M1aux01:0,M1bus01:0</Levels>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="017">
+    <CueNumber>17</CueNumber>
+    <Id>13A</Id>
+    <Act>1</Act>
+    <Scene> 3</Scene>
+    <Page>13</Page>
+    <Title>end of "Father Christmas"</Title>
+    <CueCall>Scrooge re-enters</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances>ch1,ch13 </Entrances>
+    <Exits>ch21, ch22, ch5,ch6,ch14 </Exits>
+    <OnStage>ch1,ch10 ,ch23,ch13 </OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="018">
+    <CueNumber>18</CueNumber>
+    <Id>14A</Id>
+    <Act>1</Act>
+    <Scene> 3</Scene>
+    <Page>14</Page>
+    <Title>ch7 and ch8</Title>
+    <CueCall>"I'll take it home."</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances>ch7,ch8 </Entrances>
+    <Exits>ch10 ,ch23,ch13 </Exits>
+    <OnStage>ch1,ch7,ch8 </OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="019">
+    <CueNumber>19</CueNumber>
+    <Id>15A</Id>
+    <Act>1</Act>
+    <Scene> 3</Scene>
+    <Page>15</Page>
+    <Title>"I Hate People"</Title>
+    <CueCall>"surplus population!"</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances/>
+    <Exits>ch7,ch8 </Exits>
+    <OnStage>ch1 </OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="020">
+    <CueNumber>20</CueNumber>
+    <Id>16A</Id>
+    <Act>1</Act>
+    <Scene> 4</Scene>
+    <Page>16</Page>
+    <Title>end of "I Hate People"</Title>
+    <CueCall>"Humbug!"</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances/>
+    <Exits>ch1 </Exits>
+    <OnStage/>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="021">
+    <CueNumber>21</CueNumber>
+    <Id>16B</Id>
+    <Act>1</Act>
+    <Scene> 4</Scene>
+    <Page>16</Page>
+    <Title>Scene 4</Title>
+    <CueCall>Scene change ends</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances>ch1,ch19 </Entrances>
+    <Exits/>
+    <OnStage>ch1,ch19 </OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="022">
+    <CueNumber>22</CueNumber>
+    <Id>17A</Id>
+    <Act>1</Act>
+    <Scene> 5</Scene>
+    <Page>17</Page>
+    <Title>SOUND FX - running, echoing, e</Title>
+    <CueCall>"Not possible!"</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances>ch32</Entrances>
+    <Exits/>
+    <OnStage>ch1,ch19,ch32</OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="023">
+    <CueNumber>23</CueNumber>
+    <Id>17B</Id>
+    <Act>1</Act>
+    <Scene> 5</Scene>
+    <Page>17</Page>
+    <Title>Scrooge and Marley talk</Title>
+    <CueCall>end of sound cues</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances/>
+    <Exits>ch32</Exits>
+    <OnStage>ch1,ch19 </OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="024">
+    <CueNumber>24</CueNumber>
+    <Id>18A</Id>
+    <Act>1</Act>
+    <Scene> 6</Scene>
+    <Page>18</Page>
+    <Title>SOUND FX - bells</Title>
+    <CueCall>Scrooge sits down</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances>ch32</Entrances>
+    <Exits/>
+    <OnStage>ch1,ch19,ch32</OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="025">
+    <CueNumber>25</CueNumber>
+    <Id>19A</Id>
+    <Act>1</Act>
+    <Scene> 6</Scene>
+    <Page>19</Page>
+    <Title>Marley enters</Title>
+    <CueCall>Marley enters</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances/>
+    <Exits>ch32</Exits>
+    <OnStage>ch1,ch19 </OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="026">
+    <CueNumber>26</CueNumber>
+    <Id>19B</Id>
+    <Act>1</Act>
+    <Scene> 6</Scene>
+    <Page>19</Page>
+    <Title>SOUND FX - chains</Title>
+    <CueCall>various times as he CueNumbers</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances>ch32</Entrances>
+    <Exits/>
+    <OnStage>ch1,ch19,ch32</OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="027">
+    <CueNumber>27</CueNumber>
+    <Id>20A</Id>
+    <Act>1</Act>
+    <Scene> 6</Scene>
+    <Page>20</Page>
+    <Title>"Make the Most of This World"</Title>
+    <CueCall>"No, Jacob! Nooooo!"</CueCall>
+    <CueType>Mixer</CueType>
+    <Entrances/>
+    <Exits>M0ch01,M0ch32</Exits>
+    <OnStage>ch19 </OnStage>
+    <Levels>M0ch01:0,M0ch02:0,M0ch03:0,M0ch04:0,M0ch05:0,M0ch06:0,M0ch07:0,M0ch08:0,M0ch09:0,M0ch10:0,M0ch11:0,M0ch12:0,M0ch13:0,M0ch14:0,M0ch15:0,M0ch16:0,M0ch17:0,M0ch18:0,M0ch19:0,M0ch20:0,M0ch21:0,M0ch22:0,M0ch23:0,M0ch24:0,M0ch25:0,M0ch26:0,M0ch27:0,M0ch28:0,M0ch29:0,M0ch30:0,M0ch31:0,M0ch32:0,M1ch01:0,M1ch02:0,M1ch03:0,M1ch04:0,M1ch05:0,M1ch06:0,M1ch07:0,M1ch08:0,M1ch09:0,M1ch10:0,M1ch11:0,M1ch12:0,M1ch13:0,M1ch14:0,M1aux01:0,M1bus01:0</Levels>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="028">
+    <CueNumber>28</CueNumber>
+    <Id>22A</Id>
+    <Act>1</Act>
+    <Scene> 6</Scene>
+    <Page>22</Page>
+    <Title>end of "Make the Most..."</Title>
+    <CueCall>"Is far, far worse!"</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances>ch1 </Entrances>
+    <Exits/>
+    <OnStage>ch1,ch19 </OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="029">
+    <CueNumber>29</CueNumber>
+    <Id>22B</Id>
+    <Act>1</Act>
+    <Scene> 6</Scene>
+    <Page>22</Page>
+    <Title>SOUND FX-church bells midnight</Title>
+    <CueCall>"Learn from them."</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances>ch32</Entrances>
+    <Exits/>
+    <OnStage>ch1,ch19,ch32</OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="030">
+    <CueNumber>30</CueNumber>
+    <Id>23A</Id>
+    <Act>1</Act>
+    <Scene> 6</Scene>
+    <Page>23</Page>
+    <Title>"It's Not My Fault!"</Title>
+    <CueCall>"Pray for me!" (Marley)</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances/>
+    <Exits>ch19,ch32</Exits>
+    <OnStage>ch1 </OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="031">
+    <CueNumber>31</CueNumber>
+    <Id>24A</Id>
+    <Act>1</Act>
+    <Scene> 6</Scene>
+    <Page>24</Page>
+    <Title>SOUND FX - one o'clock chimes</Title>
+    <CueCall>song ends "A quarter pas... ha</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances>ch32</Entrances>
+    <Exits/>
+    <OnStage>ch1,ch32</OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="032">
+    <CueNumber>32</CueNumber>
+    <Id>25A</Id>
+    <Act>1</Act>
+    <Scene> 6</Scene>
+    <Page>25</Page>
+    <Title>Christmas Past</Title>
+    <CueCall>Lighting cue, Ghost enters</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances>ch24</Entrances>
+    <Exits>ch32</Exits>
+    <OnStage>ch1 ,ch24</OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="033">
+    <CueNumber>33</CueNumber>
+    <Id>25B</Id>
+    <Act>1</Act>
+    <Scene> 6</Scene>
+    <Page>25</Page>
+    <Title>end of Scene 6</Title>
+    <CueCall>look at your childhood." "No!"</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances/>
+    <Exits>ch1 ,ch24</Exits>
+    <OnStage/>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="034">
+    <CueNumber>34</CueNumber>
+    <Id>25C</Id>
+    <Act>1</Act>
+    <Scene> 6</Scene>
+    <Page>25</Page>
+    <Title>Scene 7. "A Christmas Carol"</Title>
+    <CueCall>lights up on School Room</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances>ch25</Entrances>
+    <Exits/>
+    <OnStage>ch25</OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="035">
+    <CueNumber>35</CueNumber>
+    <Id>26A</Id>
+    <Act>1</Act>
+    <Scene> 7</Scene>
+    <Page>26</Page>
+    <Title>end of "A Christmas Carol"</Title>
+    <CueCall>"Merry Christmas, ma'am!"</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances>ch1 ,ch24</Entrances>
+    <Exits>ch25</Exits>
+    <OnStage>ch1 ,ch24</OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="036">
+    <CueNumber>36</CueNumber>
+    <Id>27A</Id>
+    <Act>1</Act>
+    <Scene> 7</Scene>
+    <Page>27</Page>
+    <Title>Fan and Ebenezer</Title>
+    <CueCall>"This Christmas was special."</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances>ch26,ch27</Entrances>
+    <Exits/>
+    <OnStage>ch1 ,ch24, ch26,ch27</OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="037">
+    <CueNumber>37</CueNumber>
+    <Id>27B</Id>
+    <Act>1</Act>
+    <Scene> 7</Scene>
+    <Page>27</Page>
+    <Title>memories</Title>
+    <CueCall>"Collect your things!"</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances>ch9,Mr. Fezziwig (Ben Lopez)</Entrances>
+    <Exits>ch26,ch27</Exits>
+    <OnStage>ch1,ch9 ,ch24, Mr. Fezziwig (Ben Lopez)</OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="038">
+    <CueNumber>38</CueNumber>
+    <Id>27C</Id>
+    <Act>1</Act>
+    <Scene> 7</Scene>
+    <Page>27</Page>
+    <Title>Scene change</Title>
+    <CueCall>"Christmas you really enjoyed"</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances/>
+    <Exits>ch1,ch9 ,ch24, Mr. Fezziwig (Ben Lopez)</Exits>
+    <OnStage/>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="039">
+    <CueNumber>39</CueNumber>
+    <Id>27C</Id>
+    <Act>1</Act>
+    <Scene> 7</Scene>
+    <Page>27</Page>
+    <Title>Scene 8</Title>
+    <CueCall>end of scene change</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances>ch1 ,ch24, Young Scrooge (Ben Morton), Mr. Fezziwig (Ben Lopez), Dick Wilkins </Entrances>
+    <Exits/>
+    <OnStage>ch1 ,ch24, Young Scrooge (Ben Morton), Mr. Fezziwig (Ben Lopez), Dick Wilkins </OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="040">
+    <CueNumber>40</CueNumber>
+    <Id>29A</Id>
+    <Act>1</Act>
+    <Scene> 8</Scene>
+    <Page>29</Page>
+    <Title>Isabel and Mrs. F enter</Title>
+    <CueCall>"close to her as I have."</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances>Isabel (Ellie Sacco), Mrs. Fezziwig (Nicole Sprague)</Entrances>
+    <Exits/>
+    <OnStage>ch1 ,ch24, Young Scrooge (Ben Morton), Isabel (Ellie Sacco), Mr. Fezziwig (Ben Lopez), Mrs. Fezziwig (Nicole Sprague), Dick Wilkins </OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="041">
+    <CueNumber>41</CueNumber>
+    <Id>29B</Id>
+    <Act>1</Act>
+    <Scene> 8</Scene>
+    <Page>29</Page>
+    <Title>"December the 25th"</Title>
+    <CueCall>"Splendid, Begin!</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances/>
+    <Exits>Young Scrooge (Ben Morton), Isabel (Ellie Sacco), Dick Wilkins </Exits>
+    <OnStage>ch1 ,ch24, Mr. Fezziwig (Ben Lopez), Mrs. Fezziwig (Nicole Sprague)</OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="042">
+    <CueNumber>42</CueNumber>
+    <Id>31A</Id>
+    <Act>1</Act>
+    <Scene> 8</Scene>
+    <Page>31</Page>
+    <Title>end of "December the 25th"</Title>
+    <CueCall>"Correct!"</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances>ch2 </Entrances>
+    <Exits>Mr. Fezziwig (Ben Lopez), Mrs. Fezziwig (Nicole Sprague)</Exits>
+    <OnStage>ch1,ch2 ,ch24</OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="043">
+    <CueNumber>43</CueNumber>
+    <Id>32A</Id>
+    <Act>1</Act>
+    <Scene> 8</Scene>
+    <Page>32</Page>
+    <Title>"Happiness"</Title>
+    <CueCall>"wonderful days, you know."</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances>Young Scrooge (Ben Morton), Isabel (Ellie Sacco)</Entrances>
+    <Exits>ch2 </Exits>
+    <OnStage>ch1 ,ch24, Young Scrooge (Ben Morton), Isabel (Ellie Sacco)</OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="044">
+    <CueNumber>44</CueNumber>
+    <Id>36A</Id>
+    <Act>1</Act>
+    <Scene> 9</Scene>
+    <Page>36</Page>
+    <Title>"You-You"</Title>
+    <CueCall>"You fool! You fool..."</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances/>
+    <Exits>ch24, Isabel (Ellie Sacco)</Exits>
+    <OnStage>ch1,Young Scrooge (Ben Morton)</OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="045">
+    <CueNumber>45</CueNumber>
+    <Id>37A</Id>
+    <Act>1</Act>
+    <Scene>10</Scene>
+    <Page>37</Page>
+    <Title>end of "You-You"</Title>
+    <CueCall>"I can bear it no more."</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances/>
+    <Exits>ch1,Young Scrooge (Ben Morton)</Exits>
+    <OnStage/>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="046">
+    <CueNumber>46</CueNumber>
+    <Id>37B</Id>
+    <Act>1</Act>
+    <Scene>10</Scene>
+    <Page>37</Page>
+    <Title>Scene 10</Title>
+    <CueCall>end of Scene change</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances>ch1 ,ch24</Entrances>
+    <Exits/>
+    <OnStage>ch1 ,ch24</OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="047">
+    <CueNumber>47</CueNumber>
+    <Id>38A</Id>
+    <Act>1</Act>
+    <Scene>11</Scene>
+    <Page>38</Page>
+    <Title>"It's Not My Fault"</Title>
+    <CueCall>"haunt me no longer!"</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances/>
+    <Exits>ch24</Exits>
+    <OnStage>ch1 </OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="048">
+    <CueNumber>48</CueNumber>
+    <Id>39A</Id>
+    <Act>1</Act>
+    <Scene>11</Scene>
+    <Page>39</Page>
+    <Title>SOUND FX - 2:00 chimes</Title>
+    <CueCall>"It's not - my - "</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances>ch32</Entrances>
+    <Exits/>
+    <OnStage>ch1,ch32</OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="049">
+    <CueNumber>49</CueNumber>
+    <Id>39A</Id>
+    <Act>1</Act>
+    <Scene>11</Scene>
+    <Page>39</Page>
+    <Title>Christmas Present</Title>
+    <CueCall>"nothing to be afraid of!"</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances>Ghost of Present (Lindsey Hagerstrom)</Entrances>
+    <Exits>ch32</Exits>
+    <OnStage>ch1,Ghost of Present (Lindsey Hagerstrom)</OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="050">
+    <CueNumber>50</CueNumber>
+    <Id>41A</Id>
+    <Act>1</Act>
+    <Scene>11</Scene>
+    <Page>41</Page>
+    <Title>"Finale Act 1"</Title>
+    <CueCall>"Can I have some more?"</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances/>
+    <Exits/>
+    <OnStage>ch1,Ghost of Present (Lindsey Hagerstrom)</OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="051">
+    <CueNumber>51</CueNumber>
+    <Id>43A</Id>
+    <Act>1</Act>
+    <Scene>12</Scene>
+    <Page>43</Page>
+    <Title>Scene 12</Title>
+    <CueCall>"in for a few surprises!"</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances/>
+    <Exits>ch1,Ghost of Present (Lindsey Hagerstrom)</Exits>
+    <OnStage/>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="052">
+    <CueNumber>52</CueNumber>
+    <Id>44A</Id>
+    <Act>1</Act>
+    <Scene>12</Scene>
+    <Page>INTERVAL</Page>
+    <Title>INTERMISSION</Title>
+    <CueCall>end of Act 1 Finale song</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances/>
+    <Exits/>
+    <OnStage/>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="053">
+    <CueNumber>53</CueNumber>
+    <Id>45A</Id>
+    <Act>2</Act>
+    <Scene> 1</Scene>
+    <Page>45</Page>
+    <Title>Act 2 "Milk of Human Kindness"</Title>
+    <CueCall>Lights up</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances>ch10 </Entrances>
+    <Exits/>
+    <OnStage>ch10 </OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="054">
+    <CueNumber>54</CueNumber>
+    <Id>46A</Id>
+    <Act>2</Act>
+    <Scene> 1</Scene>
+    <Page>46</Page>
+    <Title>Scrooge sings</Title>
+    <CueCall>"Cheers!" others exit</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances>ch1 </Entrances>
+    <Exits>ch10 </Exits>
+    <OnStage>ch1 </OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="055">
+    <CueNumber>55</CueNumber>
+    <Id>47A</Id>
+    <Act>2</Act>
+    <Scene> 2</Scene>
+    <Page>47</Page>
+    <Title>scene 1 continued</Title>
+    <CueCall>Present snaps fingers/lights u</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances>Ghost of Present (Lindsey Hagerstrom)</Entrances>
+    <Exits/>
+    <OnStage>ch1,Ghost of Present (Lindsey Hagerstrom)</OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="056">
+    <CueNumber>56</CueNumber>
+    <Id>47B</Id>
+    <Act>2</Act>
+    <Scene> 2</Scene>
+    <Page>47</Page>
+    <Title>Scene Change</Title>
+    <CueCall>"See things as they really are</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances/>
+    <Exits>ch1,Ghost of Present (Lindsey Hagerstrom)</Exits>
+    <OnStage/>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="057">
+    <CueNumber>57</CueNumber>
+    <Id>47C</Id>
+    <Act>2</Act>
+    <Scene> 2</Scene>
+    <Page>47</Page>
+    <Title>The Cratchits</Title>
+    <CueCall>Lights up</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances>ch2,ch11,Martha Cratchit (Olivia Cashman)</Entrances>
+    <Exits/>
+    <OnStage>ch2,ch11,Martha Cratchit (Olivia Cashman)</OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="058">
+    <CueNumber>58</CueNumber>
+    <Id>48A</Id>
+    <Act>2</Act>
+    <Scene> 2</Scene>
+    <Page>48</Page>
+    <Title>ch3 and Kathy return</Title>
+    <CueCall>"don't suppose it much matters</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances>ch1,ch4,ch3,Ghost of Present (Lindsey Hagerstrom)</Entrances>
+    <Exits>Martha Cratchit (Olivia Cashman)</Exits>
+    <OnStage>ch1,ch2,ch11,ch4,ch3,Ghost of Present (Lindsey Hagerstrom)</OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="059">
+    <CueNumber>59</CueNumber>
+    <Id>50A</Id>
+    <Act>2</Act>
+    <Scene> 2</Scene>
+    <Page>50</Page>
+    <Title>"The Beautiful Day"</Title>
+    <CueCall>"song from young ch3"</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances/>
+    <Exits>ch1,ch2,ch11,ch4,Ghost of Present (Lindsey Hagerstrom)</Exits>
+    <OnStage>ch3 </OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="060">
+    <CueNumber>60</CueNumber>
+    <Id>50B</Id>
+    <Act>2</Act>
+    <Scene> 2</Scene>
+    <Page>50</Page>
+    <Title>end of "Beautiful Day"</Title>
+    <CueCall>"Would be here and now."</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances>ch1,Ghost of Present (Lindsey Hagerstrom)</Entrances>
+    <Exits>ch3 </Exits>
+    <OnStage>ch1,Ghost of Present (Lindsey Hagerstrom)</OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="061">
+    <CueNumber>61</CueNumber>
+    <Id>52A</Id>
+    <Act>2</Act>
+    <Scene> 2</Scene>
+    <Page>52</Page>
+    <Title>Cratchits sing</Title>
+    <CueCall>"the surplus population!"</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances>ch2,ch11,ch4,Martha Cratchit (Olivia Cashman), ch3 </Entrances>
+    <Exits/>
+    <OnStage>ch1,ch2,ch11,ch4,Martha Cratchit (Olivia Cashman), ch3,Ghost of Present (Lindsey Hagerstrom)</OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="062">
+    <CueNumber>62</CueNumber>
+    <Id>52B</Id>
+    <Act>2</Act>
+    <Scene> 2</Scene>
+    <Page>52</Page>
+    <Title>scene continues</Title>
+    <CueCall>"would be here and now..."</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances/>
+    <Exits>ch2,ch11,ch4,Martha Cratchit (Olivia Cashman), ch3 </Exits>
+    <OnStage>ch1,Ghost of Present (Lindsey Hagerstrom)</OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="063">
+    <CueNumber>63</CueNumber>
+    <Id>52C</Id>
+    <Act>2</Act>
+    <Scene> 2</Scene>
+    <Page>52</Page>
+    <Title>Scene change</Title>
+    <CueCall>"One last call to make."</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances/>
+    <Exits>ch1,Ghost of Present (Lindsey Hagerstrom)</Exits>
+    <OnStage/>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="064">
+    <CueNumber>64</CueNumber>
+    <Id>52D</Id>
+    <Act>2</Act>
+    <Scene> 2</Scene>
+    <Page>52</Page>
+    <Title>Scene 3</Title>
+    <CueCall>Lights up</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances>ch1,ch9,ch17,Ghost of Present (Lindsey Hagerstrom), Topper (Joe Guzman)</Entrances>
+    <Exits/>
+    <OnStage>ch1,ch9,ch17,Ghost of Present (Lindsey Hagerstrom), Topper (Joe Guzman)</OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="065">
+    <CueNumber>65</CueNumber>
+    <Id>54A</Id>
+    <Act>2</Act>
+    <Scene> 3</Scene>
+    <Page>54</Page>
+    <Title>add guests "The Ministers Cat"</Title>
+    <CueCall>"free with other people's mone</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances>Mary (Lindsay Murch), Lizzi,Lucy (Kacie Leach), Stuart (Malachi Cohen), Charles (Zack Dean), Sarah (Cassidy White)</Entrances>
+    <Exits/>
+    <OnStage>ch1,ch9,ch17,Ghost of Present (Lindsey Hagerstrom), Topper (Joe Guzman), Mary (Lindsay Murch), Lizzi,Lucy (Kacie Leach), Stuart (Malachi Cohen), Charles (Zack Dean), Sarah (Cassidy White)</OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="066">
+    <CueNumber>66</CueNumber>
+    <Id>57A</Id>
+    <Act>2</Act>
+    <Scene> 3</Scene>
+    <Page>57</Page>
+    <Title>end of "The Ministers Cat"</Title>
+    <CueCall>end of song</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances/>
+    <Exits>ch17,Lizzi,Lucy (Kacie Leach), Stuart (Malachi Cohen), Charles (Zack Dean), Sarah (Cassidy White)</Exits>
+    <OnStage>ch1,ch9,Ghost of Present (Lindsey Hagerstrom), Topper (Joe Guzman), Mary (Lindsay Murch)</OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="067">
+    <CueNumber>67</CueNumber>
+    <Id>58A</Id>
+    <Act>2</Act>
+    <Scene> 4</Scene>
+    <Page>58</Page>
+    <Title>end of scene/Scene change</Title>
+    <CueCall>lights down</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances/>
+    <Exits>ch1,ch9,Ghost of Present (Lindsey Hagerstrom), Topper (Joe Guzman), Mary (Lindsay Murch)</Exits>
+    <OnStage/>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="068">
+    <CueNumber>68</CueNumber>
+    <Id>58B</Id>
+    <Act>2</Act>
+    <Scene> 4</Scene>
+    <Page>58</Page>
+    <Title>Scene 4</Title>
+    <CueCall>lights up, music cue</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances>ch1,Ghost of Present (Lindsey Hagerstrom)</Entrances>
+    <Exits/>
+    <OnStage>ch1,Ghost of Present (Lindsey Hagerstrom)</OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="069">
+    <CueNumber>69</CueNumber>
+    <Id>59A</Id>
+    <Act>2</Act>
+    <Scene> 4</Scene>
+    <Page>59</Page>
+    <Title>"A Better Life"</Title>
+    <CueCall>"I can't see..."</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances/>
+    <Exits>Ghost of Present (Lindsey Hagerstrom)</Exits>
+    <OnStage>ch1 </OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="070">
+    <CueNumber>70</CueNumber>
+    <Id>60A</Id>
+    <Act>2</Act>
+    <Scene> 4</Scene>
+    <Page>60</Page>
+    <Title>Voices of memories</Title>
+    <CueCall>"and learn to live it well?"</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances>ch2 ,ch24, Isabel (Ellie Sacco)</Entrances>
+    <Exits/>
+    <OnStage>ch1,ch2 ,ch24, Isabel (Ellie Sacco)</OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="071">
+    <CueNumber>71</CueNumber>
+    <Id>60B</Id>
+    <Act>2</Act>
+    <Scene> 4</Scene>
+    <Page>60</Page>
+    <Title>song continues</Title>
+    <CueCall>"those you cherish."</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances/>
+    <Exits>ch2 ,ch24, Isabel (Ellie Sacco)</Exits>
+    <OnStage>ch1 </OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="072">
+    <CueNumber>72</CueNumber>
+    <Id>60C</Id>
+    <Act>2</Act>
+    <Scene> 4</Scene>
+    <Page>60</Page>
+    <Title>SOUND FX - chime 3 o'clock</Title>
+    <CueCall>"A Better Life" song ends</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances>ch32</Entrances>
+    <Exits/>
+    <OnStage>ch1,ch32</OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="073">
+    <CueNumber>73</CueNumber>
+    <Id>60D</Id>
+    <Act>2</Act>
+    <Scene> 4</Scene>
+    <Page>60</Page>
+    <Title>Ghost of Future</Title>
+    <CueCall>end of church chimes</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances/>
+    <Exits/>
+    <OnStage>ch1,ch32</OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="074">
+    <CueNumber>74</CueNumber>
+    <Id>61A</Id>
+    <Act>2</Act>
+    <Scene> 5</Scene>
+    <Page>61</Page>
+    <Title>SOUND FX - thunder, lightening</Title>
+    <CueCall>"Lead on, Spirit, lead on!"</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances/>
+    <Exits/>
+    <OnStage>ch1,ch32</OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="075">
+    <CueNumber>75</CueNumber>
+    <Id>61B</Id>
+    <Act>2</Act>
+    <Scene> 5</Scene>
+    <Page>61</Page>
+    <Title>end of scene</Title>
+    <CueCall>black out</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances/>
+    <Exits>ch1,ch32</Exits>
+    <OnStage/>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="076">
+    <CueNumber>76</CueNumber>
+    <Id>61C</Id>
+    <Act>2</Act>
+    <Scene> 5</Scene>
+    <Page>61</Page>
+    <Title>Scene 5</Title>
+    <CueCall>Lights up</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances>ch1,ch10 </Entrances>
+    <Exits/>
+    <OnStage>ch1,ch10 </OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="077">
+    <CueNumber>77</CueNumber>
+    <Id>62A</Id>
+    <Act>2</Act>
+    <Scene> 5</Scene>
+    <Page>62</Page>
+    <Title>"Thank You Very Much"</Title>
+    <CueCall>"And I am the cause?"</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances/>
+    <Exits>ch1 </Exits>
+    <OnStage>ch10 </OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="078">
+    <CueNumber>78</CueNumber>
+    <Id>63A</Id>
+    <Act>2</Act>
+    <Scene> 5</Scene>
+    <Page>63</Page>
+    <Title>Scrooge sings</Title>
+    <CueCall>Tom rips book apart</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances>ch1 </Entrances>
+    <Exits>ch10 </Exits>
+    <OnStage>ch1 </OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="079">
+    <CueNumber>79</CueNumber>
+    <Id>63B</Id>
+    <Act>2</Act>
+    <Scene> 5</Scene>
+    <Page>63</Page>
+    <Title>Tom re joins</Title>
+    <CueCall>coffin enters stage</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances>ch10 </Entrances>
+    <Exits/>
+    <OnStage>ch1,ch10 </OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="080">
+    <CueNumber>80</CueNumber>
+    <Id>65A</Id>
+    <Act>2</Act>
+    <Scene> 6</Scene>
+    <Page>65</Page>
+    <Title>end of "Thank You Very Much"</Title>
+    <CueCall>song ends</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances/>
+    <Exits>ch10 </Exits>
+    <OnStage>ch1 </OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="081">
+    <CueNumber>81</CueNumber>
+    <Id>65B</Id>
+    <Act>2</Act>
+    <Scene> 6</Scene>
+    <Page>65</Page>
+    <Title>end of scene</Title>
+    <CueCall>"May I go home now?"</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances/>
+    <Exits>ch1 </Exits>
+    <OnStage/>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="082">
+    <CueNumber>82</CueNumber>
+    <Id>65C</Id>
+    <Act>2</Act>
+    <Scene> 6</Scene>
+    <Page>65</Page>
+    <Title>Scene 6</Title>
+    <CueCall>Lights up on Cratchits</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances>ch1,ch11,ch4 </Entrances>
+    <Exits/>
+    <OnStage>ch1,ch11,ch4 </OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="083">
+    <CueNumber>83</CueNumber>
+    <Id>66A</Id>
+    <Act>2</Act>
+    <Scene> 7</Scene>
+    <Page>66</Page>
+    <Title>Scene 7</Title>
+    <CueCall>Lights up on graveyard</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances>ch2,ch3 </Entrances>
+    <Exits>ch1,ch11,ch4 </Exits>
+    <OnStage>ch2,ch3 </OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="084">
+    <CueNumber>84</CueNumber>
+    <Id>67A</Id>
+    <Act>2</Act>
+    <Scene> 7</Scene>
+    <Page>67</Page>
+    <Title>Scrooge replies</Title>
+    <CueCall>ch2 Exits</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances>ch1 </Entrances>
+    <Exits>ch2,ch3 </Exits>
+    <OnStage>ch1 </OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="085">
+    <CueNumber>85</CueNumber>
+    <Id>68A</Id>
+    <Act>2</Act>
+    <Scene> 8</Scene>
+    <Page>68</Page>
+    <Title>Marley reappears</Title>
+    <CueCall>"writing on this dreaded stone</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances>ch19 </Entrances>
+    <Exits/>
+    <OnStage>ch1,ch19 </OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="086">
+    <CueNumber>86</CueNumber>
+    <Id>68B</Id>
+    <Act>2</Act>
+    <Scene> 8</Scene>
+    <Page>68</Page>
+    <Title>SOUND FX - banshee wail</Title>
+    <CueCall>"Spirit, help me!"</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances>ch32</Entrances>
+    <Exits>ch19 </Exits>
+    <OnStage>ch1,ch32</OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="087">
+    <CueNumber>87</CueNumber>
+    <Id>68B</Id>
+    <Act>2</Act>
+    <Scene> 8</Scene>
+    <Page>68</Page>
+    <Title>Scene 8 "I'll Begin Again"</Title>
+    <CueCall>black out/lights up</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances/>
+    <Exits>ch32</Exits>
+    <OnStage>ch1 </OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="088">
+    <CueNumber>88</CueNumber>
+    <Id>70A</Id>
+    <Act>2</Act>
+    <Scene> 9</Scene>
+    <Page>70</Page>
+    <Title>SOUND FX - chimes 9 o'clock</Title>
+    <CueCall>"I'll begin again!"</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances>ch32</Entrances>
+    <Exits/>
+    <OnStage>ch1,ch32</OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="089">
+    <CueNumber>89</CueNumber>
+    <Id>70B</Id>
+    <Act>2</Act>
+    <Scene> 9</Scene>
+    <Page>70</Page>
+    <Title>Scene Change</Title>
+    <CueCall>end of FX, Scrooge to exit</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances/>
+    <Exits>ch1,ch32</Exits>
+    <OnStage/>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="090">
+    <CueNumber>90</CueNumber>
+    <Id>70C</Id>
+    <Act>2</Act>
+    <Scene> 9</Scene>
+    <Page>70</Page>
+    <Title>Scene 9</Title>
+    <CueCall>Set finished turning</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances>ch1,ch18 </Entrances>
+    <Exits/>
+    <OnStage>ch1,ch18 </OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="091">
+    <CueNumber>91</CueNumber>
+    <Id>71A</Id>
+    <Act>2</Act>
+    <Scene> 9</Scene>
+    <Page>71</Page>
+    <Title>Toy Shop</Title>
+    <CueCall>"I'm going to like children!"</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances>ch13 </Entrances>
+    <Exits>ch18 </Exits>
+    <OnStage>ch1,ch13 </OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="092">
+    <CueNumber>92</CueNumber>
+    <Id>72A</Id>
+    <Act>2</Act>
+    <Scene> 9</Scene>
+    <Page>72</Page>
+    <Title>Toy shop cont.</Title>
+    <CueCall>"will receive half a crown!"</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances>ch15 </Entrances>
+    <Exits/>
+    <OnStage>ch1,ch15,ch13 </OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="093">
+    <CueNumber>93</CueNumber>
+    <Id>72B</Id>
+    <Act>2</Act>
+    <Scene> 9</Scene>
+    <Page>72</Page>
+    <Title>The Butcher</Title>
+    <CueCall>"Yes, Mr. Scrooge!"</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances>ch14 </Entrances>
+    <Exits>ch15,ch13 </Exits>
+    <OnStage>ch1,ch14 </OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="094">
+    <CueNumber>94</CueNumber>
+    <Id>72C</Id>
+    <Act>2</Act>
+    <Scene> 9</Scene>
+    <Page>72</Page>
+    <Title>"Finale Act 2"</Title>
+    <CueCall>"That was old Scrooge, wasn't</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances/>
+    <Exits>ch14 </Exits>
+    <OnStage>ch1 </OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="095">
+    <CueNumber>95</CueNumber>
+    <Id>73A</Id>
+    <Act>2</Act>
+    <Scene> 9</Scene>
+    <Page>73</Page>
+    <Title>ch7 and ch8</Title>
+    <CueCall>"I deny not!"</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances>ch7,ch8 </Entrances>
+    <Exits/>
+    <OnStage>ch1,ch7,ch8 </OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="096">
+    <CueNumber>96</CueNumber>
+    <Id>73B</Id>
+    <Act>2</Act>
+    <Scene> 9</Scene>
+    <Page>73</Page>
+    <Title>Solos</Title>
+    <CueCall>"Excuse me!"</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances>ch13,ch14 </Entrances>
+    <Exits>ch1,ch8 </Exits>
+    <OnStage>ch13,ch7,ch14 </OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="097">
+    <CueNumber>97</CueNumber>
+    <Id>73C</Id>
+    <Act>2</Act>
+    <Scene> 9</Scene>
+    <Page>73</Page>
+    <Title>Scrooge sings</Title>
+    <CueCall>"I don't believe it!"</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances>ch1 </Entrances>
+    <Exits>ch13,ch7,ch14 </Exits>
+    <OnStage>ch1 </OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="098">
+    <CueNumber>98</CueNumber>
+    <Id>74A</Id>
+    <Act>2</Act>
+    <Scene> 9</Scene>
+    <Page>74</Page>
+    <Title>Company sings</Title>
+    <CueCall>Scrooge exits</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances/>
+    <Exits>ch1 </Exits>
+    <OnStage/>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="099">
+    <CueNumber>99</CueNumber>
+    <Id>74B</Id>
+    <Act>2</Act>
+    <Scene> 9</Scene>
+    <Page>74</Page>
+    <Title>Cratchit's House</Title>
+    <CueCall>Cratchit House Revolves</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances>ch1,ch2,ch11,ch4,ch12,ch3 </Entrances>
+    <Exits/>
+    <OnStage>ch1,ch2,ch11,ch4,ch12,ch3 </OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="100">
+    <CueNumber>100</CueNumber>
+    <Id>76A</Id>
+    <Act>2</Act>
+    <Scene>11</Scene>
+    <Page>76</Page>
+    <Title>Scene 11</Title>
+    <CueCall>"God Bless us, Every one!"</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances/>
+    <Exits>ch1,ch2,ch11,ch4,ch12,ch3 </Exits>
+    <OnStage/>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="101">
+    <CueNumber>101</CueNumber>
+    <Id>77A</Id>
+    <Act>2</Act>
+    <Scene>11</Scene>
+    <Page>77</Page>
+    <Title>Scrooge and Tom</Title>
+    <CueCall>"That's 'ow' Christmas oughta</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances>ch1,ch10 </Entrances>
+    <Exits/>
+    <OnStage>ch1,ch10 </OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="102">
+    <CueNumber>102</CueNumber>
+    <Id>78A</Id>
+    <Act>2</Act>
+    <Scene>11</Scene>
+    <Page>78</Page>
+    <Title>Punch and Judy Man</Title>
+    <CueCall>Scrooge hands her coins</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances>ch5,ch6,ch16 </Entrances>
+    <Exits>ch10 </Exits>
+    <OnStage>ch1,ch5,ch6,ch16 </OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="103">
+    <CueNumber>103</CueNumber>
+    <Id>78B</Id>
+    <Act>2</Act>
+    <Scene>11</Scene>
+    <Page>78</Page>
+    <Title>Nephew Fred's</Title>
+    <CueCall>"future would be fun for me!"</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances>ch9,ch17 </Entrances>
+    <Exits>ch5,ch6,ch16 </Exits>
+    <OnStage>ch1,ch9,ch17 </OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="104">
+    <CueNumber>104</CueNumber>
+    <Id>78C</Id>
+    <Act>2</Act>
+    <Scene>11</Scene>
+    <Page>78</Page>
+    <Title>Ensemble singing</Title>
+    <CueCall>Is wherever love wants it to b</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances/>
+    <Exits>ch1,ch9,ch17 </Exits>
+    <OnStage/>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="105">
+    <CueNumber>105</CueNumber>
+    <Id>80A</Id>
+    <Act>2</Act>
+    <Scene>11</Scene>
+    <Page>80</Page>
+    <Title>23a "I'll Begin Again" Reprise</Title>
+    <CueCall>Thank you very, very, very...</CueCall>
+    <CueType>Stage</CueType>
+    <Entrances>ch1 </Entrances>
+    <Exits/>
+    <OnStage>ch1 </OnStage>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+  <cue num="106">
+    <CueNumber>106</CueNumber>
+    <Id>80B</Id>
+    <Act>2</Act>
+    <Scene>11</Scene>
+    <Page>80</Page>
+    <Title>Curtain Call</Title>
+    <CueCall>Black out</CueCall>
+    <CueType>Mixer</CueType>
+    <Entrances/>
+    <Exits>M0ch01,M0ch02,M0ch03,M0ch04,M0ch05,M0ch06,M0ch07,M0ch08,M0ch09,M0ch10,M0ch11,M0ch12,M0ch13,M0ch14,M0ch15,M0ch16,M0ch17,M0ch18,M0ch19,M0ch20,M0ch21,M0ch22,M0ch23,M0ch24,M0ch25,M0ch26,M0ch27,M0ch28,M0ch29,M0ch30,M0ch31,M0ch32,M0main01,M1ch01,M1ch02,M1ch03,M1ch04,M1ch05,M1ch06,M1ch07,M1ch08,M1ch09,M1ch10,M1ch11,M1ch12,M1ch13,M1ch14,M1aux01,M1bus01,M1out01</Exits>
+    <OnStage/>
+    <Note1/>
+    <Note2/>
+    <Note3/>
+  </cue>
+</show>
