@@ -145,16 +145,13 @@ class CueList:
             print('Cue type for index ' + '{0:03}'.format(cueindex) + ' not found!')
         self.cuelist.write('update.xml')
 
-    def addnewcue(self, cue_dict={}):
+    def addnewcue(self, cue_data=[]):
         show = self.cuelist.getroot()
         newcue = ET.Element('cue',attrib={'num':'{0:03}'.format(self.cuecount)})
-        for subele in cue_subelements:
-            newele = ET.SubElement(newcue, subele)
-            if subele in cue_dict:
-                newele.text = cue_dict[subele]
-            else:
-                newele.text = '{0}'.format(self.cuecount)
-        show.append(newcue)
+        for i in range(1, cue_subelements.__len__()):
+            newele = ET.SubElement(newcue, cue_subelements[i].replace('_',''))
+            newele.text = cue_data[i]
+        show.insert(self.cuecount, newcue)
 
         ET.dump(show)
         cues = self.cuelist.findall('cue')
@@ -174,7 +171,7 @@ class CueList:
         # create the new cue
         show = self.cuelist.getroot()
         newcue = ET.Element('cue',attrib={'num':'{0:03}'.format(cueindex)})
-        for i in range(cue_subelements.__len__()):
+        for i in range(1, cue_subelements.__len__()):
             newele = ET.SubElement(newcue, cue_subelements[i].replace('_',''))
             newele.text = cue_data[i]
         show.insert(cueindex, newcue)
@@ -186,8 +183,8 @@ class CueList:
     def getcuelist(self, cueindex):
         cuenum = '{0:03}'.format(cueindex)
         thiscue = self.cuelist.find("cue[@num='"+cuenum+"']")
-        cuecontents_list = []
-        for i in range(cue_subelements.__len__()):
+        cuecontents_list = [thiscue.attrib['num']]
+        for i in range(1, cue_subelements.__len__()):
             cuecontents_list.append(thiscue.find(cue_subelements[i].replace('_','')).text)
         return cuecontents_list
 
@@ -195,8 +192,10 @@ class CueList:
         cuenum = '{0:03}'.format(cueindex)
         cuetomod = self.cuelist.find("cue[@num='"+cuenum+"']")
 
-        for i in range(cue_subelements.__len__()):
+        for i in range(1, cue_subelements.__len__()):
             cuetomod.find(cue_subelements[i].replace('_','')).text = newcuelist[i]
+
+
 
     def savecuelist(self, revision=True, filename=''):
         """save the current state of the cuelist.

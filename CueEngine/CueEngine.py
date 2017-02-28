@@ -148,9 +148,13 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         self.tableView.clicked.connect(self.on_table_click)
 
         self.tableView.setContextMenuPolicy(Qt.ActionsContextMenu)
+        self.action_list = ['Insert', 'Add']
         self.insertAction = QAction("Insert", None)
         self.insertAction.triggered.connect(self.on_table_rightclick)
         self.tableView.addAction(self.insertAction)
+        self.AddAction = QAction("Add", None)
+        self.AddAction.triggered.connect(self.on_table_rightclick)
+        self.tableView.addAction(self.AddAction)
 
         self.tabledata = []
         self.actionOpen_Show.triggered.connect(self.openShow)
@@ -159,9 +163,8 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         self.CueTypeVisible = {}
         for type in cue_types:
             self.CueTypeVisible[type] = True
-        self.action_Stage_Cues.triggered.connect(self.hide_show_cues)  # todo-mac probably should setup actions
-                                                                        # in lists in the gui so the cuetype
-                                                                        # isn't hardwired as in the next few lines
+        # action_list = self.toolBar.actions()  # left here to show how to get iterable list of actions.
+        self.action_Stage_Cues.triggered.connect(self.hide_show_cues)
         self.action_Stage_Cues.cuetype = 'Stage'
         self.action_Sound_FX_Cues.triggered.connect(self.hide_show_cues)
         self.action_Sound_FX_Cues.cuetype = 'Sound'
@@ -219,25 +222,37 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
             msg = [NOTE_ON, 60, 112]
             self.snd_sndrthread.queue_msg(msg, self.CueAppDev)
 
+
     def on_table_rightclick(self):
         """insert a new cue before the selected row"""
         # save the old state of the cuefile with a revision number appended
         The_Show.cues.savecuelist(True, cfgdict['Show']['folder'] + The_Show.show_conf.settings['cuefile'])
+        sender_text = self.sender().text()
         tblvw = self.findChild(QtWidgets.QTableView)
-        # index[0].row() will be where the user clicked
-        index = tblvw.selectedIndexes()
-        cueindex = index[0].row()
-        self.editcuedlg = EditCue(cueindex)
-        self.editcuedlg.setWindowTitle(_translate("dlgEditCue", "Edit Cue"))
+        if sender_text == 'Insert':
+            # index[0].row() will be where the user clicked
+            index = tblvw.selectedIndexes()
+            cueindex = int(self.tabledata[index[0].row()][0])
+            self.editcuedlg = EditCue(cueindex)
+            self.editcuedlg.setWindowTitle(_translate("dlgEditCue", "Edit Cue"))
+        elif sender_text == 'Add':
+            oldlastcue = The_Show.cues.getcuelist(The_Show.cues.cuecount-1)  # get the last cues data
+            The_Show.cues.addnewcue(oldlastcue)
+            cueindex = The_Show.cues.cuecount - 1   # addnewcue increments cuecount, so the new cues index is still
+                                                    # cuecount -1
+            self.editcuedlg = EditCue(cueindex)
+            self.editcuedlg.setWindowTitle(_translate("dlgEditCue", "Add Cue"))
 
-        # self.editcuedlg.editidx = cueindex
         self.editcuedlg.setROcueelements(['Cue_Number','Entrances', 'Exits', 'Levels', 'On_Stage'])
         thiscue = The_Show.cues.getcuelist(cueindex)
         self.editcuedlg.fillfields(cueindex, thiscue)
         self.editcuedlg.exec_()
         if self.editcuedlg.changeflag:
             chg_list = self.editcuedlg.getchange()
-            The_Show.cues.insertcue(cueindex, chg_list)
+            if sender_text == 'Insert':
+                The_Show.cues.insertcue(cueindex, chg_list)
+            elif sender_text == 'Add':
+                The_Show.cues.updatecue(cueindex, chg_list)
             # save the new version of cue file, overwriting old version
             The_Show.cues.savecuelist(False, cfgdict['Show']['folder'] + The_Show.show_conf.settings['cuefile'])
             # display the new state of the cuefile
@@ -253,16 +268,18 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         index is the row in the tableview (thus the row of the tabledata)"""
         tblvw = self.findChild(QtWidgets.QTableView)
         tblvw.selectRow(index.row())
-        cuedata = self.tabledata[index.row()]
+        # cuedata = self.tabledata[index.row()]
         The_Show.cues.selectedcueindex = int(self.tabledata[index.row()][0])
 
     def on_table_dblclick(self,index):
         """Edit the double clicked cue"""
+        # determine the cue index from the first column of the table data
         tblvw = self.findChild(QtWidgets.QTableView)
-        cueindex = index.row()
+        cueindex = int(self.tabledata[index.row()][0])
+        # cueindex = index.row()
         self.editcuedlg = EditCue(cueindex)  # create the edit dialog
         # self.editcuedlg.editidx = cueindex
-        self.editcuedlg.setROcueelements(['Entrances', 'Exits', 'Levels', 'On_Stage'])
+        self.editcuedlg.setROcueelements(['Cue_Number', 'Entrances', 'Exits', 'Levels', 'On_Stage'])
         thiscue = The_Show.cues.getcuelist(cueindex)
         self.editcuedlg.fillfields(cueindex, thiscue)
         self.editcuedlg.exec_()
@@ -292,7 +309,6 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         qs = The_Show.cues.cuelist.findall('cue')
         self.tabledata =[]
         for q in qs:
-            ET.dump(q)
             type_list = q.find('CueType').text.split(',')
             for type in cue_types:
                  if type in type_list and self.CueTypeVisible[type]:
@@ -301,8 +317,8 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         # print(self.tabledata)
 
     def append_table_data(self, q):
-        tmp_list = []
-        for i in range(header.__len__()):
+        tmp_list = ['{0}'.format(int(q.attrib['num']))]
+        for i in range(1, header.__len__()):
             tmp_list.append(q.find(header[i].replace(' ','')).text)
         self.tabledata.append(tmp_list)
 

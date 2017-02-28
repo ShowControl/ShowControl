@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'CueEdit-3.ui'
+# Form implementation originally generated from reading ui file 'CueEdit-3.ui'
+# Now maintained by hand as controls are now added by list so they can be iterated
+# Originally Created by: PyQt5 UI code generator 5.7
 #
-# Created by: PyQt5 UI code generator 5.7
+# WARNING! No longer associated with CueEdit-3.ui
 #
-# WARNING! All changes made in this file will be lost!
 import os, inspect, sys
 currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 print(currentdir)
