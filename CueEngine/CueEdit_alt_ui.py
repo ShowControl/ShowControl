@@ -18,7 +18,7 @@ print(sys.path)
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from Cues import cue_types, cue_subelements, cue_edit_sizes, cue_subelements_tooltips
+from Cues import cue_types, cue_subelements, cue_edit_sizes, cue_subelements_tooltips, cue_fields
 
 class Ui_dlgEditCue(object):
     def setupUi(self, dlgEditCue):
@@ -34,15 +34,15 @@ class Ui_dlgEditCue(object):
 
         self.lbl_list = []
         self.edt_list = []
-        for i in range(cue_subelements.__len__()):
+        for i in range(cue_fields.__len__()):
             self.lbl_list.append(QtWidgets.QLabel(dlgEditCue))
             self.lbl_list[i].setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
             self.lbl_list[i].setIndent(0)
-            self.lbl_list[i].setObjectName('lbl{0}'.format(cue_subelements[i]))
+            self.lbl_list[i].setObjectName('lbl{0}'.format(cue_fields[i]))
             self.gridLayout.addWidget(self.lbl_list[i], i, 0, 1, 1)
-            if cue_subelements[i] == 'Cue_Type':
+            if cue_fields[i] == 'Cue_Type':
                 self.edt_list.append(QtWidgets.QToolButton(dlgEditCue))
-                self.edt_list[i].setObjectName('tbt{0}'.format(cue_subelements[i]))
+                self.edt_list[i].setObjectName('tbt{0}'.format(cue_fields[i]))
             else:
                 self.edt_list.append(QtWidgets.QPlainTextEdit(dlgEditCue))
                 size_list = cue_edit_sizes[i].split(',')
@@ -51,7 +51,7 @@ class Ui_dlgEditCue(object):
                 self.edt_list[i].setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
                 self.edt_list[i].setLineWrapMode(QtWidgets.QPlainTextEdit.NoWrap)
                 self.edt_list[i].setTabChangesFocus(True)
-                self.edt_list[i].setObjectName('pedt{0}'.format(cue_subelements[i]))
+                self.edt_list[i].setObjectName('pedt{0}'.format(cue_fields[i]))
             self.edt_list[i].setToolTip(cue_subelements_tooltips[i])
             self.gridLayout.addWidget(self.edt_list[i], i, 1, 1, 1)
 
@@ -175,12 +175,12 @@ class Ui_dlgEditCue(object):
         _translate = QtCore.QCoreApplication.translate
         dlgEditCue.setWindowTitle(_translate("dlgEditCue", "Edit Cue"))
 
-        for i in range(cue_subelements.__len__()):
-            self.lbl_list[i].setText(_translate("dlgEditCue", cue_subelements[i].replace('_', ' ')))
-            if cue_subelements[i] == 'Cue_Type':
+        for i in range(cue_fields.__len__()):
+            self.lbl_list[i].setText(_translate("dlgEditCue", cue_fields[i].replace('_', ' ')))
+            if cue_fields[i] == 'Cue_Type':
                 self.edt_list[i].setText(_translate("dlgEditCue", "..."))
             else:
-                self.edt_list[i].setDocumentTitle(_translate("dlgEditCue", cue_subelements[i].replace('_', ' ')))
+                self.edt_list[i].setDocumentTitle(_translate("dlgEditCue", cue_fields[i].replace('_', ' ')))
         # self.lblCue.setText(_translate("dlgEditCue", "Cue Number"))
         # self.lblTitle.setText(_translate("dlgEditCue", "Title"))
         # self.llblId.setText(_translate("dlgEditCue", "Id"))

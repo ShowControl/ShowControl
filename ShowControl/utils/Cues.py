@@ -13,9 +13,10 @@ try:
 except ImportError:
     import xml.etree.ElementTree as ET
 
-cue_types = ['Stage','Mixer','Sound','SFX', 'Light']
+cue_types = ['Stage', 'Mixer','Sound','SFX', 'Light']
+cue_subelements = ['Id',    'Act',   'Scene', 'Page',  'Title',       'Cue_Call',    'Cue_Type', 'Entrances',   'Exits',       'Levels',      'On_Stage',    'Note_1',      'Note_2',      'Note_3']
 
-cue_subelements = ['Cue_Number',  'Id',    'Act',   'Scene', 'Page',  'Title',       'Cue_Call',    'Cue_Type', 'Entrances',   'Exits',       'Levels',      'On_Stage',    'Note_1',      'Note_2',      'Note_3']
+cue_fields = ['Cue_Number',  'Id',    'Act',   'Scene', 'Page',  'Title',       'Cue_Call',    'Cue_Type', 'Entrances',   'Exits',       'Levels',      'On_Stage',    'Note_1',      'Note_2',      'Note_3']
 cue_edit_sizes =  ['60,20',       '60,20', '60,20', '60,20', '60,20', '16000000,20', '16000000,20', '60,20',    '16000000,20', '16000000,20', '16000000,20', '16000000,20', '16000000,20', '16000000,20', '16000000,20']
 cue_subelements_tooltips = ['Cue number',
                             'Unique id for this cue',
@@ -148,7 +149,7 @@ class CueList:
     def addnewcue(self, cue_data=[]):
         show = self.cuelist.getroot()
         newcue = ET.Element('cue',attrib={'num':'{0:03}'.format(self.cuecount)})
-        for i in range(1, cue_subelements.__len__()):
+        for i in range(cue_subelements.__len__()):
             newele = ET.SubElement(newcue, cue_subelements[i].replace('_',''))
             newele.text = cue_data[i]
         show.insert(self.cuecount, newcue)
@@ -171,7 +172,7 @@ class CueList:
         # create the new cue
         show = self.cuelist.getroot()
         newcue = ET.Element('cue',attrib={'num':'{0:03}'.format(cueindex)})
-        for i in range(1, cue_subelements.__len__()):
+        for i in range(cue_subelements.__len__()):
             newele = ET.SubElement(newcue, cue_subelements[i].replace('_',''))
             newele.text = cue_data[i]
         show.insert(cueindex, newcue)
@@ -183,8 +184,8 @@ class CueList:
     def getcuelist(self, cueindex):
         cuenum = '{0:03}'.format(cueindex)
         thiscue = self.cuelist.find("cue[@num='"+cuenum+"']")
-        cuecontents_list = [thiscue.attrib['num']]
-        for i in range(1, cue_subelements.__len__()):
+        cuecontents_list = []  # [thiscue.attrib['num']]
+        for i in range(cue_subelements.__len__()):
             cuecontents_list.append(thiscue.find(cue_subelements[i].replace('_','')).text)
         return cuecontents_list
 
@@ -192,7 +193,7 @@ class CueList:
         cuenum = '{0:03}'.format(cueindex)
         cuetomod = self.cuelist.find("cue[@num='"+cuenum+"']")
 
-        for i in range(1, cue_subelements.__len__()):
+        for i in range(cue_subelements.__len__()):
             cuetomod.find(cue_subelements[i].replace('_','')).text = newcuelist[i]
 
 

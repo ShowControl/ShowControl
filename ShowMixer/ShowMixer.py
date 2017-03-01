@@ -15,6 +15,12 @@ logging.basicConfig(filename='ShowMixer.log', filemode='w', level=logging.DEBUG)
 from time import sleep
 from math import ceil
 
+try:
+    from lxml import ET
+except ImportError:
+    import xml.etree.ElementTree as ET
+
+
 import jack
 import rtmidi
 from rtmidi.midiutil import get_api_from_environment
@@ -42,7 +48,7 @@ print(sys.path)
 from Show import Show
 import configuration as cfg
 import CommHandlers
-from Cues import cue_types, cue_subelements, cue_edit_sizes, cue_subelements_tooltips, header
+from Cues import cue_types, cue_subelements, cue_edit_sizes, cue_subelements_tooltips, header, cue_fields
 
 from MixerConf import MixerConf
 from MixerMap import MixerCharMap
@@ -150,7 +156,10 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         self.tabstripgridlist = []
         self.scrollArea = []
         self.scrollAreaWidgetContents = []
-        self.MixerCuesVisible = True
+        # start with all cue types visible
+        self.CueTypeVisible = {}
+        for type in cue_types:
+            self.CueTypeVisible[type] = True
         self.comm_threads = []  # a list of all threads in use for later use when app exits
         # Set up sender threads for each mixer
         self.mixer_sender_threads = []
@@ -177,11 +186,11 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
             elif The_Show.mixers[idx].protocol == 'midi':  #todo-mac figure out to start jack server when it's not started yet.
                 # Get midi input port (i.e. ports we can send to) list
                 self.client = jack.Client("TempClient")
-                self.portlist = self.client.get_ports(is_midi=True, is_input=True)
+                self.portlist = self.client.get_ports(is_midi=True, is_physical=True)
                 self.client = None
                 sleep(0.1)
                 self.portlist.extend(self.getrtmidiports())
-                self.selidx = 0  # temporarily hardwie to 0, it's my local jack client on my AF12
+                self.selidx = 1  # temporarily hardwie to 0, it's my local jack client on my AF12
                 if isinstance(self.portlist[self.selidx], str):
                     print('{} ALSA port selected'.format(self.selidx))
                     self.snd_sndrthread = CommHandlers.AMIDIsender()
@@ -593,8 +602,11 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         qs = The_Show.cues.cuelist.findall('cue')
         self.tabledata =[]
         for q in qs:
-            if q.find('CueType').text == 'Mixer' and self.MixerCuesVisible:
-                self.append_table_data(q)
+            type_list = q.find('CueType').text.split(',')
+            for type in cue_types:
+                 if type in type_list and self.CueTypeVisible[type]:
+                     self.append_table_data(q)
+                     break
 
             # self.tabledata.append([q.find('Move').text,
             #          q.find('Id').text,
@@ -604,21 +616,10 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
             #          q.find('Cue').text])
 
     def append_table_data(self, q):
-        tmp_list = []
-        for i in range(header.__len__()):
+        tmp_list = ['{0:03}'.format(int(q.attrib['num']))]
+        for i in range(1, header.__len__()):
             tmp_list.append(q.find(header[i].replace(' ','')).text)
         self.tabledata.append(tmp_list)
-
-        # self.tabledata.append(
-        #     [q.find('CueNumber').text,
-        #      q.find('Act').text,
-        #      q.find('Scene').text,
-        #      q.find('Page').text,
-        #      q.find('Id').text,
-        #      q.find('Title').text,
-        #      q.find('CueCall').text,
-        #      q.find('CueType').text])
-
 
     def tableClicked(self, modelidx):
         rowidx = modelidx.row()

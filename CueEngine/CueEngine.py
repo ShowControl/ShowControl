@@ -33,7 +33,7 @@ print(sys.path)
 #from MixerConf import MixerConf
 from Show import Show
 import CommHandlers
-from Cues import cue_types, cue_subelements, cue_edit_sizes, cue_subelements_tooltips, header
+from Cues import cue_types, cue_subelements, cue_edit_sizes, cue_subelements_tooltips, header, cue_fields
 
 import CueEngine_ui
 from CueEdit_alt_ui import Ui_dlgEditCue
@@ -56,7 +56,7 @@ import styles
 
 cfgdict = cfg.toDict()
 
-columndict = {'Cue Number': 0, 'Act':1, 'Scene':2, 'Page':3, 'ID':4, 'Title':5, 'Cue call':6}
+#columndict = {'Cue Number': 0, 'Act':1, 'Scene':2, 'Page':3, 'ID':4, 'Title':5, 'Cue call':6}
 # header = ['Cue Number', 'Act', 'Scene', 'Page', 'Id', 'Title', 'Cue Call', 'Cue Type']
 
 
@@ -70,7 +70,7 @@ class EditCue(QDialog, Ui_dlgEditCue):
         self.chglist = []
         self.changeflag = False
         for cuetypectlidx in range(cue_subelements.__len__()):
-            if cue_subelements[cuetypectlidx] == 'Cue_Type':
+            if cue_fields[cuetypectlidx] == 'Cue_Type':
                 break
         self.edt_list[cuetypectlidx].setText('Select cue type/s ')
         # self.toolButton.setText('Select cue type/s ')
@@ -89,8 +89,8 @@ class EditCue(QDialog, Ui_dlgEditCue):
         self.changeflag = True
         thing = []
         type_str = ''
-        for i in range(cue_subelements.__len__()):
-            if cue_subelements[i] == 'Cue_Type':
+        for i in range(1, cue_fields.__len__()):  # skip cue_fields[0], it's the cue index
+            if cue_fields[i] == 'Cue_Type':
                 action_list = self.toolmenu.actions()
                 for i in range(action_list.__len__()):
                     if action_list[i].isChecked():
@@ -111,23 +111,26 @@ class EditCue(QDialog, Ui_dlgEditCue):
         return self.chglist
 
     def fillfields(self, cueindex, cue_list):
-        for i in range(cue_subelements.__len__()):
-            if cue_subelements[i] == 'Cue_Type':
+        working_cue_list = list(cue_list)  # create a working copy of cue_list
+        working_cue_list.insert(0, '{0:03}'.format(cueindex))
+        for i in range(cue_fields.__len__()):
+            if cue_fields[i] == 'Cue_Type':
+                print('In Cue_Type')
                 action_list = self.toolmenu.actions()
-                for i in range(action_list.__len__()):
-                    action_list[i].setChecked(False)
-                type_list = The_Show.cues.getcuetype(cueindex)
+                for anum in range(action_list.__len__()):
+                    action_list[anum].setChecked(False)
+                type_list = working_cue_list[i].split(',')
                 for type in type_list:
-                    for i in range(action_list.__len__()):
-                        if action_list[i].text() == type:
-                            action_list[i].setChecked(True)
+                    for anum in range(action_list.__len__()):
+                        if action_list[anum].text() == type:
+                            action_list[anum].setChecked(True)
                             break
             else:
-                self.edt_list[i].setPlainText(cue_list[i])
+                self.edt_list[i].setPlainText(working_cue_list[i])
 
     def setROcueelements(self, RO_list):
-        for i in range(cue_subelements.__len__()):
-            if cue_subelements[i] in RO_list:
+        for i in range(cue_fields.__len__()):
+            if cue_fields[i] in RO_list:
                 self.edt_list[i].setReadOnly(True)
                 self.edt_list[i].setToolTip('{0} (read only)'.format(cue_subelements_tooltips[i]))
 
@@ -222,37 +225,84 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
             msg = [NOTE_ON, 60, 112]
             self.snd_sndrthread.queue_msg(msg, self.CueAppDev)
 
-
     def on_table_rightclick(self):
         """insert a new cue before the selected row"""
         # save the old state of the cuefile with a revision number appended
         The_Show.cues.savecuelist(True, cfgdict['Show']['folder'] + The_Show.show_conf.settings['cuefile'])
         sender_text = self.sender().text()
-        tblvw = self.findChild(QtWidgets.QTableView)
         if sender_text == 'Insert':
-            # index[0].row() will be where the user clicked
-            index = tblvw.selectedIndexes()
-            cueindex = int(self.tabledata[index[0].row()][0])
-            self.editcuedlg = EditCue(cueindex)
-            self.editcuedlg.setWindowTitle(_translate("dlgEditCue", "Edit Cue"))
+            self.cue_insert()
         elif sender_text == 'Add':
-            oldlastcue = The_Show.cues.getcuelist(The_Show.cues.cuecount-1)  # get the last cues data
-            The_Show.cues.addnewcue(oldlastcue)
-            cueindex = The_Show.cues.cuecount - 1   # addnewcue increments cuecount, so the new cues index is still
-                                                    # cuecount -1
-            self.editcuedlg = EditCue(cueindex)
-            self.editcuedlg.setWindowTitle(_translate("dlgEditCue", "Add Cue"))
+            self.cue_add()
+        # tblvw = self.findChild(QtWidgets.QTableView)
+        # if sender_text == 'Insert':
+        #     # index[0].row() will be where the user clicked
+        #     index = tblvw.selectedIndexes()
+        #     cueindex = int(self.tabledata[index[0].row()][0])
+        #     self.editcuedlg = EditCue(cueindex)
+        #     self.editcuedlg.setWindowTitle(_translate("dlgEditCue", "Edit Cue"))
+        # elif sender_text == 'Add':
+        #     oldlastcue = The_Show.cues.getcuelist(The_Show.cues.cuecount-1)  # get the last cues data
+        #     The_Show.cues.addnewcue(oldlastcue)
+        #     cueindex = The_Show.cues.cuecount - 1   # addnewcue increments cuecount, so the new cues index is still
+        #                                             # cuecount -1
+        #     self.editcuedlg = EditCue(cueindex)
+        #     self.editcuedlg.setWindowTitle(_translate("dlgEditCue", "Add Cue"))
+        #
+        # self.editcuedlg.setROcueelements(['Cue_Number','Entrances', 'Exits', 'Levels', 'On_Stage'])
+        # thiscue = The_Show.cues.getcuelist(cueindex)
+        # self.editcuedlg.fillfields(cueindex, thiscue)
+        # self.editcuedlg.exec_()
+        # if self.editcuedlg.changeflag:
+        #     chg_list = self.editcuedlg.getchange()
+        #     if sender_text == 'Insert':
+        #         The_Show.cues.insertcue(cueindex, chg_list)
+        #     elif sender_text == 'Add':
+        #         The_Show.cues.updatecue(cueindex, chg_list)
+        #     # save the new version of cue file, overwriting old version
+        #     The_Show.cues.savecuelist(False, cfgdict['Show']['folder'] + The_Show.show_conf.settings['cuefile'])
+        #     # display the new state of the cuefile
+        #     The_Show.cues.setup_cues(cfgdict['Show']['folder'] + The_Show.show_conf.settings['cuefile'])
+        # The_Show.cues.currentcueindex = cueindex
+        # self.disptext()
+        # tblvw.selectRow(The_Show.cues.currentcueindex)
 
+    def cue_add(self):
+        tblvw = self.findChild(QtWidgets.QTableView)
+        oldlastcue = The_Show.cues.getcuelist(The_Show.cues.cuecount-1)  # get the last cues data
+        cueindex = The_Show.cues.cuecount
+        self.editcuedlg = EditCue(cueindex)
+        self.editcuedlg.setWindowTitle(_translate("dlgEditCue", "Add Cue"))
+
+        self.editcuedlg.setROcueelements(['Cue_Number','Entrances', 'Exits', 'Levels', 'On_Stage'])
+        self.editcuedlg.fillfields(cueindex, oldlastcue)
+        self.editcuedlg.exec_()
+        if self.editcuedlg.changeflag:
+            chg_list = self.editcuedlg.getchange()
+            The_Show.cues.addnewcue(chg_list)
+            # save the new version of cue file, overwriting old version
+            The_Show.cues.savecuelist(False, cfgdict['Show']['folder'] + The_Show.show_conf.settings['cuefile'])
+            # display the new state of the cuefile
+            The_Show.cues.setup_cues(cfgdict['Show']['folder'] + The_Show.show_conf.settings['cuefile'])
+        The_Show.cues.currentcueindex = cueindex
+        self.disptext()
+        tblvw.selectRow(The_Show.cues.currentcueindex)
+
+
+    def cue_insert(self):
+        tblvw = self.findChild(QtWidgets.QTableView)
+        # index[0].row() will be where the user clicked
+        index = tblvw.selectedIndexes()
+        cueindex = int(self.tabledata[index[0].row()][0])
+        self.editcuedlg = EditCue(cueindex)
+        self.editcuedlg.setWindowTitle(_translate("dlgEditCue", "Edit Cue"))
         self.editcuedlg.setROcueelements(['Cue_Number','Entrances', 'Exits', 'Levels', 'On_Stage'])
         thiscue = The_Show.cues.getcuelist(cueindex)
         self.editcuedlg.fillfields(cueindex, thiscue)
         self.editcuedlg.exec_()
         if self.editcuedlg.changeflag:
             chg_list = self.editcuedlg.getchange()
-            if sender_text == 'Insert':
-                The_Show.cues.insertcue(cueindex, chg_list)
-            elif sender_text == 'Add':
-                The_Show.cues.updatecue(cueindex, chg_list)
+            The_Show.cues.insertcue(cueindex, chg_list)
             # save the new version of cue file, overwriting old version
             The_Show.cues.savecuelist(False, cfgdict['Show']['folder'] + The_Show.show_conf.settings['cuefile'])
             # display the new state of the cuefile
@@ -317,7 +367,7 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         # print(self.tabledata)
 
     def append_table_data(self, q):
-        tmp_list = ['{0}'.format(int(q.attrib['num']))]
+        tmp_list = ['{0:03}'.format(int(q.attrib['num']))]
         for i in range(1, header.__len__()):
             tmp_list.append(q.find(header[i].replace(' ','')).text)
         self.tabledata.append(tmp_list)
