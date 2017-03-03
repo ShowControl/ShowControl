@@ -29,6 +29,7 @@ from rtmidi.midiconstants import CONTROL_CHANGE, NOTE_ON
 
 from PyQt5 import Qt, QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QColor, QBrush
+from PyQt5.QtGui import QPainter, QColor, QPen, QFont
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from pythonosc import osc_message
@@ -97,6 +98,18 @@ def int_to_db( value ):
     elif value == 0:
         d = -90.0
     return d
+
+def db_to_int( db ):
+    db_f = float( db )
+    if db < -60:
+        value = (db + 90) / 480
+    elif db < -30:
+        value = (db + 70) / 160
+    elif db < -10:
+        value = (db + 50) / 80
+    elif db <= 10:
+        value = (db + 30) / 40
+    return value * 1023
 
 class ShowPreferences(QDialog, Ui_Preferences):
     def __init__(self, parent=None):
@@ -187,6 +200,8 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
                 # Get midi input port (i.e. ports we can send to) list
                 self.client = jack.Client("TempClient")
                 self.portlist = self.client.get_ports(is_midi=True, is_physical=True)
+                self.client.deactivate()
+                self.client.close()
                 self.client = None
                 sleep(0.1)
                 self.portlist.extend(self.getrtmidiports())
@@ -329,16 +344,18 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
                 scrbl.setWordWrap(True)
                 self.tabstripgridlist[idx].addWidget(scrbl,4,chn,1,1)
                 # Add slider for this channel
-                sldr = QtWidgets.QSlider(QtCore.Qt.Vertical)
+                sldr = QtWidgets.QSlider(QtCore.Qt.Vertical)  # default sliders
+                # sldr = MySlider()                           # slider with decibel ticks
                 # sldr.valueChanged.connect(self.sliderprint)
                 sldr.sliderMoved.connect(self.sliderprint)
                 sldr.setObjectName('M{0}sldr{1:02}'.format(idx, chn))
                 # print(sldr.objectName())
                 sldr.setMinimumSize(self.ChanStrip_MinWidth,200)
                 sldr.setRange(0,1024)
-                sldr.setTickPosition(3)
-                sldr.setTickInterval(10)
+                # sldr.setTickPosition(3)
+                # sldr.setTickInterval(10)
                 sldr.setSingleStep(2)
+                sldr.setContentsMargins(10, 0, 10, 0)
                 self.tabstripgridlist[idx].addWidget(sldr, 3, chn, 1, 1)
                 # Add label for this channel level
                 lev = QtWidgets.QLabel()
@@ -702,6 +719,36 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         """..."""
         print('command receiver thread done')
 
+class MySlider(QtWidgets.QSlider):
+    def __init__(self, parent=None):
+        super(MySlider, self).__init__(parent)
+
+    def paintEvent(self, event):
+        super(MySlider, self).paintEvent(event)
+        qp = QPainter(self)
+        pen = QPen()
+        pen.setWidth(2)
+        pen.setColor(Qt.black)
+
+        qp.setPen(pen)
+        font = QFont('Times', 10)
+        font_y_offset = font.pointSize()/2
+        qp.setFont(font)
+        size = self.size()
+        contents = self.contentsRect()
+        db_val_list =   [10, 5, 0, -5, -10, -20, -30, -40, -50, -60, -90]
+        for val in db_val_list:
+            if val == 10:
+                y_val_fudge = 12
+            elif val == -90:
+                y_val_fudge = -12
+            db_scaled = db_to_int(val)
+            y_val = contents.height() - translate(db_scaled, 0, 1023, 0, contents.height())
+            if val == -90:
+                qp.drawText(contents.x() - font.pointSize(), y_val + font_y_offset + y_val_fudge, '-oo')
+            else:
+                qp.drawText(contents.x() - font.pointSize(), y_val + font_y_offset + y_val_fudge,'{0:2}'.format(val))
+            qp.drawLine(contents.x() + font.pointSize(), y_val + y_val_fudge,  contents.x() + contents.width(), y_val + y_val_fudge)
 
 
 class MyTableModel(QtCore.QAbstractTableModel):

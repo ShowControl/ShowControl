@@ -55,7 +55,7 @@
       <file leaf-file-name="CueEngine.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/CueEngine.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="375">
+            <state relative-caret-position="842">
               <caret line="370" column="32" lean-forward="false" selection-start-line="370" selection-start-column="32" selection-end-line="370" selection-end-column="32" />
               <folding>
                 <element signature="e#43#78#0" expanded="true" />
@@ -163,8 +163,8 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -967,7 +967,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/CueEngine.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
+        <state relative-caret-position="842">
           <caret line="370" column="32" lean-forward="false" selection-start-line="370" selection-start-column="32" selection-end-line="370" selection-end-column="32" />
           <folding>
             <element signature="e#43#78#0" expanded="true" />
