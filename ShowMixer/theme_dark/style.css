@@ -315,6 +315,7 @@ QComboBox {
 }
 
 QComboBox:hover,QPushButton:hover,QAbstractSpinBox:hover,QLineEdit:hover,QTextEdit:hover,QPlainTextEdit:hover,QAbstractView:hover,QTreeView:hover {
+    background-color: #6887B0;
     border: 1px solid #78879b;
     color: silver;
 }

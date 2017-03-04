@@ -11,8 +11,10 @@ DEFAULT_CFG_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), '../u
 CFG_DIR = HOME + '/.showcontrol'
 CFG_PATH = CFG_DIR + '/config.cfg'
 
-
 def checkUserConf():
+    """First run of any ShowControl app creates ~/.showcontrol folder
+    and adds default ~/.showcontrol/config.cfg
+    If this is a new version it copies config.cfg to config.cfg.old"""
     newcfg = True
     if(not os.path.exists(CFG_PATH)):
         if(not os.path.exists(CFG_DIR)):
@@ -38,9 +40,9 @@ checkUserConf()
 
 config = ConfigParser()
 config.read(CFG_PATH)
-#config.keys()
 
 def toDict():
+    """Create the config dictionary from the keysin config.cfg"""
     conf_dict = {}
     for key in config.keys():
         conf_dict[key] = {}
@@ -48,13 +50,13 @@ def toDict():
             conf_dict[key][skey] = config[key][skey]
     return conf_dict
 
-
 def updateFromDict(conf):
+    """Update the config info from modified config dictionary"""
     for key in conf.keys():
         for skey in conf[key].keys():
             config[key][skey] = conf[key][skey]
 
-
 def write():
+    """Save the config dictionary to config.cfg"""
     with open(CFG_PATH, 'w') as cfgfile:
         config.write(cfgfile)

@@ -14,15 +14,15 @@ QStatusBar {
 
 QToolTip {
     border: 1px solid #3A3939;
-    background-color: white;
-    color: black;
+    background-color: rgb(90, 102, 117);;
+    color: white;
     padding: 1px;
     opacity: 100;
 }
 
 QWidget {
     color: silver;
-    background-color: #6D6D6D;
+    background-color: #302F2F;
     selection-background-color:#78879b;
     selection-color: black;
 }
@@ -276,7 +276,7 @@ QToolBar:separator:vertical {
 QPushButton {
     color: silver;
     background-color: QLinearGradient( x1: 0, y1: 1, x2: 0, y2: 0,
-    stop: 0 #4B3030, stop: 1 #5A2323);
+    stop: 0 #302F2F, stop: 1 #484846);
     border-width: 1px;
     border-color: #4A4949;
     border-style: solid;
@@ -285,10 +285,6 @@ QPushButton {
     padding-left: 5px;
     padding-right: 5px;
     border-radius: 5px;
-}
-
-QPushButton:checked {
-	background-color: red;
 }
 
 QPushButton:disabled {
@@ -564,7 +560,7 @@ QSlider:groove:vertical {
 
 QSlider:sub-page {
 	border: none;
-	background-color: #5E1F1F;
+	background-color: #80AAD5;
 }
 
 QSlider:sub-page:disabled {
