@@ -54,6 +54,8 @@
 </mixer>
 <mixer mfr="Default" model="">
   <protocol>midi</protocol>
+  <mutestyle dark="1" mute="0" unmute="127"/>
+  <countbase>"0"</countbase>
   <strip type="input" cnt="16" name="Ch">
     <fader cmd="B#,01,XX" cmdtyp="level" range="0,127" val="0" anoms=""/>
     <mute cmd="B#,1C,XX" cmdtyp="enum" range="0,127" val="0" anoms=""/>
