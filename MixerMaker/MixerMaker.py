@@ -76,36 +76,34 @@ class MixerMakerDlg(QtWidgets.QMainWindow, MixerMaker_ui.Ui_MainWindow):
         self.actionLoadMixers = QAction()
         self.actionLoadMixers.triggered.connect(self.loadMixers)
         self.mixers = {}
+        self.mixerindex = 0
 
     def populateMixer(self, index):
-        self.lineEditBrand.setText(self.comboBoxPickMixer.itemText(index))
-        self.lineEditModel.setText(self.mixers.mixermodel_list()[index])
-        protocol = self.mixers.mixerprotocol(self.comboBoxPickMixer.itemText(index), self.mixers.mixermodel_list()[index])
-        if protocol == 'osc':
+        self.mixerindex = index
+        self.lineEditBrand.setText(self.mixers.mfr_list[index])
+        self.lineEditModel.setText(self.mixers.model_list[index])
+        self.mixers.mixerattribs(self.mixers.mfr_list[index], self.mixers.model_list[index])
+        if self.mixers.protocol == 'osc':
             self.radioButtonOSC.setChecked(True)
         else:
             self.radioButtonMIDI.setChecked(True)
-        mutestyle = self.mixers.mixermutestyle(self.comboBoxPickMixer.itemText(index), self.mixers.mixermodel_list()[index])
-        if mutestyle == 'illuminated':
+        if self.mixers.mutestyle == 'illuminated':
             self.comboBoxMuteStyle.setCurrentIndex(0)
         else:
             self.comboBoxMuteStyle.setCurrentIndex(1)
-        countbase = self.mixers.mixercountbase(self.comboBoxPickMixer.itemText(index), self.mixers.mixermodel_list()[index])
-        if countbase == '0':
+        if self.mixers.s_countbase == '0':
             self.comboBoxCountBase.setCurrentIndex(0)
         else:
             self.comboBoxCountBase.setCurrentIndex(1)
+        self.disptext()
 
     def loadMixers(self):
         print('loadMixers')
-        # for mxrid in self.show_conf.settings['mixers']:
-            #print(mxrid)
-        # self.mixers[mxrid] = MixerConf(path.abspath(path.join(path.dirname(__file__))))
-        # conffile = path.abspath(path.join(path.dirname(__file__)))
         self.mixers = MixerConf(self.conffile)
         print(self.mixers.mixer_count)
-        print(self.mixers.mixer_list())
-        self.comboBoxPickMixer.addItems(self.mixers.mixer_list())
+        print(self.mixers.mixer_list)
+        a = ['{0}, {1}'.format( a, b) for a, b in zip(self.mixers.mfr_list, self.mixers.model_list)]
+        self.comboBoxPickMixer.addItems(['{0}, {1}'.format( a, b) for a, b in zip(self.mixers.mfr_list, self.mixers.model_list)])
         pass
 
     def openMixer(self):
@@ -146,6 +144,69 @@ class MixerMakerDlg(QtWidgets.QMainWindow, MixerMaker_ui.Ui_MainWindow):
             "Are you sure you want to quit?", QMessageBox.Yes |
             QMessageBox.No, QMessageBox.No)
         return reply
+
+    def disptext(self):
+        self.get_table_data()
+        # set the table model
+        tablemodel = MyTableModel(self.tabledata, header, self)
+        self.tableView.setModel(tablemodel)
+        self.tableView.resizeColumnsToContents()
+        #self.tableView.connect(self.tableClicked, QtCore.SIGNAL("clicked()"))
+
+    def get_table_data(self):
+        strips = self.mixers.mixerstrips(self.mixers.mfr_list[self.mixerindex], self.mixers.model_list[self.mixerindex])
+        self.tabledata =[]
+        for strip in strips:
+            stripattribs = strip.attrib  # todo-mac display strip data on second tab??????
+        pass
+
+
+class MyTableModel(QtCore.QAbstractTableModel):
+    def __init__(self, datain, headerdata, parent=None):
+        """
+        Args:
+            datain: a list of lists\n
+            headerdata: a list of strings
+        """
+        QtCore.QAbstractTableModel.__init__(self, parent)
+        self.arraydata = datain
+        self.headerdata = headerdata
+
+    def rowCount(self, parent):
+        return len(self.arraydata)
+
+    def columnCount(self, parent):
+        if len(self.arraydata) > 0:
+            return len(self.arraydata[0])
+        return 0
+
+    def data(self, index, role):
+        if not index.isValid():
+            return QVariant()
+        elif role == Qt.BackgroundColorRole:
+            #print (self.arraydata[index.row()][7])
+            if self.arraydata[index.row()][7] == 'Stage':
+                return QBrush(Qt.blue)
+            elif self.arraydata[index.row()][7] == 'Sound':
+                return QBrush(Qt.yellow)
+            elif self.arraydata[index.row()][7] == 'Light':
+                return QBrush(Qt.darkGreen)
+            elif self.arraydata[index.row()][7] == 'Mixer':
+                return QBrush(Qt.darkYellow)
+            else:
+                return QBrush(Qt.darkMagenta)
+
+        elif role != QtCore.Qt.DisplayRole:
+            return QtCore.QVariant()
+        return QtCore.QVariant(self.arraydata[index.row()][index.column()])
+
+    def setData(self, index, value, role):
+        pass         # not sure what to put here
+
+    def headerData(self, col, orientation, role):
+        if orientation == QtCore.Qt.Horizontal and role == QtCore.Qt.DisplayRole:
+            return QtCore.QVariant(self.headerdata[col])
+        return QtCore.QVariant()
 
 
 if __name__ == "__main__":

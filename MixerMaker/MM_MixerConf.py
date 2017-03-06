@@ -23,22 +23,20 @@ class MixerConf:
         self.mixerdefs = ET.parse(mixerconf_file)
         self.mixers = self.mixerdefs.getroot()
         self.mixer_count = len(self.mixers)
+        self.mfr_list = []
+        self.model_list = []
+        self.protocol = ''
+        self.mutestyle = ''
+        self.s_countbase = ''
+        self.mixer_list()
 
     def mixer_list(self):
-        ret_list = []
         for mixer in self.mixers:
             mxattribs = mixer.attrib
-            ret_list.append(mxattribs['mfr'])
-        return ret_list
+            self.mfr_list.append(mxattribs['mfr'])
+            self.model_list.append(mxattribs['model'])
 
-    def mixermodel_list(self):
-        ret_list = []
-        for mixer in self.mixers:
-            mxattribs = mixer.attrib
-            ret_list.append(mxattribs['model'])
-        return ret_list
-
-    def mixerprotocol(self, mixername, mixermodel):
+    def mixerattribs(self, mixername, mixermodel):
         for mixer in self.mixers:
             print(mixer.attrib)
             mxattribs = mixer.attrib
@@ -47,24 +45,19 @@ class MixerConf:
                     #print('found')
                     break
         self.protocol = mixer.find('protocol').text
-        return self.protocol
-
-    def mixermutestyle(self, mixername, mixermodel):
-        for mixer in self.mixers:
-            print(mixer.attrib)
-            mxattribs = mixer.attrib
-            if 'model' in mxattribs.keys():
-                if mxattribs['model'] == mixermodel and mxattribs['mfr'] == mixername:
-                    #print('found')
-                    break
         mutestyleattribs = mixer.find('mutestyle').attrib
         if 'illuminated' in mutestyleattribs:
                 self.mutestyle = 'illuminated'
         elif 'dark' in mutestyleattribs:
                 self.mutestyle = 'dark'
-        return self.mutestyle
+        mutestyleattribs = mixer.find('mutestyle').attrib
+        if 'illuminated' in mutestyleattribs:
+                self.mutestyle = 'illuminated'
+        elif 'dark' in mutestyleattribs:
+                self.mutestyle = 'dark'
+        self.s_countbase = mixer.find('countbase').text.replace('"','')
 
-    def mixercountbase(self, mixername, mixermodel):
+    def mixerstrips(self, mixername, mixermodel):
         for mixer in self.mixers:
             print(mixer.attrib)
             mxattribs = mixer.attrib
@@ -72,5 +65,4 @@ class MixerConf:
                 if mxattribs['model'] == mixermodel and mxattribs['mfr'] == mixername:
                     #print('found')
                     break
-        self.s_countbase = mixer.find('countbase').text.replace('"','')
-        return self.s_countbase
+        return mixer.findall('strip')
