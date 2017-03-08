@@ -162,6 +162,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         QtGui.QIcon.setThemeSearchPaths(styles.QLiSPIconsThemePaths)
         QtGui.QIcon.setThemeName(styles.QLiSPIconsThemeName)
         self.__index = 0
+        self.cuehaschanged = False
         self.max_slider_count = 0
         self.tablist = []
         self.tablistvertlayout = []
@@ -330,7 +331,6 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
             self.tabgridlayoutlist[idx].addLayout(self.tabstripgridlist[idx], 0, 0, 1, 1)
             self.tabWidget.insertTab(idx, self.tablist[idx], "Tab {}".format(idx))
             for chn in range(The_Show.mixers[idx].mxrconsole.__len__()):
-            #for chn in range(The_Show.mixers[idx].input_count):
                 # Add scribble for each channel
                 scrbl = QtWidgets.QLabel()
                 #scrbl.setObjectName('scr{0:02}'.format(chn))
@@ -344,8 +344,8 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
                 scrbl.setWordWrap(True)
                 self.tabstripgridlist[idx].addWidget(scrbl,4,chn,1,1)
                 # Add slider for this channel
-                sldr = QtWidgets.QSlider(QtCore.Qt.Vertical)  # default sliders
-                # sldr = MySlider()                           # slider with decibel ticks
+                # sldr = QtWidgets.QSlider(QtCore.Qt.Vertical)  # default sliders
+                sldr = MySlider()                           # slider with decibel ticks
                 # sldr.valueChanged.connect(self.sliderprint)
                 sldr.sliderMoved.connect(self.sliderprint)
                 sldr.setObjectName('M{0}sldr{1:02}'.format(idx, chn))
@@ -383,6 +383,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
             self.tablistvertlayout[idx].addWidget(self.scrollArea[idx])
 
     def sliderprint(self, val):
+        self.cuehaschanged = True
         sending_slider = self.sender()
         #print('sending_slider name: {0}'.format(sending_slider.objectName()))
         sldrname = sending_slider.objectName()
@@ -395,7 +396,8 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         msg = The_Show.mixers[mxrid].mxrstrips[The_Show.mixers[mxrid].
             mxrconsole[stripGUIindx]['type']]['fader']. \
             Set(The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['channum'], val)
-        if msg is not None: self.mixer_sender_threads[mxrid].queue_msg(msg, The_Show.mixers[mxrid])
+        if msg is not None:
+            self.mixer_sender_threads[mxrid].queue_msg(msg, The_Show.mixers[mxrid])
 
     def on_buttonNext_clicked(self):
         self.next_cue()
@@ -413,10 +415,18 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
                 # print('M{0}sldr{1:02}:{2:3}'.format(mxrid, stripGUIindx, sldr.value()))
         print(levels)
         The_Show.cues.setcueelement(The_Show.cues.currentcueindex, levels)
-        # thiscue = The_Show.cues.cuelist.find("./cue[@num='" + '{0:03}'.format(The_Show.cues.currentcueindex) + "']")
-        # newcuetype = thiscue.find('Exits')
-        # print(newcuetype.text)
         The_Show.cues.addnewcue()
+
+    def updatecuestate(self):
+        levels = ''
+        for mxrid in range(The_Show.mixers.__len__()):
+            for stripGUIindx in range(The_Show.mixers[mxrid].mxrconsole.__len__()):
+                sldr = self.findChild(QtWidgets.QSlider, name='M{0}sldr{1:02}'.format(mxrid, stripGUIindx))
+                levels += 'M{0}{1}:{2},'.format(mxrid, The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['name'], sldr.value())
+                # print('M{0}sldr{1:02}:{2:3}'.format(mxrid, stripGUIindx, sldr.value()))
+        print(levels)
+        The_Show.cues.setcueelement(The_Show.cues.currentcueindex, levels)
+        pass
 
     def execute_cue(self, num):
         The_Show.cues.previouscueindex = The_Show.cues.currentcueindex
@@ -524,6 +534,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
                 if msg is not None: self.mixer_sender_threads[mxrid].queue_msg(msg, The_Show.mixers[mxrid])
 
     def on_buttonMute_clicked(self):
+        self.cuehaschanged = True
         mbtn=self.sender()
         print('sending_slider name: {0}'.format(mbtn.objectName()))
         mbtnname = mbtn.objectName()
@@ -625,13 +636,6 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
                      self.append_table_data(q)
                      break
 
-            # self.tabledata.append([q.find('Move').text,
-            #          q.find('Id').text,
-            #          q.find('Scene').text,
-            #          q.find('Page').text,
-            #          q.find('Title').text,
-            #          q.find('Cue').text])
-
     def append_table_data(self, q):
         tmp_list = ['{0:03}'.format(int(q.attrib['num']))]
         for i in range(1, header.__len__()):
@@ -646,6 +650,14 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
 
     def closeEvent(self, event):
         """..."""
+        if self.cuehaschanged:
+            reply = self.confirmUnsaved()
+            if reply == QMessageBox.Cancel:
+                event.ignore()
+                return
+            elif reply == QMessageBox.Save:
+                The_Show.cues.savecuelist(True, cfgdict['Show']['folder'] + The_Show.show_conf.settings['cuefile'])
+
         reply = self.confirmQuit()
         if reply == QMessageBox.Yes:
             self.stopthreads()
@@ -662,6 +674,12 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
                 "Are you sure you want to quit?", QMessageBox.Yes |
                 QMessageBox.No, QMessageBox.No)
         return reply
+
+    def confirmUnsaved(self):
+            return QMessageBox.question(self, 'Save Changes', 'Changed cues are unsaved!',
+                                     QMessageBox.Save | QMessageBox.Discard | QMessageBox.Cancel,
+                                     QMessageBox.Cancel)
+
 
     '''sender functions'''
     '''testfucn
@@ -723,32 +741,45 @@ class MySlider(QtWidgets.QSlider):
     def __init__(self, parent=None):
         super(MySlider, self).__init__(parent)
 
-    def paintEvent(self, event):
-        super(MySlider, self).paintEvent(event)
-        qp = QPainter(self)
-        pen = QPen()
-        pen.setWidth(2)
-        pen.setColor(Qt.black)
+    def mouseReleaseEvent(self, m_ev):
+        """Subclassed from QSlider"""
+        levels = ''
+        for mxrid in range(The_Show.mixers.__len__()):
+            for stripGUIindx in range(The_Show.mixers[mxrid].mxrconsole.__len__()):
+                sldr = self.window().findChild(QtWidgets.QSlider, name='M{0}sldr{1:02}'.format(mxrid, stripGUIindx))
+                levels += 'M{0}{1}:{2},'.format(mxrid, The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['name'], sldr.value())
+                print('M{0}sldr{1:02}:{2:3}'.format(mxrid, stripGUIindx, sldr.value()))
+        print(levels)
+        The_Show.cues.setcueelement(The_Show.cues.currentcueindex, levels)
 
-        qp.setPen(pen)
-        font = QFont('Times', 10)
-        font_y_offset = font.pointSize()/2
-        qp.setFont(font)
-        size = self.size()
-        contents = self.contentsRect()
-        db_val_list =   [10, 5, 0, -5, -10, -20, -30, -40, -50, -60, -90]
-        for val in db_val_list:
-            if val == 10:
-                y_val_fudge = 12
-            elif val == -90:
-                y_val_fudge = -12
-            db_scaled = db_to_int(val)
-            y_val = contents.height() - translate(db_scaled, 0, 1023, 0, contents.height())
-            if val == -90:
-                qp.drawText(contents.x() - font.pointSize(), y_val + font_y_offset + y_val_fudge, '-oo')
-            else:
-                qp.drawText(contents.x() - font.pointSize(), y_val + font_y_offset + y_val_fudge,'{0:2}'.format(val))
-            qp.drawLine(contents.x() + font.pointSize(), y_val + y_val_fudge,  contents.x() + contents.width(), y_val + y_val_fudge)
+    # Note: commented out because it looks too busy with 30+ sliders
+    # def paintEvent(self, event):
+    #     """Paint log scale ticks"""
+    #     super(MySlider, self).paintEvent(event)
+    #     qp = QPainter(self)
+    #     pen = QPen()
+    #     pen.setWidth(2)
+    #     pen.setColor(Qt.black)
+    #
+    #     qp.setPen(pen)
+    #     font = QFont('Times', 10)
+    #     font_y_offset = font.pointSize()/2
+    #     qp.setFont(font)
+    #     size = self.size()
+    #     contents = self.contentsRect()
+    #     db_val_list =   [10, 5, 0, -5, -10, -20, -30, -40, -50, -60, -90]
+    #     for val in db_val_list:
+    #         if val == 10:
+    #             y_val_fudge = 12
+    #         elif val == -90:
+    #             y_val_fudge = -12
+    #         db_scaled = db_to_int(val)
+    #         y_val = contents.height() - translate(db_scaled, 0, 1023, 0, contents.height())
+    #         if val == -90:
+    #             qp.drawText(contents.x() - font.pointSize(), y_val + font_y_offset + y_val_fudge, '-oo')
+    #         else:
+    #             qp.drawText(contents.x() - font.pointSize(), y_val + font_y_offset + y_val_fudge,'{0:2}'.format(val))
+    #         qp.drawLine(contents.x() + font.pointSize(), y_val + y_val_fudge,  contents.x() + contents.width(), y_val + y_val_fudge)
 
 
 class MyTableModel(QtCore.QAbstractTableModel):

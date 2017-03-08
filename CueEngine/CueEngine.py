@@ -56,9 +56,32 @@ import styles
 
 cfgdict = cfg.toDict()
 
-#columndict = {'Cue Number': 0, 'Act':1, 'Scene':2, 'Page':3, 'ID':4, 'Title':5, 'Cue call':6}
-# header = ['Cue Number', 'Act', 'Scene', 'Page', 'Id', 'Title', 'Cue Call', 'Cue Type']
+class cueTypeDispatcher():
+    def __init__(self):
+        self.dispatch = {'Stage':self.do_stage,
+                         'Mixer':self.do_mixer(),
+                         'Sound':self.do_sound,
+                         'SFX':self.do_SFX,
+                         'Light':self.do_light}
 
+    def do_stage(self):
+        pass
+
+    def do_mixer(self):
+        msg = osc_message_builder.OscMessageBuilder(address='/cue/#')
+        msg.add_arg(The_Show.cues.currentcueindex)
+        msg = msg.build()
+        self.mxr_sndrthread.queue_msg(msg, self.CueAppDev)
+
+    def do_sound(self):
+        msg = [NOTE_ON, 60, 112]
+        self.snd_sndrthread.queue_msg(msg, self.CueAppDev)
+
+    def do_SFX(self):
+        pass
+
+    def do_light(self):
+        pass
 
 class EditCue(QDialog, Ui_dlgEditCue):
     def __init__(self, index, parent=None):
@@ -180,7 +203,11 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         self.action_Mixer.triggered.connect(self.ShowMxrApp)
         self.SFXAppProc = None
         self.MxrAppProc = None
-
+        self.dispatch = {'Stage':self.do_stage,
+                         'Mixer':self.do_mixer,
+                         'Sound':self.do_sound,
+                         'SFX':self.do_SFX,
+                         'Light':self.do_light}
         self.comm_threads = []  # a list of threads in use for later use when app exits
 
     def on_buttonNext_clicked(self):
@@ -190,8 +217,9 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         tblrow = selections[0].row()  # the row is the index to the tabledata for the cue
         tblrow += 1  # next row
         cuedata = self.tabledata[tblrow]  # data for next row
+        cueindex = int(self.tabledata[tblrow][0])
         The_Show.cues.previouscueindex = The_Show.cues.currentcueindex  # save previous cue index
-        The_Show.cues.currentcueindex = int(self.tabledata[tblrow][0])  # new current cue index is the cue we want to execute
+        The_Show.cues.currentcueindex = cueindex  # new current cue index is the cue we want to execute
         tblvw.selectRow(tblrow)  # select the next row
         self.dispatch_cue()  # execute the cue
 
@@ -216,14 +244,37 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         self.dispatch_cue()
 
     def dispatch_cue(self):
-        if The_Show.cues.getcuetype(The_Show.cues.currentcueindex) == 'Mixer':
-            msg = osc_message_builder.OscMessageBuilder(address='/cue/#')
-            msg.add_arg(The_Show.cues.currentcueindex)
-            msg = msg.build()
-            self.mxr_sndrthread.queue_msg(msg, self.CueAppDev)
-        elif The_Show.cues.getcuetype(The_Show.cues.currentcueindex) == 'Sound':
-            msg = [NOTE_ON, 60, 112]
-            self.snd_sndrthread.queue_msg(msg, self.CueAppDev)
+        for type in The_Show.cues.getcuetype(The_Show.cues.currentcueindex):
+            self.dispatch[type]()
+            # if type in 'Mixer':
+            #     msg = osc_message_builder.OscMessageBuilder(address='/cue/#')
+            #     msg.add_arg(The_Show.cues.currentcueindex)
+            #     msg = msg.build()
+            #     self.mxr_sndrthread.queue_msg(msg, self.CueAppDev)
+            # elif type == 'Sound':
+            #     msg = [NOTE_ON, 60, 112]
+            #     self.snd_sndrthread.queue_msg(msg, self.CueAppDev)
+
+
+    def do_stage(self):
+        pass
+
+    def do_mixer(self):
+        msg = osc_message_builder.OscMessageBuilder(address='/cue/#')
+        msg.add_arg(The_Show.cues.currentcueindex)
+        msg = msg.build()
+        self.mxr_sndrthread.queue_msg(msg, self.CueAppDev)
+
+    def do_sound(self):
+        msg = [NOTE_ON, 60, 112]
+        self.snd_sndrthread.queue_msg(msg, self.CueAppDev)
+
+    def do_SFX(self):
+        pass
+
+    def do_light(self):
+        pass
+
 
     def on_table_rightclick(self):
         """insert a new cue before the selected row"""
