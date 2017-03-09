@@ -163,6 +163,8 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         QtGui.QIcon.setThemeName(styles.QLiSPIconsThemeName)
         self.__index = 0
         self.cuehaschanged = False
+        self.ctrl_s = QShortcut(QtGui.QKeySequence(Qt.CTRL + Qt.Key_S), self)
+        self.ctrl_s.activated.connect(self.saveShow)
         self.max_slider_count = 0
         self.tablist = []
         self.tablistvertlayout = []
@@ -583,8 +585,8 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         self.setfirstcue()
 
     def saveShow(self):
-        fname = QtWidgets.QFileDialog.getOpenFileName(self, 'Open file', '/home')
-        # print(fname)
+        The_Show.cues.savecuelist(True, cfgdict['Show']['folder'] + The_Show.show_conf.settings['cuefile'])
+        self.cuehaschanged = False
 
     def closeShow(self):
         fname = QtWidgets.QFileDialog.getOpenFileName(self, 'Open file', '/home')

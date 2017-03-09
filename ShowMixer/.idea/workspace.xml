@@ -30,16 +30,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Cues.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../ShowControl/utils/Cues.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2010">
-              <caret line="136" column="0" lean-forward="false" selection-start-line="136" selection-start-column="0" selection-end-line="136" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="MixerConf.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MixerConf.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -54,43 +44,43 @@
         <entry file="file://$PROJECT_DIR$/ShowMixer.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="172">
-              <caret line="652" column="0" lean-forward="false" selection-start-line="652" selection-start-column="0" selection-end-line="652" selection-end-column="0" />
+              <caret line="654" column="0" lean-forward="false" selection-start-line="654" selection-start-column="0" selection-end-line="654" selection-end-column="0" />
               <folding>
                 <element signature="e#43#58#0" expanded="true" />
                 <element signature="e#3385#3422#0" expanded="false" />
                 <element signature="e#3580#3615#1" expanded="false" />
-                <element signature="e#11254#11609#0" expanded="false" />
-                <element signature="e#18023#18038#0" expanded="false" />
-                <element signature="e#26709#26864#0" expanded="false" />
-                <element signature="e#26898#27485#0" expanded="false" />
-                <element signature="e#27785#28156#0" expanded="false" />
-                <element signature="e#28023#28044#0" expanded="false" />
-                <element signature="e#28202#28928#0" expanded="false" />
-                <element signature="e#31296#31404#1" expanded="false" />
-                <element signature="e#31449#31527#0" expanded="false" />
-                <element signature="e#31765#31824#0" expanded="false" />
-                <element signature="e#31960#32010#0" expanded="false" />
-                <element signature="e#32049#32097#0" expanded="false" />
-                <element signature="e#32103#32221#1" expanded="false" />
-                <element signature="e#32266#32344#0" expanded="false" />
-                <element signature="e#32812#32859#0" expanded="false" />
-                <element signature="e#35174#36810#0" expanded="false" />
-                <element signature="e#35235#35471#0" expanded="false" />
-                <element signature="e#35235#35344#1" expanded="false" />
-                <element signature="e#35513#35539#0" expanded="false" />
-                <element signature="e#35584#35672#0" expanded="false" />
-                <element signature="e#35715#36494#0" expanded="false" />
-                <element signature="e#36547#36587#0" expanded="false" />
+                <element signature="e#11385#11740#0" expanded="false" />
+                <element signature="e#18154#18169#0" expanded="false" />
+                <element signature="e#26840#26995#0" expanded="false" />
+                <element signature="e#27029#27616#0" expanded="false" />
+                <element signature="e#27954#28325#0" expanded="false" />
+                <element signature="e#28192#28213#0" expanded="false" />
+                <element signature="e#28371#29097#0" expanded="false" />
+                <element signature="e#31465#31573#1" expanded="false" />
+                <element signature="e#31618#31696#0" expanded="false" />
+                <element signature="e#31934#31993#0" expanded="false" />
+                <element signature="e#32129#32179#0" expanded="false" />
+                <element signature="e#32218#32266#0" expanded="false" />
+                <element signature="e#32272#32390#1" expanded="false" />
+                <element signature="e#32435#32513#0" expanded="false" />
+                <element signature="e#32981#33028#0" expanded="false" />
+                <element signature="e#35343#36979#0" expanded="false" />
+                <element signature="e#35404#35640#0" expanded="false" />
+                <element signature="e#35404#35513#1" expanded="false" />
+                <element signature="e#35682#35708#0" expanded="false" />
+                <element signature="e#35753#35841#0" expanded="false" />
+                <element signature="e#35884#36663#0" expanded="false" />
+                <element signature="e#36716#36756#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CommHandlers.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../ShowControl/utils/CommHandlers.py">
+      <file leaf-file-name="ui_ShowMixer.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ui_ShowMixer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3480">
-              <caret line="242" column="0" lean-forward="false" selection-start-line="242" selection-start-column="0" selection-end-line="242" selection-end-column="0" />
+            <state relative-caret-position="300">
+              <caret line="95" column="19" lean-forward="true" selection-start-line="95" selection-start-column="19" selection-end-line="95" selection-end-column="19" />
               <folding />
             </state>
           </provider>
@@ -199,6 +189,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -227,8 +219,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -542,11 +532,12 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1944" y="47" width="1874" height="1010" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1388889" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3267544" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="right" auto_hide="true" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.3277405" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36951753" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -561,7 +552,6 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3267544" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -617,7 +607,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/ShowMixer.py</url>
-          <line>577</line>
+          <line>579</line>
           <option name="timeStamp" value="362" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -632,13 +622,18 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/ShowMixer.py</url>
-          <line>652</line>
+          <line>654</line>
           <option name="timeStamp" value="384" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/ShowMixer.py</url>
-          <line>693</line>
+          <line>695</line>
           <option name="timeStamp" value="385" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/ShowMixer.py</url>
+          <line>587</line>
+          <option name="timeStamp" value="386" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
@@ -653,7 +648,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="386" />
+      <option name="time" value="387" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
@@ -663,13 +658,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/ui_DynChanStripDlg.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="34" column="0" lean-forward="false" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.project">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -959,14 +947,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ui_ShowMixer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1036">
-          <caret line="29" column="48" lean-forward="true" selection-start-line="29" selection-start-column="48" selection-end-line="29" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/lib/python3.5/posixpath.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="172">
@@ -990,14 +970,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../ShowControl/utils/CommHandlers.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3480">
-          <caret line="242" column="0" lean-forward="false" selection-start-line="242" selection-start-column="0" selection-end-line="242" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../ShowControl/utils/Cues.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2010">
@@ -1006,36 +978,60 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/../ShowControl/utils/CommHandlers.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3480">
+          <caret line="242" column="0" lean-forward="false" selection-start-line="242" selection-start-column="0" selection-end-line="242" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.PyCharmCE2016.3/system/python_stubs/-1247971764/PyQt5/QtWidgets/QShortcut.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="194">
+          <caret line="16" column="8" lean-forward="false" selection-start-line="16" selection-start-column="8" selection-end-line="16" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ui_ShowMixer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="95" column="19" lean-forward="true" selection-start-line="95" selection-start-column="19" selection-end-line="95" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/ShowMixer.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="172">
-          <caret line="652" column="0" lean-forward="false" selection-start-line="652" selection-start-column="0" selection-end-line="652" selection-end-column="0" />
+          <caret line="654" column="0" lean-forward="false" selection-start-line="654" selection-start-column="0" selection-end-line="654" selection-end-column="0" />
           <folding>
             <element signature="e#43#58#0" expanded="true" />
             <element signature="e#3385#3422#0" expanded="false" />
             <element signature="e#3580#3615#1" expanded="false" />
-            <element signature="e#11254#11609#0" expanded="false" />
-            <element signature="e#18023#18038#0" expanded="false" />
-            <element signature="e#26709#26864#0" expanded="false" />
-            <element signature="e#26898#27485#0" expanded="false" />
-            <element signature="e#27785#28156#0" expanded="false" />
-            <element signature="e#28023#28044#0" expanded="false" />
-            <element signature="e#28202#28928#0" expanded="false" />
-            <element signature="e#31296#31404#1" expanded="false" />
-            <element signature="e#31449#31527#0" expanded="false" />
-            <element signature="e#31765#31824#0" expanded="false" />
-            <element signature="e#31960#32010#0" expanded="false" />
-            <element signature="e#32049#32097#0" expanded="false" />
-            <element signature="e#32103#32221#1" expanded="false" />
-            <element signature="e#32266#32344#0" expanded="false" />
-            <element signature="e#32812#32859#0" expanded="false" />
-            <element signature="e#35174#36810#0" expanded="false" />
-            <element signature="e#35235#35471#0" expanded="false" />
-            <element signature="e#35235#35344#1" expanded="false" />
-            <element signature="e#35513#35539#0" expanded="false" />
-            <element signature="e#35584#35672#0" expanded="false" />
-            <element signature="e#35715#36494#0" expanded="false" />
-            <element signature="e#36547#36587#0" expanded="false" />
+            <element signature="e#11385#11740#0" expanded="false" />
+            <element signature="e#18154#18169#0" expanded="false" />
+            <element signature="e#26840#26995#0" expanded="false" />
+            <element signature="e#27029#27616#0" expanded="false" />
+            <element signature="e#27954#28325#0" expanded="false" />
+            <element signature="e#28192#28213#0" expanded="false" />
+            <element signature="e#28371#29097#0" expanded="false" />
+            <element signature="e#31465#31573#1" expanded="false" />
+            <element signature="e#31618#31696#0" expanded="false" />
+            <element signature="e#31934#31993#0" expanded="false" />
+            <element signature="e#32129#32179#0" expanded="false" />
+            <element signature="e#32218#32266#0" expanded="false" />
+            <element signature="e#32272#32390#1" expanded="false" />
+            <element signature="e#32435#32513#0" expanded="false" />
+            <element signature="e#32981#33028#0" expanded="false" />
+            <element signature="e#35343#36979#0" expanded="false" />
+            <element signature="e#35404#35640#0" expanded="false" />
+            <element signature="e#35404#35513#1" expanded="false" />
+            <element signature="e#35682#35708#0" expanded="false" />
+            <element signature="e#35753#35841#0" expanded="false" />
+            <element signature="e#35884#36663#0" expanded="false" />
+            <element signature="e#36716#36756#0" expanded="false" />
           </folding>
         </state>
       </provider>
