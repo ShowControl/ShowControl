@@ -71,40 +71,66 @@ class CueList:
         self.cuecount = len(cues)
 
 
+    # def get_cue_mute_state(self, cueindex):
+    #     '''
+    #             Constructor
+    #             '''
+    #     # print('{0:03}'.format(cueindex))
+    #     mutestate = {}
+    #
+    #     thiscue = self.cuelist.find("./cue[@num='" + '{0:03}'.format(cueindex) + "']")
+    #     # print(ET.dump(thiscue))
+    #     try:
+    #         ents = thiscue.find('Entrances')
+    #         #             print(ET.dump(ents))
+    #         #             print(ents.text)
+    #         if ents != None:
+    #             entlist = ents.text
+    #             for entidx in entlist.split(","):
+    #                 mutestate[entidx.strip()] = 1
+    #         else:
+    #             return mutestate
+    #             # todo-mac this currently works since EVERY cue has an <Entrances> and <Exits> elements
+    #     except:
+    #         print('Entrances Index ' + '{0:03}'.format(cueindex) + ' not found!')
+    #     try:
+    #         exts = thiscue.find('Exits')
+    #         #             print(ET.dump(exts))
+    #         #             print(exts.text)
+    #         if exts != None:
+    #             extlist = exts.text
+    #             for extidx in extlist.split(","):
+    #                 mutestate[extidx.strip()] = 0
+    #         return mutestate
+    #         # todo-mac this currently works since EVERY cue has an <Entrances> and <Exits> elements
+    #     except:
+    #         print('Entrances Index ' + '{0:03}'.format(cueindex) + ' not found!')
     def get_cue_mute_state(self, cueindex):
-        '''
-                Constructor
-                '''
-        # print('{0:03}'.format(cueindex))
+        """"""
         mutestate = {}
-
         thiscue = self.cuelist.find("./cue[@num='" + '{0:03}'.format(cueindex) + "']")
-        # print(ET.dump(thiscue))
-        try:
-            ents = thiscue.find('Entrances')
-            #             print(ET.dump(ents))
-            #             print(ents.text)
-            if ents != None:
-                entlist = ents.text
-                for entidx in entlist.split(","):
-                    mutestate[entidx.strip()] = 1
-            else:
-                return mutestate
-                # todo-mac this currently works since EVERY cue has an <Entrances> and <Exits> elements
-        except:
-            print('Entrances Index ' + '{0:03}'.format(cueindex) + ' not found!')
-        try:
-            exts = thiscue.find('Exits')
-            #             print(ET.dump(exts))
-            #             print(exts.text)
-            if exts != None:
-                extlist = exts.text
-                for extidx in extlist.split(","):
-                    mutestate[extidx.strip()] = 0
-            return mutestate
-            # todo-mac this currently works since EVERY cue has an <Entrances> and <Exits> elements
-        except:
-            print('Entrances Index ' + '{0:03}'.format(cueindex) + ' not found!')
+        newmutes = thiscue.find('Mutes').text
+        newmutes_list = newmutes.split(',')
+        if cueindex != 0:
+            while True:
+                prev  # todo-mac broken here because
+                        # first: mixer specific stuff in Cues.py
+                        # need to find previous cue that was a Mixer type cue
+                        # or all cues need to propagate Mutes and Levels
+                prevcue = self.cuelist.find("./cue[@num='" + '{0:03}'.format(cueindex-1) + "']")
+            prevcue_type = prevcue.find('CueType').text
+
+            prevmutes = prevcue.find('Mutes').text
+            prevmutes_list = prevmutes.split(',')
+            for index in range(newmutes_list.__len__()):
+                if newmutes_list[index] != prevmutes_list[index]:
+                    key, value = newmutes_list[index].split(':')
+                    mutestate[key] = value
+        else:  # index zero is a special case, since there was no previous cue
+            for index in range(newmutes_list.__len__()):
+                    key, value = newmutes_list[index].split(':')
+                    mutestate[key] = int(value)
+        return mutestate
 
     def get_cue_levels(self, cueindex):
         levelstate = {}
@@ -133,17 +159,31 @@ class CueList:
         except:
             print('Cue type for index ' + '{0:03}'.format(cueindex) + ' not found!')
 
-    def setcueelement(self, cueindex, levels):
+    # def setcueelement(self, cueindex, levels):  # todo-mac this needs to handle any element type
+    #                                             # probably needs another argument for element type
+    #     thiscue = self.cuelist.find("./cue[@num='" + '{0:03}'.format(cueindex) + "']")
+    #     try:
+    #         cuetype = thiscue.find('Levels')
+    #         if cuetype != None:
+    #             cuetype.text = levels
+    #         else:
+    #             cuetype = ET.SubElement(thiscue, 'Levels')
+    #             cuetype.text = levels
+    #     except:
+    #         print('Cue type for index ' + '{0:03}'.format(cueindex) + ' not found!')
+    #     self.cuelist.write('update.xml')
+    def setcueelement(self, cueindex, element_text, element_name):  # todo-mac this needs to handle any element type
+                                                # probably needs another argument for element type
         thiscue = self.cuelist.find("./cue[@num='" + '{0:03}'.format(cueindex) + "']")
         try:
-            cuetype = thiscue.find('Levels')
+            cuetype = thiscue.find(element_name)
             if cuetype != None:
-                cuetype.text = levels
+                cuetype.text = element_text
             else:
                 cuetype = ET.SubElement(thiscue, 'Levels')
-                cuetype.text = levels
+                cuetype.text = element_text
         except:
-            print('Cue type for index ' + '{0:03}'.format(cueindex) + ' not found!')
+            print('Cue element {0} for index {1:03} not found!'.format(element_name, cueindex))
         self.cuelist.write('update.xml')
 
     def addnewcue(self, cue_data=[]):

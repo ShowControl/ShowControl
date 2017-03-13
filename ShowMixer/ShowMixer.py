@@ -296,7 +296,6 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         midiobj = None
         return ports
 
-
     def addChanStrip(self):
         # determine max sliders
         #print('Mixer count: {}'.format(The_Show.mixers.__len__()))
@@ -430,6 +429,17 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         The_Show.cues.setcueelement(The_Show.cues.currentcueindex, levels)
         pass
 
+    def updatecuemutestate(self):  # todo-mac general overhaul of elements in cue.xml file
+                                    # Entrances, Exits, and Mutes worked out...
+        mutes = ''
+        for mxrid in range(The_Show.mixers.__len__()):
+            for stripGUIindx in range(The_Show.mixers[mxrid].mxrconsole.__len__()):
+                mute = self.findChild(QtWidgets.QPushButton, name='M{0}mute{1:02}'.format(mxrid, stripGUIindx))
+                mutes += 'M{0}{1}:{2},'.format(mxrid, The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['name'], '{0}'.format(int(mute.isChecked())))
+        print(mutes)
+        The_Show.cues.setcueelement(The_Show.cues.currentcueindex, mutes, 'Mutes')
+        pass
+
     def execute_cue(self, num):
         The_Show.cues.previouscueindex = The_Show.cues.currentcueindex
         The_Show.cues.currentcueindex = num
@@ -559,6 +569,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
             Set(The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['channum'], muteval)
         # todo-mac why does this go to main > sys.exit(app.exec_())?
         if msg is not None: self.mixer_sender_threads[mxrid].queue_msg(msg, The_Show.mixers[mxrid])
+        self.updatecuemutestate()
 
     def setfirstcue(self):
         tblvw = self.findChild(QtWidgets.QTableView)
@@ -681,7 +692,6 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
             return QMessageBox.question(self, 'Save Changes', 'Changed cues are unsaved!',
                                      QMessageBox.Save | QMessageBox.Discard | QMessageBox.Cancel,
                                      QMessageBox.Cancel)
-
 
     '''sender functions'''
     '''testfucn
