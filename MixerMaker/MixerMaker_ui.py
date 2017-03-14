@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'MixerMaker.ui'
+# Form implementation generated from reading ui file 'MixerMaker-1.ui'
 #
 # Created by: PyQt5 UI code generator 5.7
 #
@@ -101,11 +101,6 @@ class Ui_MainWindow(object):
         self.pushButtonAddStrip = QtWidgets.QPushButton(self.Strips)
         self.pushButtonAddStrip.setObjectName("pushButtonAddStrip")
         self.gridLayout_3.addWidget(self.pushButtonAddStrip, 1, 0, 1, 1)
-        self.tableWidget = QtWidgets.QTableWidget(self.Strips)
-        self.tableWidget.setObjectName("tableWidget")
-        self.tableWidget.setColumnCount(0)
-        self.tableWidget.setRowCount(0)
-        self.gridLayout_3.addWidget(self.tableWidget, 2, 0, 1, 3)
         self.label_5 = QtWidgets.QLabel(self.Strips)
         self.label_5.setObjectName("label_5")
         self.gridLayout_3.addWidget(self.label_5, 0, 0, 1, 1)
@@ -115,6 +110,9 @@ class Ui_MainWindow(object):
         self.pushButtonRemoveStrip = QtWidgets.QPushButton(self.Strips)
         self.pushButtonRemoveStrip.setObjectName("pushButtonRemoveStrip")
         self.gridLayout_3.addWidget(self.pushButtonRemoveStrip, 1, 1, 1, 1)
+        self.tableView = QtWidgets.QTableView(self.Strips)
+        self.tableView.setObjectName("tableView")
+        self.gridLayout_3.addWidget(self.tableView, 2, 0, 1, 3)
         self.gridLayout_4.addLayout(self.gridLayout_3, 0, 0, 1, 1)
         self.tabWidget.addTab(self.Strips, "")
         self.gridLayout_6.addWidget(self.tabWidget, 0, 0, 1, 1)

@@ -149,12 +149,14 @@ class MixerMakerDlg(QtWidgets.QMainWindow, MixerMaker_ui.Ui_MainWindow):
         self.get_table_data()
         # set the table model
         tablemodel = MyTableModel(self.tabledata, header, self)
+        # tblview = self.window().findChild(QtWidgets.QTableView, name='tableWidget')
         self.tableView.setModel(tablemodel)
         self.tableView.resizeColumnsToContents()
         #self.tableView.connect(self.tableClicked, QtCore.SIGNAL("clicked()"))
 
     def get_table_data(self):
-        strips = self.mixers.mixerstrips(self.mixers.mfr_list[self.mixerindex], self.mixers.model_list[self.mixerindex])
+        strips = self.mixers.mixers[self.mixerindex]  # todo-mac fix this and decide how to collect all the strip info
+        # strips = self.mixers.mixerstrips(self.mixers.mfr_list[self.mixerindex], self.mixers.model_list[self.mixerindex])
         self.tabledata =[]
         for strip in strips:
             stripattribs = strip.attrib  # todo-mac display strip data on second tab??????

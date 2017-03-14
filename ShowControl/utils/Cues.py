@@ -106,26 +106,31 @@ class CueList:
     #     except:
     #         print('Entrances Index ' + '{0:03}'.format(cueindex) + ' not found!')
     def get_cue_mute_state(self, cueindex):
-        """"""
+        """Get the mutes element of the cue specified by cueindex.
+        Compare it to the previous Mixer cues mute state and
+        return a list of channels to mute or unmute.
+        If cueindex is 0, then just return the entire mute state, as this is
+        the initial cue."""
         mutestate = {}
         thiscue = self.cuelist.find("./cue[@num='" + '{0:03}'.format(cueindex) + "']")
         newmutes = thiscue.find('Mutes').text
         newmutes_list = newmutes.split(',')
         if cueindex != 0:
+            prevcue_index = cueindex
             while True:
-                prev  # todo-mac broken here because
-                        # first: mixer specific stuff in Cues.py
-                        # need to find previous cue that was a Mixer type cue
-                        # or all cues need to propagate Mutes and Levels
-                prevcue = self.cuelist.find("./cue[@num='" + '{0:03}'.format(cueindex-1) + "']")
-            prevcue_type = prevcue.find('CueType').text
+                prevcue_index -= 1
+                prevcue = self.cuelist.find("./cue[@num='" + '{0:03}'.format(prevcue_index) + "']")
+                prevcue_types = prevcue.find('CueType').text
+                prevcue_types_list = prevcue_types.split(',')
+                if 'Mixer' in prevcue_types_list:
+                    break
 
             prevmutes = prevcue.find('Mutes').text
             prevmutes_list = prevmutes.split(',')
             for index in range(newmutes_list.__len__()):
                 if newmutes_list[index] != prevmutes_list[index]:
                     key, value = newmutes_list[index].split(':')
-                    mutestate[key] = value
+                    mutestate[key] = int(value)
         else:  # index zero is a special case, since there was no previous cue
             for index in range(newmutes_list.__len__()):
                     key, value = newmutes_list[index].split(':')
@@ -133,7 +138,9 @@ class CueList:
         return mutestate
 
     def get_cue_levels(self, cueindex):
-        levelstate = {}
+        """Get the Level element oif the cue specified by cueindex
+        return a list of all channel levels"""
+        levelstate = {}  # todo-mac maybe should return only deltas as is done in get_cue_mute_state???
         thiscue = self.cuelist.find("./cue[@num='"+'{0:03}'.format(cueindex)+"']")
         #print(ET.dump(thiscue))
         try:
@@ -172,8 +179,7 @@ class CueList:
     #     except:
     #         print('Cue type for index ' + '{0:03}'.format(cueindex) + ' not found!')
     #     self.cuelist.write('update.xml')
-    def setcueelement(self, cueindex, element_text, element_name):  # todo-mac this needs to handle any element type
-                                                # probably needs another argument for element type
+    def setcueelement(self, cueindex, element_text, element_name):
         thiscue = self.cuelist.find("./cue[@num='" + '{0:03}'.format(cueindex) + "']")
         try:
             cuetype = thiscue.find(element_name)
