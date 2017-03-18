@@ -222,22 +222,22 @@
             </property>
            </widget>
           </item>
-          <item row="1" column="2">
-           <widget class="QPushButton" name="pushButtonEditStrip">
-            <property name="text">
-             <string>Remove</string>
-            </property>
-           </widget>
+          <item row="2" column="0" colspan="3">
+           <widget class="QTableView" name="tableView"/>
           </item>
           <item row="1" column="1">
-           <widget class="QPushButton" name="pushButtonRemoveStrip">
+           <widget class="QPushButton" name="pushButtonEditStrip">
             <property name="text">
              <string>Edit</string>
             </property>
            </widget>
           </item>
-          <item row="2" column="0" colspan="3">
-           <widget class="QTableView" name="tableView"/>
+          <item row="1" column="2">
+           <widget class="QPushButton" name="pushButtonRemoveStrip">
+            <property name="text">
+             <string>Remove</string>
+            </property>
+           </widget>
           </item>
          </layout>
         </item>

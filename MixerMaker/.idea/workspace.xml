@@ -18,16 +18,13 @@
       <file leaf-file-name="MixerMaker.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/MixerMaker.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="341">
-              <caret line="158" column="88" lean-forward="true" selection-start-line="158" selection-start-column="88" selection-end-line="158" selection-end-column="88" />
+            <state relative-caret-position="135">
+              <caret line="212" column="0" lean-forward="true" selection-start-line="212" selection-start-column="0" selection-end-line="212" selection-end-column="0" />
               <folding>
                 <element signature="e#43#58#0" expanded="true" />
-                <element signature="e#5438#5674#0" expanded="false" />
-                <element signature="e#5438#5547#1" expanded="false" />
-                <element signature="e#5716#5742#0" expanded="false" />
-                <element signature="e#5787#5873#0" expanded="false" />
-                <element signature="e#5916#6695#0" expanded="false" />
-                <element signature="e#6748#6788#0" expanded="false" />
+                <element signature="e#7790#7899#1" expanded="false" />
+                <element signature="e#8139#8225#0" expanded="false" />
+                <element signature="e#9133#9173#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -36,21 +33,9 @@
       <file leaf-file-name="MM_MixerConf.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MM_MixerConf.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1005">
+            <state relative-caret-position="545">
               <caret line="67" column="0" lean-forward="false" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PyQtStandardDialogs.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/PyQtStandardDialogs.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4365">
-              <caret line="297" column="29" lean-forward="false" selection-start-line="297" selection-start-column="29" selection-end-line="297" selection-end-column="29" />
-              <folding>
-                <element signature="e#2058#2068#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -58,8 +43,8 @@
       <file leaf-file-name="MixerMaker_ui.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MixerMaker_ui.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="181">
-              <caret line="103" column="43" lean-forward="false" selection-start-line="103" selection-start-column="43" selection-end-line="103" selection-end-column="43" />
+            <state relative-caret-position="20">
+              <caret line="148" column="38" lean-forward="false" selection-start-line="148" selection-start-column="38" selection-end-line="148" selection-end-column="38" />
               <folding />
             </state>
           </provider>
@@ -114,6 +99,7 @@
     </navigator>
     <panes>
       <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -128,7 +114,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -367,7 +352,7 @@
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24986537" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3292683" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3292683" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3292683" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -388,75 +373,30 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/MixerMaker.py</url>
-          <line>157</line>
-          <option name="timeStamp" value="13" />
-        </line-breakpoint>
-      </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="14" />
+      <default-breakpoints>
+        <breakpoint type="python-exception">
+          <properties notifyOnTerminate="true" exception="BaseException">
+            <option name="notifyOnTerminate" value="true" />
+          </properties>
+        </breakpoint>
+      </default-breakpoints>
+      <option name="time" value="17" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/MixerMaker.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1050">
-          <caret line="70" column="40" lean-forward="false" selection-start-line="70" selection-start-column="31" selection-end-line="70" selection-end-column="40" />
-          <folding>
-            <element signature="e#43#58#0" expanded="true" />
-            <element signature="e#5438#5674#0" expanded="false" />
-            <element signature="e#5438#5547#1" expanded="false" />
-            <element signature="e#5716#5742#0" expanded="false" />
-            <element signature="e#5787#5873#0" expanded="false" />
-            <element signature="e#5916#6695#0" expanded="false" />
-            <element signature="e#6748#6788#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/MM_MixerConf.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1005">
-          <caret line="67" column="0" lean-forward="false" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/PyQtStandardDialogs.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4365">
-          <caret line="297" column="29" lean-forward="false" selection-start-line="297" selection-start-column="29" selection-end-line="297" selection-end-column="29" />
-          <folding>
-            <element signature="e#2058#2068#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/MixerMaker_ui.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2265">
-          <caret line="151" column="37" lean-forward="false" selection-start-line="151" selection-start-column="37" selection-end-line="151" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/MixerMaker.py">
-      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#43#58#0" expanded="true" />
-            <element signature="e#5438#5674#0" expanded="false" />
-            <element signature="e#5438#5547#1" expanded="false" />
-            <element signature="e#5716#5742#0" expanded="false" />
-            <element signature="e#5787#5873#0" expanded="false" />
-            <element signature="e#5916#6695#0" expanded="false" />
-            <element signature="e#6748#6788#0" expanded="false" />
+            <element signature="e#7790#7899#1" expanded="false" />
+            <element signature="e#8139#8225#0" expanded="false" />
+            <element signature="e#9133#9173#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -474,15 +414,15 @@
         <state relative-caret-position="4365">
           <caret line="297" column="29" lean-forward="false" selection-start-line="297" selection-start-column="29" selection-end-line="297" selection-end-column="29" />
           <folding>
-            <element signature="e#2058#2068#0" expanded="true" />
+            <element signature="e#2058#2068#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/MixerMaker_ui.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2265">
-          <caret line="151" column="37" lean-forward="false" selection-start-line="151" selection-start-column="37" selection-end-line="151" selection-end-column="37" />
+        <state relative-caret-position="1545">
+          <caret line="103" column="43" lean-forward="false" selection-start-line="103" selection-start-column="43" selection-end-line="103" selection-end-column="43" />
           <folding />
         </state>
       </provider>
@@ -493,12 +433,9 @@
           <caret line="70" column="40" lean-forward="false" selection-start-line="70" selection-start-column="31" selection-end-line="70" selection-end-column="40" />
           <folding>
             <element signature="e#43#58#0" expanded="true" />
-            <element signature="e#5438#5674#0" expanded="false" />
-            <element signature="e#5438#5547#1" expanded="false" />
-            <element signature="e#5716#5742#0" expanded="false" />
-            <element signature="e#5787#5873#0" expanded="false" />
-            <element signature="e#5916#6695#0" expanded="false" />
-            <element signature="e#6748#6788#0" expanded="false" />
+            <element signature="e#7790#7899#1" expanded="false" />
+            <element signature="e#8139#8225#0" expanded="false" />
+            <element signature="e#9133#9173#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -516,7 +453,7 @@
         <state relative-caret-position="4365">
           <caret line="297" column="29" lean-forward="false" selection-start-line="297" selection-start-column="29" selection-end-line="297" selection-end-column="29" />
           <folding>
-            <element signature="e#2058#2068#0" expanded="true" />
+            <element signature="e#2058#2068#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -535,12 +472,9 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#43#58#0" expanded="true" />
-            <element signature="e#5438#5674#0" expanded="false" />
-            <element signature="e#5438#5547#1" expanded="false" />
-            <element signature="e#5716#5742#0" expanded="false" />
-            <element signature="e#5787#5873#0" expanded="false" />
-            <element signature="e#5916#6695#0" expanded="false" />
-            <element signature="e#6748#6788#0" expanded="false" />
+            <element signature="e#7790#7899#1" expanded="false" />
+            <element signature="e#8139#8225#0" expanded="false" />
+            <element signature="e#9133#9173#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -558,7 +492,46 @@
         <state relative-caret-position="4365">
           <caret line="297" column="29" lean-forward="false" selection-start-line="297" selection-start-column="29" selection-end-line="297" selection-end-column="29" />
           <folding>
-            <element signature="e#2058#2068#0" expanded="true" />
+            <element signature="e#2058#2068#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MixerMaker_ui.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2265">
+          <caret line="151" column="37" lean-forward="false" selection-start-line="151" selection-start-column="37" selection-end-line="151" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MixerMaker.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1050">
+          <caret line="70" column="40" lean-forward="false" selection-start-line="70" selection-start-column="31" selection-end-line="70" selection-end-column="40" />
+          <folding>
+            <element signature="e#43#58#0" expanded="true" />
+            <element signature="e#7790#7899#1" expanded="false" />
+            <element signature="e#8139#8225#0" expanded="false" />
+            <element signature="e#9133#9173#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MM_MixerConf.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1005">
+          <caret line="67" column="0" lean-forward="false" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PyQtStandardDialogs.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4365">
+          <caret line="297" column="29" lean-forward="false" selection-start-line="297" selection-start-column="29" selection-end-line="297" selection-end-column="29" />
+          <folding>
+            <element signature="e#2058#2068#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -577,12 +550,9 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#43#58#0" expanded="true" />
-            <element signature="e#5438#5674#0" expanded="false" />
-            <element signature="e#5438#5547#1" expanded="false" />
-            <element signature="e#5716#5742#0" expanded="false" />
-            <element signature="e#5787#5873#0" expanded="false" />
-            <element signature="e#5916#6695#0" expanded="false" />
-            <element signature="e#6748#6788#0" expanded="false" />
+            <element signature="e#7790#7899#1" expanded="false" />
+            <element signature="e#8139#8225#0" expanded="false" />
+            <element signature="e#9133#9173#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -600,7 +570,46 @@
         <state relative-caret-position="4365">
           <caret line="297" column="29" lean-forward="false" selection-start-line="297" selection-start-column="29" selection-end-line="297" selection-end-column="29" />
           <folding>
-            <element signature="e#2058#2068#0" expanded="true" />
+            <element signature="e#2058#2068#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MixerMaker_ui.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2265">
+          <caret line="151" column="37" lean-forward="false" selection-start-line="151" selection-start-column="37" selection-end-line="151" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MixerMaker.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#43#58#0" expanded="true" />
+            <element signature="e#7790#7899#1" expanded="false" />
+            <element signature="e#8139#8225#0" expanded="false" />
+            <element signature="e#9133#9173#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MM_MixerConf.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1005">
+          <caret line="67" column="0" lean-forward="false" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PyQtStandardDialogs.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4365">
+          <caret line="297" column="29" lean-forward="false" selection-start-line="297" selection-start-column="29" selection-end-line="297" selection-end-column="29" />
+          <folding>
+            <element signature="e#2058#2068#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -619,12 +628,9 @@
           <caret line="159" column="90" lean-forward="false" selection-start-line="159" selection-start-column="90" selection-end-line="159" selection-end-column="90" />
           <folding>
             <element signature="e#43#58#0" expanded="true" />
-            <element signature="e#5438#5674#0" expanded="false" />
-            <element signature="e#5438#5547#1" expanded="false" />
-            <element signature="e#5716#5742#0" expanded="false" />
-            <element signature="e#5787#5873#0" expanded="false" />
-            <element signature="e#5916#6695#0" expanded="false" />
-            <element signature="e#6748#6788#0" expanded="false" />
+            <element signature="e#7790#7899#1" expanded="false" />
+            <element signature="e#8139#8225#0" expanded="false" />
+            <element signature="e#9133#9173#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -642,7 +648,7 @@
         <state relative-caret-position="4365">
           <caret line="297" column="29" lean-forward="false" selection-start-line="297" selection-start-column="29" selection-end-line="297" selection-end-column="29" />
           <folding>
-            <element signature="e#2058#2068#0" expanded="true" />
+            <element signature="e#2058#2068#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -661,12 +667,9 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#43#58#0" expanded="true" />
-            <element signature="e#5438#5674#0" expanded="false" />
-            <element signature="e#5438#5547#1" expanded="false" />
-            <element signature="e#5716#5742#0" expanded="false" />
-            <element signature="e#5787#5873#0" expanded="false" />
-            <element signature="e#5916#6695#0" expanded="false" />
-            <element signature="e#6748#6788#0" expanded="false" />
+            <element signature="e#7790#7899#1" expanded="false" />
+            <element signature="e#8139#8225#0" expanded="false" />
+            <element signature="e#9133#9173#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -684,7 +687,7 @@
         <state relative-caret-position="4365">
           <caret line="297" column="29" lean-forward="false" selection-start-line="297" selection-start-column="29" selection-end-line="297" selection-end-column="29" />
           <folding>
-            <element signature="e#2058#2068#0" expanded="true" />
+            <element signature="e#2058#2068#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -703,12 +706,9 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#43#58#0" expanded="true" />
-            <element signature="e#5438#5674#0" expanded="false" />
-            <element signature="e#5438#5547#1" expanded="false" />
-            <element signature="e#5716#5742#0" expanded="false" />
-            <element signature="e#5787#5873#0" expanded="false" />
-            <element signature="e#5916#6695#0" expanded="false" />
-            <element signature="e#6748#6788#0" expanded="false" />
+            <element signature="e#7790#7899#1" expanded="false" />
+            <element signature="e#8139#8225#0" expanded="false" />
+            <element signature="e#9133#9173#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -726,7 +726,7 @@
         <state relative-caret-position="4365">
           <caret line="297" column="29" lean-forward="false" selection-start-line="297" selection-start-column="29" selection-end-line="297" selection-end-column="29" />
           <folding>
-            <element signature="e#2058#2068#0" expanded="true" />
+            <element signature="e#2058#2068#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -745,12 +745,9 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#43#58#0" expanded="true" />
-            <element signature="e#5438#5674#0" expanded="false" />
-            <element signature="e#5438#5547#1" expanded="false" />
-            <element signature="e#5716#5742#0" expanded="false" />
-            <element signature="e#5787#5873#0" expanded="false" />
-            <element signature="e#5916#6695#0" expanded="false" />
-            <element signature="e#6748#6788#0" expanded="false" />
+            <element signature="e#7790#7899#1" expanded="false" />
+            <element signature="e#8139#8225#0" expanded="false" />
+            <element signature="e#9133#9173#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -768,7 +765,7 @@
         <state relative-caret-position="4455">
           <caret line="297" column="29" lean-forward="true" selection-start-line="297" selection-start-column="29" selection-end-line="297" selection-end-column="29" />
           <folding>
-            <element signature="e#2058#2068#0" expanded="true" />
+            <element signature="e#2058#2068#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -787,22 +784,9 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#43#58#0" expanded="true" />
-            <element signature="e#5438#5674#0" expanded="false" />
-            <element signature="e#5438#5547#1" expanded="false" />
-            <element signature="e#5716#5742#0" expanded="false" />
-            <element signature="e#5787#5873#0" expanded="false" />
-            <element signature="e#5916#6695#0" expanded="false" />
-            <element signature="e#6748#6788#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/PyQtStandardDialogs.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4365">
-          <caret line="297" column="29" lean-forward="false" selection-start-line="297" selection-start-column="29" selection-end-line="297" selection-end-column="29" />
-          <folding>
-            <element signature="e#2058#2068#0" expanded="true" />
+            <element signature="e#7790#7899#1" expanded="false" />
+            <element signature="e#8139#8225#0" expanded="false" />
+            <element signature="e#9133#9173#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -829,9 +813,19 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/PyQtStandardDialogs.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4235">
+          <caret line="297" column="29" lean-forward="false" selection-start-line="297" selection-start-column="29" selection-end-line="297" selection-end-column="29" />
+          <folding>
+            <element signature="e#2058#2068#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/MM_MixerConf.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1005">
+        <state relative-caret-position="545">
           <caret line="67" column="0" lean-forward="false" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
           <folding />
         </state>
@@ -839,24 +833,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/MixerMaker_ui.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="181">
-          <caret line="103" column="43" lean-forward="false" selection-start-line="103" selection-start-column="43" selection-end-line="103" selection-end-column="43" />
+        <state relative-caret-position="20">
+          <caret line="148" column="38" lean-forward="false" selection-start-line="148" selection-start-column="38" selection-end-line="148" selection-end-column="38" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/MixerMaker.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="341">
-          <caret line="158" column="88" lean-forward="true" selection-start-line="158" selection-start-column="88" selection-end-line="158" selection-end-column="88" />
+        <state relative-caret-position="135">
+          <caret line="212" column="0" lean-forward="true" selection-start-line="212" selection-start-column="0" selection-end-line="212" selection-end-column="0" />
           <folding>
             <element signature="e#43#58#0" expanded="true" />
-            <element signature="e#5438#5674#0" expanded="false" />
-            <element signature="e#5438#5547#1" expanded="false" />
-            <element signature="e#5716#5742#0" expanded="false" />
-            <element signature="e#5787#5873#0" expanded="false" />
-            <element signature="e#5916#6695#0" expanded="false" />
-            <element signature="e#6748#6788#0" expanded="false" />
+            <element signature="e#7790#7899#1" expanded="false" />
+            <element signature="e#8139#8225#0" expanded="false" />
+            <element signature="e#9133#9173#0" expanded="false" />
           </folding>
         </state>
       </provider>

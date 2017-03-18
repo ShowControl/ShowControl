@@ -49,7 +49,7 @@ print(sys.path)
 from Show import Show
 import configuration as cfg
 import CommHandlers
-from Cues import cue_types, cue_subelements, cue_edit_sizes, cue_subelements_tooltips, header, cue_fields
+from Cues import cue_types, cue_subelements, cue_edit_sizes, cue_subelements_tooltips, cue_fields
 
 from MM_MixerConf import MixerConf
 # from MixerMap import MixerCharMap
@@ -64,6 +64,8 @@ parser = argparse.ArgumentParser()
 
 cfgdict = cfg.toDict()
 
+striplistheader = ['Type','Count','Name']
+
 class MixerMakerDlg(QtWidgets.QMainWindow, MixerMaker_ui.Ui_MainWindow):
     def __init__(self, parent=None):
         super(MixerMakerDlg, self).__init__(parent)
@@ -77,6 +79,28 @@ class MixerMakerDlg(QtWidgets.QMainWindow, MixerMaker_ui.Ui_MainWindow):
         self.actionLoadMixers.triggered.connect(self.loadMixers)
         self.mixers = {}
         self.mixerindex = 0
+        self.tableView.clicked.connect(self.tableClicked)
+        self.stripmodelindex = 0
+        self.tableView.doubleClicked.connect(self.on_table_dblclick)
+        self.tableView.clicked.connect(self.on_table_click)
+
+        self.tableView.setContextMenuPolicy(Qt.ActionsContextMenu)
+        self.action_list = ['Add', 'Edit', 'Remove']
+        self.actionAdd = QAction("Add", None)
+        self.actionAdd.triggered.connect(self.on_table_rightclick)
+        self.tableView.addAction(self.actionAdd)
+        self.actionEdit = QAction("Edit", None)
+        self.actionEdit.triggered.connect(self.on_table_rightclick)
+        self.tableView.addAction(self.actionEdit)
+        self.actionRemove = QAction("Remove", None)
+        self.actionRemove.triggered.connect(self.on_table_rightclick)
+        self.tableView.addAction(self.actionRemove)
+
+        self.pushButtonAddStrip.clicked.connect(self.stripAdd_clicked)
+        self.pushButtonEditStrip.clicked.connect(self.stripEdit_clicked)
+        self.pushButtonRemoveStrip.clicked.connect(self.stripRemove_clicked)
+
+
 
     def populateMixer(self, index):
         self.mixerindex = index
@@ -148,19 +172,59 @@ class MixerMakerDlg(QtWidgets.QMainWindow, MixerMaker_ui.Ui_MainWindow):
     def disptext(self):
         self.get_table_data()
         # set the table model
-        tablemodel = MyTableModel(self.tabledata, header, self)
+        tablemodel = MyTableModel(self.tabledata, striplistheader, self)
         # tblview = self.window().findChild(QtWidgets.QTableView, name='tableWidget')
         self.tableView.setModel(tablemodel)
         self.tableView.resizeColumnsToContents()
+        self.tableView.selectRow(0)
         #self.tableView.connect(self.tableClicked, QtCore.SIGNAL("clicked()"))
 
     def get_table_data(self):
-        strips = self.mixers.mixers[self.mixerindex]  # todo-mac fix this and decide how to collect all the strip info
+        strips = self.mixers.mixers[self.mixerindex].findall('strip')
+        # todo-mac fix this and decide how to collect all the strip info
         # strips = self.mixers.mixerstrips(self.mixers.mfr_list[self.mixerindex], self.mixers.model_list[self.mixerindex])
+
         self.tabledata =[]
         for strip in strips:
-            stripattribs = strip.attrib  # todo-mac display strip data on second tab??????
+            striptype = strip.attrib['type']  # todo-mac display strip data on second tab??????
+            stripcount = strip.attrib['cnt']
+            stripname = strip.attrib['name']
+            self.tabledata.append([striptype,stripcount,stripname])
         pass
+
+    def tableClicked(self, modelidx):
+        self.stripmodelindex = modelidx.row()
+        self.tableView.selectRow(self.stripmodelindex)
+
+    def on_table_rightclick(self):
+        print('right click')
+        sender_text = self.sender().text()
+        if sender_text == 'Add':
+            print(sender_text)
+        elif sender_text == 'Edit':
+            print(sender_text)
+        elif sender_text == 'Remove':
+            print(sender_text)
+        pass
+
+    def on_table_dblclick(self,index):
+        print('double click on row: {0}'.format(index.row()))
+        pass
+
+    def on_table_click(self,index):
+        print('click on row: {0}'.format(index.row()))
+        pass
+
+    def stripAdd_clicked(self):
+        print('stripAdd_clicked with row {0} selected.'.format(self.tableView.selectedIndexes()[0].row()))
+        print(self.tableView.model().rowCount(None))
+
+
+    def stripEdit_clicked(self):
+        print('stripEdit_clicked')
+
+    def stripRemove_clicked(self):
+        print('stripRemove_clicked')
 
 
 class MyTableModel(QtCore.QAbstractTableModel):
@@ -185,19 +249,19 @@ class MyTableModel(QtCore.QAbstractTableModel):
     def data(self, index, role):
         if not index.isValid():
             return QVariant()
-        elif role == Qt.BackgroundColorRole:
-            #print (self.arraydata[index.row()][7])
-            if self.arraydata[index.row()][7] == 'Stage':
-                return QBrush(Qt.blue)
-            elif self.arraydata[index.row()][7] == 'Sound':
-                return QBrush(Qt.yellow)
-            elif self.arraydata[index.row()][7] == 'Light':
-                return QBrush(Qt.darkGreen)
-            elif self.arraydata[index.row()][7] == 'Mixer':
-                return QBrush(Qt.darkYellow)
-            else:
-                return QBrush(Qt.darkMagenta)
-
+        # elif role == Qt.BackgroundColorRole:
+        #     #print (self.arraydata[index.row()][7])
+        #     if self.arraydata[index.row()][7] == 'Stage':
+        #         return QBrush(Qt.blue)
+        #     elif self.arraydata[index.row()][7] == 'Sound':
+        #         return QBrush(Qt.yellow)
+        #     elif self.arraydata[index.row()][7] == 'Light':
+        #         return QBrush(Qt.darkGreen)
+        #     elif self.arraydata[index.row()][7] == 'Mixer':
+        #         return QBrush(Qt.darkYellow)
+        #     else:
+        #         return QBrush(Qt.darkMagenta)
+        #
         elif role != QtCore.Qt.DisplayRole:
             return QtCore.QVariant()
         return QtCore.QVariant(self.arraydata[index.row()][index.column()])
