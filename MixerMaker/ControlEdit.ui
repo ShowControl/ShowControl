@@ -122,7 +122,23 @@
       <widget class="QLineEdit" name="lineEdit_DefaultValue"/>
      </item>
      <item row="2" column="1">
-      <widget class="QComboBox" name="comboBox_ControlType"/>
+      <widget class="QComboBox" name="comboBox_ControlType">
+       <item>
+        <property name="text">
+         <string>fader</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>mute</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>scribble</string>
+        </property>
+       </item>
+      </widget>
      </item>
      <item row="1" column="1">
       <spacer name="verticalSpacer">
@@ -141,7 +157,23 @@
       <widget class="QLineEdit" name="lineEdit_Range"/>
      </item>
      <item row="4" column="1">
-      <widget class="QComboBox" name="comboBox_CommandType"/>
+      <widget class="QComboBox" name="comboBox_CommandType">
+       <item>
+        <property name="text">
+         <string>level</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>enum</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>string</string>
+        </property>
+       </item>
+      </widget>
      </item>
      <item row="7" column="0">
       <widget class="QLabel" name="label_7">
