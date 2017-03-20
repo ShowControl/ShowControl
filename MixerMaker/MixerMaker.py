@@ -55,6 +55,7 @@ from MM_MixerConf import MixerConf
 # from MixerMap import MixerCharMap
 
 import MixerMaker_ui
+import ControlEdit_ui
 import StripEdit_ui
 
 import styles
@@ -64,7 +65,38 @@ parser = argparse.ArgumentParser()
 
 cfgdict = cfg.toDict()
 
-striplistheader = ['Type','Count','Name']
+striplistheader = ['Type','Count','Name','Controls']
+
+class ControlEdit(QtWidgets.QDialog, ControlEdit_ui.Ui_Dialog):
+    def __init__(self, parent=None):
+        QDialog.__init__(self, parent)
+        self.setupUi(self)
+
+    def accept(self):
+        super(ControlEdit, self).accept()
+
+    def reject(self):
+        super(ControlEdit, self).reject()
+
+class StripEdit(QtWidgets.QDialog, StripEdit_ui.Ui_Dialog):
+    def __init__(self, parent=None):
+        QDialog.__init__(self, parent)
+        self.setupUi(self)
+        self.label_Controls.setContextMenuPolicy(Qt.ActionsContextMenu)
+        self.action_list = ['Add', 'Edit', 'Remove']
+        self.actionAdd = QAction("Add", None)
+        self.actionAdd.triggered.connect(self.on_controls_rightclick)
+        self.label_Controls.addAction(self.actionAdd)
+        self.actionEdit = QAction("Edit", None)
+        self.actionEdit.triggered.connect(self.on_controls_rightclick)
+        self.label_Controls.addAction(self.actionEdit)
+        self.actionRemove = QAction("Remove", None)
+        self.actionRemove.triggered.connect(self.on_controls_rightclick)
+        self.label_Controls.addAction(self.actionRemove)
+
+    def on_controls_rightclick(self):
+        print('lineEdit_Controls right clicked')
+
 
 class MixerMakerDlg(QtWidgets.QMainWindow, MixerMaker_ui.Ui_MainWindow):
     def __init__(self, parent=None):
@@ -81,6 +113,7 @@ class MixerMakerDlg(QtWidgets.QMainWindow, MixerMaker_ui.Ui_MainWindow):
         self.mixerindex = 0
         self.tableView.clicked.connect(self.tableClicked)
         self.stripmodelindex = 0
+        self.tableheader = []
         self.tableView.doubleClicked.connect(self.on_table_dblclick)
         self.tableView.clicked.connect(self.on_table_click)
 
@@ -99,8 +132,6 @@ class MixerMakerDlg(QtWidgets.QMainWindow, MixerMaker_ui.Ui_MainWindow):
         self.pushButtonAddStrip.clicked.connect(self.stripAdd_clicked)
         self.pushButtonEditStrip.clicked.connect(self.stripEdit_clicked)
         self.pushButtonRemoveStrip.clicked.connect(self.stripRemove_clicked)
-
-
 
     def populateMixer(self, index):
         self.mixerindex = index
@@ -181,16 +212,22 @@ class MixerMakerDlg(QtWidgets.QMainWindow, MixerMaker_ui.Ui_MainWindow):
 
     def get_table_data(self):
         strips = self.mixers.mixers[self.mixerindex].findall('strip')
-        # todo-mac fix this and decide how to collect all the strip info
         # strips = self.mixers.mixerstrips(self.mixers.mfr_list[self.mixerindex], self.mixers.model_list[self.mixerindex])
-
         self.tabledata =[]
+        row_list = []
         for strip in strips:
-            striptype = strip.attrib['type']  # todo-mac display strip data on second tab??????
+            striptype = strip.attrib['type']
             stripcount = strip.attrib['cnt']
             stripname = strip.attrib['name']
-            self.tabledata.append([striptype,stripcount,stripname])
-        pass
+            stripcontrols = strip.findall('*')
+            stripcontrols_str = ''
+            for stripcontrol in stripcontrols:
+                if stripcontrols_str == '':
+                    stripcontrols_str += '{0}'.format(stripcontrol.tag)
+                else:
+                    stripcontrols_str += ', {0}'.format(stripcontrol.tag)
+            row_list.extend([striptype,stripcount,stripname, stripcontrols_str])
+            self.tabledata.append([striptype,stripcount,stripname, stripcontrols_str])
 
     def tableClicked(self, modelidx):
         self.stripmodelindex = modelidx.row()
@@ -201,6 +238,10 @@ class MixerMakerDlg(QtWidgets.QMainWindow, MixerMaker_ui.Ui_MainWindow):
         sender_text = self.sender().text()
         if sender_text == 'Add':
             print(sender_text)
+            print(
+                'stripAdd_clicked with row {0}, column {1} selected.'.format(self.tableView.selectedIndexes()[0].row(),
+                                                                             self.tableView.selectedIndexes()[
+                                                                                 0].column()))
         elif sender_text == 'Edit':
             print(sender_text)
         elif sender_text == 'Remove':
@@ -216,16 +257,36 @@ class MixerMakerDlg(QtWidgets.QMainWindow, MixerMaker_ui.Ui_MainWindow):
         pass
 
     def stripAdd_clicked(self):
-        print('stripAdd_clicked with row {0} selected.'.format(self.tableView.selectedIndexes()[0].row()))
+        print('stripAdd_clicked with row {0}, column {1} selected.'.format(self.tableView.selectedIndexes()[0].row(),
+                                                                           self.tableView.selectedIndexes()[0].column()))
         print(self.tableView.model().rowCount(None))
-
 
     def stripEdit_clicked(self):
         print('stripEdit_clicked')
+        self.editStrip()
 
     def stripRemove_clicked(self):
         print('stripRemove_clicked')
 
+    def editStrip(self):
+        index = self.tableView.selectedIndexes()[0].row()
+        striptype = self.tabledata[index][0]
+        #  ET.dump(self.mixers.mixers[self.mixerindex].find("./strip[@type='input']"))
+        #  ET.dump(self.mixers.mixers[self.mixerindex].find("./strip[@type='{0}']".format(striptype)))
+        thisstrip = self.mixers.mixers[self.mixerindex].find("./strip[@type='{0}']".format(striptype))
+        stripcontrols = thisstrip.findall('*')
+        stripcontrols_str = ''
+        for stripcontrol in stripcontrols:
+            if stripcontrols_str == '':
+                stripcontrols_str += '{0}'.format(stripcontrol.tag)
+            else:
+                stripcontrols_str += ', {0}'.format(stripcontrol.tag)
+
+        editStrip_dlg = StripEdit()
+        type_index = editStrip_dlg.comboBox_StripType.findText(striptype)
+        editStrip_dlg.comboBox_StripType.setCurrentIndex(type_index)
+        editStrip_dlg.label_Controls.setText(stripcontrols_str)
+        editStrip_dlg.exec_()
 
 class MyTableModel(QtCore.QAbstractTableModel):
     def __init__(self, datain, headerdata, parent=None):

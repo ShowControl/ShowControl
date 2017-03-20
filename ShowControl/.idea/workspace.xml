@@ -8,6 +8,8 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../MixerMaker/MixerMaker-1.ui" afterPath="$PROJECT_DIR$/../MixerMaker/MixerMaker-1.ui" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../MixerMaker/MixerMaker.py" afterPath="$PROJECT_DIR$/../MixerMaker/MixerMaker.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../MixerMaker/MixerMaker_ui.py" afterPath="$PROJECT_DIR$/../MixerMaker/MixerMaker_ui.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../MixerMaker/StripEdit.ui" afterPath="$PROJECT_DIR$/../MixerMaker/StripEdit.ui" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../MixerMaker/StripEdit_ui.py" afterPath="$PROJECT_DIR$/../MixerMaker/StripEdit_ui.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ShowMixer/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../ShowMixer/.idea/workspace.xml" />
     </list>
@@ -45,7 +47,7 @@
       <file leaf-file-name="Cues.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/utils/Cues.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1905">
+            <state relative-caret-position="139">
               <caret line="142" column="103" lean-forward="false" selection-start-line="142" selection-start-column="103" selection-end-line="142" selection-end-column="103" />
               <folding>
                 <element signature="e#92#102#0" expanded="true" />
@@ -138,8 +140,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="190" />
-    <option name="y" value="36" />
+    <option name="x" value="1984" />
+    <option name="y" value="74" />
     <option name="width" value="1680" />
     <option name="height" value="930" />
   </component>
@@ -161,7 +163,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -176,6 +177,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -447,7 +449,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="190" y="36" width="1680" height="930" extended-state="0" />
+    <frame x="1984" y="74" width="1680" height="930" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27890345" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -988,7 +990,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/utils/Cues.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1905">
+        <state relative-caret-position="139">
           <caret line="142" column="103" lean-forward="false" selection-start-line="142" selection-start-column="103" selection-end-line="142" selection-end-column="103" />
           <folding>
             <element signature="e#92#102#0" expanded="true" />
