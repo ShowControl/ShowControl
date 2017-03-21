@@ -24,11 +24,6 @@
     <fader cmd="/main/st/mix/fader" cmdtyp="level" range="0.0,1.0,1024" val="0" anoms=""/>
    <scribble cmd="/main/st/config/name" cmdtyp="string" range="" val="" anoms=""/>
    </strip>
-   <commands>
-    <fader cmd="/ch/##/mix/fader" cmdtyp="level" range="0.0,1.0,1024" val="0" anoms=""/>
-    <mute cmd="/ch/##/mix/on" cmdtyp="enum" range="0,1" val="0" anoms=""/>
-    <scribble cmd="/ch/##/config/name" cmdtyp="string" range="" val="" anoms=""/>
-   </commands>
 </mixer>
 <mixer mfr="Yamaha" model="01V">
   <protocol>midi</protocol>

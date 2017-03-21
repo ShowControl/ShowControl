@@ -68,15 +68,51 @@ cfgdict = cfg.toDict()
 striplistheader = ['Type','Count','Name','Controls']
 
 class ControlEdit(QtWidgets.QDialog, ControlEdit_ui.Ui_Dialog):
-    def __init__(self, parent=None):
+    def __init__(self, strip, parent=None):
         QDialog.__init__(self, parent)
         self.setupUi(self)
+        self.current_strip = strip
+        self.data_changed = False
+        self.tableView_ControlsInStrip.setContextMenuPolicy(Qt.ActionsContextMenu)
+        self.action_list = ['Add', 'Edit', 'Remove']
+        self.actionAdd = QAction("Add", None)
+        self.actionAdd.triggered.connect(self.on_controls_rightclick)
+        self.tableView_ControlsInStrip.addAction(self.actionAdd)
+        self.actionEdit = QAction("Edit", None)
+        self.actionEdit.triggered.connect(self.on_controls_rightclick)
+        self.tableView_ControlsInStrip.addAction(self.actionEdit)
+        self.actionRemove = QAction("Remove", None)
+        self.actionRemove.triggered.connect(self.on_controls_rightclick)
+        self.tableView_ControlsInStrip.addAction(self.actionRemove)
+        self.tableView_ControlsInStrip.clicked.connect(self.tableClicked)
+        self.lineEdit_Anomalies.editingFinished.connect(self.lineEdit_Anomalies_done)
 
     def accept(self):
+        self.data_changed = True
+        self.current_strip.find("./{0}".format('fader')).attrib['anom'] = 'stuff from accept'
+
         super(ControlEdit, self).accept()
 
     def reject(self):
         super(ControlEdit, self).reject()
+
+    def lineEdit_Anomalies_done(self): #  todo-mac implement capture of changed attributes
+        print(self.lineEdit_Anomalies.isModified())
+
+    def tableClicked(self, modelidx):
+        rowidx = modelidx.row()
+        self.tableView_ControlsInStrip.selectRow(rowidx)
+        controltype_str = self.tableView_ControlsInStrip.model().arraydata[rowidx][0]
+        thisattribs = self.current_strip.find("./{0}".format(controltype_str)).attrib
+        self.comboBox_ControlType.setCurrentIndex(self.comboBox_ControlType.findText(controltype_str))
+        self.lineEdit_CommandString.setText(thisattribs['cmd'])
+        self.comboBox_CommandType.setCurrentIndex(self.comboBox_CommandType.findText(thisattribs['cmdtyp']))
+        self.lineEdit_Range.setText(thisattribs['range'])
+        self.lineEdit_Anomalies.setText(thisattribs['anoms'])
+        self.lineEdit_DefaultValue.setText(thisattribs['val'])
+
+    def on_controls_rightclick(self):
+        pass
 
 class StripEdit(QtWidgets.QDialog, StripEdit_ui.Ui_Dialog):
     def __init__(self, strip, controls, parent=None):
@@ -103,9 +139,10 @@ class StripEdit(QtWidgets.QDialog, StripEdit_ui.Ui_Dialog):
             pass
         elif sender_text == 'Edit':
             self.editcontrols()
+            pass
 
     def editcontrols(self):
-        editcontrols_dlg = ControlEdit()
+        editcontrols_dlg = ControlEdit(self.current_strip)
         self.tabledata = []
         for control in self.current_controls:
             self.tabledata.append([control.tag])
@@ -125,7 +162,11 @@ class StripEdit(QtWidgets.QDialog, StripEdit_ui.Ui_Dialog):
         editcontrols_dlg.lineEdit_Anomalies.setText(thisattribs['anoms'])
         editcontrols_dlg.lineEdit_DefaultValue.setText(thisattribs['val'])
         editcontrols_dlg.exec_()
-
+        if editcontrols_dlg.data_changed == True: #  todo-mac this needs to get all the controls not just one
+            self.current_strip.find("./{0}".format(controltype_str)).attrib['anoms'] = editcontrols_dlg.lineEdit_Anomalies.text()
+            self.current_strip.find("./{0}".format(controltype_str)).attrib['cmd'] = editcontrols_dlg.lineEdit_CommandString.text()
+            self.current_strip.find("./{0}".format(controltype_str)).attrib['val'] = editcontrols_dlg.lineEdit_DefaultValue.text()
+            self.current_strip.find("./{0}".format(controltype_str)).attrib['range'] = editcontrols_dlg.lineEdit_Range.text()
 class MixerMakerDlg(QtWidgets.QMainWindow, MixerMaker_ui.Ui_MainWindow):
     def __init__(self, parent=None):
         super(MixerMakerDlg, self).__init__(parent)
