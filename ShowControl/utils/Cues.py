@@ -242,8 +242,6 @@ class CueList:
         for i in range(cue_subelements.__len__()):
             cuetomod.find(cue_subelements[i].replace('_','')).text = newcuelist[i]
 
-
-
     def savecuelist(self, revision=True, filename=''):
         """save the current state of the cuelist.
         If revision is true, save with a revision number
