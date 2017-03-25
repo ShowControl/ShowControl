@@ -15,15 +15,17 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="MixerMaker.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="MixerMaker.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/MixerMaker.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="200">
-              <caret line="345" column="101" lean-forward="false" selection-start-line="345" selection-start-column="61" selection-end-line="345" selection-end-column="101" />
+            <state relative-caret-position="273">
+              <caret line="162" column="48" lean-forward="false" selection-start-line="162" selection-start-column="48" selection-end-line="162" selection-end-column="48" />
               <folding>
                 <element signature="e#43#58#0" expanded="true" />
-                <element signature="e#15384#15493#1" expanded="false" />
-                <element signature="e#15733#15819#0" expanded="false" />
+                <element signature="e#15245#15761#0" expanded="false" />
+                <element signature="e#16148#16345#0" expanded="false" />
+                <element signature="e#20673#20782#1" expanded="false" />
+                <element signature="e#21022#21108#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -42,21 +44,20 @@
       <file leaf-file-name="StripEdit_ui.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/StripEdit_ui.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
+            <state relative-caret-position="-867">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding>
-                <marker date="1490038767189" expanded="true" signature="294:1800" ph="..." />
-                <marker date="1490038767189" expanded="true" signature="5207:5210" ph="..." />
+                <marker date="1490467312819" expanded="true" signature="9224:9227" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MM_MixerConf.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MM_MixerConf.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MM_MixerConf.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="260">
-              <caret line="123" column="26" lean-forward="true" selection-start-line="123" selection-start-column="26" selection-end-line="123" selection-end-column="26" />
+            <state relative-caret-position="289">
+              <caret line="50" column="19" lean-forward="false" selection-start-line="50" selection-start-column="13" selection-end-line="50" selection-end-column="27" />
               <folding>
                 <element signature="e#128#143#0" expanded="true" />
               </folding>
@@ -67,7 +68,7 @@
       <file leaf-file-name="MixerMaker_ui.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MixerMaker_ui.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2355">
+            <state relative-caret-position="2669">
               <caret line="157" column="38" lean-forward="false" selection-start-line="157" selection-start-column="38" selection-end-line="157" selection-end-column="38" />
               <folding />
             </state>
@@ -99,14 +100,15 @@
         <option value="$PROJECT_DIR$/.idea/MM_MixerConf.py" />
         <option value="$PROJECT_DIR$/MixerConf.py" />
         <option value="$PROJECT_DIR$/MixerMaker_ui.py" />
-        <option value="$PROJECT_DIR$/MixerMaker.py" />
         <option value="$PROJECT_DIR$/MM_MixerConf.py" />
+        <option value="$PROJECT_DIR$/StripEdit_ui.py" />
+        <option value="$PROJECT_DIR$/MixerMaker.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="16" />
-    <option name="y" value="54" />
+    <option name="x" value="23" />
+    <option name="y" value="37" />
     <option name="width" value="1859" />
     <option name="height" value="1000" />
   </component>
@@ -126,6 +128,7 @@
     </navigator>
     <panes>
       <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -140,7 +143,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -151,7 +153,19 @@
       <recent name="$PROJECT_DIR$/" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.MM_MixerConf">
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Python.MixerMaker">
     <configuration default="false" name="MixerMaker" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -167,6 +181,7 @@
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/MixerMaker.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
       <method />
     </configuration>
     <configuration default="false" name="PyQtStandardDialogs" type="PythonConfigurationType" factoryName="Python" temporary="true">
@@ -184,6 +199,7 @@
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/PyQtStandardDialogs.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
       <method />
     </configuration>
     <configuration default="false" name="pydev_monkey_qt" type="PythonConfigurationType" factoryName="Python" temporary="true">
@@ -201,6 +217,7 @@
       <option name="SCRIPT_NAME" value="$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_bundle/pydev_monkey_qt.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
       <method />
     </configuration>
     <configuration default="false" name="MM_MixerConf" type="PythonConfigurationType" factoryName="Python" temporary="true">
@@ -218,6 +235,7 @@
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/MM_MixerConf.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
       <method />
     </configuration>
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
@@ -235,6 +253,7 @@
       <option name="SCRIPT_NAME" value="" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
       <method />
     </configuration>
     <configuration default="true" type="Tox" factoryName="Tox">
@@ -247,25 +266,6 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="MixerMaker" />
-      <method />
-    </configuration>
-    <configuration default="true" type="tests" factoryName="Attests">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="MixerMaker" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="CLASS_NAME" value="" />
-      <option name="METHOD_NAME" value="" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_SCRIPT" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
       <method />
     </configuration>
     <configuration default="true" type="tests" factoryName="Doctests">
@@ -297,15 +297,10 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="MixerMaker" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="CLASS_NAME" value="" />
-      <option name="METHOD_NAME" value="" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_SCRIPT" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <option name="PARAMS" value="" />
-      <option name="USE_PARAM" value="false" />
+      <option name="_new_regexPattern" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;.&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
       <method />
     </configuration>
     <configuration default="true" type="tests" factoryName="Unittests">
@@ -318,19 +313,42 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="MixerMaker" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="CLASS_NAME" value="" />
-      <option name="METHOD_NAME" value="" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_SCRIPT" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <option name="PUREUNITTEST" value="true" />
-      <option name="PARAMS" value="" />
-      <option name="USE_PARAM" value="false" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;.&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
       <method />
     </configuration>
     <configuration default="true" type="tests" factoryName="py.test">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="MixerMaker" />
+      <option name="_new_keywords" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;.&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method />
+    </configuration>
+    <list size="4">
+      <item index="0" class="java.lang.String" itemvalue="Python.MixerMaker" />
+      <item index="1" class="java.lang.String" itemvalue="Python.PyQtStandardDialogs" />
+      <item index="2" class="java.lang.String" itemvalue="Python.pydev_monkey_qt" />
+      <item index="3" class="java.lang.String" itemvalue="Python.MM_MixerConf" />
+    </list>
+    <recent_temporary>
+      <list size="4">
+        <item index="0" class="java.lang.String" itemvalue="Python.MixerMaker" />
+        <item index="1" class="java.lang.String" itemvalue="Python.MM_MixerConf" />
+        <item index="2" class="java.lang.String" itemvalue="Python.pydev_monkey_qt" />
+        <item index="3" class="java.lang.String" itemvalue="Python.PyQtStandardDialogs" />
+      </list>
+    </recent_temporary>
+    <configuration default="true" type="tests" factoryName="Attests">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs />
@@ -347,27 +365,8 @@
       <option name="TEST_TYPE" value="TEST_SCRIPT" />
       <option name="PATTERN" value="" />
       <option name="USE_PATTERN" value="false" />
-      <option name="testToRun" value="" />
-      <option name="keywords" value="" />
-      <option name="params" value="" />
-      <option name="USE_PARAM" value="false" />
-      <option name="USE_KEYWORD" value="false" />
       <method />
     </configuration>
-    <list size="4">
-      <item index="0" class="java.lang.String" itemvalue="Python.MixerMaker" />
-      <item index="1" class="java.lang.String" itemvalue="Python.PyQtStandardDialogs" />
-      <item index="2" class="java.lang.String" itemvalue="Python.pydev_monkey_qt" />
-      <item index="3" class="java.lang.String" itemvalue="Python.MM_MixerConf" />
-    </list>
-    <recent_temporary>
-      <list size="4">
-        <item index="0" class="java.lang.String" itemvalue="Python.MM_MixerConf" />
-        <item index="1" class="java.lang.String" itemvalue="Python.MixerMaker" />
-        <item index="2" class="java.lang.String" itemvalue="Python.pydev_monkey_qt" />
-        <item index="3" class="java.lang.String" itemvalue="Python.PyQtStandardDialogs" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="ShelveChangesManager" show_recycled="false">
     <option name="remove_strategy" value="false" />
@@ -392,20 +391,21 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="16" y="54" width="1859" height="1000" extended-state="0" />
+    <frame x="23" y="37" width="1859" height="1000" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24986537" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3292683" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3292683" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3292683" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3292683" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36807096" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -422,23 +422,33 @@
       <breakpoints>
         <line-breakpoint suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/MixerMaker.py</url>
-          <line>405</line>
+          <line>497</line>
           <option name="timeStamp" value="22" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/MixerMaker.py</url>
-          <line>165</line>
+          <line>252</line>
           <option name="timeStamp" value="34" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/MixerMaker.py</url>
-          <line>141</line>
+          <line>228</line>
           <option name="timeStamp" value="35" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/MM_MixerConf.py</url>
-          <line>162</line>
-          <option name="timeStamp" value="43" />
+          <url>file://$PROJECT_DIR$/MixerMaker.py</url>
+          <line>393</line>
+          <option name="timeStamp" value="48" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/MixerMaker.py</url>
+          <line>417</line>
+          <option name="timeStamp" value="49" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/MixerMaker.py</url>
+          <line>159</line>
+          <option name="timeStamp" value="51" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
@@ -451,7 +461,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="44" />
+      <option name="time" value="52" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -470,8 +480,10 @@
           <caret line="70" column="40" lean-forward="false" selection-start-line="70" selection-start-column="31" selection-end-line="70" selection-end-column="40" />
           <folding>
             <element signature="e#43#58#0" expanded="true" />
-            <element signature="e#15384#15493#1" expanded="false" />
-            <element signature="e#15733#15819#0" expanded="false" />
+            <element signature="e#15245#15761#0" expanded="false" />
+            <element signature="e#16148#16345#0" expanded="false" />
+            <element signature="e#20673#20782#1" expanded="false" />
+            <element signature="e#21022#21108#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -507,8 +519,10 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#43#58#0" expanded="true" />
-            <element signature="e#15384#15493#1" expanded="false" />
-            <element signature="e#15733#15819#0" expanded="false" />
+            <element signature="e#15245#15761#0" expanded="false" />
+            <element signature="e#16148#16345#0" expanded="false" />
+            <element signature="e#20673#20782#1" expanded="false" />
+            <element signature="e#21022#21108#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -544,8 +558,10 @@
           <caret line="70" column="40" lean-forward="false" selection-start-line="70" selection-start-column="31" selection-end-line="70" selection-end-column="40" />
           <folding>
             <element signature="e#43#58#0" expanded="true" />
-            <element signature="e#15384#15493#1" expanded="false" />
-            <element signature="e#15733#15819#0" expanded="false" />
+            <element signature="e#15245#15761#0" expanded="false" />
+            <element signature="e#16148#16345#0" expanded="false" />
+            <element signature="e#20673#20782#1" expanded="false" />
+            <element signature="e#21022#21108#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -581,8 +597,10 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#43#58#0" expanded="true" />
-            <element signature="e#15384#15493#1" expanded="false" />
-            <element signature="e#15733#15819#0" expanded="false" />
+            <element signature="e#15245#15761#0" expanded="false" />
+            <element signature="e#16148#16345#0" expanded="false" />
+            <element signature="e#20673#20782#1" expanded="false" />
+            <element signature="e#21022#21108#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -618,8 +636,10 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#43#58#0" expanded="true" />
-            <element signature="e#15384#15493#1" expanded="false" />
-            <element signature="e#15733#15819#0" expanded="false" />
+            <element signature="e#15245#15761#0" expanded="false" />
+            <element signature="e#16148#16345#0" expanded="false" />
+            <element signature="e#20673#20782#1" expanded="false" />
+            <element signature="e#21022#21108#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -655,8 +675,10 @@
           <caret line="159" column="90" lean-forward="false" selection-start-line="159" selection-start-column="90" selection-end-line="159" selection-end-column="90" />
           <folding>
             <element signature="e#43#58#0" expanded="true" />
-            <element signature="e#15384#15493#1" expanded="false" />
-            <element signature="e#15733#15819#0" expanded="false" />
+            <element signature="e#15245#15761#0" expanded="false" />
+            <element signature="e#16148#16345#0" expanded="false" />
+            <element signature="e#20673#20782#1" expanded="false" />
+            <element signature="e#21022#21108#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -692,8 +714,10 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#43#58#0" expanded="true" />
-            <element signature="e#15384#15493#1" expanded="false" />
-            <element signature="e#15733#15819#0" expanded="false" />
+            <element signature="e#15245#15761#0" expanded="false" />
+            <element signature="e#16148#16345#0" expanded="false" />
+            <element signature="e#20673#20782#1" expanded="false" />
+            <element signature="e#21022#21108#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -729,8 +753,10 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#43#58#0" expanded="true" />
-            <element signature="e#15384#15493#1" expanded="false" />
-            <element signature="e#15733#15819#0" expanded="false" />
+            <element signature="e#15245#15761#0" expanded="false" />
+            <element signature="e#16148#16345#0" expanded="false" />
+            <element signature="e#20673#20782#1" expanded="false" />
+            <element signature="e#21022#21108#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -766,8 +792,10 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#43#58#0" expanded="true" />
-            <element signature="e#15384#15493#1" expanded="false" />
-            <element signature="e#15733#15819#0" expanded="false" />
+            <element signature="e#15245#15761#0" expanded="false" />
+            <element signature="e#16148#16345#0" expanded="false" />
+            <element signature="e#20673#20782#1" expanded="false" />
+            <element signature="e#21022#21108#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -803,8 +831,10 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#43#58#0" expanded="true" />
-            <element signature="e#15384#15493#1" expanded="false" />
-            <element signature="e#15733#15819#0" expanded="false" />
+            <element signature="e#15245#15761#0" expanded="false" />
+            <element signature="e#16148#16345#0" expanded="false" />
+            <element signature="e#20673#20782#1" expanded="false" />
+            <element signature="e#21022#21108#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -833,7 +863,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/MixerMaker_ui.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2355">
+        <state relative-caret-position="2669">
           <caret line="157" column="38" lean-forward="false" selection-start-line="157" selection-start-column="38" selection-end-line="157" selection-end-column="38" />
           <folding />
         </state>
@@ -847,22 +877,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/StripEdit_ui.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <marker date="1490038767189" expanded="true" signature="294:1800" ph="..." />
-            <marker date="1490038767189" expanded="true" signature="5207:5210" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/.PyCharmCE2016.3/system/python_stubs/-1247971764/sys.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -870,7 +888,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="262" column="0" lean-forward="false" selection-start-line="262" selection-start-column="0" selection-end-line="262" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -878,19 +895,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="191">
           <caret line="771" column="0" lean-forward="false" selection-start-line="771" selection-start-column="0" selection-end-line="771" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/MixerMaker.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="345" column="101" lean-forward="false" selection-start-line="345" selection-start-column="61" selection-end-line="345" selection-end-column="101" />
-          <folding>
-            <element signature="e#43#58#0" expanded="true" />
-            <element signature="e#15384#15493#1" expanded="false" />
-            <element signature="e#15733#15819#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -898,16 +902,39 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-45">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/MM_MixerConf.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="123" column="26" lean-forward="true" selection-start-line="123" selection-start-column="26" selection-end-line="123" selection-end-column="26" />
+        <state relative-caret-position="289">
+          <caret line="50" column="19" lean-forward="false" selection-start-line="50" selection-start-column="13" selection-end-line="50" selection-end-column="27" />
           <folding>
             <element signature="e#128#143#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/StripEdit_ui.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-867">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1490467312819" expanded="true" signature="9224:9227" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MixerMaker.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="273">
+          <caret line="162" column="48" lean-forward="false" selection-start-line="162" selection-start-column="48" selection-end-line="162" selection-end-column="48" />
+          <folding>
+            <element signature="e#43#58#0" expanded="true" />
+            <element signature="e#15245#15761#0" expanded="false" />
+            <element signature="e#16148#16345#0" expanded="false" />
+            <element signature="e#20673#20782#1" expanded="false" />
+            <element signature="e#21022#21108#0" expanded="false" />
           </folding>
         </state>
       </provider>

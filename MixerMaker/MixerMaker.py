@@ -115,31 +115,56 @@ class ControlEdit(QtWidgets.QDialog, ControlEdit_ui.Ui_Dialog):
         pass
 
 class StripEdit(QtWidgets.QDialog, StripEdit_ui.Ui_Dialog):
-    def __init__(self, strip, controls, parent=None):
+    def __init__(self, selectedmixer, selectedstriptype, parent=None):
         QDialog.__init__(self, parent)
         self.setupUi(self)
-        self.label_Controls.setContextMenuPolicy(Qt.ActionsContextMenu)
-        self.action_list = ['Add', 'Edit', 'Remove']
+        self.tableView_ControlsInStrip.setContextMenuPolicy(Qt.ActionsContextMenu)
+        self.action_list = ['Add', 'Remove']
         self.actionAdd = QAction("Add", None)
         self.actionAdd.triggered.connect(self.on_controls_rightclick)
-        self.label_Controls.addAction(self.actionAdd)
-        self.actionEdit = QAction("Edit", None)
-        self.actionEdit.triggered.connect(self.on_controls_rightclick)
-        self.label_Controls.addAction(self.actionEdit)
+        self.tableView_ControlsInStrip.addAction(self.actionAdd)
         self.actionRemove = QAction("Remove", None)
         self.actionRemove.triggered.connect(self.on_controls_rightclick)
-        self.label_Controls.addAction(self.actionRemove)
-        self.current_strip = strip
-        self.current_controls = controls
+        self.tableView_ControlsInStrip.addAction(self.actionRemove)
+        self.tableView_ControlsInStrip.clicked.connect(self.tableClicked)
+        self.selectedstrip = selectedmixer.find("./strip[@type='{0}']".format(selectedstriptype))
+        self.stripcontrols = self.selectedstrip.findall('*')
+        stripcontrols_str = ''
+        self.tabledata = []
+        for control in self.stripcontrols:
+            self.tabledata.append([control.tag])
+        # set the table model
+        tablemodel = MyTableModel(self.tabledata, ['Controls'], self)
+        self.tableView_ControlsInStrip.setModel(tablemodel)
+        self.tableView_ControlsInStrip.resizeColumnsToContents()
+        self.tableView_ControlsInStrip.selectRow(0)
+        controltype_str = self.tabledata[0][0]
+
+
+        self.current_strip = ''
+        self.current_controls = ''
 
     def on_controls_rightclick(self):
         print('lineEdit_Controls right clicked')
         sender_text = self.sender().text()
         if sender_text == 'Add':
             pass
-        elif sender_text == 'Edit':
-            self.editcontrols()
+        elif sender_text == 'Remove':
+            # self.editcontrols()
             pass
+
+    def tableClicked(self, modelidx):
+        rowidx = modelidx.row()
+        self.tableView_ControlsInStrip.selectRow(rowidx)
+        controltype_str = self.tableView_ControlsInStrip.model().arraydata[rowidx][0]
+        thisattribs = self.selectedstrip.find("./{0}".format(controltype_str)).attrib
+        self.comboBox_ControlType.setCurrentIndex(self.comboBox_ControlType.findText(controltype_str))
+        self.lineEdit_CommandString.setText(thisattribs['cmd'])
+        self.comboBox_CommandType.setCurrentIndex(self.comboBox_CommandType.findText(thisattribs['cmdtyp']))
+        self.lineEdit_Range.setText(thisattribs['range'])
+        self.lineEdit_Anomalies.setText(thisattribs['anoms'])
+        self.lineEdit_DefaultValue.setText(thisattribs['val'])
+
 
     def editcontrols(self):
         editcontrols_dlg = ControlEdit(self.current_strip)
@@ -155,18 +180,81 @@ class StripEdit(QtWidgets.QDialog, StripEdit_ui.Ui_Dialog):
         controltype_str = self.tabledata[0][0]
         # thiscontrol = self.current_controls.find("./{0}".format(controltype_str))
         thisattribs = self.current_strip.find("./{0}".format(controltype_str)).attrib
-        editcontrols_dlg.comboBox_ControlType.setCurrentIndex(editcontrols_dlg.comboBox_ControlType.findText(controltype_str))
+        editcontrols_dlg.comboBox_ControlType.setCurrentIndex(
+            editcontrols_dlg.comboBox_ControlType.findText(controltype_str))
         editcontrols_dlg.lineEdit_CommandString.setText(thisattribs['cmd'])
-        editcontrols_dlg.comboBox_CommandType.setCurrentIndex(editcontrols_dlg.comboBox_CommandType.findText(thisattribs['cmdtyp']))
+        editcontrols_dlg.comboBox_CommandType.setCurrentIndex(
+            editcontrols_dlg.comboBox_CommandType.findText(thisattribs['cmdtyp']))
         editcontrols_dlg.lineEdit_Range.setText(thisattribs['range'])
         editcontrols_dlg.lineEdit_Anomalies.setText(thisattribs['anoms'])
         editcontrols_dlg.lineEdit_DefaultValue.setText(thisattribs['val'])
         editcontrols_dlg.exec_()
-        if editcontrols_dlg.data_changed == True: #  todo-mac this needs to get all the controls not just one
-            self.current_strip.find("./{0}".format(controltype_str)).attrib['anoms'] = editcontrols_dlg.lineEdit_Anomalies.text()
-            self.current_strip.find("./{0}".format(controltype_str)).attrib['cmd'] = editcontrols_dlg.lineEdit_CommandString.text()
-            self.current_strip.find("./{0}".format(controltype_str)).attrib['val'] = editcontrols_dlg.lineEdit_DefaultValue.text()
-            self.current_strip.find("./{0}".format(controltype_str)).attrib['range'] = editcontrols_dlg.lineEdit_Range.text()
+        if editcontrols_dlg.data_changed == True:  # todo-mac this needs to get all the controls not just one
+            self.current_strip.find("./{0}".format(controltype_str)).attrib[
+                'anoms'] = editcontrols_dlg.lineEdit_Anomalies.text()
+            self.current_strip.find("./{0}".format(controltype_str)).attrib[
+                'cmd'] = editcontrols_dlg.lineEdit_CommandString.text()
+            self.current_strip.find("./{0}".format(controltype_str)).attrib[
+                'val'] = editcontrols_dlg.lineEdit_DefaultValue.text()
+            self.current_strip.find("./{0}".format(controltype_str)).attrib[
+                'range'] = editcontrols_dlg.lineEdit_Range.text()
+            self.mixers.savemixers(False, 'TestMixerSave.xml')
+
+
+# class StripEdit(QtWidgets.QDialog, StripEdit_ui.Ui_Dialog):
+#     def __init__(self, strip, controls, parent=None):
+#         QDialog.__init__(self, parent)
+#         self.setupUi(self)
+#         self.label_Controls.setContextMenuPolicy(Qt.ActionsContextMenu)
+#         self.action_list = ['Add', 'Edit', 'Remove']
+#         self.actionAdd = QAction("Add", None)
+#         self.actionAdd.triggered.connect(self.on_controls_rightclick)
+#         self.label_Controls.addAction(self.actionAdd)
+#         self.actionEdit = QAction("Edit", None)
+#         self.actionEdit.triggered.connect(self.on_controls_rightclick)
+#         self.label_Controls.addAction(self.actionEdit)
+#         self.actionRemove = QAction("Remove", None)
+#         self.actionRemove.triggered.connect(self.on_controls_rightclick)
+#         self.label_Controls.addAction(self.actionRemove)
+#         self.current_strip = strip
+#         self.current_controls = controls
+#
+#     def on_controls_rightclick(self):
+#         print('lineEdit_Controls right clicked')
+#         sender_text = self.sender().text()
+#         if sender_text == 'Add':
+#             pass
+#         elif sender_text == 'Edit':
+#             self.editcontrols()
+#             pass
+#
+#     def editcontrols(self):
+#         editcontrols_dlg = ControlEdit(self.current_strip)
+#         self.tabledata = []
+#         for control in self.current_controls:
+#             self.tabledata.append([control.tag])
+#         # set the table model
+#         tablemodel = MyTableModel(self.tabledata, ['Controls'], self)
+#         # tblview = self.window().findChild(QtWidgets.QTableView, name='tableWidget')
+#         editcontrols_dlg.tableView_ControlsInStrip.setModel(tablemodel)
+#         editcontrols_dlg.tableView_ControlsInStrip.resizeColumnsToContents()
+#         editcontrols_dlg.tableView_ControlsInStrip.selectRow(0)
+#         controltype_str = self.tabledata[0][0]
+#         # thiscontrol = self.current_controls.find("./{0}".format(controltype_str))
+#         thisattribs = self.current_strip.find("./{0}".format(controltype_str)).attrib
+#         editcontrols_dlg.comboBox_ControlType.setCurrentIndex(editcontrols_dlg.comboBox_ControlType.findText(controltype_str))
+#         editcontrols_dlg.lineEdit_CommandString.setText(thisattribs['cmd'])
+#         editcontrols_dlg.comboBox_CommandType.setCurrentIndex(editcontrols_dlg.comboBox_CommandType.findText(thisattribs['cmdtyp']))
+#         editcontrols_dlg.lineEdit_Range.setText(thisattribs['range'])
+#         editcontrols_dlg.lineEdit_Anomalies.setText(thisattribs['anoms'])
+#         editcontrols_dlg.lineEdit_DefaultValue.setText(thisattribs['val'])
+#         editcontrols_dlg.exec_()
+#         if editcontrols_dlg.data_changed == True: #  todo-mac this needs to get all the controls not just one
+#             self.current_strip.find("./{0}".format(controltype_str)).attrib['anoms'] = editcontrols_dlg.lineEdit_Anomalies.text()
+#             self.current_strip.find("./{0}".format(controltype_str)).attrib['cmd'] = editcontrols_dlg.lineEdit_CommandString.text()
+#             self.current_strip.find("./{0}".format(controltype_str)).attrib['val'] = editcontrols_dlg.lineEdit_DefaultValue.text()
+#             self.current_strip.find("./{0}".format(controltype_str)).attrib['range'] = editcontrols_dlg.lineEdit_Range.text()
+#             self.mixers.savemixers( False, 'TestMixerSave.xml')
 
 class MixerMakerDlg(QtWidgets.QMainWindow, MixerMaker_ui.Ui_MainWindow):
     def __init__(self, parent=None):
@@ -181,7 +269,7 @@ class MixerMakerDlg(QtWidgets.QMainWindow, MixerMaker_ui.Ui_MainWindow):
         self.actionLoadMixers.triggered.connect(self.loadMixers)
         self.mixers = {}
         self.mixerindex = 0
-        self.tableView.clicked.connect(self.tableClicked)
+        # self.tableView.clicked.connect(self.tableClicked)
         self.stripmodelindex = 0
         self.tableheader = []
         self.tableView.doubleClicked.connect(self.on_table_dblclick)
@@ -205,18 +293,20 @@ class MixerMakerDlg(QtWidgets.QMainWindow, MixerMaker_ui.Ui_MainWindow):
 
     def populateMixer(self, index):
         self.mixerindex = index
-        self.lineEditBrand.setText(self.mixers.mfr_list[index])
-        self.lineEditModel.setText(self.mixers.model_list[index])
+        self.mixers.set_selected_mixer(self.mixers.mfr_list[index], self.mixers.model_list[index])
+        self.lineEditBrand.setText(self.mixers.selected_mixer.attrib['mfr'])
+        self.lineEditModel.setText(self.mixers.selected_mixer.attrib['model'])
         self.mixers.mixerattribs(self.mixers.mfr_list[index], self.mixers.model_list[index])
-        if self.mixers.protocol == 'osc':
+        if self.mixers.get_selected_mixer_element('protocol', '', '') == 'osc':
             self.radioButtonOSC.setChecked(True)
         else:
             self.radioButtonMIDI.setChecked(True)
-        if self.mixers.mutestyle == 'illuminated':
+        mutestyleattribs = self.mixers.selected_mixer.find('mutestyle').attrib
+        if 'illuminated' in mutestyleattribs:
             self.comboBoxMuteStyle.setCurrentIndex(0)
         else:
             self.comboBoxMuteStyle.setCurrentIndex(1)
-        if self.mixers.s_countbase == '0':
+        if self.mixers.get_selected_mixer_element('countbase', '', '').replace('"','') == '0':
             self.comboBoxCountBase.setCurrentIndex(0)
         else:
             self.comboBoxCountBase.setCurrentIndex(1)
@@ -299,9 +389,9 @@ class MixerMakerDlg(QtWidgets.QMainWindow, MixerMaker_ui.Ui_MainWindow):
             row_list.extend([striptype,stripcount,stripname, stripcontrols_str])
             self.tabledata.append([striptype,stripcount,stripname, stripcontrols_str])
 
-    def tableClicked(self, modelidx):
-        self.stripmodelindex = modelidx.row()
-        self.tableView.selectRow(self.stripmodelindex)
+    # def tableClicked(self, modelidx):
+    #     self.stripmodelindex = modelidx.row()
+    #     self.tableView.selectRow(self.stripmodelindex)
 
     def on_table_rightclick(self):
         print('right click')
@@ -323,6 +413,8 @@ class MixerMakerDlg(QtWidgets.QMainWindow, MixerMaker_ui.Ui_MainWindow):
         pass
 
     def on_table_click(self,index):
+        self.stripmodelindex = index.row()
+        self.tableView.selectRow(self.stripmodelindex)
         print('click on row: {0}'.format(index.row()))
         pass
 
@@ -352,12 +444,12 @@ class MixerMakerDlg(QtWidgets.QMainWindow, MixerMaker_ui.Ui_MainWindow):
             else:
                 stripcontrols_str += ', {0}'.format(stripcontrol.tag)
 
-        editStrip_dlg = StripEdit(thisstrip, stripcontrols)
+        editStrip_dlg = StripEdit(self.mixers.selected_mixer, striptype)
         type_index = editStrip_dlg.comboBox_StripType.findText(striptype)
         editStrip_dlg.comboBox_StripType.setCurrentIndex(type_index)
         editStrip_dlg.lineEdit_Count.setText(thisstrip.attrib['cnt'])
         editStrip_dlg.lineEdit_Name.setText(thisstrip.attrib['name'])
-        editStrip_dlg.label_Controls.setText(stripcontrols_str)
+        # editStrip_dlg.label_Controls.setText(stripcontrols_str)
         editStrip_dlg.exec_()
 
 class MyTableModel(QtCore.QAbstractTableModel):

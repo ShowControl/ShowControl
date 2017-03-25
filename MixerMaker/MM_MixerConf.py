@@ -102,22 +102,33 @@ class MixerConf:
         else get the element 'tag', that has 'attribname'='attribvalue'"""
         if attribname == '':
             #  return element text
+            #  typically used to get an element with
+            #  a unique tag and only a single value
             return self.selected_mixer.find(tag).text
         else:
             #  return element 'tag', that has 'attribname'='attribvalue'
             return self.selected_mixer.find("./{0}[@{1}='{2}']".format(tag, attribname, attribvalue))
 
+    def get_selected_mixer_element_attrib(self, tag, attribname):
+        """Get the specified tag's specified attribname's value"""
+        #  return element 'tag', that has 'attribname'='attribvalue'
+        return self.selected_mixer.find(tag).attrib[attribname]
+
     def get_selected_strip_control_element(self, strip, tag):
         return strip.find(tag).attrib
 
-    def set_control_attrib(self, strips, tag, attribname, newval):
-        control_element = strips.find(tag)
+    def set_element_attrib(self, element, attribname, newval):
+        """Set the named attribute in element to newval"""
+        element.attrib[attribname] = newval
+
+    def set_control_attrib(self, strip, tag, attribname, newval):
+        control_element = strip.find(tag)
         control_element.attrib[attribname] = newval
 
     def savemixers(self, revision=True, filename=''):
-        """save the current state of the cuelist.
+        """save the current state of the mixer definitions.
         If revision is true, save with a revision number
-        i.e. this essentially makes a backup of the cuelist,
+        i.e. this essentially makes a backup of the mixer definitions file,
         typically call with revision=True before an add or insert
         If revision=False, save the current state of the cuelist
         in the file specified by filename"""
@@ -134,7 +145,6 @@ class MixerConf:
             self.mixerdefs.write(oldroot + '-{0}'.format(rev) + extension)
         else:
             self.mixerdefs.write(filename)
-
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
@@ -155,8 +165,11 @@ if __name__ == "__main__":
     print(mixers.model_list)
     mixers.set_selected_mixer('Behringer', 'X32')
     ET.dump(mixers.selected_mixer)
+    mixers.set_element_attrib(mixers.selected_mixer, 'model', 'X32++')
     print(mixers.get_selected_mixer_element('protocol', '', ''))
+    print('illuminated = ' + mixers.get_selected_mixer_element_attrib('mutestyle', 'illuminated'))
     selectedmixerstrip = mixers.get_selected_mixer_element('strip', 'type', 'input')
+    mixers.set_element_attrib(selectedmixerstrip, 'name', 'Ccc')
     selectedmixerstripcontrol = mixers.get_selected_strip_control_element(selectedmixerstrip, 'fader')
     mixers.set_control_attrib(selectedmixerstrip, 'fader', 'anoms', 'fake')
     mixers.savemixers( False, 'TestMixerSave.xml')
