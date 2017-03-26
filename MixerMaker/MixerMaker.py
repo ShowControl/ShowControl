@@ -137,12 +137,18 @@ class StripEdit(QtWidgets.QDialog, StripEdit_ui.Ui_Dialog):
         tablemodel = MyTableModel(self.tabledata, ['Controls'], self)
         self.tableView_ControlsInStrip.setModel(tablemodel)
         self.tableView_ControlsInStrip.resizeColumnsToContents()
-        self.tableView_ControlsInStrip.selectRow(0)
-        controltype_str = self.tabledata[0][0]
-
+        self.control_index = 0
+        self.tableView_ControlsInStrip.selectRow(self.control_index)
+        self.tableView_ControlsInStrip.pressed.connect(self.table_row_changed)
+        controltype_str = self.tabledata[self.control_index][0]
+        self.set_control_fields(controltype_str)
+        self.lineEdit_Anomalies.editingFinished.connect(self.lineEdit_Anomalies_done)
+        self.comboBox_StripType.currentIndexChanged['QString'].connect(self.strip_type_changed)
+        # self.lineEdit_Count.editingFinished()
 
         self.current_strip = ''
         self.current_controls = ''
+        self.control_changed = False
 
     def on_controls_rightclick(self):
         print('lineEdit_Controls right clicked')
@@ -155,15 +161,104 @@ class StripEdit(QtWidgets.QDialog, StripEdit_ui.Ui_Dialog):
 
     def tableClicked(self, modelidx):
         rowidx = modelidx.row()
-        self.tableView_ControlsInStrip.selectRow(rowidx)
-        controltype_str = self.tableView_ControlsInStrip.model().arraydata[rowidx][0]
-        thisattribs = self.selectedstrip.find("./{0}".format(controltype_str)).attrib
-        self.comboBox_ControlType.setCurrentIndex(self.comboBox_ControlType.findText(controltype_str))
-        self.lineEdit_CommandString.setText(thisattribs['cmd'])
-        self.comboBox_CommandType.setCurrentIndex(self.comboBox_CommandType.findText(thisattribs['cmdtyp']))
-        self.lineEdit_Range.setText(thisattribs['range'])
-        self.lineEdit_Anomalies.setText(thisattribs['anoms'])
-        self.lineEdit_DefaultValue.setText(thisattribs['val'])
+        if rowidx != self.control_index and self.control_changed:
+            print('Control index changing to {0}'.format(rowidx))
+            print('Old index {0} has changed data'.format(self.control_index))
+            #  todo-mac make call to confirm keep or discard changes, if keep, update the elements
+            reply = QMessageBox.question(self, 'Save Changes', 'Save changes to control?',
+                                     QMessageBox.Yes |QMessageBox.No |  QMessageBox.Cancel,
+                                     QMessageBox.Cancel)
+            if reply == QMessageBox.Yes:
+                #  save the changed elements/attributes
+                #  self.update_control_elements
+                #  clear the changed flag
+                self.control_changed = False #  clear changed flag once keep or discard is complete
+                #  set the new control index
+                self.control_index = rowidx
+                self.tableView_ControlsInStrip.selectRow(self.control_index)
+                controltype_str = self.tableView_ControlsInStrip.model().arraydata[self.control_index][0]
+                self.set_control_fields(controltype_str)
+            elif reply == QMessageBox.No:
+                # clear the changed flag
+                self.control_changed = False  # clear changed flag once keep or discard is complete
+                #  set the new control index
+                self.control_index = rowidx
+                self.tableView_ControlsInStrip.selectRow(self.control_index)
+                controltype_str = self.tableView_ControlsInStrip.model().arraydata[self.control_index][0]
+                self.set_control_fields(controltype_str)
+            elif reply == QMessageBox.Cancel:
+                self.tableView_ControlsInStrip.selectRow(self.control_index)
+                pass
+        else:
+            self.control_index = rowidx
+            print('table index {0} pressed'.format(rowidx))
+            self.tableView_ControlsInStrip.selectRow(self.control_index)
+            controltype_str = self.tableView_ControlsInStrip.model().arraydata[self.control_index][0]
+            self.set_control_fields(controltype_str)
+
+    def table_row_changed(self, index):
+        # if index != self.control_index and self.control_changed:
+        #     print('Control index changing to {0}'.format(index.row()))
+        #     print('Old index {0} has changed data'.format(self.control_index))
+        #     #  todo-mac make call to confirm keep or discard changes, if keep, update the elements
+        #     reply = QMessageBox.question(self, 'Save Changes', 'Save changes to control?',
+        #                              QMessageBox.Save | QMessageBox.Discard | QMessageBox.Cancel,
+        #                              QMessageBox.Cancel)
+        #     if reply == QMessageBox.Save:
+        #         self.control_changed = False #  clear changed flag once keep or discard is complete
+        #         #  self.update_control_elements
+        # else:
+        #     self.control_index = index.row()
+        #     print('table index {0} pressed'.format(index.row()))
+        pass
+
+    def set_control_fields(self, control_type):
+        control_attribs = self.selectedstrip.find("./{0}".format(control_type)).attrib
+        self.comboBox_ControlType.setCurrentIndex(self.comboBox_ControlType.findText(control_type))
+        self.lineEdit_CommandString.setText(control_attribs['cmd'])
+        self.comboBox_CommandType.setCurrentIndex(self.comboBox_CommandType.findText(control_attribs['cmdtyp']))
+        self.lineEdit_Range.setText(control_attribs['range'])
+        self.lineEdit_Anomalies.setText(control_attribs['anoms'])
+        self.lineEdit_DefaultValue.setText(control_attribs['val'])
+
+    def accept(self):
+        self.data_changed = True
+        self.current_strip.find("./{0}".format('fader')).attrib['anom'] = 'stuff from accept'
+
+        super(StripEdit, self).accept()
+
+    def reject(self):
+        super(StripEdit, self).reject()
+
+    def strip_type_changed(self, newtype):
+        print(newtype)
+
+    def lineEdit_Count_done(self):
+        pass
+    def lineEdit_Name_done(self):
+        pass
+    def comboBox_ControlType_changed(self):
+        self.control_changed = True
+        pass
+    def lineEdit_CommandString_done(self):
+        if self.lineEdit_CommandString.isModified():
+            self.control_changed = True
+        pass
+    def comboBox_CommandType_changed(self):
+        self.control_changed = True
+        pass
+    def lineEdit_Range_done(self):
+        if self.lineEdit_Range.isModified():
+            self.control_changed = True
+        pass
+    def lineEdit_DefaultValue_done(self):
+        if self.lineEdit_DefaultValue.isModified():
+            self.control_changed = True
+        pass
+    def lineEdit_Anomalies_done(self):
+        if self.lineEdit_Anomalies.isModified():
+            self.control_changed = True
+        pass
 
 
     def editcontrols(self):
