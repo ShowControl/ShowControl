@@ -15,6 +15,7 @@ import sys
 import re
 from os import path
 import logging
+import copy
 
 # logger = logging.getLogger(__name__)
 # logger.info('Top of MixerConf')
@@ -39,7 +40,8 @@ from pythonosc import osc_message_builder
 
 class MixerConf:
     def __init__(self, mixerconf_file):
-        self.mixerdefs = ET.parse(mixerconf_file)
+        self.mixerdefsorig = ET.parse(mixerconf_file)
+        self.mixerdefs = copy.deepcopy(self.mixerdefsorig)
         self.mixers = self.mixerdefs.getroot()
         self.mixer_count = len(self.mixers)
         self.mfr_list = []
@@ -49,6 +51,7 @@ class MixerConf:
         self.s_countbase = ''
         self.mixer_list()
         self.selected_mixer = None
+        self.defs_modified = False
 
     def mixer_list(self):
         for mixer in self.mixers:
@@ -134,7 +137,7 @@ class MixerConf:
         in the file specified by filename"""
         if filename == '':
             msgBox = QtWidgets.QMessageBox()
-            msgBox.setText('The cues not saved, no filename provided!')
+            msgBox.setText('The mixers not saved, no filename provided!')
             msgBox.exec_()
             return
         rev = 1

@@ -118,6 +118,9 @@ class StripEdit(QtWidgets.QDialog, StripEdit_ui.Ui_Dialog):
     def __init__(self, selectedmixer, selectedstriptype, parent=None):
         QDialog.__init__(self, parent)
         self.setupUi(self)
+        self.comboBox_StripType.currentIndexChanged['QString'].connect(self.strip_type_changed)
+        self.lineEdit_Count.editingFinished.connect(self.lineEdit_Count_done)
+        self.lineEdit_Name.editingFinished.connect(self.lineEdit_Name_done)
         self.tableView_ControlsInStrip.setContextMenuPolicy(Qt.ActionsContextMenu)
         self.action_list = ['Add', 'Remove']
         self.actionAdd = QAction("Add", None)
@@ -126,7 +129,7 @@ class StripEdit(QtWidgets.QDialog, StripEdit_ui.Ui_Dialog):
         self.actionRemove = QAction("Remove", None)
         self.actionRemove.triggered.connect(self.on_controls_rightclick)
         self.tableView_ControlsInStrip.addAction(self.actionRemove)
-        self.tableView_ControlsInStrip.clicked.connect(self.tableClicked)
+        self.tableView_ControlsInStrip.clicked.connect(self.controlstableClicked)
         self.selectedstrip = selectedmixer.find("./strip[@type='{0}']".format(selectedstriptype))
         self.stripcontrols = self.selectedstrip.findall('*')
         stripcontrols_str = ''
@@ -142,13 +145,18 @@ class StripEdit(QtWidgets.QDialog, StripEdit_ui.Ui_Dialog):
         self.tableView_ControlsInStrip.pressed.connect(self.table_row_changed)
         controltype_str = self.tabledata[self.control_index][0]
         self.set_control_fields(controltype_str)
+        self.comboBox_ControlType.setEditable(False)
+        self.comboBox_ControlType.setEnabled(False)
+        self.lineEdit_CommandString.editingFinished.connect(self.lineEdit_CommandString_done)
+        self.comboBox_CommandType.currentIndexChanged.connect(self.comboBox_CommandType_changed)
+        self.lineEdit_Range.editingFinished.connect(self.lineEdit_Range_done)
+        self.lineEdit_DefaultValue.editingFinished.connect(self.lineEdit_DefaultValue_done)
         self.lineEdit_Anomalies.editingFinished.connect(self.lineEdit_Anomalies_done)
-        self.comboBox_StripType.currentIndexChanged['QString'].connect(self.strip_type_changed)
-        # self.lineEdit_Count.editingFinished()
 
         self.current_strip = ''
         self.current_controls = ''
         self.control_changed = False
+        self.strip_data_changed = False
 
     def on_controls_rightclick(self):
         print('lineEdit_Controls right clicked')
@@ -159,18 +167,17 @@ class StripEdit(QtWidgets.QDialog, StripEdit_ui.Ui_Dialog):
             # self.editcontrols()
             pass
 
-    def tableClicked(self, modelidx):
+    def controlstableClicked(self, modelidx):
         rowidx = modelidx.row()
         if rowidx != self.control_index and self.control_changed:
-            print('Control index changing to {0}'.format(rowidx))
-            print('Old index {0} has changed data'.format(self.control_index))
-            #  todo-mac make call to confirm keep or discard changes, if keep, update the elements
+            # print('Control index changing to {0}'.format(rowidx))
+            # print('Old index {0} has changed data'.format(self.control_index))
             reply = QMessageBox.question(self, 'Save Changes', 'Save changes to control?',
                                      QMessageBox.Yes |QMessageBox.No |  QMessageBox.Cancel,
                                      QMessageBox.Cancel)
             if reply == QMessageBox.Yes:
                 #  save the changed elements/attributes
-                #  self.update_control_elements
+                self.update_control_elements(self.control_index)
                 #  clear the changed flag
                 self.control_changed = False #  clear changed flag once keep or discard is complete
                 #  set the new control index
@@ -220,23 +227,61 @@ class StripEdit(QtWidgets.QDialog, StripEdit_ui.Ui_Dialog):
         self.lineEdit_Range.setText(control_attribs['range'])
         self.lineEdit_Anomalies.setText(control_attribs['anoms'])
         self.lineEdit_DefaultValue.setText(control_attribs['val'])
+        self.control_changed = False
+
+    def update_control_elements(self, index):
+        controltype_str = self.tabledata[index][0]
+        print('Updating {0}'.format(controltype_str))
+        self.selectedstrip.find("./{0}".format(controltype_str)).attrib['cmd'] = self.lineEdit_CommandString.text()
+        self.selectedstrip.find("./{0}".format(controltype_str)).attrib['cmdtyp'] = self.comboBox_CommandType.currentText()
+        self.selectedstrip.find("./{0}".format(controltype_str)).attrib['range'] = self.lineEdit_Range.text()
+        self.selectedstrip.find("./{0}".format(controltype_str)).attrib['val'] = self.lineEdit_DefaultValue.text()
+        self.selectedstrip.find("./{0}".format(controltype_str)).attrib['anoms'] = self.lineEdit_Anomalies.text()
+        self.strip_data_changed = True
+        pass
 
     def accept(self):
+        if self.strip_data_changed:
+            reply = QMessageBox.question(self, 'Save Changes', 'Save changes to strip?',
+                                         QMessageBox.Yes | QMessageBox.No | QMessageBox.Cancel,
+                                         QMessageBox.Cancel)
+            if reply == QMessageBox.Yes:
+                print('saving changed strip/control')
+                if self.control_changed:    # indicates control has been changed, but no other control was accessed
+                                            # thus the changes weren't saved to the element tree
+                    self.update_control_elements(self.tableView_ControlsInStrip.currentIndex().row())
+                super(StripEdit, self).accept()
+            elif reply == QMessageBox.No:
+                print('not saving strip/control changes!')
+                super(StripEdit, self).accept()
+        else:
+            super(StripEdit, self).accept()
         self.data_changed = True
-        self.current_strip.find("./{0}".format('fader')).attrib['anom'] = 'stuff from accept'
-
-        super(StripEdit, self).accept()
+        super(StripEdit, self).done(99)
+        pass
 
     def reject(self):
         super(StripEdit, self).reject()
 
+    # Handle strip changes
     def strip_type_changed(self, newtype):
+        self.strip_data_changed = True
         print(newtype)
+        self.selectedstrip.attrib['type'] = self.comboBox_StripType.currentText()
 
     def lineEdit_Count_done(self):
+        if self.lineEdit_Count.isModified():
+            self.strip_data_changed = True
+            self.selectedstrip.attrib['cnt'] = self.lineEdit_Count.text()
         pass
+
     def lineEdit_Name_done(self):
+        if self.lineEdit_Name.isModified():
+            self.strip_data_changed = True
+            self.selectedstrip.attrib['name'] = self.lineEdit_Name.text()
         pass
+
+    # Handle control changes
     def comboBox_ControlType_changed(self):
         self.control_changed = True
         pass
@@ -362,9 +407,9 @@ class MixerMakerDlg(QtWidgets.QMainWindow, MixerMaker_ui.Ui_MainWindow):
         self.actionSave.triggered.connect(self.saveMixer)
         self.actionLoadMixers = QAction()
         self.actionLoadMixers.triggered.connect(self.loadMixers)
+        self.mixers_modified = False
         self.mixers = {}
         self.mixerindex = 0
-        # self.tableView.clicked.connect(self.tableClicked)
         self.stripmodelindex = 0
         self.tableheader = []
         self.tableView.doubleClicked.connect(self.on_table_dblclick)
@@ -436,12 +481,26 @@ class MixerMakerDlg(QtWidgets.QMainWindow, MixerMaker_ui.Ui_MainWindow):
 
     def saveMixer(self):
         print('File>Save')
+        self.mixers.savemixers(True, self.conffile)
+        self.mixers_modified = False
 
     def exitMixer(self):
         print('File>Exit')
 
     def closeEvent(self, event):
         """..."""
+        if self.mixers_modified:
+            reply = QMessageBox.question(self, 'Save Changes', 'Save changes to mixers?',
+                                         QMessageBox.Yes | QMessageBox.No | QMessageBox.Cancel,
+                                         QMessageBox.Cancel)
+            if reply == QMessageBox.Yes:
+                self.mixers.savemixers(False, 'TestMixerSave.xml')
+                self.mixers_modified = False
+            elif reply == QMessageBox.No:
+                pass
+            elif reply == QMessageBox.Cancel:
+                pass
+
         reply = self.confirmQuit()
         if reply == QMessageBox.Yes:
             event.accept()
@@ -545,7 +604,11 @@ class MixerMakerDlg(QtWidgets.QMainWindow, MixerMaker_ui.Ui_MainWindow):
         editStrip_dlg.lineEdit_Count.setText(thisstrip.attrib['cnt'])
         editStrip_dlg.lineEdit_Name.setText(thisstrip.attrib['name'])
         # editStrip_dlg.label_Controls.setText(stripcontrols_str)
-        editStrip_dlg.exec_()
+        retval = editStrip_dlg.exec()
+        if editStrip_dlg.strip_data_changed:
+            self.mixers_modified = True
+            self.disptext()
+        pass
 
 class MyTableModel(QtCore.QAbstractTableModel):
     def __init__(self, datain, headerdata, parent=None):

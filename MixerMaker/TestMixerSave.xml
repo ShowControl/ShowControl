@@ -1,10 +1,10 @@
 <mixers>
-<mixer mfr="Behringer" model="X32++">
+<mixer mfr="Behringer" model="X32">
   <protocol>osc</protocol>
   <mutestyle illuminated="1" mute="0" unmute="1" />
   <countbase>"1"</countbase>
-  <strip cnt="32" name="Ccc" type="input">
-    <fader anoms="fake" cmd="/ch/#/mix/fader" cmdtyp="level" range="0.0,1.0,1024" val="0" />
+  <strip cnt="32" name="Ch" type="auxin">
+    <fader anoms="" cmd="/ch/#/mix/fader" cmdtyp="level" range="0.0,1.0,1024" val="0" />
     <mute anoms="" cmd="/ch/#/mix/on" cmdtyp="enum" range="0,1" val="0" />
     <scribble anoms="" cmd="/ch/#/config/name" cmdtyp="string" range="0,1" val="" />
   </strip>
