@@ -45,8 +45,14 @@
           </item>
           <item row="2" column="3">
            <widget class="QComboBox" name="comboBoxPickMixer">
-            <property name="editable">
+            <property name="mouseTracking">
              <bool>true</bool>
+            </property>
+            <property name="focusPolicy">
+             <enum>Qt::StrongFocus</enum>
+            </property>
+            <property name="editable">
+             <bool>false</bool>
             </property>
            </widget>
           </item>

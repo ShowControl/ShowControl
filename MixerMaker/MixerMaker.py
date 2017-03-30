@@ -67,51 +67,21 @@ cfgdict = cfg.toDict()
 
 striplistheader = ['Type','Count','Name','Controls']
 
-class ControlEdit(QtWidgets.QDialog, ControlEdit_ui.Ui_Dialog):
-    def __init__(self, strip, parent=None):
-        QDialog.__init__(self, parent)
-        self.setupUi(self)
-        self.current_strip = strip
-        self.data_changed = False
-        self.tableView_ControlsInStrip.setContextMenuPolicy(Qt.ActionsContextMenu)
-        self.action_list = ['Add', 'Edit', 'Remove']
-        self.actionAdd = QAction("Add", None)
-        self.actionAdd.triggered.connect(self.on_controls_rightclick)
-        self.tableView_ControlsInStrip.addAction(self.actionAdd)
-        self.actionEdit = QAction("Edit", None)
-        self.actionEdit.triggered.connect(self.on_controls_rightclick)
-        self.tableView_ControlsInStrip.addAction(self.actionEdit)
-        self.actionRemove = QAction("Remove", None)
-        self.actionRemove.triggered.connect(self.on_controls_rightclick)
-        self.tableView_ControlsInStrip.addAction(self.actionRemove)
-        self.tableView_ControlsInStrip.clicked.connect(self.tableClicked)
-        self.lineEdit_Anomalies.editingFinished.connect(self.lineEdit_Anomalies_done)
-
-    def accept(self):
-        self.data_changed = True
-        self.current_strip.find("./{0}".format('fader')).attrib['anom'] = 'stuff from accept'
-
-        super(ControlEdit, self).accept()
-
-    def reject(self):
-        super(ControlEdit, self).reject()
-
-    def lineEdit_Anomalies_done(self): #  todo-mac implement capture of changed attributes
-        print(self.lineEdit_Anomalies.isModified())
-
-    def tableClicked(self, modelidx):
-        rowidx = modelidx.row()
-        self.tableView_ControlsInStrip.selectRow(rowidx)
-        controltype_str = self.tableView_ControlsInStrip.model().arraydata[rowidx][0]
-        thisattribs = self.current_strip.find("./{0}".format(controltype_str)).attrib
-        self.comboBox_ControlType.setCurrentIndex(self.comboBox_ControlType.findText(controltype_str))
-        self.lineEdit_CommandString.setText(thisattribs['cmd'])
-        self.comboBox_CommandType.setCurrentIndex(self.comboBox_CommandType.findText(thisattribs['cmdtyp']))
-        self.lineEdit_Range.setText(thisattribs['range'])
-        self.lineEdit_Anomalies.setText(thisattribs['anoms'])
-        self.lineEdit_DefaultValue.setText(thisattribs['val'])
-
-    def on_controls_rightclick(self):
+class controlCountvalidator(QtGui.QIntValidator):
+    def init(self, parent=None):
+        QtGui.QIntValidator.__init__(self, parent)
+    def validate(self, p_str, p_int):
+        if p_str == '':
+            return QtGui.QValidator.Intermediate, p_str, p_int
+        userinput = int(p_str)
+        if userinput > 0 and userinput <= 99:
+            return QtGui.QValidator.Acceptable, p_str, p_int
+        else:
+            return QtGui.QValidator.Invalid, p_str, p_int
+    def fixup(self, p_str):
+        print('In fixup')
+        self.parent().lineEdit_Count.setText(self.parent().selectedstrip.attrib['cnt'])
+        QMessageBox.information(self.parent(), 'Invalid Input', 'Control count must be between 1 and 99.', QMessageBox.Ok)
         pass
 
 class StripEdit(QtWidgets.QDialog, StripEdit_ui.Ui_Dialog):
@@ -120,6 +90,10 @@ class StripEdit(QtWidgets.QDialog, StripEdit_ui.Ui_Dialog):
         self.setupUi(self)
         self.comboBox_StripType.currentIndexChanged['QString'].connect(self.strip_type_changed)
         self.lineEdit_Count.editingFinished.connect(self.lineEdit_Count_done)
+        self.lineEdit_Count.installEventFilter(self)
+        self.countvalidator = controlCountvalidator(self)
+        self.countvalidator.setRange(1,99)
+        self.lineEdit_Count.setValidator(self.countvalidator)
         self.lineEdit_Name.editingFinished.connect(self.lineEdit_Name_done)
         self.tableView_ControlsInStrip.setContextMenuPolicy(Qt.ActionsContextMenu)
         self.action_list = ['Add', 'Remove']
@@ -157,6 +131,11 @@ class StripEdit(QtWidgets.QDialog, StripEdit_ui.Ui_Dialog):
         self.current_controls = ''
         self.control_changed = False
         self.strip_data_changed = False
+
+    def eventFilter(self, source, event):
+        if event.type() == QEvent.Enter and source is self.lineEdit_Count:
+            print('Enter lineEdit_Count widget.')
+        return QtWidgets.QWidget.eventFilter(self, source, event)
 
     def on_controls_rightclick(self):
         print('lineEdit_Controls right clicked')
@@ -275,6 +254,9 @@ class StripEdit(QtWidgets.QDialog, StripEdit_ui.Ui_Dialog):
             self.selectedstrip.attrib['cnt'] = self.lineEdit_Count.text()
         pass
 
+    def lineEdit_Count_enter(self):
+        print('Current value of Count: {0}'.format(self.lineEdit_Count.text()))
+
     def lineEdit_Name_done(self):
         if self.lineEdit_Name.isModified():
             self.strip_data_changed = True
@@ -305,40 +287,39 @@ class StripEdit(QtWidgets.QDialog, StripEdit_ui.Ui_Dialog):
             self.control_changed = True
         pass
 
-
-    def editcontrols(self):
-        editcontrols_dlg = ControlEdit(self.current_strip)
-        self.tabledata = []
-        for control in self.current_controls:
-            self.tabledata.append([control.tag])
-        # set the table model
-        tablemodel = MyTableModel(self.tabledata, ['Controls'], self)
-        # tblview = self.window().findChild(QtWidgets.QTableView, name='tableWidget')
-        editcontrols_dlg.tableView_ControlsInStrip.setModel(tablemodel)
-        editcontrols_dlg.tableView_ControlsInStrip.resizeColumnsToContents()
-        editcontrols_dlg.tableView_ControlsInStrip.selectRow(0)
-        controltype_str = self.tabledata[0][0]
-        # thiscontrol = self.current_controls.find("./{0}".format(controltype_str))
-        thisattribs = self.current_strip.find("./{0}".format(controltype_str)).attrib
-        editcontrols_dlg.comboBox_ControlType.setCurrentIndex(
-            editcontrols_dlg.comboBox_ControlType.findText(controltype_str))
-        editcontrols_dlg.lineEdit_CommandString.setText(thisattribs['cmd'])
-        editcontrols_dlg.comboBox_CommandType.setCurrentIndex(
-            editcontrols_dlg.comboBox_CommandType.findText(thisattribs['cmdtyp']))
-        editcontrols_dlg.lineEdit_Range.setText(thisattribs['range'])
-        editcontrols_dlg.lineEdit_Anomalies.setText(thisattribs['anoms'])
-        editcontrols_dlg.lineEdit_DefaultValue.setText(thisattribs['val'])
-        editcontrols_dlg.exec_()
-        if editcontrols_dlg.data_changed == True:  # todo-mac this needs to get all the controls not just one
-            self.current_strip.find("./{0}".format(controltype_str)).attrib[
-                'anoms'] = editcontrols_dlg.lineEdit_Anomalies.text()
-            self.current_strip.find("./{0}".format(controltype_str)).attrib[
-                'cmd'] = editcontrols_dlg.lineEdit_CommandString.text()
-            self.current_strip.find("./{0}".format(controltype_str)).attrib[
-                'val'] = editcontrols_dlg.lineEdit_DefaultValue.text()
-            self.current_strip.find("./{0}".format(controltype_str)).attrib[
-                'range'] = editcontrols_dlg.lineEdit_Range.text()
-            self.mixers.savemixers(False, 'TestMixerSave.xml')
+    # def editcontrols(self):
+    #     editcontrols_dlg = ControlEdit(self.current_strip)
+    #     self.tabledata = []
+    #     for control in self.current_controls:
+    #         self.tabledata.append([control.tag])
+    #     # set the table model
+    #     tablemodel = MyTableModel(self.tabledata, ['Controls'], self)
+    #     # tblview = self.window().findChild(QtWidgets.QTableView, name='tableWidget')
+    #     editcontrols_dlg.tableView_ControlsInStrip.setModel(tablemodel)
+    #     editcontrols_dlg.tableView_ControlsInStrip.resizeColumnsToContents()
+    #     editcontrols_dlg.tableView_ControlsInStrip.selectRow(0)
+    #     controltype_str = self.tabledata[0][0]
+    #     # thiscontrol = self.current_controls.find("./{0}".format(controltype_str))
+    #     thisattribs = self.current_strip.find("./{0}".format(controltype_str)).attrib
+    #     editcontrols_dlg.comboBox_ControlType.setCurrentIndex(
+    #         editcontrols_dlg.comboBox_ControlType.findText(controltype_str))
+    #     editcontrols_dlg.lineEdit_CommandString.setText(thisattribs['cmd'])
+    #     editcontrols_dlg.comboBox_CommandType.setCurrentIndex(
+    #         editcontrols_dlg.comboBox_CommandType.findText(thisattribs['cmdtyp']))
+    #     editcontrols_dlg.lineEdit_Range.setText(thisattribs['range'])
+    #     editcontrols_dlg.lineEdit_Anomalies.setText(thisattribs['anoms'])
+    #     editcontrols_dlg.lineEdit_DefaultValue.setText(thisattribs['val'])
+    #     editcontrols_dlg.exec_()
+    #     if editcontrols_dlg.data_changed == True:  # todo-mac this needs to get all the controls not just one
+    #         self.current_strip.find("./{0}".format(controltype_str)).attrib[
+    #             'anoms'] = editcontrols_dlg.lineEdit_Anomalies.text()
+    #         self.current_strip.find("./{0}".format(controltype_str)).attrib[
+    #             'cmd'] = editcontrols_dlg.lineEdit_CommandString.text()
+    #         self.current_strip.find("./{0}".format(controltype_str)).attrib[
+    #             'val'] = editcontrols_dlg.lineEdit_DefaultValue.text()
+    #         self.current_strip.find("./{0}".format(controltype_str)).attrib[
+    #             'range'] = editcontrols_dlg.lineEdit_Range.text()
+    #         self.mixers.savemixers(False, 'TestMixerSave.xml')
 
 
 # class StripEdit(QtWidgets.QDialog, StripEdit_ui.Ui_Dialog):

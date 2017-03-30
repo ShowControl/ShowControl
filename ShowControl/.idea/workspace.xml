@@ -5,8 +5,11 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../TestShow" afterPath="$PROJECT_DIR$/../TestShow" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../CueEngine/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../CueEngine/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../MixerMaker/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../MixerMaker/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../MixerMaker/MM_MixerConf.py" afterPath="$PROJECT_DIR$/../MixerMaker/MM_MixerConf.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../MixerMaker/MixerMaker-1.ui" afterPath="$PROJECT_DIR$/../MixerMaker/MixerMaker-1.ui" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../MixerMaker/MixerMaker.py" afterPath="$PROJECT_DIR$/../MixerMaker/MixerMaker.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../MixerMaker/MixerMaker_ui.py" afterPath="$PROJECT_DIR$/../MixerMaker/MixerMaker_ui.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../MixerMaker/StripEdit-1.ui" afterPath="$PROJECT_DIR$/../MixerMaker/StripEdit-1.ui" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../MixerMaker/StripEdit_ui.py" afterPath="$PROJECT_DIR$/../MixerMaker/StripEdit_ui.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../MixerMaker/TestMixerSave.xml" afterPath="$PROJECT_DIR$/../MixerMaker/TestMixerSave.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ShowMixer/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../ShowMixer/.idea/workspace.xml" />
@@ -45,8 +48,8 @@
       <file leaf-file-name="Cues.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/utils/Cues.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="979">
-              <caret line="228" column="0" lean-forward="true" selection-start-line="228" selection-start-column="0" selection-end-line="228" selection-end-column="0" />
+            <state relative-caret-position="469">
+              <caret line="228" column="0" lean-forward="false" selection-start-line="228" selection-start-column="0" selection-end-line="228" selection-end-column="0" />
               <folding>
                 <element signature="e#92#102#0" expanded="true" />
               </folding>
@@ -444,7 +447,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1984" y="74" width="1680" height="930" extended-state="0" />
+    <frame x="1984" y="74" width="1680" height="930" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27890345" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -986,8 +989,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/utils/Cues.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="979">
-          <caret line="228" column="0" lean-forward="true" selection-start-line="228" selection-start-column="0" selection-end-line="228" selection-end-column="0" />
+        <state relative-caret-position="469">
+          <caret line="228" column="0" lean-forward="false" selection-start-line="228" selection-start-column="0" selection-end-line="228" selection-end-column="0" />
           <folding>
             <element signature="e#92#102#0" expanded="true" />
           </folding>
