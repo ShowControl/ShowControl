@@ -17,6 +17,9 @@
    <layout class="QGridLayout" name="gridLayout_6">
     <item row="0" column="0">
      <widget class="QTabWidget" name="tabWidget">
+      <property name="focusPolicy">
+       <enum>Qt::ClickFocus</enum>
+      </property>
       <property name="currentIndex">
        <number>0</number>
       </property>
@@ -51,13 +54,20 @@
             <property name="focusPolicy">
              <enum>Qt::StrongFocus</enum>
             </property>
+            <property name="toolTip">
+             <string>Select a mixer to edit.</string>
+            </property>
             <property name="editable">
              <bool>false</bool>
             </property>
            </widget>
           </item>
           <item row="5" column="3">
-           <widget class="QLineEdit" name="lineEditModel"/>
+           <widget class="QLineEdit" name="lineEditModel">
+            <property name="toolTip">
+             <string>Enter model.</string>
+            </property>
+           </widget>
           </item>
           <item row="5" column="1">
            <widget class="QLabel" name="label">
@@ -77,6 +87,9 @@
           </item>
           <item row="4" column="3">
            <widget class="QLineEdit" name="lineEditBrand">
+            <property name="toolTip">
+             <string>Enter brand or manufacturer name.</string>
+            </property>
             <property name="placeholderText">
              <string/>
             </property>
@@ -338,6 +351,21 @@
    </property>
   </action>
  </widget>
+ <tabstops>
+  <tabstop>comboBoxPickMixer</tabstop>
+  <tabstop>lineEditBrand</tabstop>
+  <tabstop>lineEditModel</tabstop>
+  <tabstop>comboBoxMuteStyle</tabstop>
+  <tabstop>radioButtonOSC</tabstop>
+  <tabstop>lineEdit</tabstop>
+  <tabstop>radioButtonMIDI</tabstop>
+  <tabstop>lineEdit_2</tabstop>
+  <tabstop>comboBoxCountBase</tabstop>
+  <tabstop>pushButtonAddStrip</tabstop>
+  <tabstop>pushButtonEditStrip</tabstop>
+  <tabstop>pushButtonRemoveStrip</tabstop>
+  <tabstop>tableView</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

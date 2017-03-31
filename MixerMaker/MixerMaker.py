@@ -79,18 +79,18 @@ class controlCountvalidator(QtGui.QIntValidator):
         else:
             return QtGui.QValidator.Invalid, p_str, p_int
     def fixup(self, p_str):
-        print('In fixup')
         self.parent().lineEdit_Count.setText(self.parent().selectedstrip.attrib['cnt'])
         QMessageBox.information(self.parent(), 'Invalid Input', 'Control count must be between 1 and 99.', QMessageBox.Ok)
-        pass
 
 class StripEdit(QtWidgets.QDialog, StripEdit_ui.Ui_Dialog):
     def __init__(self, selectedmixer, selectedstriptype, parent=None):
         QDialog.__init__(self, parent)
         self.setupUi(self)
+        self.installEventFilter(self)
+        butts = self.buttonBox.buttons()
         self.comboBox_StripType.currentIndexChanged['QString'].connect(self.strip_type_changed)
         self.lineEdit_Count.editingFinished.connect(self.lineEdit_Count_done)
-        self.lineEdit_Count.installEventFilter(self)
+        # self.lineEdit_Count.installEventFilter(self)
         self.countvalidator = controlCountvalidator(self)
         self.countvalidator.setRange(1,99)
         self.lineEdit_Count.setValidator(self.countvalidator)
@@ -135,6 +135,12 @@ class StripEdit(QtWidgets.QDialog, StripEdit_ui.Ui_Dialog):
     def eventFilter(self, source, event):
         if event.type() == QEvent.Enter and source is self.lineEdit_Count:
             print('Enter lineEdit_Count widget.')
+        elif event.type() == QEvent.KeyPress:
+            if event.key() == Qt.Key_Return or event.key() == Qt.Key_Enter and source is not self.buttonBox:
+                print(event.type())
+                print(event.key())
+                print(Qt.Key_Return)
+                return True
         return QtWidgets.QWidget.eventFilter(self, source, event)
 
     def on_controls_rightclick(self):
@@ -492,7 +498,7 @@ class MixerMakerDlg(QtWidgets.QMainWindow, MixerMaker_ui.Ui_MainWindow):
         """..."""
         reply = QMessageBox.question(self, 'Confirm Quit',
             "Are you sure you want to quit?", QMessageBox.Yes |
-            QMessageBox.No, QMessageBox.No)
+            QMessageBox.No, QMessageBox.Yes)
         return reply
 
     def disptext(self):
@@ -537,8 +543,10 @@ class MixerMakerDlg(QtWidgets.QMainWindow, MixerMaker_ui.Ui_MainWindow):
                 'stripAdd_clicked with row {0}, column {1} selected.'.format(self.tableView.selectedIndexes()[0].row(),
                                                                              self.tableView.selectedIndexes()[
                                                                                  0].column()))
+            self.addStrip()
         elif sender_text == 'Edit':
             print(sender_text)
+            self.editStrip()
         elif sender_text == 'Remove':
             print(sender_text)
         pass
@@ -590,6 +598,20 @@ class MixerMakerDlg(QtWidgets.QMainWindow, MixerMaker_ui.Ui_MainWindow):
             self.mixers_modified = True
             self.disptext()
         pass
+
+    def addStrip(self):
+        striptype = 'input'
+        **********
+        # todo-mac figure out how to add...
+        thisstrip = self.mixers.makenewstrip(self.mixers.selected_mixer, striptype)
+        editStrip_dlg = StripEdit(self.mixers.selected_mixer, striptype)
+        type_index = editStrip_dlg.comboBox_StripType.findText(striptype)
+        editStrip_dlg.comboBox_StripType.setCurrentIndex(type_index)
+        editStrip_dlg.lineEdit_Count.setText(thisstrip.attrib['cnt'])
+        editStrip_dlg.lineEdit_Name.setText(thisstrip.attrib['name'])
+        # editStrip_dlg.label_Controls.setText(stripcontrols_str)
+        retval = editStrip_dlg.exec()
+
 
 class MyTableModel(QtCore.QAbstractTableModel):
     def __init__(self, datain, headerdata, parent=None):

@@ -43,21 +43,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MixerConf.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="MixerConf.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/MixerConf.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1598">
+            <state relative-caret-position="822">
               <caret line="94" column="0" lean-forward="false" selection-start-line="93" selection-start-column="0" selection-end-line="94" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ShowMixer.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ShowMixer.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ShowMixer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="414">
-              <caret line="714" column="0" lean-forward="false" selection-start-line="714" selection-start-column="0" selection-end-line="714" selection-end-column="0" />
+            <state relative-caret-position="533">
+              <caret line="838" column="49" lean-forward="true" selection-start-line="838" selection-start-column="49" selection-end-line="838" selection-end-column="49" />
               <folding>
                 <element signature="e#43#58#0" expanded="true" />
                 <element signature="e#3385#3422#0" expanded="false" />
@@ -81,13 +81,10 @@
                 <element signature="e#33011#33129#1" expanded="false" />
                 <element signature="e#33174#33252#0" expanded="false" />
                 <element signature="e#33720#33767#0" expanded="false" />
-                <element signature="e#36082#37718#0" expanded="false" />
-                <element signature="e#36143#36379#0" expanded="false" />
                 <element signature="e#36143#36252#1" expanded="false" />
                 <element signature="e#36421#36447#0" expanded="false" />
                 <element signature="e#36492#36580#0" expanded="false" />
                 <element signature="e#36623#37402#0" expanded="false" />
-                <element signature="e#37455#37495#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -182,6 +179,7 @@
         <option value="$PROJECT_DIR$/theme_dark/style.css" />
         <option value="$PROJECT_DIR$/ShowMixer.py" />
         <option value="$PROJECT_DIR$/../ShowControl/utils/Cues.py" />
+        <option value="$PROJECT_DIR$/tempp.py" />
       </list>
     </option>
   </component>
@@ -206,8 +204,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -644,13 +642,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_imps/_pydev_execfile.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="17" column="41" lean-forward="false" selection-start-line="17" selection-start-column="41" selection-end-line="17" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/local/lib/python3.5/dist-packages/pythonosc/osc_bundle.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -905,14 +896,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/MixerConf.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1598">
-          <caret line="94" column="0" lean-forward="false" selection-start-line="93" selection-start-column="0" selection-end-line="94" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../ShowControl/utils/CommHandlers.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3480">
@@ -996,10 +979,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/tempp.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="19" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/ShowMixer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="414">
-          <caret line="714" column="0" lean-forward="false" selection-start-line="714" selection-start-column="0" selection-end-line="714" selection-end-column="0" />
+        <state relative-caret-position="533">
+          <caret line="838" column="49" lean-forward="true" selection-start-line="838" selection-start-column="49" selection-end-line="838" selection-end-column="49" />
           <folding>
             <element signature="e#43#58#0" expanded="true" />
             <element signature="e#3385#3422#0" expanded="false" />
@@ -1023,14 +1014,19 @@
             <element signature="e#33011#33129#1" expanded="false" />
             <element signature="e#33174#33252#0" expanded="false" />
             <element signature="e#33720#33767#0" expanded="false" />
-            <element signature="e#36082#37718#0" expanded="false" />
-            <element signature="e#36143#36379#0" expanded="false" />
             <element signature="e#36143#36252#1" expanded="false" />
             <element signature="e#36421#36447#0" expanded="false" />
             <element signature="e#36492#36580#0" expanded="false" />
             <element signature="e#36623#37402#0" expanded="false" />
-            <element signature="e#37455#37495#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MixerConf.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="822">
+          <caret line="94" column="0" lean-forward="false" selection-start-line="93" selection-start-column="0" selection-end-line="94" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>

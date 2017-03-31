@@ -14,8 +14,8 @@ QStatusBar {
 
 QToolTip {
     border: 1px solid #3A3939;
-    background-color: white;
-    color: black;
+    background-color: #752B2B;
+    color: white;
     padding: 1px;
     opacity: 100;
 }
@@ -114,6 +114,11 @@ QLineEdit {
     border: 1px solid #3A3939;
     border-radius: 3px;
     color: silver;
+}
+
+QLineEdit:focus {
+    border-width: 2px;
+	border-color: white;
 }
 
 QGroupBox {
@@ -278,7 +283,7 @@ QPushButton {
     background-color: QLinearGradient( x1: 0, y1: 1, x2: 0, y2: 0,
     stop: 0 #4B3030, stop: 1 #5A2323);
     border-width: 1px;
-    border-color: #4A4949;
+    border-color: #BAC7D8;
     border-style: solid;
     padding-top: 5px;
     padding-bottom: 5px;
@@ -290,6 +295,11 @@ QPushButton {
 QPushButton:checked {
 	background-color: red;
 }
+QPushButton:focus {
+    border-width: 2px;
+	border-color: white;
+}
+
 
 QPushButton:disabled {
     background-color: QLinearGradient( x1: 0, y1: 1, x2: 0, y2: 0,
@@ -317,6 +327,11 @@ QComboBox {
 QComboBox:hover,QPushButton:hover,QAbstractSpinBox:hover,QLineEdit:hover,QTextEdit:hover,QPlainTextEdit:hover,QAbstractView:hover,QTreeView:hover {
     border: 1px solid #78879b;
     color: silver;
+}
+
+QComboBox:focus {
+    border-width: 2px;
+	border-color: white;
 }
 
 QComboBox:on {
@@ -369,6 +384,11 @@ QComboBox:down-arrow:focus {
 QPushButton:pressed {
     background-color: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1,
     stop: 0 #302F2F, stop: 1 #484846);
+}
+/*    stop: 0 #302F2F, stop: 1 #484846);*/
+QPushButton:hover {
+    border: 2px solid #74837F;
+    color: silver;
 }
 
 QAbstractSpinBox {
@@ -626,6 +646,11 @@ QCheckBox:indicator:indeterminate, QTreeWidget:indicator:indeterminate {
 
 QCheckBox:indicator:indeterminate:disabled, QTreeWidget:indicator:indeterminate:disabled {
 	image: url('assets/checkbox-mixed-disabled.png');
+}
+
+QRadioButton:focus {
+    border-width: 2px;
+	border-color: white;
 }
 
 QRadioButton:indicator {

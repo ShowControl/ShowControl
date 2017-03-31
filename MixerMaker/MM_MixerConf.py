@@ -149,6 +149,12 @@ class MixerConf:
         else:
             self.mixerdefs.write(filename)
 
+    def makenewstrip(self, mixer, striptype):
+        newstrip = ET.Element('strip', attrib={'type':striptype, 'cnt':'99', 'name':'Example'})
+        newcontrol = ET.SubElement(newstrip, 'fader')
+        mixer.insert(mixer.__len__(), newstrip)
+        return newstrip
+
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
 

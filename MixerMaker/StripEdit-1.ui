@@ -52,7 +52,11 @@
       <number>4</number>
      </property>
      <item row="8" column="1">
-      <widget class="QLineEdit" name="lineEdit_CommandString"/>
+      <widget class="QLineEdit" name="lineEdit_CommandString">
+       <property name="toolTip">
+        <string>Enter the osc or midi command string</string>
+       </property>
+      </widget>
      </item>
      <item row="1" column="0">
       <widget class="QLabel" name="label_2">
@@ -95,6 +99,9 @@
      </item>
      <item row="1" column="1" colspan="2">
       <widget class="QLineEdit" name="lineEdit_Count">
+       <property name="focusPolicy">
+        <enum>Qt::TabFocus</enum>
+       </property>
        <property name="toolTip">
         <string>Number of strips of this type, max = 99</string>
        </property>
@@ -120,6 +127,9 @@
        </property>
        <property name="focusPolicy">
         <enum>Qt::StrongFocus</enum>
+       </property>
+       <property name="toolTip">
+        <string>Select the strip type.</string>
        </property>
        <property name="editable">
         <bool>false</bool>
@@ -163,6 +173,9 @@
      </item>
      <item row="10" column="1">
       <widget class="QComboBox" name="comboBox_CommandType">
+       <property name="toolTip">
+        <string>Select the command type.</string>
+       </property>
        <item>
         <property name="text">
          <string>level</string>
@@ -194,10 +207,17 @@
       </widget>
      </item>
      <item row="12" column="1">
-      <widget class="QLineEdit" name="lineEdit_DefaultValue"/>
+      <widget class="QLineEdit" name="lineEdit_DefaultValue">
+       <property name="toolTip">
+        <string>Enter default value.</string>
+       </property>
+      </widget>
      </item>
      <item row="5" column="1">
       <widget class="QTableView" name="tableView_ControlsInStrip">
+       <property name="toolTip">
+        <string>Select control to edit or right click to add or remove.</string>
+       </property>
        <attribute name="horizontalHeaderVisible">
         <bool>false</bool>
        </attribute>
@@ -269,6 +289,9 @@
      </item>
      <item row="6" column="1">
       <widget class="QComboBox" name="comboBox_ControlType">
+       <property name="toolTip">
+        <string>Select control type. (Only available for add)</string>
+       </property>
        <item>
         <property name="text">
          <string>fader</string>
@@ -287,7 +310,11 @@
       </widget>
      </item>
      <item row="11" column="1">
-      <widget class="QLineEdit" name="lineEdit_Range"/>
+      <widget class="QLineEdit" name="lineEdit_Range">
+       <property name="toolTip">
+        <string>Enter range, typically low,high,steps.</string>
+       </property>
+      </widget>
      </item>
      <item row="12" column="0">
       <widget class="QLabel" name="label_9">
@@ -322,12 +349,29 @@
       </widget>
      </item>
      <item row="13" column="1">
-      <widget class="QLineEdit" name="lineEdit_Anomalies"/>
+      <widget class="QLineEdit" name="lineEdit_Anomalies">
+       <property name="toolTip">
+        <string>Enter anomalies. </string>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>buttonBox</tabstop>
+  <tabstop>comboBox_StripType</tabstop>
+  <tabstop>lineEdit_Count</tabstop>
+  <tabstop>lineEdit_Name</tabstop>
+  <tabstop>tableView_ControlsInStrip</tabstop>
+  <tabstop>comboBox_ControlType</tabstop>
+  <tabstop>lineEdit_CommandString</tabstop>
+  <tabstop>comboBox_CommandType</tabstop>
+  <tabstop>lineEdit_Range</tabstop>
+  <tabstop>lineEdit_DefaultValue</tabstop>
+  <tabstop>lineEdit_Anomalies</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>
