@@ -100,7 +100,7 @@
      <item row="1" column="1" colspan="2">
       <widget class="QLineEdit" name="lineEdit_Count">
        <property name="focusPolicy">
-        <enum>Qt::TabFocus</enum>
+        <enum>Qt::StrongFocus</enum>
        </property>
        <property name="toolTip">
         <string>Number of strips of this type, max = 99</string>

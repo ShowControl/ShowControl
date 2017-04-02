@@ -43,21 +43,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MixerConf.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MixerConf.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MixerConf.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="822">
-              <caret line="94" column="0" lean-forward="false" selection-start-line="93" selection-start-column="0" selection-end-line="94" selection-end-column="0" />
+            <state relative-caret-position="276">
+              <caret line="24" column="31" lean-forward="false" selection-start-line="24" selection-start-column="30" selection-end-line="24" selection-end-column="31" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ShowMixer.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ShowMixer.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ShowMixer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="533">
-              <caret line="838" column="49" lean-forward="true" selection-start-line="838" selection-start-column="49" selection-end-line="838" selection-end-column="49" />
+            <state relative-caret-position="-3447">
+              <caret line="148" column="89" lean-forward="false" selection-start-line="148" selection-start-column="88" selection-end-line="148" selection-end-column="89" />
               <folding>
                 <element signature="e#43#58#0" expanded="true" />
                 <element signature="e#3385#3422#0" expanded="false" />
@@ -204,8 +204,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -234,6 +232,8 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -979,18 +979,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tempp.py">
+    <entry file="file://$PROJECT_DIR$/tempp.py" />
+    <entry file="file://$PROJECT_DIR$/MixerConf.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+        <state relative-caret-position="276">
+          <caret line="24" column="31" lean-forward="false" selection-start-line="24" selection-start-column="30" selection-end-line="24" selection-end-column="31" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ShowMixer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="533">
-          <caret line="838" column="49" lean-forward="true" selection-start-line="838" selection-start-column="49" selection-end-line="838" selection-end-column="49" />
+        <state relative-caret-position="-3447">
+          <caret line="148" column="89" lean-forward="false" selection-start-line="148" selection-start-column="88" selection-end-line="148" selection-end-column="89" />
           <folding>
             <element signature="e#43#58#0" expanded="true" />
             <element signature="e#3385#3422#0" expanded="false" />
@@ -1019,14 +1020,6 @@
             <element signature="e#36492#36580#0" expanded="false" />
             <element signature="e#36623#37402#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/MixerConf.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="822">
-          <caret line="94" column="0" lean-forward="false" selection-start-line="93" selection-start-column="0" selection-end-line="94" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>

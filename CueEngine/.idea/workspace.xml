@@ -55,8 +55,8 @@
       <file leaf-file-name="CueEngine.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/CueEngine.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="183">
-              <caret line="534" column="8" lean-forward="false" selection-start-line="534" selection-start-column="8" selection-end-line="534" selection-end-column="8" />
+            <state relative-caret-position="273">
+              <caret line="403" column="25" lean-forward="false" selection-start-line="403" selection-start-column="24" selection-end-line="403" selection-end-column="25" />
               <folding>
                 <element signature="e#43#78#0" expanded="true" />
                 <element signature="e#22965#23041#0" expanded="false" />
@@ -157,7 +157,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
@@ -187,6 +186,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -978,8 +978,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/CueEngine.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="183">
-          <caret line="534" column="8" lean-forward="false" selection-start-line="534" selection-start-column="8" selection-end-line="534" selection-end-column="8" />
+        <state relative-caret-position="273">
+          <caret line="403" column="25" lean-forward="false" selection-start-line="403" selection-start-column="24" selection-end-line="403" selection-end-column="25" />
           <folding>
             <element signature="e#43#78#0" expanded="true" />
             <element signature="e#22965#23041#0" expanded="false" />

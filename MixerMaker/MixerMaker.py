@@ -57,6 +57,7 @@ from MM_MixerConf import MixerConf
 import MixerMaker_ui
 import ControlEdit_ui
 import StripEdit_ui
+import SelectNew_ui
 
 import styles
 
@@ -66,6 +67,7 @@ parser = argparse.ArgumentParser()
 cfgdict = cfg.toDict()
 
 striplistheader = ['Type','Count','Name','Controls']
+supportedcontroltypes = ['fader', 'mute', 'scribble']
 
 class controlCountvalidator(QtGui.QIntValidator):
     def init(self, parent=None):
@@ -81,6 +83,18 @@ class controlCountvalidator(QtGui.QIntValidator):
     def fixup(self, p_str):
         self.parent().lineEdit_Count.setText(self.parent().selectedstrip.attrib['cnt'])
         QMessageBox.information(self.parent(), 'Invalid Input', 'Control count must be between 1 and 99.', QMessageBox.Ok)
+
+class SelectNewItem(QtWidgets.QDialog, SelectNew_ui.Ui_SelectNew):
+    def __init__(self, parent=None):
+        QDialog.__init__(self, parent)
+        self.setupUi(self)
+    def accept(self):
+        super(SelectNewItem, self).done(self.comboBox_SelectNew.currentIndex())
+        pass
+    def reject(self):
+        super(SelectNewItem, self).done(99)
+        # super(SelectNewItem, self).reject()
+        pass
 
 class StripEdit(QtWidgets.QDialog, StripEdit_ui.Ui_Dialog):
     def __init__(self, selectedmixer, selectedstriptype, parent=None):
@@ -104,12 +118,14 @@ class StripEdit(QtWidgets.QDialog, StripEdit_ui.Ui_Dialog):
         self.actionRemove.triggered.connect(self.on_controls_rightclick)
         self.tableView_ControlsInStrip.addAction(self.actionRemove)
         self.tableView_ControlsInStrip.clicked.connect(self.controlstableClicked)
-        self.selectedstrip = selectedmixer.find("./strip[@type='{0}']".format(selectedstriptype))
-        self.stripcontrols = self.selectedstrip.findall('*')
-        stripcontrols_str = ''
         self.tabledata = []
-        for control in self.stripcontrols:
-            self.tabledata.append([control.tag])
+        self.selectedstriptype = selectedstriptype
+        self.selectedstrip = selectedmixer.find("./strip[@type='{0}']".format(selectedstriptype))
+        if selectedstriptype != 'new':
+            self.stripcontrols = self.selectedstrip.findall('*')
+            stripcontrols_str = ''
+            for control in self.stripcontrols:
+                self.tabledata.append([control.tag])
         # set the table model
         tablemodel = MyTableModel(self.tabledata, ['Controls'], self)
         self.tableView_ControlsInStrip.setModel(tablemodel)
@@ -117,10 +133,11 @@ class StripEdit(QtWidgets.QDialog, StripEdit_ui.Ui_Dialog):
         self.control_index = 0
         self.tableView_ControlsInStrip.selectRow(self.control_index)
         self.tableView_ControlsInStrip.pressed.connect(self.table_row_changed)
-        controltype_str = self.tabledata[self.control_index][0]
-        self.set_control_fields(controltype_str)
-        self.comboBox_ControlType.setEditable(False)
-        self.comboBox_ControlType.setEnabled(False)
+        if selectedstriptype != 'new':
+            controltype_str = self.tabledata[self.control_index][0]
+            self.set_control_fields(controltype_str)
+            self.comboBox_ControlType.setEditable(False)
+            self.comboBox_ControlType.setEnabled(False)
         self.lineEdit_CommandString.editingFinished.connect(self.lineEdit_CommandString_done)
         self.comboBox_CommandType.currentIndexChanged.connect(self.comboBox_CommandType_changed)
         self.lineEdit_Range.editingFinished.connect(self.lineEdit_Range_done)
@@ -147,6 +164,19 @@ class StripEdit(QtWidgets.QDialog, StripEdit_ui.Ui_Dialog):
         print('lineEdit_Controls right clicked')
         sender_text = self.sender().text()
         if sender_text == 'Add':
+            selnew = SelectNewItem()
+            selnew.label_SelectNew.setText('Select new control type:')
+            selnew.comboBox_SelectNew.addItems(supportedcontroltypes)
+            newitemindex = selnew.exec()
+            if newitemindex != 99:
+                self.tableView_ControlsInStrip.model().arraydata.extend([supportedcontroltypes[newitemindex]])
+                self.tableView_ControlsInStrip.resizeColumnsToContents()
+                self.tableView_ControlsInStrip.updateGeometries()
+                self.tableView_ControlsInStrip.showRow(0)
+                self.tableView_ControlsInStrip.selectRow(0)
+                self.tableView_ControlsInStrip.
+
+                pass
             pass
         elif sender_text == 'Remove':
             # self.editcontrols()
@@ -600,8 +630,7 @@ class MixerMakerDlg(QtWidgets.QMainWindow, MixerMaker_ui.Ui_MainWindow):
         pass
 
     def addStrip(self):
-        striptype = 'input'
-        **********
+        striptype = 'new'
         # todo-mac figure out how to add...
         thisstrip = self.mixers.makenewstrip(self.mixers.selected_mixer, striptype)
         editStrip_dlg = StripEdit(self.mixers.selected_mixer, striptype)

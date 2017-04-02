@@ -150,8 +150,8 @@ class MixerConf:
             self.mixerdefs.write(filename)
 
     def makenewstrip(self, mixer, striptype):
-        newstrip = ET.Element('strip', attrib={'type':striptype, 'cnt':'99', 'name':'Example'})
-        newcontrol = ET.SubElement(newstrip, 'fader')
+        newstrip = ET.Element('strip', attrib={'type':striptype, 'cnt':'', 'name':''})
+        # newcontrol = ET.SubElement(newstrip, 'fader')
         mixer.insert(mixer.__len__(), newstrip)
         return newstrip
 

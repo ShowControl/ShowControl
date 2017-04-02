@@ -41,7 +41,7 @@ class Ui_Dialog(object):
         self.lineEdit_Name.setObjectName("lineEdit_Name")
         self.gridLayout.addWidget(self.lineEdit_Name, 2, 1, 3, 2)
         self.lineEdit_Count = QtWidgets.QLineEdit(Dialog)
-        self.lineEdit_Count.setFocusPolicy(QtCore.Qt.TabFocus)
+        self.lineEdit_Count.setFocusPolicy(QtCore.Qt.StrongFocus)
         self.lineEdit_Count.setObjectName("lineEdit_Count")
         self.gridLayout.addWidget(self.lineEdit_Count, 1, 1, 1, 2)
         self.label = QtWidgets.QLabel(Dialog)
