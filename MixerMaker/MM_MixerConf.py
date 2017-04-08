@@ -155,6 +155,10 @@ class MixerConf:
         mixer.insert(mixer.__len__(), newstrip)
         return newstrip
 
+    def addcontrolelement(self, strip, tag):
+        newelement = ET.SubElement(strip, tag)
+
+
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
 
