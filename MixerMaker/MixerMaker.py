@@ -100,12 +100,16 @@ class SelectNewItem(QtWidgets.QDialog, SelectNew_ui.Ui_SelectNew):
         pass
 
 class StripNew(QtWidgets.QDialog, StripEdit_ui.Ui_Dialog):
-    def __init__(self, parent=None):
+    def __init__(self, strip_data, controls_data, parent=None):
         QDialog.__init__(self, parent)
         self.setupUi(self)
         self.installEventFilter(self)
         butts = self.buttonBox.buttons()
-        self.comboBox_StripType.setCurrentIndex(-1)
+        if controls_data:
+            self.strip_data = strip_data
+            self.comboBox_StripType.setCurrentIndex(self.comboBox_StripType.findText(self.strip_data['type']))
+        else:
+            self.comboBox_StripType.setCurrentIndex(-1)
         self.comboBox_StripType.currentIndexChanged['QString'].connect(self.strip_type_changed)
         self.lineEdit_Count.editingFinished.connect(self.lineEdit_Count_done)
         self.countvalidator = controlCountvalidator(self)
@@ -122,15 +126,13 @@ class StripNew(QtWidgets.QDialog, StripEdit_ui.Ui_Dialog):
         self.tableView_ControlsInStrip.addAction(self.actionRemove)
         self.tableView_ControlsInStrip.clicked.connect(self.controlstableClicked)
         self.tabledata = []
-        # self.selectedstriptype = selectedstriptype
-        # self.selectedstrip = selectedmixer.find("./strip[@type='{0}']".format(selectedstriptype))
-        # if selectedstriptype != 'new':
-        #     self.stripcontrols = self.selectedstrip.findall('*')
-        #     stripcontrols_str = ''
-        #     for control in self.stripcontrols:
-        #         self.tabledata.append([control.tag])
-        # else:
-        #     self.tabledata =[]
+        if controls_data:
+            print('got some')
+            self.controls_data = controls_data
+            for item in self.controls_data:
+                self.tabledata.append([item])
+        else:
+            print('got nothing')
         # set the table model
         self.tablemodel = MyTableModel(self.tabledata, ['Controls'], self)
         self.tableView_ControlsInStrip.horizontalHeader().setVisible(True)
@@ -144,9 +146,23 @@ class StripNew(QtWidgets.QDialog, StripEdit_ui.Ui_Dialog):
         #     self.set_control_fields(controltype_str)
         #     self.comboBox_ControlType.setEditable(False)
         #     self.comboBox_ControlType.setEnabled(False)
-        self.comboBox_ControlType.setCurrentIndex(-1)
+        if controls_data:
+            selected_control = self.tableView_ControlsInStrip.model().\
+                arraydata[self.tableView_ControlsInStrip.currentIndex().row()]\
+                          [self.tableView_ControlsInStrip.currentIndex().column()]
+            self.set_control_fields(selected_control)
+            # self.comboBox_ControlType.setCurrentIndex(self.comboBox_ControlType.findText(selected_control))
+            # self.lineEdit_CommandString.setText(self.controls_data[selected_control]['cmd'])
+            # self.comboBox_CommandType.setCurrentIndex(\
+            #     self.comboBox_CommandType.findText(self.controls_data[selected_control]['cmdtyp']))
+            # self.lineEdit_Range.setText(self.controls_data[selected_control]['range'])
+            # self.lineEdit_DefaultValue.setText(self.controls_data[selected_control]['val'])
+            # self.lineEdit_Anomalies.setText(self.controls_data[selected_control]['anoms'])
+        else:
+            self.comboBox_ControlType.setCurrentIndex(-1)
+            self.comboBox_CommandType.setCurrentIndex(-1)
+
         self.lineEdit_CommandString.editingFinished.connect(self.lineEdit_CommandString_done)
-        self.comboBox_CommandType.setCurrentIndex(-1)
         self.comboBox_CommandType.currentIndexChanged.connect(self.comboBox_CommandType_changed)
         self.lineEdit_Range.editingFinished.connect(self.lineEdit_Range_done)
         self.lineEdit_DefaultValue.editingFinished.connect(self.lineEdit_DefaultValue_done)
@@ -156,8 +172,8 @@ class StripNew(QtWidgets.QDialog, StripEdit_ui.Ui_Dialog):
         self.current_controls = ''
         self.control_changed = False
         self.strip_data_changed = False
-        self.strip_data = {}
-        self.controls_data = {}
+        # self.strip_data = {}
+        # self.controls_data = {}
         self.data_changed = False
 
     def eventFilter(self, source, event):
@@ -817,9 +833,10 @@ class MixerMakerDlg(QtWidgets.QMainWindow, MixerMaker_ui.Ui_MainWindow):
         pass
 
     def stripAdd_clicked(self):
-        print('stripAdd_clicked with row {0}, column {1} selected.'.format(self.tableView.selectedIndexes()[0].row(),
-                                                                           self.tableView.selectedIndexes()[0].column()))
-        print(self.tableView.model().rowCount(None))
+        self.addStrip()
+        # print('stripAdd_clicked with row {0}, column {1} selected.'.format(self.tableView.selectedIndexes()[0].row(),
+        #                                                                    self.tableView.selectedIndexes()[0].column()))
+        # print(self.tableView.model().rowCount(None))
 
     def stripEdit_clicked(self):
         print('stripEdit_clicked')
@@ -842,28 +859,36 @@ class MixerMakerDlg(QtWidgets.QMainWindow, MixerMaker_ui.Ui_MainWindow):
             else:
                 stripcontrols_str += ', {0}'.format(stripcontrol.tag)
 
-        editStrip_dlg = StripEdit(self.mixers.selected_mixer, striptype)
-        type_index = editStrip_dlg.comboBox_StripType.findText(striptype)
-        editStrip_dlg.comboBox_StripType.setCurrentIndex(type_index)
-        editStrip_dlg.lineEdit_Count.setText(thisstrip.attrib['cnt'])
-        editStrip_dlg.lineEdit_Name.setText(thisstrip.attrib['name'])
-        # editStrip_dlg.label_Controls.setText(stripcontrols_str)
+        strip_data = thisstrip.attrib
+        controls_data = {}
+        for stripcontrol in stripcontrols:
+            controls_data[stripcontrol.tag] = stripcontrol.attrib
+        editStrip_dlg = StripNew(strip_data, controls_data)
         retval = editStrip_dlg.exec()
+        # editStrip_dlg = StripEdit(self.mixers.selected_mixer, striptype)
+        # type_index = editStrip_dlg.comboBox_StripType.findText(striptype)
+        # editStrip_dlg.comboBox_StripType.setCurrentIndex(type_index)
+        # editStrip_dlg.lineEdit_Count.setText(thisstrip.attrib['cnt'])
+        # editStrip_dlg.lineEdit_Name.setText(thisstrip.attrib['name'])
+        # # editStrip_dlg.label_Controls.setText(stripcontrols_str)
+        # retval = editStrip_dlg.exec()
         if editStrip_dlg.strip_data_changed:
             self.mixers_modified = True
             self.disptext()
         pass
 
     def addStrip(self):
-        # striptype = 'new'
-        editStrip_dlg = StripNew()
-        # type_index = editStrip_dlg.comboBox_StripType.findText(striptype)
-        # editStrip_dlg.comboBox_StripType.setCurrentIndex(type_index)
-        # editStrip_dlg.lineEdit_Count.setText(thisstrip.attrib['cnt'])
-        # editStrip_dlg.lineEdit_Name.setText(thisstrip.attrib['name'])
-        # editStrip_dlg.label_Controls.setText(stripcontrols_str)
+        editStrip_dlg = StripNew({},{})
         retval = editStrip_dlg.exec()
         print('Returned from StripAdd: {0}'.format(editStrip_dlg.data_changed))
+        if editStrip_dlg.data_changed:
+            newstrip = self.mixers.makenewstrip(self.mixers.selected_mixer,
+                                     editStrip_dlg.strip_data['type'],
+                                     editStrip_dlg.strip_data['cnt'],
+                                     editStrip_dlg.strip_data['name'])
+            for control in editStrip_dlg.controls_data:
+                self.mixers.addcontrol(newstrip, control, editStrip_dlg.controls_data[control])
+            self.disptext()
 
 
 class MyTableModel(QtCore.QAbstractTableModel):

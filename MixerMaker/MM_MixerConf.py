@@ -149,14 +149,14 @@ class MixerConf:
         else:
             self.mixerdefs.write(filename)
 
-    def makenewstrip(self, mixer, striptype):
-        newstrip = ET.Element('strip', attrib={'type':striptype, 'cnt':'', 'name':''})
+    def makenewstrip(self, mixer, striptype, stripcount, stripname):
+        newstrip = ET.Element('strip', attrib={'type':striptype, 'cnt':stripcount, 'name':stripname})
         # newcontrol = ET.SubElement(newstrip, 'fader')
         mixer.insert(mixer.__len__(), newstrip)
         return newstrip
 
-    def addcontrolelement(self, strip, tag):
-        newelement = ET.SubElement(strip, tag)
+    def addcontrol(self, strip, tag, attribs):
+        newelement = ET.SubElement(strip, tag, attribs)
 
 
 if __name__ == "__main__":
