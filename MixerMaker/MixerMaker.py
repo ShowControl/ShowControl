@@ -184,6 +184,7 @@ class StripNew(QtWidgets.QDialog, StripEdit_ui.Ui_Dialog):
                 print(event.type())
                 print(event.key())
                 print(Qt.Key_Return)
+                self.focusNextChild()
                 return True
         return QtWidgets.QWidget.eventFilter(self, source, event)
 
@@ -302,7 +303,7 @@ class StripNew(QtWidgets.QDialog, StripEdit_ui.Ui_Dialog):
     #     pass
 
     def accept(self):
-        if self.strip_data_changed:
+        if self.strip_data_changed or self.control_changed:
             reply = QMessageBox.question(self, 'Save Changes', 'Save changes to strip?',
                                          QMessageBox.Yes | QMessageBox.No | QMessageBox.Cancel,
                                          QMessageBox.Cancel)
@@ -383,6 +384,7 @@ class StripNew(QtWidgets.QDialog, StripEdit_ui.Ui_Dialog):
         pass
     def lineEdit_Anomalies_done(self):
         if self.lineEdit_Anomalies.isModified():
+            print('Anomalies modified')
             controls_tableview_row = self.tableView_ControlsInStrip.currentIndex().row()
             controls_tableview_col = self.tableView_ControlsInStrip.currentIndex().column()
             selectedcontrol = self.tableView_ControlsInStrip.model().arraydata[controls_tableview_row][controls_tableview_col]
@@ -685,6 +687,10 @@ class MixerMakerDlg(QtWidgets.QMainWindow, MixerMaker_ui.Ui_MainWindow):
         self.actionRemove.triggered.connect(self.on_table_rightclick)
         self.tableView.addAction(self.actionRemove)
 
+        self.pushButton_AddMixer.clicked.connect(self.on_AddMixer_clicked)
+        self.lineEditBrand.editingFinished.connect(self.lineEditBrand_done)
+        self.lineEditModel.editingFinished.connect(self.lineEditModel_done)
+
         self.pushButtonAddStrip.clicked.connect(self.stripAdd_clicked)
         self.pushButtonEditStrip.clicked.connect(self.stripEdit_clicked)
         self.pushButtonRemoveStrip.clicked.connect(self.stripRemove_clicked)
@@ -733,7 +739,55 @@ class MixerMakerDlg(QtWidgets.QMainWindow, MixerMaker_ui.Ui_MainWindow):
             self.actionLoadMixers.trigger()
         print('File>Open: {0}'.format(fileNames))
 
+    def on_AddMixer_clicked(self):
+        # Confirm brand and model not empty
+        print('In on_AddMixer_clicked:')
+        print(self.lineEditBrand.text())
+        print(self.lineEditModel.text())
+        if not self.lineEditBrand.text() or not self.lineEditModel.text():
+            print('brand or model empty')
+            QMessageBox.information(self, 'Empty Description','Mixer brand and unique model required.',QMessageBox.Ok)
+            return
+        if self.mixers:
+            # Confirm model string unique if other mixers loaded
+            print('Mixers loaded')
+            for mixer in self.mixers.mixers:
+                print(mixer.attrib)
+                mxattribs = mixer.attrib
+                if 'model' in mxattribs.keys():
+                    if mxattribs['model'] == self.lineEditModel.text()\
+                            and mxattribs['mfr'] == self.lineEditBrand.text():
+                        QMessageBox.information(self,
+                                                'Mixer Not Added',
+                                                'Mixer model must be unique./nUse dash for variations.',
+                                                QMessageBox.Ok)
+                        break
+                    else:
+                        newmixer = self.mixers.addnewmixer(self.lineEditBrand.text(), self.lineEditModel.text())
+                        mutestyleattribs = {}
+                        if self.comboBoxMuteStyle.currentIndex() == 0:
+                            mutestyleattribs['illuminated'] = '1'
+                            mutestyleattribs['mute'] = '0'
+                            mutestyleattribs['umute'] = '1'
+                        else:
+                            mutestyleattribs['dark'] = '1'
+                            mutestyleattribs['mute'] = '0'
+                            mutestyleattribs['umute'] = '127'
+                        self.mixers.addnewmixerdetails(newmixer,
+                                                       self.buttonGroup_Protocol.checkedButton().text(),
+                                                       mutestyleattribs,
+                                                       self.comboBoxCountBase.currentText())
+                        self.comboBoxPickMixer.clear()
+                        self.comboBoxPickMixer.addItems(
+                            ['{0}, {1}'.format(a, b) for a, b in zip(self.mixers.mfr_list, self.mixers.model_list)])
+                        self.disptext()
+                        break
+        return
 
+    def lineEditBrand_done(self):
+        pass
+    def lineEditModel_done(self):
+        pass
     def newMixer(self):
         print('File>New')
 
@@ -776,11 +830,9 @@ class MixerMakerDlg(QtWidgets.QMainWindow, MixerMaker_ui.Ui_MainWindow):
         self.get_table_data()
         # set the table model
         tablemodel = MyTableModel(self.tabledata, striplistheader, self)
-        # tblview = self.window().findChild(QtWidgets.QTableView, name='tableWidget')
         self.tableView.setModel(tablemodel)
         self.tableView.resizeColumnsToContents()
         self.tableView.selectRow(0)
-        #self.tableView.connect(self.tableClicked, QtCore.SIGNAL("clicked()"))
 
     def get_table_data(self):
         strips = self.mixers.mixers[self.mixerindex].findall('strip')
@@ -800,10 +852,6 @@ class MixerMakerDlg(QtWidgets.QMainWindow, MixerMaker_ui.Ui_MainWindow):
                     stripcontrols_str += ', {0}'.format(stripcontrol.tag)
             row_list.extend([striptype,stripcount,stripname, stripcontrols_str])
             self.tabledata.append([striptype,stripcount,stripname, stripcontrols_str])
-
-    # def tableClicked(self, modelidx):
-    #     self.stripmodelindex = modelidx.row()
-    #     self.tableView.selectRow(self.stripmodelindex)
 
     def on_table_rightclick(self):
         print('right click')
@@ -865,14 +913,7 @@ class MixerMakerDlg(QtWidgets.QMainWindow, MixerMaker_ui.Ui_MainWindow):
             controls_data[stripcontrol.tag] = stripcontrol.attrib
         editStrip_dlg = StripNew(strip_data, controls_data)
         retval = editStrip_dlg.exec()
-        # editStrip_dlg = StripEdit(self.mixers.selected_mixer, striptype)
-        # type_index = editStrip_dlg.comboBox_StripType.findText(striptype)
-        # editStrip_dlg.comboBox_StripType.setCurrentIndex(type_index)
-        # editStrip_dlg.lineEdit_Count.setText(thisstrip.attrib['cnt'])
-        # editStrip_dlg.lineEdit_Name.setText(thisstrip.attrib['name'])
-        # # editStrip_dlg.label_Controls.setText(stripcontrols_str)
-        # retval = editStrip_dlg.exec()
-        if editStrip_dlg.strip_data_changed:
+        if editStrip_dlg.data_changed:
             self.mixers_modified = True
             self.disptext()
         pass
@@ -888,6 +929,7 @@ class MixerMakerDlg(QtWidgets.QMainWindow, MixerMaker_ui.Ui_MainWindow):
                                      editStrip_dlg.strip_data['name'])
             for control in editStrip_dlg.controls_data:
                 self.mixers.addcontrol(newstrip, control, editStrip_dlg.controls_data[control])
+            self.mixers_modified = True
             self.disptext()
 
 

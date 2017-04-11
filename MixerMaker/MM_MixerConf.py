@@ -54,6 +54,8 @@ class MixerConf:
         self.defs_modified = False
 
     def mixer_list(self):
+        self.mfr_list = []
+        self.model_list = []
         for mixer in self.mixers:
             mxattribs = mixer.attrib
             self.mfr_list.append(mxattribs['mfr'])
@@ -148,6 +150,25 @@ class MixerConf:
             self.mixerdefs.write(oldroot + '-{0}'.format(rev) + extension)
         else:
             self.mixerdefs.write(filename)
+
+    def addnewmixer(self, brand, model):
+        newmixer = ET.Element('mixer', attrib={'mfr':brand, 'model':model})
+        self.mixers.insert(self.mixers.__len__(), newmixer)
+        self.mixer_list()
+        self.mixer_count = len(self.mixers)
+        return newmixer
+        print()
+
+    def addnewmixerdetails(self, mixer, protocol, mutestyle, countbase):
+        protocolelement = ET.Element('protocol')
+        protocolelement.text = protocol
+        mixer.insert(mixer.__len__(), protocolelement)
+        mutestyleelement = ET.Element('mutestyle', mutestyle)
+        mixer.insert(mixer.__len__(), mutestyleelement)
+        countbaseelement = ET.Element('countbase')
+        countbaseelement.text = '{0}'.format(countbase)
+        mixer.insert(mixer.__len__(), countbaseelement)
+
 
     def makenewstrip(self, mixer, striptype, stripcount, stripname):
         newstrip = ET.Element('strip', attrib={'type':striptype, 'cnt':stripcount, 'name':stripname})
