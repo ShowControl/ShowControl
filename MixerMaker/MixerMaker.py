@@ -140,12 +140,6 @@ class StripNew(QtWidgets.QDialog, StripEdit_ui.Ui_Dialog):
         self.tableView_ControlsInStrip.resizeColumnsToContents()
         self.control_index = 0
         self.tableView_ControlsInStrip.selectRow(self.control_index)
-        # self.tableView_ControlsInStrip.pressed.connect(self.table_row_changed)
-        # if selectedstriptype != 'new':
-        #     controltype_str = self.tabledata[self.control_index][0]
-        #     self.set_control_fields(controltype_str)
-        #     self.comboBox_ControlType.setEditable(False)
-        #     self.comboBox_ControlType.setEnabled(False)
         if controls_data:
             selected_control = self.tableView_ControlsInStrip.model().\
                 arraydata[self.tableView_ControlsInStrip.currentIndex().row()]\
