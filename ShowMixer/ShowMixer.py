@@ -155,6 +155,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
     CSD_log = logging.getLogger(__name__)
     CSD_log.debug('ChanStripDlg')
     ChanStrip_MinWidth = 50
+    CueFileUpdate_sig = pyqtSignal()
 
     def __init__(self, cuelistfile, parent=None):
         super(ChanStripDlg, self).__init__(parent)
@@ -163,8 +164,11 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         QtGui.QIcon.setThemeName(styles.QLiSPIconsThemeName)
         self.__index = 0
         self.cuehaschanged = False
+        self.ExternalEditStarted = False
+        self.ExternalEditComplete = False
         self.ctrl_s = QShortcut(QtGui.QKeySequence(Qt.CTRL + Qt.Key_S), self)
         self.ctrl_s.activated.connect(self.saveShow)
+        self.CueFileUpdate_sig.connect(self.ExternalCueUpdate)
         self.max_slider_count = 0
         self.tablist = []
         self.tablistvertlayout = []
@@ -712,9 +716,29 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
                 self.next_cue()
         elif msg.address == '/cue/#':
             self.execute_cue(msg.params[0])
+        elif msg.address == '/cue/editstarted':
+            if msg.params[0] == True:
+                self.ExternalEditStarted = True
+        elif msg.address == '/cue/editcomplete':
+            if msg.params[0] == True:
+                self.ExternalEditComplete = True
+                self.CueFileUpdate_sig.emit()
         elif msg.address == '/cue/quit':
             self.externalclose = True
             self.close()
+
+    def ExternalCueUpdate(self):
+        self.statusBar().showMessage('External Cue Update')
+        The_Show.reloadShow(cfgdict)
+        self.set_scribble(The_Show.chrchnmap.maplist)
+        self.setWindowTitle(The_Show.show_conf.settings['name'])
+        self.initmutes()
+        self.initlevels()
+        self.disptext()
+        self.setfirstcue()
+        self.ExternalEditStarted = False
+        self.ExternalEditComplete = False
+
 
     def sndrqput(self, msg):
         """..."""

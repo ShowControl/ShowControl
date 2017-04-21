@@ -166,7 +166,7 @@ class MixerConf:
         mutestyleelement = ET.Element('mutestyle', mutestyle)
         mixer.insert(mixer.__len__(), mutestyleelement)
         countbaseelement = ET.Element('countbase')
-        countbaseelement.text = '{0}'.format(countbase)
+        countbaseelement.text = '"{0}"'.format(countbase)
         mixer.insert(mixer.__len__(), countbaseelement)
 
 

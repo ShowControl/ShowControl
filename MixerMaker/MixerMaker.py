@@ -109,6 +109,7 @@ class StripNew(QtWidgets.QDialog, StripEdit_ui.Ui_Dialog):
             self.strip_data = strip_data
             self.comboBox_StripType.setCurrentIndex(self.comboBox_StripType.findText(self.strip_data['type']))
         else:
+            self.strip_data ={}
             self.comboBox_StripType.setCurrentIndex(-1)
         self.comboBox_StripType.currentIndexChanged['QString'].connect(self.strip_type_changed)
         self.lineEdit_Count.editingFinished.connect(self.lineEdit_Count_done)
@@ -132,6 +133,7 @@ class StripNew(QtWidgets.QDialog, StripEdit_ui.Ui_Dialog):
             for item in self.controls_data:
                 self.tabledata.append([item])
         else:
+            self.controls_data = {}
             print('got nothing')
         # set the table model
         self.tablemodel = MyTableModel(self.tabledata, ['Controls'], self)
@@ -657,7 +659,7 @@ class MixerMakerDlg(QtWidgets.QMainWindow, MixerMaker_ui.Ui_MainWindow):
         self.comboBoxPickMixer.activated.connect(self.populateMixer)
         self.actionOpen.triggered.connect(self.openMixer)
         self.actionExit.triggered.connect(self.close)
-        self.actionNew.triggered.connect(self.newMixer)
+        self.actionNew.triggered.connect(self.newMixersFile)
         self.actionSave.triggered.connect(self.saveMixer)
         self.actionLoadMixers = QAction()
         self.actionLoadMixers.triggered.connect(self.loadMixers)
@@ -738,52 +740,89 @@ class MixerMakerDlg(QtWidgets.QMainWindow, MixerMaker_ui.Ui_MainWindow):
         print('In on_AddMixer_clicked:')
         print(self.lineEditBrand.text())
         print(self.lineEditModel.text())
-        if not self.lineEditBrand.text() or not self.lineEditModel.text():
+        if not self.lineEditBrand.text() or not self.lineEditModel.text() or not self.mixers:
             print('brand or model empty')
-            QMessageBox.information(self, 'Empty Description','Mixer brand and unique model required.',QMessageBox.Ok)
+            QMessageBox.information(self, 'Empty Description',
+                                    'Required to add mixer:\n1: Mixers definition file loaded\n2: Enter mixer brand\n3: Enter unique model',
+                                    QMessageBox.Ok)
             return
         if self.mixers:
             # Confirm model string unique if other mixers loaded
             print('Mixers loaded')
-            for mixer in self.mixers.mixers:
-                print(mixer.attrib)
-                mxattribs = mixer.attrib
-                if 'model' in mxattribs.keys():
-                    if mxattribs['model'] == self.lineEditModel.text()\
-                            and mxattribs['mfr'] == self.lineEditBrand.text():
-                        QMessageBox.information(self,
-                                                'Mixer Not Added',
-                                                'Mixer model must be unique./nUse dash for variations.',
-                                                QMessageBox.Ok)
-                        break
-                    else:
-                        newmixer = self.mixers.addnewmixer(self.lineEditBrand.text(), self.lineEditModel.text())
-                        mutestyleattribs = {}
-                        if self.comboBoxMuteStyle.currentIndex() == 0:
-                            mutestyleattribs['illuminated'] = '1'
-                            mutestyleattribs['mute'] = '0'
-                            mutestyleattribs['umute'] = '1'
+            if self.mixers.mixer_count == 0:
+                # add the first mixer
+                self.addMixerToTree()
+            else:
+                # confirm the new mixer is unique
+                for mixer in self.mixers.mixers:
+                    print(mixer.attrib)
+                    mxattribs = mixer.attrib
+                    if 'model' in mxattribs.keys():
+                        if mxattribs['model'] == self.lineEditModel.text()\
+                                and mxattribs['mfr'] == self.lineEditBrand.text():
+                            QMessageBox.information(self,
+                                                    'Mixer Not Added',
+                                                    'Mixer model must be unique./nUse dash for variations.',
+                                                    QMessageBox.Ok)
+                            break
                         else:
-                            mutestyleattribs['dark'] = '1'
-                            mutestyleattribs['mute'] = '0'
-                            mutestyleattribs['umute'] = '127'
-                        self.mixers.addnewmixerdetails(newmixer,
-                                                       self.buttonGroup_Protocol.checkedButton().text(),
-                                                       mutestyleattribs,
-                                                       self.comboBoxCountBase.currentText())
-                        self.comboBoxPickMixer.clear()
-                        self.comboBoxPickMixer.addItems(
-                            ['{0}, {1}'.format(a, b) for a, b in zip(self.mixers.mfr_list, self.mixers.model_list)])
-                        self.disptext()
-                        break
+                            self.addMixerToTree()
+                            # newmixer = self.mixers.addnewmixer(self.lineEditBrand.text(), self.lineEditModel.text())
+                            # mutestyleattribs = {}
+                            # if self.comboBoxMuteStyle.currentIndex() == 0:
+                            #     mutestyleattribs['illuminated'] = '1'
+                            #     mutestyleattribs['mute'] = '0'
+                            #     mutestyleattribs['umute'] = '1'
+                            # else:
+                            #     mutestyleattribs['dark'] = '1'
+                            #     mutestyleattribs['mute'] = '0'
+                            #     mutestyleattribs['umute'] = '127'
+                            # self.mixers.addnewmixerdetails(newmixer,
+                            #                                self.buttonGroup_Protocol.checkedButton().text(),
+                            #                                mutestyleattribs,
+                            #                                self.comboBoxCountBase.currentText())
+                            # self.comboBoxPickMixer.clear()
+                            # self.comboBoxPickMixer.addItems(
+                            #     ['{0}, {1}'.format(a, b) for a, b in zip(self.mixers.mfr_list, self.mixers.model_list)])
+                            # self.disptext()
+                            break
         return
 
+    def addMixerToTree(self):
+        newmixer = self.mixers.addnewmixer(self.lineEditBrand.text(), self.lineEditModel.text())
+        mutestyleattribs = {}
+        if self.comboBoxMuteStyle.currentIndex() == 0:
+            mutestyleattribs['illuminated'] = '1'
+            mutestyleattribs['mute'] = '0'
+            mutestyleattribs['umute'] = '1'
+        else:
+            mutestyleattribs['dark'] = '1'
+            mutestyleattribs['mute'] = '0'
+            mutestyleattribs['umute'] = '127'
+        self.mixers.addnewmixerdetails(newmixer,
+                                       self.buttonGroup_Protocol.checkedButton().text(),
+                                       mutestyleattribs,
+                                       self.comboBoxCountBase.currentText())
+        self.comboBoxPickMixer.clear()
+        self.comboBoxPickMixer.addItems(
+            ['{0}, {1}'.format(a, b) for a, b in zip(self.mixers.mfr_list, self.mixers.model_list)])
+        self.disptext()
+
     def lineEditBrand_done(self):
+        if self.lineEditBrand.isModified():
+            self.mixers_modified = True
         pass
+
     def lineEditModel_done(self):
+        if self.lineEditModel.isModified():
+            self.mixers_modified = True
         pass
-    def newMixer(self):
-        print('File>New')
+
+    def newMixersFile(self):
+        mixerselement = ET.Element('mixers')
+        newtree = ET.ElementTree(mixerselement)
+        newtree.write('TestNewMixersFile.xml',encoding="utf-8", xml_declaration=True)
+        print('Create New mixers file.')
 
     def saveMixer(self):
         print('File>Save')
@@ -888,43 +927,58 @@ class MixerMakerDlg(QtWidgets.QMainWindow, MixerMaker_ui.Ui_MainWindow):
         print('stripRemove_clicked')
 
     def editStrip(self):
-        index = self.tableView.selectedIndexes()[0].row()
-        striptype = self.tabledata[index][0]
-        #  ET.dump(self.mixers.mixers[self.mixerindex].find("./strip[@type='input']"))
-        #  ET.dump(self.mixers.mixers[self.mixerindex].find("./strip[@type='{0}']".format(striptype)))
-        thisstrip = self.mixers.mixers[self.mixerindex].find("./strip[@type='{0}']".format(striptype))
-        stripcontrols = thisstrip.findall('*')
-        stripcontrols_str = ''
-        for stripcontrol in stripcontrols:
-            if stripcontrols_str == '':
-                stripcontrols_str += '{0}'.format(stripcontrol.tag)
-            else:
-                stripcontrols_str += ', {0}'.format(stripcontrol.tag)
+        #todo-mac need to confirm mixer has been selected and
+        #also, if the handle a new mixer with no strip yet
+        if self.mixers.selected_mixer:
+            if self.mixers.mixerstrips(self.mixers.selected_mixer.attrib['mfr'],self.mixers.selected_mixer.attrib['model']):
+                index = self.tableView.selectedIndexes()[0].row()
+                striptype = self.tabledata[index][0]
+                #  ET.dump(self.mixers.mixers[self.mixerindex].find("./strip[@type='input']"))
+                #  ET.dump(self.mixers.mixers[self.mixerindex].find("./strip[@type='{0}']".format(striptype)))
+                thisstrip = self.mixers.mixers[self.mixerindex].find("./strip[@type='{0}']".format(striptype))
+                stripcontrols = thisstrip.findall('*')
+                stripcontrols_str = ''
+                for stripcontrol in stripcontrols:
+                    if stripcontrols_str == '':
+                        stripcontrols_str += '{0}'.format(stripcontrol.tag)
+                    else:
+                        stripcontrols_str += ', {0}'.format(stripcontrol.tag)
 
-        strip_data = thisstrip.attrib
-        controls_data = {}
-        for stripcontrol in stripcontrols:
-            controls_data[stripcontrol.tag] = stripcontrol.attrib
-        editStrip_dlg = StripNew(strip_data, controls_data)
-        retval = editStrip_dlg.exec()
-        if editStrip_dlg.data_changed:
-            self.mixers_modified = True
-            self.disptext()
-        pass
+                strip_data = thisstrip.attrib
+                controls_data = {}
+                for stripcontrol in stripcontrols:
+                    controls_data[stripcontrol.tag] = stripcontrol.attrib
+                editStrip_dlg = StripNew(strip_data, controls_data)
+                retval = editStrip_dlg.exec()
+                if editStrip_dlg.data_changed:
+                    self.mixers_modified = True
+                    self.disptext()
+                pass
+            else:
+                self.addStrip()
+        else:
+            QMessageBox.information(self, 'Select Mixer',
+                                    'A mixer must be selected before editing strips.',
+                                    QMessageBox.Ok)
 
     def addStrip(self):
-        editStrip_dlg = StripNew({},{})
-        retval = editStrip_dlg.exec()
-        print('Returned from StripAdd: {0}'.format(editStrip_dlg.data_changed))
-        if editStrip_dlg.data_changed:
-            newstrip = self.mixers.makenewstrip(self.mixers.selected_mixer,
-                                     editStrip_dlg.strip_data['type'],
-                                     editStrip_dlg.strip_data['cnt'],
-                                     editStrip_dlg.strip_data['name'])
-            for control in editStrip_dlg.controls_data:
-                self.mixers.addcontrol(newstrip, control, editStrip_dlg.controls_data[control])
-            self.mixers_modified = True
-            self.disptext()
+        if self.mixers.selected_mixer:
+            editStrip_dlg = StripNew({},{})
+            retval = editStrip_dlg.exec()
+            print('Returned from StripAdd: {0}'.format(editStrip_dlg.data_changed))
+            if editStrip_dlg.data_changed:
+                newstrip = self.mixers.makenewstrip(self.mixers.selected_mixer,
+                                         editStrip_dlg.strip_data['type'],
+                                         editStrip_dlg.strip_data['cnt'],
+                                         editStrip_dlg.strip_data['name'])
+                for control in editStrip_dlg.controls_data:
+                    self.mixers.addcontrol(newstrip, control, editStrip_dlg.controls_data[control])
+                self.mixers_modified = True
+                self.disptext()
+        else:
+            QMessageBox.information(self, 'Select Mixer',
+                                    'A mixer must be selected before adding strips.',
+                                    QMessageBox.Ok)
 
 
 class MyTableModel(QtCore.QAbstractTableModel):

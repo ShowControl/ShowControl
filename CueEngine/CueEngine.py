@@ -38,8 +38,10 @@ from Cues import cue_types, cue_subelements, cue_edit_sizes, cue_subelements_too
 import CueEngine_ui
 from CueEdit_alt_ui import Ui_dlgEditCue
 
+from pythonosc import osc_message
 from pythonosc import osc_message_builder
 
+changeStates = {'started': False, 'completed': False}
 
 class CommAddresses:
     def __init__(self, IP, PORT):
@@ -48,7 +50,8 @@ class CommAddresses:
 
 CUE_IP = "127.0.0.1"
 CUE_PORT = 5005
-
+INMSG_IP = "127.0.0.1"
+INMSG_PORT = 5006
 
 import configuration as cfg
 
@@ -158,12 +161,13 @@ class EditCue(QDialog, Ui_dlgEditCue):
                 self.edt_list[i].setToolTip('{0} (read only)'.format(cue_subelements_tooltips[i]))
 
 class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
-
+    CueFileUpdate_sig = pyqtSignal()
     def __init__(self, cuelistfile, parent=None):
         super(CueDlg, self).__init__(parent)
         QtGui.QIcon.setThemeSearchPaths(styles.QLiSPIconsThemePaths)
         QtGui.QIcon.setThemeName(styles.QLiSPIconsThemeName)
         self.__index = 0
+        self.externalchangestate = 'None'
         self.CueAppDev = CommAddresses(CUE_IP, CUE_PORT)
         self.setupUi(self)
         self.setWindowTitle(The_Show.show_conf.settings['name'])
@@ -181,6 +185,9 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         self.AddAction = QAction("Add", None)
         self.AddAction.triggered.connect(self.on_table_rightclick)
         self.tableView.addAction(self.AddAction)
+        self.ExternalEditStarted = False
+        self.ExternalEditComplete = False
+        self.CueFileUpdate_sig.connect(self.ExternalCueUpdate)
 
         self.tabledata = []
         self.actionOpen_Show.triggered.connect(self.openShow)
@@ -208,7 +215,20 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
                          'Sound':self.do_sound,
                          'SFX':self.do_SFX,
                          'Light':self.do_light}
+
         self.comm_threads = []  # a list of threads in use for later use when app exits
+
+        # setup receiver thread
+        try:
+            self.rcvr_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        except socket.error:
+            print('Failed to create message receiver socket')
+        self.rcvr_sock.bind((INMSG_IP, INMSG_PORT))
+        self.rcvrthread = CommHandlers.cmd_receiver(self.rcvr_sock)
+        self.rcvrthread.cmd_rcvrsignaled.connect(self.rcvrmessage)  # connect to custom signal called 'signal'
+        self.rcvrthread.finished.connect(self.rcvrthreaddone)  # conect to buitlin signal 'finished'
+        self.rcvrthread.start()  # start the thread
+        self.comm_threads.append(self.rcvrthread)
 
     def on_buttonNext_clicked(self):
         print('Next')
@@ -275,8 +295,12 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
     def do_light(self):
         pass
 
-
     def on_table_rightclick(self):
+        # if external change in progress, return
+        if self.ExternalEditStarted and not self.ExternalEditComplete:
+            self.NotifyEditInProgress()
+            return
+        # post edit started to external apps
         """insert a new cue before the selected row"""
         # save the old state of the cuefile with a revision number appended
         The_Show.cues.savecuelist(True, cfgdict['Show']['folder'] + The_Show.show_conf.settings['cuefile'])
@@ -285,38 +309,6 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
             self.cue_insert()
         elif sender_text == 'Add':
             self.cue_add()
-        # tblvw = self.findChild(QtWidgets.QTableView)
-        # if sender_text == 'Insert':
-        #     # index[0].row() will be where the user clicked
-        #     index = tblvw.selectedIndexes()
-        #     cueindex = int(self.tabledata[index[0].row()][0])
-        #     self.editcuedlg = EditCue(cueindex)
-        #     self.editcuedlg.setWindowTitle(_translate("dlgEditCue", "Edit Cue"))
-        # elif sender_text == 'Add':
-        #     oldlastcue = The_Show.cues.getcuelist(The_Show.cues.cuecount-1)  # get the last cues data
-        #     The_Show.cues.addnewcue(oldlastcue)
-        #     cueindex = The_Show.cues.cuecount - 1   # addnewcue increments cuecount, so the new cues index is still
-        #                                             # cuecount -1
-        #     self.editcuedlg = EditCue(cueindex)
-        #     self.editcuedlg.setWindowTitle(_translate("dlgEditCue", "Add Cue"))
-        #
-        # self.editcuedlg.setROcueelements(['Cue_Number','Entrances', 'Exits', 'Levels', 'On_Stage'])
-        # thiscue = The_Show.cues.getcuelist(cueindex)
-        # self.editcuedlg.fillfields(cueindex, thiscue)
-        # self.editcuedlg.exec_()
-        # if self.editcuedlg.changeflag:
-        #     chg_list = self.editcuedlg.getchange()
-        #     if sender_text == 'Insert':
-        #         The_Show.cues.insertcue(cueindex, chg_list)
-        #     elif sender_text == 'Add':
-        #         The_Show.cues.updatecue(cueindex, chg_list)
-        #     # save the new version of cue file, overwriting old version
-        #     The_Show.cues.savecuelist(False, cfgdict['Show']['folder'] + The_Show.show_conf.settings['cuefile'])
-        #     # display the new state of the cuefile
-        #     The_Show.cues.setup_cues(cfgdict['Show']['folder'] + The_Show.show_conf.settings['cuefile'])
-        # The_Show.cues.currentcueindex = cueindex
-        # self.disptext()
-        # tblvw.selectRow(The_Show.cues.currentcueindex)
 
     def cue_add(self):
         tblvw = self.findChild(QtWidgets.QTableView)
@@ -339,7 +331,6 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         self.disptext()
         tblvw.selectRow(The_Show.cues.currentcueindex)
 
-
     def cue_insert(self):
         tblvw = self.findChild(QtWidgets.QTableView)
         # index[0].row() will be where the user clicked
@@ -361,6 +352,11 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         The_Show.cues.currentcueindex = cueindex
         self.disptext()
         tblvw.selectRow(The_Show.cues.currentcueindex)
+
+    def NotifyEditInProgress(self):
+        QMessageBox.information(self,'Cue Modification','Cue modification blocked, external edit in progress.', QMessageBox.Ok)
+    def NotifyReloadBeforeEdit(self):
+        QMessageBox.information(self,'Cue Modification','Cues reloaded.', QMessageBox.Ok)
 
     def on_table_click(self,index):
         """Set a selected cue
@@ -550,6 +546,36 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
     def snd_sndrthreaddone(self):
         """..."""
         print('sender thread done')
+
+    '''receiver functions
+        - gets called when the signal called 'signal' is emitted from thread called 'thread' '''
+    def rcvrmessage(self, sigstr):
+        """..."""
+        print('rcvrmessage')
+        msg = osc_message.OscMessage(sigstr)
+        print(msg.address)
+        self.statusBar().showMessage('Address: {0}, Message: {1}'.format(msg.address,msg.params[0]))
+        if msg.address == '/cue/editstarted':
+            if msg.params[0] == True:
+                self.ExternalEditStarted = True
+        elif msg.address == '/cue/editcomplete':
+            if msg.params[0] == True:
+                self.ExternalEditComplete = True
+                self.CueFileUpdate_sig.emit()
+
+    def ExternalCueUpdate(self):
+        self.statusBar().showMessage('External Cue Update')
+        The_Show.reloadShow(cfgdict)
+        self.disptext()
+        self.ExternalEditStarted = False
+        self.ExternalEditComplete = False
+
+
+    '''called when builtin signal 'finished' is emitted by worker thread'''
+    def rcvrthreaddone(self):
+        """..."""
+        print('receiver thread done')
+
 
 class MyTableModel(QtCore.QAbstractTableModel):
     def __init__(self, datain, headerdata, parent=None):
