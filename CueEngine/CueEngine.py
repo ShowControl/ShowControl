@@ -370,6 +370,10 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
 
     def on_table_dblclick(self,index):
         """Edit the double clicked cue"""
+        # if external change in progress, return
+        if self.ExternalEditStarted and not self.ExternalEditComplete:
+            self.NotifyEditInProgress()
+            return
         # determine the cue index from the first column of the table data
         tblvw = self.findChild(QtWidgets.QTableView)
         cueindex = int(self.tabledata[index.row()][0])

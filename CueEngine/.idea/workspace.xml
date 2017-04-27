@@ -2,7 +2,7 @@
 <project version="4">
   <component name="BookmarkManager">
     <bookmark url="file://$PROJECT_DIR$/CueEngine.py" line="297" />
-    <bookmark url="file://$PROJECT_DIR$/CueEngine.py" line="551" />
+    <bookmark url="file://$PROJECT_DIR$/CueEngine.py" line="555" />
     <bookmark url="file://$PROJECT_DIR$/CueEngine.py" line="162" />
     <bookmark url="file://$PROJECT_DIR$/CueEngine.py" line="333" />
     <bookmark url="file://$PROJECT_DIR$/CueEngine.py" line="355" />
@@ -62,24 +62,14 @@
       <file leaf-file-name="CueEngine.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/CueEngine.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="242">
-              <caret line="560" column="42" lean-forward="false" selection-start-line="560" selection-start-column="42" selection-end-line="560" selection-end-column="42" />
+            <state relative-caret-position="-3223">
+              <caret line="367" column="47" lean-forward="true" selection-start-line="367" selection-start-column="47" selection-end-line="367" selection-end-column="47" />
               <folding>
                 <element signature="e#43#78#0" expanded="true" />
-                <element signature="e#22726#22771#0" expanded="false" />
-                <element signature="e#22815#22860#0" expanded="false" />
-                <element signature="e#22866#22984#1" expanded="false" />
+                <element signature="e#22905#22950#0" expanded="false" />
+                <element signature="e#22994#23039#0" expanded="false" />
+                <element signature="e#23045#23163#1" expanded="false" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="_pydev_execfile.py" pinned="false" current-in-tab="false">
-        <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_imps/_pydev_execfile.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -87,21 +77,11 @@
       <file leaf-file-name="UpdateCueFile.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/UpdateCueFile.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="952">
+            <state relative-caret-position="517">
               <caret line="56" column="28" lean-forward="false" selection-start-line="56" selection-start-column="28" selection-end-line="56" selection-end-column="28" />
               <folding>
                 <element signature="e#43#78#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="pydevd.py" pinned="false" current-in-tab="false">
-        <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="162">
-              <caret line="1014" column="0" lean-forward="false" selection-start-line="1014" selection-start-column="0" selection-end-line="1014" selection-end-column="0" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -185,6 +165,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -213,7 +194,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="Scratches" />
     </panes>
   </component>
@@ -490,12 +470,10 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="40" y="25" width="1859" height="1000" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17555197" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3292683" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3292683" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32705098" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296433" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
@@ -510,6 +488,7 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3292683" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -542,12 +521,12 @@
         </line-breakpoint>
         <line-breakpoint suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/CueEngine.py</url>
-          <line>461</line>
+          <line>465</line>
           <option name="timeStamp" value="44" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/CueEngine.py</url>
-          <line>474</line>
+          <line>478</line>
           <option name="timeStamp" value="45" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -595,9 +574,9 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#43#78#0" expanded="true" />
-            <element signature="e#22726#22771#0" expanded="false" />
-            <element signature="e#22815#22860#0" expanded="false" />
-            <element signature="e#22866#22984#1" expanded="false" />
+            <element signature="e#22905#22950#0" expanded="false" />
+            <element signature="e#22994#23039#0" expanded="false" />
+            <element signature="e#23045#23163#1" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -626,9 +605,9 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#43#78#0" expanded="true" />
-            <element signature="e#22726#22771#0" expanded="false" />
-            <element signature="e#22815#22860#0" expanded="false" />
-            <element signature="e#22866#22984#1" expanded="false" />
+            <element signature="e#22905#22950#0" expanded="false" />
+            <element signature="e#22994#23039#0" expanded="false" />
+            <element signature="e#23045#23163#1" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -657,9 +636,9 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#43#78#0" expanded="true" />
-            <element signature="e#22726#22771#0" expanded="false" />
-            <element signature="e#22815#22860#0" expanded="false" />
-            <element signature="e#22866#22984#1" expanded="false" />
+            <element signature="e#22905#22950#0" expanded="false" />
+            <element signature="e#22994#23039#0" expanded="false" />
+            <element signature="e#23045#23163#1" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -688,9 +667,9 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#43#78#0" expanded="true" />
-            <element signature="e#22726#22771#0" expanded="false" />
-            <element signature="e#22815#22860#0" expanded="false" />
-            <element signature="e#22866#22984#1" expanded="false" />
+            <element signature="e#22905#22950#0" expanded="false" />
+            <element signature="e#22994#23039#0" expanded="false" />
+            <element signature="e#23045#23163#1" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -719,9 +698,9 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#43#78#0" expanded="true" />
-            <element signature="e#22726#22771#0" expanded="false" />
-            <element signature="e#22815#22860#0" expanded="false" />
-            <element signature="e#22866#22984#1" expanded="false" />
+            <element signature="e#22905#22950#0" expanded="false" />
+            <element signature="e#22994#23039#0" expanded="false" />
+            <element signature="e#23045#23163#1" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -750,9 +729,9 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#43#78#0" expanded="true" />
-            <element signature="e#22726#22771#0" expanded="false" />
-            <element signature="e#22815#22860#0" expanded="false" />
-            <element signature="e#22866#22984#1" expanded="false" />
+            <element signature="e#22905#22950#0" expanded="false" />
+            <element signature="e#22994#23039#0" expanded="false" />
+            <element signature="e#23045#23163#1" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -961,28 +940,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/UpdateCueFile.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="952">
-          <caret line="56" column="28" lean-forward="false" selection-start-line="56" selection-start-column="28" selection-end-line="56" selection-end-column="28" />
-          <folding>
-            <element signature="e#43#78#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ShowMixer.log">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
           <caret line="1" column="26" lean-forward="false" selection-start-line="1" selection-start-column="26" selection-end-line="1" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="1014" column="0" lean-forward="false" selection-start-line="1014" selection-start-column="0" selection-end-line="1014" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -994,15 +955,33 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CueEngine.py">
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="242">
-          <caret line="560" column="42" lean-forward="false" selection-start-line="560" selection-start-column="42" selection-end-line="560" selection-end-column="42" />
+        <state relative-caret-position="162">
+          <caret line="1014" column="0" lean-forward="false" selection-start-line="1014" selection-start-column="0" selection-end-line="1014" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/UpdateCueFile.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="517">
+          <caret line="56" column="28" lean-forward="false" selection-start-line="56" selection-start-column="28" selection-end-line="56" selection-end-column="28" />
           <folding>
             <element signature="e#43#78#0" expanded="true" />
-            <element signature="e#22726#22771#0" expanded="false" />
-            <element signature="e#22815#22860#0" expanded="false" />
-            <element signature="e#22866#22984#1" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CueEngine.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3223">
+          <caret line="367" column="47" lean-forward="true" selection-start-line="367" selection-start-column="47" selection-end-line="367" selection-end-column="47" />
+          <folding>
+            <element signature="e#43#78#0" expanded="true" />
+            <element signature="e#22905#22950#0" expanded="false" />
+            <element signature="e#22994#23039#0" expanded="false" />
+            <element signature="e#23045#23163#1" expanded="false" />
           </folding>
         </state>
       </provider>

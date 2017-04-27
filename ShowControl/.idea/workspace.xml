@@ -6,13 +6,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../CueEngine/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../CueEngine/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../CueEngine/CueEngine.py" afterPath="$PROJECT_DIR$/../CueEngine/CueEngine.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../MixerMaker/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../MixerMaker/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../MixerMaker/MM_MixerConf.py" afterPath="$PROJECT_DIR$/../MixerMaker/MM_MixerConf.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../MixerMaker/MixerMaker.py" afterPath="$PROJECT_DIR$/../MixerMaker/MixerMaker.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../MixerMaker/TestMixerSave.xml" afterPath="$PROJECT_DIR$/../MixerMaker/TestMixerSave.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/utils/Show.py" afterPath="$PROJECT_DIR$/utils/Show.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ShowMixer/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../ShowMixer/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ShowMixer/ShowMixer.py" afterPath="$PROJECT_DIR$/../ShowMixer/ShowMixer.py" />
     </list>
     <list id="fd382f95-2c49-4489-aeda-508b5e741027" name="soundplayer" comment="Trying to get player ignored on my system" />
     <ignored path="ShowControl.iws" />
@@ -48,7 +42,7 @@
       <file leaf-file-name="Cues.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/utils/Cues.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="569">
+            <state relative-caret-position="3451">
               <caret line="203" column="42" lean-forward="false" selection-start-line="203" selection-start-column="42" selection-end-line="203" selection-end-column="42" />
               <folding>
                 <element signature="e#92#102#0" expanded="true" />
@@ -85,7 +79,7 @@
       <file leaf-file-name="CommHandlers.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/utils/CommHandlers.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
+            <state relative-caret-position="1615">
               <caret line="95" column="13" lean-forward="false" selection-start-line="95" selection-start-column="6" selection-end-line="95" selection-end-column="18" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
@@ -437,7 +431,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1984" y="74" width="1680" height="930" extended-state="1" />
+    <frame x="1984" y="74" width="1680" height="930" extended-state="0" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27890345" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32891566" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -950,7 +944,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/utils/CommHandlers.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
+        <state relative-caret-position="1615">
           <caret line="95" column="13" lean-forward="false" selection-start-line="95" selection-start-column="6" selection-end-line="95" selection-end-column="18" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
@@ -960,7 +954,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/utils/Cues.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="569">
+        <state relative-caret-position="3451">
           <caret line="203" column="42" lean-forward="false" selection-start-line="203" selection-start-column="42" selection-end-line="203" selection-end-column="42" />
           <folding>
             <element signature="e#92#102#0" expanded="true" />
