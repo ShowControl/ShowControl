@@ -1,7 +1,6 @@
 <RCC>
   <qresource prefix="Res">
-    <file>Open_Glow.png</file>
-    <file>Open_metal.png</file>
+    <file>Button.png</file>
     <file>mixer-icon.png</file>
     <file>Lighting.png</file>
     <file>LightingApp.png</file>

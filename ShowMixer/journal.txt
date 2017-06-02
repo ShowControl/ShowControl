@@ -112,4 +112,8 @@ slider levels from the cue file will be 0 - 1023
 these values need to be scled to match the particualr mixers range (i.e. X32 is 0.0 1.0, 01V is 0 - 127)
 
 
+Wed May 31 15:19:42 EDT 2017
+Color notes:
 
+Background lighter grey: #58677b RGB:88,103,123
+Background dark grey: #3A3939
