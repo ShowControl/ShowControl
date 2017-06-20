@@ -108,6 +108,8 @@ class StripNew(QtWidgets.QDialog, StripEdit_ui.Ui_Dialog):
         if controls_data:
             self.strip_data = strip_data
             self.comboBox_StripType.setCurrentIndex(self.comboBox_StripType.findText(self.strip_data['type']))
+            self.lineEdit_Count.setText(self.strip_data['cnt'])
+            self.lineEdit_Name.setText(self.strip_data['name'])
         else:
             self.strip_data ={}
             self.comboBox_StripType.setCurrentIndex(-1)

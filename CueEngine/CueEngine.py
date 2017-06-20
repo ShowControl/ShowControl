@@ -459,7 +459,7 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
 
     def ShowSFXApp(self):
         print("Launch SFX App.")
-        self.SFXAppProc = subprocess.Popen(['python3', '/home/mac/PycharmProjs/linux-show-player/linux-show-player', '-f', '/home/mac/Shows/Pauline/sfx.lsp'])
+        self.SFXAppProc = subprocess.Popen(['python3', '/home/mac/SharedData/PycharmProjs/linux-show-player/linux-show-player', '-f', '/home/mac/Shows/Pauline/sfx.lsp'])
         #self.SFXAppProc = subprocess.Popen(['/home/mac/PycharmProjs/ShowControl/sound_effects_player/try_player.sh'])
         #self.SFXAppProc = subprocess.Popen(['sound_effects_player'])
         # setup sound sender thread
@@ -483,7 +483,7 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
             self.MxrAppProc = None
         else:
             print("Launch Mxr App.")
-            self.MxrAppProc = subprocess.Popen(['python3', '/home/mac/PycharmProjs/ShowControl/ShowMixer/ShowMixer.py'])
+            self.MxrAppProc = subprocess.Popen(['python3', '/home/mac/SharedData/PycharmProjs/ShowControl/ShowMixer/ShowMixer.py'])
             # setup mixer sender thread
             try:
                 self.mxr_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)

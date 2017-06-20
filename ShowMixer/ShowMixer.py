@@ -419,7 +419,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
                 levels += 'M{0}{1}:{2},'.format(mxrid, The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['name'], sldr.value())
                 # print('M{0}sldr{1:02}:{2:3}'.format(mxrid, stripGUIindx, sldr.value()))
         print(levels)
-        The_Show.cues.setcueelement(The_Show.cues.currentcueindex, levels)
+        The_Show.cues.setcueelement(The_Show.cues.currentcueindex, levels, 'Levels')
         The_Show.cues.addnewcue()
 
     def updatecuestate(self):
@@ -430,7 +430,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
                 levels += 'M{0}{1}:{2},'.format(mxrid, The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['name'], sldr.value())
                 # print('M{0}sldr{1:02}:{2:3}'.format(mxrid, stripGUIindx, sldr.value()))
         print(levels)
-        The_Show.cues.setcueelement(The_Show.cues.currentcueindex, levels)
+        The_Show.cues.setcueelement(The_Show.cues.currentcueindex, levels, 'Levels')
         pass
 
     def updatecuemutestate(self):  # todo-mac general overhaul of elements in cue.xml file
@@ -786,7 +786,7 @@ class MySlider(QtWidgets.QSlider):
                 levels += 'M{0}{1}:{2},'.format(mxrid, The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['name'], sldr.value())
                 print('M{0}sldr{1:02}:{2:3}'.format(mxrid, stripGUIindx, sldr.value()))
         print(levels)
-        The_Show.cues.setcueelement(The_Show.cues.currentcueindex, levels)
+        The_Show.cues.setcueelement(The_Show.cues.currentcueindex, levels, 'Levels')
 
     # Note: commented out because it looks too busy with 30+ sliders
     # def paintEvent(self, event):

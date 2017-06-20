@@ -6,10 +6,11 @@
     <Page>0</Page>
     <Title>Top of Show</Title>
     <CueCall>None</CueCall>
-    <CueType>Stage</CueType>
+    <CueType>Stage,Mixer,Sound,SFX,Light</CueType>
+    <Mutes>M0Ch01:1,M0Ch02:1,M0Ch03:1,M0Ch04:1,M0Ch05:1,M0Ch06:1,M0Ch07:1,M0Ch08:1,M0Ch09:1,M0Ch10:1,M0Ch11:1,M0Ch12:1,M0Ch13:1,M0Ch14:1,M0Ch15:1,M0Ch16:1,M0Ch17:1,M0Ch18:1,M0Ch19:1,M0Ch20:1,M0Ch21:1,M0Ch22:1,M0Ch23:1,M0Ch24:1,M0Ch25:1,M0Ch26:1,M0Ch27:1,M0Ch28:1,M0Ch29:1,M0Ch30:1,M0Ch31:1,M0Ch32:1,M0Aux01:1,M0Aux02:1,M0Aux03:1,M0Aux04:1,M0Aux05:1,M0Aux06:1,M0Bus01:1,M0Bus02:1,M0Bus03:1,M0Bus04:1,M0Bus05:1,M0Bus06:1,M0Bus07:1,M0Bus08:1,M0Bus09:1,M0Bus10:1,M0Bus11:1,M0Bus12:1,M0Bus13:1,M0Bus14:1,M0Bus15:1,M0Bus16:1,M0Main01:0,M1Ch01:0,M1Ch02:0,M1Ch03:0,M1Ch04:0,M1Ch05:0,M1Ch06:0,M1Ch07:0,M1Ch08:0,M1Ch09:0,M1Ch10:0,M1Ch11:0,M1Ch12:0,M1Ch13:0,M1Ch14:0,M1Aux01:0,M1Aux02:0,M1Aux03:0,M1Aux04:0,M1Bus01:0,M1Bus02:0,M1Bus03:0,M1Bus04:0,M1Out01:1,</Mutes>
     <Entrances>M0main01,M1out01</Entrances>
     <Exits>M0ch01,M0ch02,M0ch03,M0ch04,M0ch05,M0ch06,M0ch07,M0ch08,M0ch09,M0ch10,M0ch11,M0ch12,M0ch13,M0ch14,M0ch15,M0ch16,M0ch17,M0ch18,M0ch19,M0ch20,M0ch21,M0ch22,M0ch23,M0ch24,M0ch25,M0ch26,M0ch27,M0ch28,M0ch29,M0ch30,M0ch31,M0ch32,M1ch01,M1ch02,M1ch03,M1ch04,M1ch05,M1ch06,M1ch07,M1ch08,M1ch09,M1ch10,M1ch11,M1ch12,M1ch13,M1ch14,M1aux01,M1bus01</Exits>
-    <Levels>M0Ch01:0,M0Ch02:1,M0Ch03:1,M0Ch04:1,M0Ch05:1,M0Ch06:1,M0Ch07:1,M0Ch08:1,M0Ch09:1,M0Ch10:1,M0Ch11:1,M0Ch12:1,M0Ch13:1,M0Ch14:1,M0Ch15:1,M0Ch16:1,M0Ch17:1,M0Ch18:1,M0Ch19:1,M0Ch20:1,M0Ch21:1,M0Ch22:1,M0Ch23:1,M0Ch24:1,M0Ch25:1,M0Ch26:1,M0Ch27:1,M0Ch28:1,M0Ch29:1,M0Ch30:1,M0Ch31:1,M0Ch32:1,M0Aux01:1,M0Aux02:1,M0Aux03:1,M0Aux04:1,M0Aux05:1,M0Aux06:1,M0Bus01:1,M0Bus02:1,M0Bus03:1,M0Bus04:1,M0Bus05:1,M0Bus06:1,M0Bus07:1,M0Bus08:1,M0Bus09:1,M0Bus10:1,M0Bus11:1,M0Bus12:1,M0Bus13:1,M0Bus14:1,M0Bus15:1,M0Bus16:1,M0Main01:0,M1Ch01:0,M1Ch02:0,M1Ch03:0,M1Ch04:0,M1Ch05:0,M1Ch06:0,M1Ch07:0,M1Ch08:0,M1Ch09:0,M1Ch10:0,M1Ch11:0,M1Ch12:0,M1Ch13:0,M1Ch14:0,M1Aux01:0,M1Aux02:0,M1Aux03:0,M1Aux04:0,M1Bus01:0,M1Bus02:0,M1Bus03:0,M1Bus04:0,M1Out01:1,</Levels>
+    <Levels>M0Ch01:512,M0Ch02:0,M0Ch03:0,M0Ch04:0,M0Ch05:512,M0Ch06:0,M0Ch07:0,M0Ch08:0,M0Ch09:0,M0Ch10:512,M0Ch11:0,M0Ch12:0,M0Ch13:0,M0Ch14:0,M0Ch15:0,M0Ch16:0,M0Ch17:0,M0Ch18:0,M0Ch19:0,M0Ch20:0,M0Ch21:0,M0Ch22:0,M0Ch23:0,M0Ch24:0,M0Ch25:0,M0Ch26:0,M0Ch27:0,M0Ch28:0,M0Ch29:0,M0Ch30:0,M0Ch31:0,M0Ch32:0,M0Aux01:0,M0Aux02:0,M0Aux03:0,M0Aux04:0,M0Aux05:0,M0Aux06:0,M0Bus01:0,M0Bus02:0,M0Bus03:0,M0Bus04:0,M0Bus05:0,M0Bus06:0,M0Bus07:0,M0Bus08:0,M0Bus09:0,M0Bus10:0,M0Bus11:0,M0Bus12:0,M0Bus13:0,M0Bus14:0,M0Bus15:0,M0Bus16:0,M0Main01:512,M1Ch01:311,M1Ch02:0,M1Ch03:0,M1Ch04:0,M1Ch05:512,M1Ch06:0,M1Ch07:0,M1Ch08:0,M1Ch09:0,M1Ch10:512,M1Ch11:0,M1Ch12:0,M1Ch13:0,M1Ch14:0,M1Aux01:0,M1Aux02:0,M1Aux03:0,M1Aux04:0,M1Bus01:0,M1Bus02:0,M1Bus03:0,M1Bus04:0,M1Out01:512,</Levels>
     <OnStage />
     <Note1 />
     <Note2 />
@@ -55,6 +56,7 @@
     <Title>end of "Opening"</Title>
     <CueCall>Song ends/scene change</CueCall>
     <CueType>Mixer</CueType>
+    <Mutes>M0ch01:1,M0ch02:0,M0ch03:0,M0ch04:0,M0ch05:0,M0ch06:0,M0ch07:0,M0ch08:0,M0ch09:0,M0ch10:0,M0ch11:0,M0ch12:0,M0ch13:0,M0ch14:0,M0ch15:0,M0ch16:0,M0ch17:0,M0ch18:0,M0ch19:0,M0ch20:0,M0ch21:0,M0ch22:0,M0ch23:0,M0ch24:0,M0ch25:0,M0ch26:0,M0ch27:0,M0ch28:0,M0ch29:0,M0ch30:0,M0ch31:0,M0ch32:0,M0main01:1,M1ch01:1,M1ch02:0,M1ch03:0,M1ch04:0,M1ch05:0,M1ch06:0,M1ch07:0,M1ch08:0,M1ch09:0,M1ch10:0,M1ch11:0,M1ch12:0,M1ch13:0,M1ch14:0,M1aux01:0,M1bus01:0,M1out01:1</Mutes>
     <Entrances>M0ch01,M1ch01</Entrances>
     <Exits>M0ch10,M0ch02,M0ch04,M0ch05,M0ch06,M0ch07,M0ch08,M1ch10,M1ch02,M1ch04,M1ch05,M1ch06,M1ch07,M1ch08 </Exits>
     <OnStage />
@@ -71,6 +73,7 @@
     <Title>Scene 2</Title>
     <CueCall>Scene change ends</CueCall>
     <CueType>Mixer</CueType>
+    <Mutes>M0ch01:0,M0ch02:0,M0ch03:0,M0ch04:0,M0ch05:0,M0ch06:0,M0ch07:0,M0ch08:0,M0ch09:0,M0ch10:0,M0ch11:0,M0ch12:0,M0ch13:0,M0ch14:0,M0ch15:0,M0ch16:0,M0ch17:0,M0ch18:0,M0ch19:0,M0ch20:0,M0ch21:0,M0ch22:0,M0ch23:0,M0ch24:0,M0ch25:0,M0ch26:0,M0ch27:0,M0ch28:0,M0ch29:0,M0ch30:0,M0ch31:0,M0ch32:0,M0main01:0,M1ch01:0,M1ch02:0,M1ch03:0,M1ch04:0,M1ch05:0,M1ch06:0,M1ch07:0,M1ch08:0,M1ch09:0,M1ch10:0,M1ch11:0,M1ch12:0,M1ch13:0,M1ch14:0,M1aux01:0,M1bus01:0,M1out01:0</Mutes>
     <Entrances>M0ch01 </Entrances>
     <Exits />
     <OnStage>ch1 </OnStage>
@@ -103,6 +106,7 @@
     <Title>Nephew exits</Title>
     <CueCall>"A happy New Year!"</CueCall>
     <CueType>Mixer</CueType>
+    <Mutes>M0ch01:1,M0ch02:1,M0ch03:1,M0ch04:1,M0ch05:1,M0ch06:0,M0ch07:0,M0ch08:0,M0ch09:0,M0ch10:0,M0ch11:0,M0ch12:0,M0ch13:0,M0ch14:0,M0ch15:0,M0ch16:0,M0ch17:0,M0ch18:0,M0ch19:0,M0ch20:0,M0ch21:0,M0ch22:0,M0ch23:0,M0ch24:0,M0ch25:0,M0ch26:0,M0ch27:0,M0ch28:0,M0ch29:0,M0ch30:0,M0ch31:0,M0ch32:0,M0main01:0,M1ch01:1,M1ch02:1,M1ch03:1,M1ch04:1,M1ch05:1,M1ch06:0,M1ch07:0,M1ch08:0,M1ch09:0,M1ch10:0,M1ch11:0,M1ch12:0,M1ch13:0,M1ch14:0,M1aux01:0,M1bus01:0,M1out01:0</Mutes>
     <Entrances />
     <Exits>M0ch09 ,M1ch01</Exits>
     <OnStage>ch1,ch2 </OnStage>
@@ -151,6 +155,7 @@
     <Title>end of "M.O.N.E.Y"</Title>
     <CueCall>"M.O.N.E.Y!" blackout</CueCall>
     <CueType>Mixer</CueType>
+    <Mutes>M0ch01:1,M0ch02:1,M0ch03:1,M0ch04:1,M0ch05:1,M0ch06:0,M0ch07:0,M0ch08:1,M0ch09:1,M0ch10:1,M0ch11:0,M0ch12:0,M0ch13:0,M0ch14:0,M0ch15:0,M0ch16:0,M0ch17:0,M0ch18:0,M0ch19:0,M0ch20:0,M0ch21:0,M0ch22:0,M0ch23:0,M0ch24:0,M0ch25:0,M0ch26:0,M0ch27:0,M0ch28:0,M0ch29:0,M0ch30:0,M0ch31:0,M0ch32:0,M0main01:0,M1ch01:1,M1ch02:1,M1ch03:1,M1ch04:1,M1ch05:1,M1ch06:0,M1ch07:0,M1ch08:1,M1ch09:1,M1ch10:1,M1ch11:0,M1ch12:0,M1ch13:0,M1ch14:0,M1aux01:0,M1bus01:0,M1out01:0</Mutes>
     <Entrances />
     <Exits>M0ch01</Exits>
     <Levels>M0ch01:812,M0ch02:812,M0ch03:0,M0ch04:0,M0ch05:0,M0ch06:0,M0ch07:0,M0ch08:0,M0ch09:0,M0ch10:0,M0ch11:0,M0ch12:0,M0ch13:0,M0ch14:0,M0ch15:0,M0ch16:0,M0ch17:0,M0ch18:0,M0ch19:0,M0ch20:0,M0ch21:0,M0ch22:0,M0ch23:0,M0ch24:0,M0ch25:0,M0ch26:0,M0ch27:0,M0ch28:0,M0ch29:0,M0ch30:0,M0ch31:0,M0ch32:0,M1ch01:812,M1ch02:812,M1ch03:0,M1ch04:0,M1ch05:0,M1ch06:0,M1ch07:0,M1ch08:0,M1ch09:0,M1ch10:0,M1ch11:0,M1ch12:0,M1ch13:0,M1ch14:0,M1aux01:0,M1bus01:0</Levels>
@@ -167,6 +172,7 @@
     <Title>Scene 3</Title>
     <CueCall>Lights up</CueCall>
     <CueType>Mixer</CueType>
+    <Mutes>M0ch01:0,M0ch02:0,M0ch03:0,M0ch04:0,M0ch05:0,M0ch06:0,M0ch07:0,M0ch08:0,M0ch09:0,M0ch10:0,M0ch11:0,M0ch12:0,M0ch13:0,M0ch14:0,M0ch15:0,M0ch16:0,M0ch17:0,M0ch18:0,M0ch19:0,M0ch20:0,M0ch21:0,M0ch22:0,M0ch23:0,M0ch24:0,M0ch25:0,M0ch26:0,M0ch27:0,M0ch28:0,M0ch29:0,M0ch30:0,M0ch31:0,M0ch32:0,M0main01:1,M1ch01:0,M1ch02:0,M1ch03:0,M1ch04:0,M1ch05:0,M1ch06:0,M1ch07:0,M1ch08:0,M1ch09:0,M1ch10:0,M1ch11:0,M1ch12:0,M1ch13:0,M1ch14:0,M1aux01:0,M1bus01:0,M1out01:1</Mutes>
     <Entrances>M0ch02,M0ch04,M0ch03,M0ch20,M0ch22 ,M0ch23</Entrances>
     <Exits />
     <OnStage>ch2,ch4,ch3,Baker Woman ,ch23,Mrs. Carstairs (Susannah Meszynski)</OnStage>

@@ -2,6 +2,7 @@
 <project version="4">
   <component name="BookmarkManager">
     <bookmark url="file://$PROJECT_DIR$/ShowMixer.py" line="707" />
+    <bookmark url="file://$PROJECT_DIR$/ShowMixer.py" line="788" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="abfe075f-0c42-4a77-bd66-15c5b772e7d4" name="Default" comment="" />
@@ -59,8 +60,8 @@
       <file leaf-file-name="ShowMixer.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ShowMixer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="92">
-              <caret line="670" column="41" lean-forward="false" selection-start-line="670" selection-start-column="41" selection-end-line="670" selection-end-column="41" />
+            <state relative-caret-position="168">
+              <caret line="140" column="11" lean-forward="true" selection-start-line="140" selection-start-column="11" selection-end-line="140" selection-end-column="11" />
               <folding>
                 <element signature="e#43#58#0" expanded="true" />
                 <element signature="e#3385#3422#0" expanded="false" />
@@ -68,24 +69,23 @@
                 <element signature="e#11568#11923#0" expanded="false" />
                 <element signature="e#11961#17445#0" expanded="false" />
                 <element signature="e#17487#18289#0" expanded="false" />
-                <element signature="e#18496#19136#0" expanded="false" />
-                <element signature="e#19889#20467#0" expanded="false" />
-                <element signature="e#20509#24537#0" expanded="false" />
-                <element signature="e#24571#24936#0" expanded="false" />
-                <element signature="e#24971#25779#0" expanded="false" />
-                <element signature="e#25815#26284#0" expanded="false" />
-                <element signature="e#28877#29248#0" expanded="false" />
-                <element signature="e#29115#29136#0" expanded="false" />
-                <element signature="e#29294#30020#0" expanded="false" />
-                <element signature="e#32387#32495#1" expanded="false" />
-                <element signature="e#32540#32618#0" expanded="false" />
-                <element signature="e#33892#33940#0" expanded="false" />
-                <element signature="e#33946#34064#1" expanded="false" />
-                <element signature="e#34655#34702#0" expanded="false" />
-                <element signature="e#37078#37187#1" expanded="false" />
-                <element signature="e#37356#37382#0" expanded="false" />
-                <element signature="e#37427#37515#0" expanded="false" />
-                <element signature="e#37558#38337#0" expanded="false" />
+                <element signature="e#19909#20487#0" expanded="false" />
+                <element signature="e#20529#24557#0" expanded="false" />
+                <element signature="e#24591#24956#0" expanded="false" />
+                <element signature="e#24991#25799#0" expanded="false" />
+                <element signature="e#25835#26304#0" expanded="false" />
+                <element signature="e#28897#29268#0" expanded="false" />
+                <element signature="e#29135#29156#0" expanded="false" />
+                <element signature="e#29314#30040#0" expanded="false" />
+                <element signature="e#32407#32515#1" expanded="false" />
+                <element signature="e#32560#32638#0" expanded="false" />
+                <element signature="e#33912#33960#0" expanded="false" />
+                <element signature="e#33966#34084#1" expanded="false" />
+                <element signature="e#34675#34722#0" expanded="false" />
+                <element signature="e#37108#37217#1" expanded="false" />
+                <element signature="e#37386#37412#0" expanded="false" />
+                <element signature="e#37457#37545#0" expanded="false" />
+                <element signature="e#37588#38367#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -112,8 +112,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>Set(</find>
-      <find>print(</find>
       <find>stripcontrols</find>
       <find>input</find>
       <find>inputsliders</find>
@@ -142,6 +140,8 @@
       <find>savecue</find>
       <find>illuminated</find>
       <find>savecuelist</find>
+      <find>port selected</find>
+      <find>The_Show.cues.setcueelement</find>
     </findStrings>
     <replaceStrings>
       <replace>control_type</replace>
@@ -185,10 +185,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1920" />
-    <option name="y" value="55" />
-    <option name="width" value="1874" />
-    <option name="height" value="1010" />
+    <option name="x" value="570" />
+    <option name="y" value="25" />
+    <option name="width" value="1680" />
+    <option name="height" value="930" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -205,8 +205,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -219,26 +217,14 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ShowMixer" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ShowMixer" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="theme_dark" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../LinuxCueLight" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="options.lastSelected" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="options.splitter.details.proportions" value="0.2" />
@@ -546,12 +532,14 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1920" y="55" width="1874" height="1010" extended-state="0" />
+    <frame x="570" y="25" width="1680" height="930" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1388889" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13885579" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36951753" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32572114" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3689904" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="right" auto_hide="true" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.3277405" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -566,7 +554,6 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3267544" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -632,7 +619,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="392" />
+      <option name="time" value="393" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
@@ -987,8 +974,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ShowMixer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="92">
-          <caret line="670" column="41" lean-forward="false" selection-start-line="670" selection-start-column="41" selection-end-line="670" selection-end-column="41" />
+        <state relative-caret-position="168">
+          <caret line="140" column="11" lean-forward="true" selection-start-line="140" selection-start-column="11" selection-end-line="140" selection-end-column="11" />
           <folding>
             <element signature="e#43#58#0" expanded="true" />
             <element signature="e#3385#3422#0" expanded="false" />
@@ -996,24 +983,23 @@
             <element signature="e#11568#11923#0" expanded="false" />
             <element signature="e#11961#17445#0" expanded="false" />
             <element signature="e#17487#18289#0" expanded="false" />
-            <element signature="e#18496#19136#0" expanded="false" />
-            <element signature="e#19889#20467#0" expanded="false" />
-            <element signature="e#20509#24537#0" expanded="false" />
-            <element signature="e#24571#24936#0" expanded="false" />
-            <element signature="e#24971#25779#0" expanded="false" />
-            <element signature="e#25815#26284#0" expanded="false" />
-            <element signature="e#28877#29248#0" expanded="false" />
-            <element signature="e#29115#29136#0" expanded="false" />
-            <element signature="e#29294#30020#0" expanded="false" />
-            <element signature="e#32387#32495#1" expanded="false" />
-            <element signature="e#32540#32618#0" expanded="false" />
-            <element signature="e#33892#33940#0" expanded="false" />
-            <element signature="e#33946#34064#1" expanded="false" />
-            <element signature="e#34655#34702#0" expanded="false" />
-            <element signature="e#37078#37187#1" expanded="false" />
-            <element signature="e#37356#37382#0" expanded="false" />
-            <element signature="e#37427#37515#0" expanded="false" />
-            <element signature="e#37558#38337#0" expanded="false" />
+            <element signature="e#19909#20487#0" expanded="false" />
+            <element signature="e#20529#24557#0" expanded="false" />
+            <element signature="e#24591#24956#0" expanded="false" />
+            <element signature="e#24991#25799#0" expanded="false" />
+            <element signature="e#25835#26304#0" expanded="false" />
+            <element signature="e#28897#29268#0" expanded="false" />
+            <element signature="e#29135#29156#0" expanded="false" />
+            <element signature="e#29314#30040#0" expanded="false" />
+            <element signature="e#32407#32515#1" expanded="false" />
+            <element signature="e#32560#32638#0" expanded="false" />
+            <element signature="e#33912#33960#0" expanded="false" />
+            <element signature="e#33966#34084#1" expanded="false" />
+            <element signature="e#34675#34722#0" expanded="false" />
+            <element signature="e#37108#37217#1" expanded="false" />
+            <element signature="e#37386#37412#0" expanded="false" />
+            <element signature="e#37457#37545#0" expanded="false" />
+            <element signature="e#37588#38367#0" expanded="false" />
           </folding>
         </state>
       </provider>
