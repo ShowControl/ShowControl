@@ -4,6 +4,7 @@ __author__ = 'mac'
 import argparse
 import inspect
 import os
+import time
 import socket
 import sys
 import re
@@ -47,7 +48,8 @@ print(sys.path)
 
 # import ShowControl/utils
 from Show import Show
-import configuration as cfg
+#import configuration as cfg
+from ShowControlConfig import configuration, CFG_DIR, CFG_PATH
 import CommHandlers
 from Cues import cue_types, cue_subelements, cue_edit_sizes, cue_subelements_tooltips, header, cue_fields
 
@@ -71,9 +73,7 @@ CUE_PORT = 5005
 MXR_IP = "192.168.53.40"
 MXR_PORT = 10023
 
-
-cfgdict = cfg.toDict()
-#print(cfgdict['Show']['folder'])
+cfg = configuration()
 
 def translate(value, leftMin, leftMax, rightMin, rightMax):
     # Figure out how 'wide' each range is
@@ -121,10 +121,10 @@ class ShowPreferences(QDialog, Ui_Preferences):
         x = self.cbxExitwCueEngine.checkState()
         print(x)
         if x == Qt.Checked:
-            cfgdict['Prefs']['exitwithce'] = 'true'
+            cfg.cfgdict['prefs']['exitwithce'] = 'true'
         else:
-            cfgdict['Prefs']['exitwithce'] = 'false'
-        cfg.updateFromDict(cfgdict)
+            cfg.cfgdict['prefs']['exitwithce'] = 'false'
+        cfg.updateFromDict(cfg.cfgdict)
         cfg.write()
         super(ShowPreferences, self).accept()
 
@@ -135,16 +135,28 @@ class ShowMxr(Show):
     """
     The Show class contains the information and object that constitute a show
     """
-    def __init__(self, cfgdict):
+    def __init__(self):
         '''
         Constructor
         '''
-        super(ShowMxr, self).__init__(cfgdict)
+        super(ShowMxr, self).__init__(cfg.cfgdict)
         self.mixers = {}
         for mxrid in self.show_conf.settings['mixers']:
             #print(mxrid)
             self.mixers[mxrid] = MixerConf(path.abspath(path.join(path.dirname(__file__),
-                                                                  '../ShowControl/', cfgdict['Mixer']['file'])),
+                                                                  '../ShowControl/', cfg.cfgdict['mixers']['file'])),
+                                           self.show_conf.settings['mixers'][mxrid]['mxrmfr'],
+                                           self.show_conf.settings['mixers'][mxrid]['mxrmodel'],
+                                           self.show_conf.settings['mixers'][mxrid]['address'])
+
+        self.chrchnmap = MixerCharMap(self.show_confpath + self.show_conf.settings['mxrmap'])
+
+    def reload(self):
+        self.mixers = {}
+        for mxrid in self.show_conf.settings['mixers']:
+            #print(mxrid)
+            self.mixers[mxrid] = MixerConf(path.abspath(path.join(path.dirname(__file__),
+                                                                  '../ShowControl/', cfg.cfgdict['mixers']['file'])),
                                            self.show_conf.settings['mixers'][mxrid]['mxrmfr'],
                                            self.show_conf.settings['mixers'][mxrid]['mxrmodel'],
                                            self.show_conf.settings['mixers'][mxrid]['address'])
@@ -181,56 +193,58 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         for type in cue_types:
             self.CueTypeVisible[type] = True
         self.comm_threads = []  # a list of all threads in use for later use when app exits
-        # Set up sender threads for each mixer
         self.mixer_sender_threads = []
-        # Setup thread and udp to handle mixer I/O
-        try:
-            self.mxr_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        except socket.error:
-            #todo-mac need exception and logging here
-            print('Failed to create mixer socket')
-            sys.exit()
-        for idx in The_Show.mixers:
-            if The_Show.mixers[idx].protocol == 'osc':
-                # Setup thread and udp to handle mixer I/O
-                try:
-                    senderthread = CommHandlers.sender(self.mxr_sock)  #, MXR_IP, MXR_PORT)
-                    senderthread.sndrsignal.connect(self.sndrtestfunc)  # connect to custom signal called 'signal'
-                    senderthread.finished.connect(self.sndrthreaddone)  # connect to buitlin signal 'finished'
-                    senderthread.start()  # start the thread
-                    self.mixer_sender_threads.append(senderthread)
-                    self.comm_threads.append(senderthread)
-                except socket.error:
-                    print('Failed to create mixer socket')  #todo-mac need exception and logging here
-                    sys.exit()
-            elif The_Show.mixers[idx].protocol == 'midi':  #todo-mac figure out to start jack server when it's not started yet.
-                # Get midi input port (i.e. ports we can send to) list
-                self.client = jack.Client("TempClient")
-                self.portlist = self.client.get_ports(is_midi=True, is_physical=True)
-                self.client.deactivate()
-                self.client.close()
-                self.client = None
-                sleep(0.1)
-                self.portlist.extend(self.getrtmidiports())
-                self.selidx = 1  # temporarily hardwie to 0, it's my local jack client on my AF12
-                if isinstance(self.portlist[self.selidx], str):
-                    print('{} ALSA port selected'.format(self.selidx))
-                    self.snd_sndrthread = CommHandlers.AMIDIsender()
-                    partofname = self.portlist[self.selidx].split(':')
-                    senderthread.setport([partofname[0], self.portlist[self.selidx]])
-                    senderthread.amidi_sndrsignal.connect(
-                        self.snd_sndrtestfunc)  # connect to custom signal called 'signal'
-                    senderthread.finished.connect(
-                        self.snd_sndrthreaddone)  # connect to buitlin signal 'finished'
-                    senderthread.start()  # start the thread
-                else:
-                    print('{} JACK port selected'.format(self.selidx))
-                    senderthread = CommHandlers.JMIDIsender('ShowMixer')
-                    senderthread.setport(self.portlist[self.selidx].name)
-                self.mixer_sender_threads.append(senderthread)
-                self.comm_threads.append(senderthread)
-            else:
-                raise ValueError('Mixer ID:{0} Unknown or missing protocol.')
+        self.startdevicethreads()
+        # # Set up sender threads for each mixer
+        # self.mixer_sender_threads = []
+        # # Setup thread and udp to handle mixer I/O
+        # try:
+        #     self.mxr_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        # except socket.error:
+        #     #todo-mac need exception and logging here
+        #     print('Failed to create mixer socket')
+        #     sys.exit()
+        # for idx in The_Show.mixers:
+        #     if The_Show.mixers[idx].protocol == 'osc':
+        #         # Setup thread and udp to handle mixer I/O
+        #         try:
+        #             senderthread = CommHandlers.sender(self.mxr_sock)  #, MXR_IP, MXR_PORT)
+        #             senderthread.sndrsignal.connect(self.sndrtestfunc)  # connect to custom signal called 'signal'
+        #             senderthread.finished.connect(self.sndrthreaddone)  # connect to buitlin signal 'finished'
+        #             senderthread.start()  # start the thread
+        #             self.mixer_sender_threads.append(senderthread)
+        #             #self.comm_threads.append(senderthread)
+        #         except socket.error:
+        #             print('Failed to create mixer socket')  #todo-mac need exception and logging here
+        #             sys.exit()
+        #     elif The_Show.mixers[idx].protocol == 'midi':  #todo-mac figure out to start jack server when it's not started yet.
+        #         # Get midi input port (i.e. ports we can send to) list
+        #         self.client = jack.Client("TempClient")
+        #         self.portlist = self.client.get_ports(is_midi=True, is_physical=True)
+        #         self.client.deactivate()
+        #         self.client.close()
+        #         self.client = None
+        #         sleep(0.1)
+        #         self.portlist.extend(self.getrtmidiports())
+        #         self.selidx = 1  # temporarily hardwie to 0, it's my local jack client on my AF12
+        #         if isinstance(self.portlist[self.selidx], str):
+        #             print('{} ALSA port selected'.format(self.selidx))
+        #             self.snd_sndrthread = CommHandlers.AMIDIsender()
+        #             partofname = self.portlist[self.selidx].split(':')
+        #             senderthread.setport([partofname[0], self.portlist[self.selidx]])
+        #             senderthread.amidi_sndrsignal.connect(
+        #                 self.snd_sndrtestfunc)  # connect to custom signal called 'signal'
+        #             senderthread.finished.connect(
+        #                 self.snd_sndrthreaddone)  # connect to buitlin signal 'finished'
+        #             senderthread.start()  # start the thread
+        #         else:
+        #             print('{} JACK port selected'.format(self.selidx))
+        #             senderthread = CommHandlers.JMIDIsender('ShowMixer')
+        #             senderthread.setport(self.portlist[self.selidx].name)
+        #         self.mixer_sender_threads.append(senderthread)
+        #         #self.comm_threads.append(senderthread)
+        #     else:
+        #         raise ValueError('Mixer ID:{0} Unknown or missing protocol.')
 
         # setup receiver thread
         self.mxr_rcvrthread = CommHandlers.receiver(self.mxr_sock, MXR_IP, MXR_PORT)
@@ -275,7 +289,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         self.comm_threads.append(self.cmd_rcvrthread)
 
         self.setupUi(self)
-        self.setWindowTitle(The_Show.show_conf.settings['name'])
+        self.setWindowTitle(The_Show.show_conf.settings['title'])
         self.tabWidget.setCurrentIndex(0)
         self.nextButton.clicked.connect(self.on_buttonNext_clicked)
         self.jumpButton.clicked.connect(self.on_buttonJump_clicked)
@@ -286,6 +300,61 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         self.actionClose_Show.triggered.connect(self.closeShow)
         self.actionPreferences.triggered.connect(self.editpreferences)
         self.pref_dlg=ShowPreferences()
+
+    def startdevicethreads(self):
+        # Set up sender threads for each mixer
+        self.mixer_sender_threads = []
+        # Setup thread and udp to handle mixer I/O
+        try:
+            self.mxr_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        except socket.error:
+            #todo-mac need exception and logging here
+            print('Failed to create mixer socket')
+            sys.exit()
+        for idx in The_Show.mixers:
+            if The_Show.mixers[idx].protocol == 'osc':
+                # Setup thread and udp to handle mixer I/O
+                try:
+                    senderthread = CommHandlers.sender(self.mxr_sock)  #, MXR_IP, MXR_PORT)
+                    senderthread.sndrsignal.connect(self.sndrtestfunc)  # connect to custom signal called 'signal'
+                    senderthread.finished.connect(self.sndrthreaddone)  # connect to buitlin signal 'finished'
+                    senderthread.start()  # start the thread
+                    self.mixer_sender_threads.append(senderthread)
+                except socket.error:
+                    print('Failed to create mixer socket')  #todo-mac need exception and logging here
+                    sys.exit()
+            elif The_Show.mixers[idx].protocol == 'midi':  #todo-mac figure out to start jack server when it's not started yet.
+                # Get midi input port (i.e. ports we can send to) list
+                self.client = jack.Client("TempClient")
+                self.portlist = self.client.get_ports(is_midi=True, is_physical=True)
+                self.client.deactivate()
+                self.client.close()
+                self.client = None
+                sleep(0.1)
+                self.portlist.extend(self.getrtmidiports())
+                self.selidx = 1  # temporarily hardwie to 0, it's my local jack client on my AF12
+                if isinstance(self.portlist[self.selidx], str):
+                    print('{} ALSA port selected'.format(self.selidx))
+                    self.snd_sndrthread = CommHandlers.AMIDIsender()
+                    partofname = self.portlist[self.selidx].split(':')
+                    senderthread.setport([partofname[0], self.portlist[self.selidx]])
+                    senderthread.amidi_sndrsignal.connect(
+                        self.snd_sndrtestfunc)  # connect to custom signal called 'signal'
+                    senderthread.finished.connect(
+                        self.snd_sndrthreaddone)  # connect to buitlin signal 'finished'
+                    senderthread.start()  # start the thread
+                else:
+                    print('{} JACK port selected'.format(self.selidx))
+                    senderthread = CommHandlers.JMIDIsender('ShowMixer')
+                    senderthread.setport(self.portlist[self.selidx].name)
+                self.mixer_sender_threads.append(senderthread)
+            else:
+                raise ValueError('Mixer ID:{0} Unknown or missing protocol.')
+
+    def stopsenderthreads(self):
+        for t in self.mixer_sender_threads:
+            t.setstopflag()
+            t.wait(500)
 
     def getrtmidiports(self):
         midiclass_ = rtmidi.MidiOut
@@ -308,7 +377,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         #         self.max_slider_count = The_Show.mixers[mxrid].mxrconsole.__len__()
         self.max_slider_count = 32
         for idx in range(The_Show.mixers.__len__()):
-            self.scroller = QtWidgets.QScrollArea()
+            #self.scroller = QtWidgets.QScrollArea()
             self.tablist.append(QtWidgets.QWidget())
             self.tablist[idx].setMinimumSize(QtCore.QSize(0, 400))
             self.tablist[idx].setObjectName("Pg {}".format(idx))
@@ -386,6 +455,28 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
                 self.tabstripgridlist[idx].addWidget(lbl, 0, chn, 1, 1)
             self.scrollArea[idx].setWidget(self.scrollAreaWidgetContents[idx])
             self.tablistvertlayout[idx].addWidget(self.scrollArea[idx])
+
+    def changelayout(self):
+        self.tablist = []
+        self.tablistvertlayout = []
+        self.tabgridlayoutlist = []
+        self.tabstripgridlist = []
+        self.scrollArea = []
+        self.scrollAreaWidgetContents = []
+        self.addChanStrip()
+
+    def emptytabs(self, count):
+        for idx in reversed(range(count)):
+            self.tabWidget.removeTab(idx)
+        QApplication.processEvents()
+        return
+
+    def deletecontrols(self):
+        for idx in range(self.tabstripgridlist.__len__()):
+            thing = self.tabstripgridlist[idx]
+            thing.destroy()
+        QApplication.processEvents()
+        return
 
     def sliderprint(self, val):
         self.cuehaschanged = True
@@ -589,18 +680,33 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         fname = fdlg.getOpenFileName(self, 'Open file', '/home')
         #fname = QtWidgets.QFileDialog.getOpenFileName(self, 'Open file', '/home')
         fdlg.close()
-
+        # update ShowControl_config.xml with new project folder and file
         # print(fname[0])
-        The_Show.loadNewShow(fname[0])
+        # newprojfolder = os.path.dirname(fname(0))
+        tabcount = The_Show.mixers.__len__()
+        newprojectfolder, newprojfile = os.path.split(fname[0])
+        cfg.cfgdict['project']['folder'] = newprojectfolder
+        cfg.cfgdict['project']['file'] = newprojfile
+        newtree = cfg.updateFromDict()
+        cfg.write(newtree, False, CFG_PATH)
+        cfg.reload()
+        The_Show.loadNewShow(cfg.cfgdict)
+        The_Show.reload()
+        self.stopsenderthreads()
+        time.sleep(.5)
+        self.startdevicethreads()
+        self.deletecontrols()
+        self.emptytabs(tabcount)
+        self.changelayout()
         self.set_scribble(The_Show.chrchnmap.maplist)
-        self.setWindowTitle(The_Show.show_conf.settings['name'])
+        self.setWindowTitle(The_Show.show_conf.settings['title'])
         self.initmutes()
         self.initlevels()
         self.disptext()
         self.setfirstcue()
 
     def saveShow(self):
-        The_Show.cues.savecuelist(True, cfgdict['Show']['folder'] + The_Show.show_conf.settings['cuefile'])
+        The_Show.cues.savecuelist(True, cfg.cfgdict['project']['folder'] + The_Show.show_conf.settings['cuefile'])
         self.cuehaschanged = False
 
     def closeShow(self):
@@ -608,7 +714,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         print(fname)
 
     def editpreferences(self):
-        if cfgdict['Prefs']['exitwithce'] == 'true':
+        if cfg.cfgdict['prefs']['exitwithce'] == 'true':
             self.pref_dlg.cbxExitwCueEngine.setCheckState(Qt.Checked)
         else:
             self.pref_dlg.cbxExitwCueEngine.setCheckState(Qt.Unchecked)
@@ -673,7 +779,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
                 event.ignore()
                 return
             elif reply == QMessageBox.Save:
-                The_Show.cues.savecuelist(True, cfgdict['Show']['folder'] + The_Show.show_conf.settings['cuefile'])
+                The_Show.cues.savecuelist(True, cfg.cfgdict['project']['folder'] + The_Show.show_conf.settings['cuefile'])
 
         reply = self.confirmQuit()
         if reply == QMessageBox.Yes:
@@ -729,9 +835,9 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
 
     def ExternalCueUpdate(self):
         self.statusBar().showMessage('External Cue Update')
-        The_Show.reloadShow(cfgdict)
+        The_Show.reloadShow(cfg.cfgdict)
         self.set_scribble(The_Show.chrchnmap.maplist)
-        self.setWindowTitle(The_Show.show_conf.settings['name'])
+        self.setWindowTitle(The_Show.show_conf.settings['title'])
         self.initmutes()
         self.initlevels()
         self.disptext()
@@ -755,6 +861,9 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
     def stopthreads(self):
         """..."""
         for t in self.comm_threads:
+            t.setstopflag()
+            t.wait(500)
+        for t in self.mixer_sender_threads:
             t.setstopflag()
             t.wait(500)
 
@@ -865,7 +974,7 @@ class MyTableModel(QtCore.QAbstractTableModel):
             return QtCore.QVariant(self.headerdata[col])
         return QtCore.QVariant()
 
-The_Show = ShowMxr(cfgdict)
+The_Show = ShowMxr()
 The_Show.displayShow()
 
 if __name__ == "__main__":
@@ -881,7 +990,7 @@ if __name__ == "__main__":
     app.setStyleSheet(styles.QLiSPTheme_Dark)
     chans = 32
     #ui = ChanStripDlg(path.abspath(path.join(path.dirname(__file__))) + '/Scrooge Moves.xml')
-    ui = ChanStripDlg(path.abspath(path.join(path.dirname(cfgdict['Show']['folder']))))
+    ui = ChanStripDlg(path.abspath(path.join(path.dirname(cfg.cfgdict['project']['folder']))))
     #ui.resize(chans*ui.ChanStrip_MinWidth,800)
     ui.addChanStrip()
     ui.resize(ui.max_slider_count * ui.ChanStrip_MinWidth, 800)

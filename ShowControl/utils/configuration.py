@@ -60,3 +60,7 @@ def write():
     """Save the config dictionary to config.cfg"""
     with open(CFG_PATH, 'w') as cfgfile:
         config.write(cfgfile)
+
+if __name__ == "__main__":
+    testdict = toDict()
+    pass

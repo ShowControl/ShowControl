@@ -73,9 +73,9 @@ class ShowConf:
         self.settings["cuefile"] = attribs['file']
         
         # print(self.settings)
-        self.name = doc.find('name')
+        self.name = doc.find('title')
         # print('ShowConf.__init__ name: ',self.name.text)
-        self.settings['name'] = self.name.text
+        self.settings['title'] = self.name.text
 
 if __name__ == "__main__":
     show_confpath = cfgdict['Show']['folder'] + '/'
