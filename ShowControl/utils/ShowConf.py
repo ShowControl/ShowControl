@@ -20,16 +20,13 @@ print(parentdir)
 sys.path.insert(0,syblingdir)
 print(sys.path)
 
-# import ShowControl/utils
-import configuration as cfg
-
-cfgdict = cfg.toDict()
+from ShowControlConfig import configuration, CFG_DIR, CFG_PATH
+cfg = configuration()
 
 try:
     from lxml import ET
 except ImportError:
     import xml.etree.ElementTree as ET
-
 
 class ShowConf:
     '''
@@ -53,7 +50,7 @@ class ShowConf:
         doc = tree.getroot()
         # print(doc)
 
-#Get mixer info
+        # Get mixer info
         mixers = doc.find('mixers')
         self.settings['mixers'] = {}
         for mixer in mixers:
@@ -78,6 +75,6 @@ class ShowConf:
         self.settings['title'] = self.name.text
 
 if __name__ == "__main__":
-    show_confpath = cfgdict['Show']['folder'] + '/'
-    show_conf = ShowConf(show_confpath + cfgdict['Show']['file'])
+    show_confpath = cfg.cfgdict['project']['folder'] + '/'
+    show_conf = ShowConf(show_confpath + cfg.cfgdict['project']['file'])
     pass

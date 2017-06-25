@@ -28,10 +28,8 @@ print(parentdir)
 sys.path.insert(0,syblingdir)
 print(sys.path)
 
-#from ShowConf import ShowConf
-#from Cues import CueList
-#from MixerConf import MixerConf
 from Show import Show
+from ShowControlConfig import configuration, CFG_DIR, CFG_PATH
 import CommHandlers
 from Cues import cue_types, cue_subelements, cue_edit_sizes, cue_subelements_tooltips, header, cue_fields
 
@@ -53,11 +51,10 @@ CUE_PORT = 5005
 INMSG_IP = "127.0.0.1"
 INMSG_PORT = 5006
 
-import configuration as cfg
-
+cfg = configuration()
 import styles
 
-cfgdict = cfg.toDict()
+#cfgdict = cfg.toDict()
 
 class cueTypeDispatcher():
     def __init__(self):
@@ -170,7 +167,7 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         self.externalchangestate = 'None'
         self.CueAppDev = CommAddresses(CUE_IP, CUE_PORT)
         self.setupUi(self)
-        self.setWindowTitle(The_Show.show_conf.settings['name'])
+        self.setWindowTitle(The_Show.show_conf.settings['title'])
         self.nextButton.clicked.connect(self.on_buttonNext_clicked)
         self.prevButton.clicked.connect(self.on_buttonPrev_clicked)
         self.jumpButton.clicked.connect(self.on_buttonJump_clicked)
@@ -287,7 +284,8 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
 
     def do_sound(self):
         msg = [NOTE_ON, 60, 112]
-        self.snd_sndrthread.queue_msg(msg, self.CueAppDev)
+        if self.SFXAppProc != None:
+            self.snd_sndrthread.queue_msg(msg, self.CueAppDev)
 
     def do_SFX(self):
         pass
@@ -303,7 +301,7 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         # post edit started to external apps
         """insert a new cue before the selected row"""
         # save the old state of the cuefile with a revision number appended
-        The_Show.cues.savecuelist(True, cfgdict['Show']['folder'] + The_Show.show_conf.settings['cuefile'])
+        The_Show.cues.savecuelist(True, cfg.cfgdict['Show']['folder'] + The_Show.show_conf.settings['cuefile'])
         sender_text = self.sender().text()
         if sender_text == 'Insert':
             self.cue_insert()
@@ -324,9 +322,9 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
             chg_list = self.editcuedlg.getchange()
             The_Show.cues.addnewcue(chg_list)
             # save the new version of cue file, overwriting old version
-            The_Show.cues.savecuelist(False, cfgdict['Show']['folder'] + The_Show.show_conf.settings['cuefile'])
+            The_Show.cues.savecuelist(False, cfg.cfgdict['Show']['folder'] + The_Show.show_conf.settings['cuefile'])
             # display the new state of the cuefile
-            The_Show.cues.setup_cues(cfgdict['Show']['folder'] + The_Show.show_conf.settings['cuefile'])
+            The_Show.cues.setup_cues(cfg.cfgdict['Show']['folder'] + The_Show.show_conf.settings['cuefile'])
         The_Show.cues.currentcueindex = cueindex
         self.disptext()
         tblvw.selectRow(The_Show.cues.currentcueindex)
@@ -346,9 +344,9 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
             chg_list = self.editcuedlg.getchange()
             The_Show.cues.insertcue(cueindex, chg_list)
             # save the new version of cue file, overwriting old version
-            The_Show.cues.savecuelist(False, cfgdict['Show']['folder'] + The_Show.show_conf.settings['cuefile'])
+            The_Show.cues.savecuelist(False, cfg.cfgdict['Show']['folder'] + The_Show.show_conf.settings['cuefile'])
             # display the new state of the cuefile
-            The_Show.cues.setup_cues(cfgdict['Show']['folder'] + The_Show.show_conf.settings['cuefile'])
+            The_Show.cues.setup_cues(cfg.cfgdict['Show']['folder'] + The_Show.show_conf.settings['cuefile'])
         The_Show.cues.currentcueindex = cueindex
         self.disptext()
         tblvw.selectRow(The_Show.cues.currentcueindex)
@@ -390,7 +388,7 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
                 changeddataindex = cue_subelements.index(header[col].replace(' ', '_'))
                 self.tabledata[cueindex][col] = chg_list[changeddataindex]
             The_Show.cues.updatecue(cueindex, chg_list)
-            The_Show.cues.savecuelist(True, cfgdict['Show']['folder'] + The_Show.show_conf.settings['cuefile'])
+            The_Show.cues.savecuelist(True, cfg.cfgdict['Show']['folder'] + The_Show.show_conf.settings['cuefile'])
         The_Show.cues.currentcueindex = cueindex
         self.disptext()
         tblvw.selectRow(The_Show.cues.currentcueindex)
@@ -569,7 +567,7 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
 
     def ExternalCueUpdate(self):
         self.statusBar().showMessage('External Cue Update')
-        The_Show.reloadShow(cfgdict)
+        The_Show.reloadShow(cfg.cfgdict)
         self.disptext()
         self.ExternalEditStarted = False
         self.ExternalEditComplete = False
@@ -644,7 +642,7 @@ class MyTableModel(QtCore.QAbstractTableModel):
 
 
 #The_Show = Show(path.abspath(path.join(path.dirname(__file__))) + '/')
-The_Show = Show(cfgdict)
+The_Show = Show(cfg.cfgdict)
 The_Show.displayShow()
 
 

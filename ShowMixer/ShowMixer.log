@@ -4,5 +4,3 @@ DEBUG:MixerConf:MixerConf __init__
 INFO:__main__:Begin
 DEBUG:__main__:in init
 DEBUG:root:Creating MidiOut object.
-INFO:root:Shutdown
-DEBUG:MixerConf:MixerConf __init__

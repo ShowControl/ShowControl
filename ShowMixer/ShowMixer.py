@@ -143,8 +143,7 @@ class ShowMxr(Show):
         self.mixers = {}
         for mxrid in self.show_conf.settings['mixers']:
             #print(mxrid)
-            self.mixers[mxrid] = MixerConf(path.abspath(path.join(path.dirname(__file__),
-                                                                  '../ShowControl/', cfg.cfgdict['mixers']['file'])),
+            self.mixers[mxrid] = MixerConf(path.abspath(path.join(CFG_DIR, cfg.cfgdict['mixers']['folder'], cfg.cfgdict['mixers']['file'])),
                                            self.show_conf.settings['mixers'][mxrid]['mxrmfr'],
                                            self.show_conf.settings['mixers'][mxrid]['mxrmodel'],
                                            self.show_conf.settings['mixers'][mxrid]['address'])
@@ -155,8 +154,7 @@ class ShowMxr(Show):
         self.mixers = {}
         for mxrid in self.show_conf.settings['mixers']:
             #print(mxrid)
-            self.mixers[mxrid] = MixerConf(path.abspath(path.join(path.dirname(__file__),
-                                                                  '../ShowControl/', cfg.cfgdict['mixers']['file'])),
+            self.mixers[mxrid] = MixerConf(path.abspath(path.join(CFG_DIR, cfg.cfgdict['mixers']['folder'], cfg.cfgdict['mixers']['file'])),
                                            self.show_conf.settings['mixers'][mxrid]['mxrmfr'],
                                            self.show_conf.settings['mixers'][mxrid]['mxrmodel'],
                                            self.show_conf.settings['mixers'][mxrid]['address'])
@@ -472,9 +470,26 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         return
 
     def deletecontrols(self):
-        for idx in range(self.tabstripgridlist.__len__()):
-            thing = self.tabstripgridlist[idx]
-            thing.destroy()
+        for tab in self.tablist:
+            sliders = tab.findChildren(QSlider)
+            print('slider count: {0}'.format(sliders.__len__()))
+            for slider in sliders:
+                slider.setParent(None)
+            sliders = self.tablist[0].findChildren(QSlider)
+            print('slider count: {0}'.format(sliders.__len__()))
+            lbls = tab.findChildren(QLabel)
+            print('label count: {0}'.format(lbls.__len__()))
+            for lbl in lbls:
+                lbl.setParent(None)
+            lbls = tab.findChildren(QLabel)
+            print('label count: {0}'.format(lbls.__len__()))
+            btns = tab.findChildren(QPushButton)
+            print('button count: {0}'.format(btns.__len__()))
+            for btn in btns:
+                btn.setParent(None)
+            btns = tab.findChildren(QLabel)
+            print('buttons count: {0}'.format(btns.__len__()))
+
         QApplication.processEvents()
         return
 

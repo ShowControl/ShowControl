@@ -51,10 +51,10 @@ class configuration():
                 for kid in child:
                     print('kid tag: {0}'.format(kid.tag))
                     print('value: {0}'.format(kid.text))
-                    chlddict[kid.tag] = kid.text
+                    chlddict[kid.tag] = kid.text.strip('\n\t')
                     retdict[child.tag]=chlddict
             else:
-                retdict[child.tag] = child.text
+                retdict[child.tag] = child.text.strip('\n\t')
 
         return retdict
 
