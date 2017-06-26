@@ -301,7 +301,7 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         # post edit started to external apps
         """insert a new cue before the selected row"""
         # save the old state of the cuefile with a revision number appended
-        The_Show.cues.savecuelist(True, cfg.cfgdict['Show']['folder'] + The_Show.show_conf.settings['cuefile'])
+        The_Show.cues.savecuelist(True, cfg.cfgdict['project']['folder'] + The_Show.show_conf.settings['cuefile'])
         sender_text = self.sender().text()
         if sender_text == 'Insert':
             self.cue_insert()
