@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<show_control>
+  <!-- This file contains additional information about the theater
+       infrastructure used by The Perils of Pauline.  Information is
+       merged with the standard equipment file based on the ID of the program.
+  -->
+  <equipment>
+    <version>1.0</version>
+
+    <program id="sound_effects">
+      <sounds href="Pauline_sounds.xml">
+      </sounds>
+      <port>1500</port>
+      <sound_sequence href="Pauline_sound_sequence.xml"/>
+    </program>
+
+    <program id="lighting">
+    </program>
+
+    <program id="microphones">
+    </program>
+    
+     <mixers>
+       <mixer id="0" mfr="Behringer" model="X32" address="192.168.53.40,10023"/><!--for udp the address tag is a comma separate pair "IP,PORT"-->
+       <mixer id="1" mfr="Yamaha" model="01V" address ="2"/><!--for midi the address is simply  the address number "2"-->
+     </mixers>    
+  </equipment>
+</show_control>
