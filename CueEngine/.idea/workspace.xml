@@ -62,8 +62,8 @@
       <file leaf-file-name="CueEngine.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/CueEngine.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="354">
-              <caret line="645" column="22" lean-forward="true" selection-start-line="644" selection-start-column="0" selection-end-line="645" selection-end-column="22" />
+            <state relative-caret-position="405">
+              <caret line="648" column="22" lean-forward="false" selection-start-line="648" selection-start-column="0" selection-end-line="648" selection-end-column="26" />
               <folding />
             </state>
           </provider>
@@ -154,8 +154,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1040" />
-    <option name="y" value="1136" />
+    <option name="x" value="2059" />
+    <option name="y" value="524" />
     <option name="width" value="1854" />
     <option name="height" value="967" />
   </component>
@@ -174,8 +174,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -242,7 +242,7 @@
     <property name="recentsLimit" value="5" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../ShowControl" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../ShowMixer" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -510,8 +510,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1040" y="1136" width="1854" height="967" extended-state="0" />
-    <editor active="true" />
+    <frame x="2059" y="524" width="1854" height="967" extended-state="0" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17440605" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3292683" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -971,8 +970,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/CueEngine.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="354">
-          <caret line="645" column="22" lean-forward="true" selection-start-line="644" selection-start-column="0" selection-end-line="645" selection-end-column="22" />
+        <state relative-caret-position="405">
+          <caret line="648" column="22" lean-forward="false" selection-start-line="648" selection-start-column="0" selection-end-line="648" selection-end-column="26" />
           <folding />
         </state>
       </provider>
