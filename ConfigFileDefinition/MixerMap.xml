@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<show_control>
+   <characters>
+    <!--version of show_control -->
+    <version>1.0</version>
+    <mixermap uuid="###" charcount="19" auxcount="0">
+    	<input mixerid="0" chan="1" actor="Patrick" char="Tevye"/>
+    	<input mixerid="0" chan="2" actor="Karin" char="Golde"/>
+    	<input mixerid="0" chan="3" actor="Lauren" char="Tzeitel"/>
+    	<input mixerid="0" chan="4" actor="Katie" char="Hodel"/>
+    	<input mixerid="0" chan="5" actor="Lindsey" char="Chava"/>
+    	<input mixerid="0" chan="6" actor="Lucy" char="Yente"/>
+    	<input mixerid="0" chan="7" actor="TBA" char="Lazar"/>
+    	<input mixerid="0" chan="8" actor="TBA" char="Motel"/>
+    	<input mixerid="0" chan="9" actor="Duncan" char="Perchik"/>
+    	<input mixerid="0" chan="10" actor="Luke" char="Fyedka"/>
+    	<input mixerid="0" chan="11" actor="TBA" char="Constable"/>
+    	<input mixerid="0" chan="12" actor="Hadley" char="Shprintze"/>
+    	<input mixerid="0" chan="13" actor="Emma" char="Bielke"/>
+    	<input mixerid="0" chan="14" actor="Russell" char="Rabbi"/>
+    	<input mixerid="0" chan="15" actor="Patty" char="Grandma"/>
+    	<input mixerid="0" chan="16" actor="Laura" char="Fruma"/>
+    	<input mixerid="0" chan="17" actor="Mel" char="Avram"/>
+    	<input mixerid="0" chan="18" actor="Rich" char="Nachum"/>
+    	<input mixerid="0" chan="19" actor="Gabe" char="Mendel"/>
+    </mixermap>
+    <mixermap uuid="####" charcount="19" auxcount="0">
+    	<input mixerid="0" chan="1" actor="Patrick" char="Tevye"/>
+    	<input mixerid="0" chan="2" actor="Karin" char="Golde"/>
+    	<input mixerid="0" chan="3" actor="Lauren" char="Tzeitel"/>
+    	<input mixerid="0" chan="4" actor="Katie" char="Hodel"/>
+    	<input mixerid="0" chan="5" actor="Lindsey" char="Chava"/>
+    	<input mixerid="0" chan="6" actor="Lucy" char="Yente"/>
+    	<input mixerid="0" chan="7" actor="TBA" char="Lazar"/>
+    	<input mixerid="0" chan="8" actor="TBA" char="Motel"/>
+    	<input mixerid="0" chan="9" actor="Duncan" char="Perchik"/>
+    	<input mixerid="0" chan="10" actor="Luke" char="Fyedka"/>
+    	<input mixerid="0" chan="11" actor="TBA" char="Constable"/>
+    	<input mixerid="0" chan="12" actor="Hadley" char="Shprintze"/>
+    	<input mixerid="0" chan="13" actor="Emma" char="Bielke"/>
+    	<input mixerid="0" chan="14" actor="Russell" char="Rabbi"/>
+    	<input mixerid="0" chan="15" actor="Patty" char="Grandma"/>
+    	<input mixerid="0" chan="16" actor="Laura" char="Fruma"/>
+    	<input mixerid="0" chan="17" actor="Mel" char="Avram"/>
+    	<input mixerid="0" chan="18" actor="Rich" char="Nachum"/>
+    	<input mixerid="0" chan="19" actor="Gabe" char="Mendel"/>
+    </mixermap>
+   </characters>
+</show_control>

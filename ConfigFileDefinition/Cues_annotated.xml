@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This file contains information for all supported cue types:
+Stage, Mixer, Sound, SFX, Light
+The cue information provides the necessary details of a cue.
+This may include all information regarding the cue, for example,
+in the case of a Stage cue, it would self contained. Other cue types
+may actually refer to additional files that complete the cue information.
+For example, a Sound cue includes information about when/where in
+the script a sound is to be  executed, but what the sound player does
+when instructed to execute that cue is found elsewhere.-->
+<show_control>
+   <cues>
+     <!-- The cue number -->
+     <cue uuid="f40e83e1-f69f-4fd7-bd22-5baae2d1fd07">
+       <Id>0</Id><!-- This is still under discussion, is probably the entry that will
+       pinpoint the cue in the script-->
+       <!-- Act, Scene, Page locate this cue in to the page in the script-->
+       <Act>0</Act>
+       <Scene> 0</Scene>
+       <Page>0</Page>
+       <!-- Title is some meaningful name for this cue-->
+       <Title>Top of Show</Title>
+       <!-- CueCall is the dialog that triggers the cue, what the SM may say.-->
+       <CueCall>None</CueCall>
+       <!-- CueType defines what type of cue this is and may be one or more types-->
+       <CueType>Stage,Mixer,Sound,SFX,Light</CueType>
+       <!--Mutes specify the mute value for each channel of each mixer that change for this cue. 
+       This always lists all channels for all mixers.
+        THe value is either 0 (muted) or 1 (un-muted)-->
+       <Mutes>M0ch01:0,M0ch02:0,M0ch03:0,M0ch04:0,M0ch05:0,M0ch06:0,M0ch07:0,M0ch08:0,M0ch09:0,M0ch10:0,M0ch11:0,M0ch12:0,M0ch13:0,M0ch14:0,M0ch15:0,M0ch16:0,M0ch17:0,M0ch18:0,M0ch19:0,M0ch20:0,M0ch21:0,M0ch22:0,M0ch23:0,M0ch24:0,M0ch25:0,M0ch26:0,M0ch27:0,M0ch28:0,M0ch29:0,M0ch30:0,M0ch31:0,M0ch32:0,M0main01:1,M1ch01:0,M1ch02:0,M1ch03:0,M1ch04:0,M1ch05:0,M1ch06:0,M1ch07:0,M1ch08:0,M1ch09:0,M1ch10:0,M1ch11:0,M1ch12:0,M1ch13:0,M1ch14:0,M1aux01:0,M1bus01:0,M1out01:1</Mutes>
+       <!-- Levels specifies the slider level for all mixers and all channels for this cue.
+       This always list all channels on all mixers.
+       The value can range from 0 to 512.-->
+       <Levels>M0ch01:512,M0ch02:0,M0ch03:0,M0ch04:0,M0ch05:512,M0ch06:0,M0ch07:0,M0ch08:0,M0ch09:0,M0ch10:512,M0ch11:0,M0ch12:0,M0ch13:0,M0ch14:0,M0ch15:0,M0ch16:0,M0ch17:0,M0ch18:0,M0ch19:0,M0ch20:0,M0ch21:0,M0ch22:0,M0ch23:0,M0ch24:0,M0ch25:0,M0ch26:0,M0ch27:0,M0ch28:0,M0ch29:0,M0ch30:0,M0ch31:0,M0ch32:0,M0main01:512,M1ch01:512,M1ch02:0,M1ch03:0,M1ch04:0,M1ch05:512,M1ch06:0,M1ch07:0,M1ch08:0,M1ch09:0,M1ch10:512,M1ch11:0,M1ch12:0,M1ch13:0,M1ch14:0,M1aux01:0,M1bus01:0,M1out01:512</Levels>
+       <!-- Entrances, Exits, OnStage determine who is on/off stage.
+       The example here should be changed to character names
+       Note: this may or may not match the mute status of a particular channel-->
+       <Entrances>Scrooge</Entrances>
+       <Exits>Pauline</Exits>
+       <OnStage>Ghost</OnStage>
+       <Note1/>
+       <Note2/>
+       <Note3/>
+     </cue>
+  </cues>
+  </show_control>
