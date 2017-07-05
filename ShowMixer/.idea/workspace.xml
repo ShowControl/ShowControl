@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/ShowMixer.py" line="698" />
-    <bookmark url="file://$PROJECT_DIR$/ShowMixer.py" line="456" />
-    <bookmark url="file://$PROJECT_DIR$/ShowMixer.py" line="369" />
-    <bookmark url="file://$PROJECT_DIR$/ShowMixer.py" line="301" />
+    <bookmark url="file://$PROJECT_DIR$/ShowMixer.py" line="457" />
+    <bookmark url="file://$PROJECT_DIR$/ShowMixer.py" line="370" />
+    <bookmark url="file://$PROJECT_DIR$/ShowMixer.py" line="302" />
+    <bookmark url="file://$PROJECT_DIR$/ShowMixer.py" line="153" />
+    <bookmark url="file://$PROJECT_DIR$/../ShowControl/utils/ShowConf.py" line="90" />
+    <bookmark url="file://$PROJECT_DIR$/ShowMixer.py" line="708" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="abfe075f-0c42-4a77-bd66-15c5b772e7d4" name="Default" comment="" />
@@ -29,7 +31,7 @@
       <file leaf-file-name="MixerConf.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MixerConf.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="269">
+            <state relative-caret-position="1105">
               <caret line="65" column="0" lean-forward="false" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
               <folding />
             </state>
@@ -39,8 +41,18 @@
       <file leaf-file-name="MixerMap.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MixerMap.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="17" column="36" lean-forward="false" selection-start-line="17" selection-start-column="36" selection-end-line="17" selection-end-column="36" />
+            <state relative-caret-position="340">
+              <caret line="31" column="0" lean-forward="false" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Show.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../ShowControl/utils/Show.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="317">
+              <caret line="53" column="83" lean-forward="false" selection-start-line="53" selection-start-column="83" selection-end-line="53" selection-end-column="83" />
               <folding />
             </state>
           </provider>
@@ -49,16 +61,36 @@
       <file leaf-file-name="ShowMixer.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ShowMixer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="493" column="0" lean-forward="false" selection-start-line="493" selection-start-column="0" selection-end-line="493" selection-end-column="0" />
+            <state relative-caret-position="102">
+              <caret line="120" column="89" lean-forward="false" selection-start-line="120" selection-start-column="89" selection-end-line="120" selection-end-column="89" />
               <folding>
                 <element signature="e#43#58#0" expanded="true" />
-                <element signature="e#40775#40822#0" expanded="false" />
-                <element signature="e#43208#43317#1" expanded="false" />
-                <element signature="e#43486#43512#0" expanded="false" />
-                <element signature="e#43557#43645#0" expanded="false" />
-                <element signature="e#43688#44467#0" expanded="false" />
+                <element signature="e#41171#41218#0" expanded="false" />
+                <element signature="e#43604#43713#1" expanded="false" />
+                <element signature="e#43882#43908#0" expanded="false" />
+                <element signature="e#43953#44041#0" expanded="false" />
+                <element signature="e#44084#44863#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ShowConf.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../ShowControl/utils/ShowConf.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="153">
+              <caret line="90" column="0" lean-forward="false" selection-start-line="90" selection-start-column="0" selection-end-line="90" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ElementTree.py" pinned="false" current-in-tab="false">
+        <entry file="file:///usr/lib/python3.5/xml/etree/ElementTree.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="9826">
+              <caret line="584" column="0" lean-forward="false" selection-start-line="584" selection-start-column="0" selection-end-line="584" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -94,13 +126,7 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>Creating</find>
-      <find>type</find>
-      <find>isible</find>
-      <find>tool</find>
-      <find>Edit</find>
       <find>Exit</find>
-      <find>exit</find>
       <find>close</find>
       <find>savecue</find>
       <find>illuminated</find>
@@ -124,6 +150,12 @@
       <find>ShowConf</find>
       <find>MixerCharMap</find>
       <find>chrchnmap</find>
+      <find>MixerConf</find>
+      <find>find(</find>
+      <find>open</find>
+      <find>set_scribble</find>
+      <find>The_Show.loadNewShow(</find>
+      <find>exit</find>
     </findStrings>
     <replaceStrings>
       <replace>control_type</replace>
@@ -162,15 +194,17 @@
         <option value="$PROJECT_DIR$/theme_dark/style.css" />
         <option value="$PROJECT_DIR$/../ShowControl/utils/Cues.py" />
         <option value="$PROJECT_DIR$/tempp.py" />
-        <option value="$PROJECT_DIR$/../ShowControl/utils/Show.py" />
         <option value="$PROJECT_DIR$/ProgamReAddTabs.py" />
+        <option value="$PROJECT_DIR$/MixerMap.py" />
+        <option value="$PROJECT_DIR$/../ShowControl/utils/ShowConf.py" />
+        <option value="$PROJECT_DIR$/../ShowControl/utils/Show.py" />
         <option value="$PROJECT_DIR$/ShowMixer.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="47" />
-    <option name="y" value="59" />
+    <option name="x" value="1950" />
+    <option name="y" value="55" />
     <option name="width" value="1854" />
     <option name="height" value="967" />
   </component>
@@ -189,8 +223,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -281,24 +315,6 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <method />
     </configuration>
-    <configuration default="false" name="ProgamAddTabs" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="ShowMixer" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ProgamAddTabs.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <method />
-    </configuration>
     <configuration default="false" name="ProgamReAddTabs" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -330,6 +346,24 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="ShowMixer" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ui_ShowMixer_tabbed_x.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="ShowConf" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../ShowControl/utils" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="ShowMixer" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../ShowControl/utils/ShowConf.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -457,17 +491,17 @@
       <item index="0" class="java.lang.String" itemvalue="Python.ShowMixer" />
       <item index="1" class="java.lang.String" itemvalue="Python.Cues" />
       <item index="2" class="java.lang.String" itemvalue="Python.Show" />
-      <item index="3" class="java.lang.String" itemvalue="Python.ProgamAddTabs" />
-      <item index="4" class="java.lang.String" itemvalue="Python.ProgamReAddTabs" />
-      <item index="5" class="java.lang.String" itemvalue="Python.ui_ShowMixer_tabbed_x" />
+      <item index="3" class="java.lang.String" itemvalue="Python.ProgamReAddTabs" />
+      <item index="4" class="java.lang.String" itemvalue="Python.ui_ShowMixer_tabbed_x" />
+      <item index="5" class="java.lang.String" itemvalue="Python.ShowConf" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.Show" />
-        <item index="1" class="java.lang.String" itemvalue="Python.ui_ShowMixer_tabbed_x" />
-        <item index="2" class="java.lang.String" itemvalue="Python.ProgamReAddTabs" />
-        <item index="3" class="java.lang.String" itemvalue="Python.ProgamAddTabs" />
-        <item index="4" class="java.lang.String" itemvalue="Python.Cues" />
+        <item index="0" class="java.lang.String" itemvalue="Python.ShowConf" />
+        <item index="1" class="java.lang.String" itemvalue="Python.Cues" />
+        <item index="2" class="java.lang.String" itemvalue="Python.Show" />
+        <item index="3" class="java.lang.String" itemvalue="Python.ui_ShowMixer_tabbed_x" />
+        <item index="4" class="java.lang.String" itemvalue="Python.ProgamReAddTabs" />
       </list>
     </recent_temporary>
     <configuration default="true" type="tests" factoryName="Attests">
@@ -516,11 +550,12 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="47" y="59" width="1854" height="967" extended-state="0" />
+    <frame x="1950" y="55" width="1854" height="967" extended-state="0" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1387689" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3256617" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36823934" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="right" auto_hide="true" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.3277405" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
@@ -536,7 +571,6 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3256617" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -554,60 +588,15 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/../ShowControl/utils/CommHandlers.py</url>
-          <line>221</line>
-          <option name="timeStamp" value="274" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/LogScale.py</url>
-          <line>44</line>
-          <option name="timeStamp" value="319" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/rewritefiles.py</url>
-          <line>14</line>
-          <option name="timeStamp" value="342" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/LearnPainter.py</url>
-          <line>131</line>
-          <option name="timeStamp" value="369" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/LearnPainter.py</url>
-          <line>124</line>
-          <option name="timeStamp" value="371" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/../ShowControl/utils/Show.py</url>
-          <line>33</line>
-          <option name="timeStamp" value="398" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/ProgamReAddTabs.py</url>
-          <line>93</line>
-          <option name="timeStamp" value="407" />
-        </line-breakpoint>
-        <line-breakpoint suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/ShowMixer.py</url>
-          <line>637</line>
-          <option name="timeStamp" value="410" />
+          <line>745</line>
+          <option name="timeStamp" value="441" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/ShowMixer.py</url>
-          <line>712</line>
-          <option name="timeStamp" value="413" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/ShowMixer.py</url>
-          <line>493</line>
-          <option name="timeStamp" value="416" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/ShowMixer.py</url>
-          <line>704</line>
-          <option name="timeStamp" value="424" />
+          <line>75</line>
+          <option name="timeStamp" value="443" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
@@ -622,7 +611,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="425" />
+      <option name="time" value="444" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -879,13 +868,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tempp.py" />
-    <entry file="file://$PROJECT_DIR$/../ShowControl/utils/Cues.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="471">
-          <caret line="132" column="47" lean-forward="false" selection-start-line="132" selection-start-column="47" selection-end-line="132" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/journal.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="497">
@@ -931,55 +913,65 @@
         </state>
       </provider>
     </entry>
-    <entry file="file:///usr/lib/python3.5/xml/etree/ElementTree.py">
+    <entry file="file://$PROJECT_DIR$/../ShowControl/utils/Cues.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="173">
-          <caret line="584" column="0" lean-forward="false" selection-start-line="584" selection-start-column="0" selection-end-line="584" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../ShowControl/utils/ShowConf.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="173">
-          <caret line="48" column="0" lean-forward="false" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../ShowControl/utils/Show.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="128">
-          <caret line="13" column="30" lean-forward="true" selection-start-line="13" selection-start-column="30" selection-end-line="13" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/MixerMap.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="36" lean-forward="false" selection-start-line="17" selection-start-column="36" selection-end-line="17" selection-end-column="36" />
+        <state relative-caret-position="264">
+          <caret line="244" column="38" lean-forward="true" selection-start-line="244" selection-start-column="38" selection-end-line="244" selection-end-column="38" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/MixerConf.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="269">
+        <state relative-caret-position="1105">
           <caret line="65" column="0" lean-forward="false" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/lib/python3.5/xml/etree/ElementTree.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="9826">
+          <caret line="584" column="0" lean-forward="false" selection-start-line="584" selection-start-column="0" selection-end-line="584" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../ShowControl/utils/ShowConf.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="90" column="0" lean-forward="false" selection-start-line="90" selection-start-column="0" selection-end-line="90" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../ShowControl/utils/Show.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="317">
+          <caret line="53" column="83" lean-forward="false" selection-start-line="53" selection-start-column="83" selection-end-line="53" selection-end-column="83" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MixerMap.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="31" column="0" lean-forward="false" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ShowMixer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="493" column="0" lean-forward="false" selection-start-line="493" selection-start-column="0" selection-end-line="493" selection-end-column="0" />
+        <state relative-caret-position="102">
+          <caret line="120" column="89" lean-forward="false" selection-start-line="120" selection-start-column="89" selection-end-line="120" selection-end-column="89" />
           <folding>
             <element signature="e#43#58#0" expanded="true" />
-            <element signature="e#40775#40822#0" expanded="false" />
-            <element signature="e#43208#43317#1" expanded="false" />
-            <element signature="e#43486#43512#0" expanded="false" />
-            <element signature="e#43557#43645#0" expanded="false" />
-            <element signature="e#43688#44467#0" expanded="false" />
+            <element signature="e#41171#41218#0" expanded="false" />
+            <element signature="e#43604#43713#1" expanded="false" />
+            <element signature="e#43882#43908#0" expanded="false" />
+            <element signature="e#43953#44041#0" expanded="false" />
+            <element signature="e#44084#44863#0" expanded="false" />
           </folding>
         </state>
       </provider>

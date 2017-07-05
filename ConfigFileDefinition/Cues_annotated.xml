@@ -9,7 +9,6 @@ For example, a Sound cue includes information about when/where in
 the script a sound is to be  executed, but what the sound player does
 when instructed to execute that cue is found elsewhere.-->
 <show_control>
-   <cues>
      <!-- The cue number -->
      <cue uuid="f40e83e1-f69f-4fd7-bd22-5baae2d1fd07">
        <Id>0</Id><!-- This is still under discussion, is probably the entry that will
@@ -42,5 +41,4 @@ when instructed to execute that cue is found elsewhere.-->
        <Note2/>
        <Note3/>
      </cue>
-  </cues>
   </show_control>

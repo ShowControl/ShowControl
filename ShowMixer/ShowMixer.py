@@ -118,6 +118,7 @@ class ShowPreferences(QDialog, Ui_Preferences):
         self.setupUi(self)
 
     def accept(self):
+        #todo - mac needs work in ShowControlConfig.py to handle xml structure correctly.
         x = self.cbxExitwCueEngine.checkState()
         print(x)
         if x == Qt.Checked:
@@ -141,25 +142,25 @@ class ShowMxr(Show):
         '''
         super(ShowMxr, self).__init__(cfg.cfgdict)
         self.mixers = {}
-        for mxrid in self.show_conf.settings['mixers']:
+        for mxrid in self.show_conf.equipment['mixers']:
             #print(mxrid)
             self.mixers[mxrid] = MixerConf(path.abspath(path.join(CFG_DIR, cfg.cfgdict['mixers']['folder'], cfg.cfgdict['mixers']['file'])),
-                                           self.show_conf.settings['mixers'][mxrid]['mxrmfr'],
-                                           self.show_conf.settings['mixers'][mxrid]['mxrmodel'],
-                                           self.show_conf.settings['mixers'][mxrid]['address'])
+                                           self.show_conf.equipment['mixers'][mxrid]['mfr'],
+                                           self.show_conf.equipment['mixers'][mxrid]['model'],
+                                           self.show_conf.equipment['mixers'][mxrid]['address'])
 
-        self.chrchnmap = MixerCharMap(self.show_confpath + self.show_conf.settings['mxrmap'])
+        self.chrchnmap = MixerCharMap(self.show_confpath + self.show_conf.settings['project']['mixermap'])
 
     def reload(self):
         self.mixers = {}
-        for mxrid in self.show_conf.settings['mixers']:
+        for mxrid in self.show_conf.equipment['mixers']:
             #print(mxrid)
             self.mixers[mxrid] = MixerConf(path.abspath(path.join(CFG_DIR, cfg.cfgdict['mixers']['folder'], cfg.cfgdict['mixers']['file'])),
-                                           self.show_conf.settings['mixers'][mxrid]['mxrmfr'],
-                                           self.show_conf.settings['mixers'][mxrid]['mxrmodel'],
-                                           self.show_conf.settings['mixers'][mxrid]['address'])
+                                           self.show_conf.equipment['mixers'][mxrid]['mfr'],
+                                           self.show_conf.equipment['mixers'][mxrid]['model'],
+                                           self.show_conf.equipment['mixers'][mxrid]['address'])
 
-        self.chrchnmap = MixerCharMap(self.show_confpath + self.show_conf.settings['mxrmap'])
+        self.chrchnmap = MixerCharMap(self.show_confpath + self.show_conf.settings['project']['mixermap'])
 
 class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
     CSD_log = logging.getLogger(__name__)
@@ -287,7 +288,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         self.comm_threads.append(self.cmd_rcvrthread)
 
         self.setupUi(self)
-        self.setWindowTitle(The_Show.show_conf.settings['title'])
+        self.setWindowTitle(The_Show.show_conf.settings['project']['title'])
         self.tabWidget.setCurrentIndex(0)
         self.nextButton.clicked.connect(self.on_buttonNext_clicked)
         self.jumpButton.clicked.connect(self.on_buttonJump_clicked)
@@ -713,12 +714,13 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         self.deletecontrols()
         self.emptytabs(tabcount)
         self.changelayout()
-        self.set_scribble(The_Show.chrchnmap.maplist)
-        self.setWindowTitle(The_Show.show_conf.settings['title'])
+        self.setWindowTitle(The_Show.show_conf.settings['project']['title'])
         self.initmutes()
         self.initlevels()
         self.disptext()
         self.setfirstcue()
+        firstuuid = The_Show.cues.getcurrentcueuuid(The_Show.cues.currentcueindex)
+        self.set_scribble(firstuuid)
 
     def saveShow(self):
         The_Show.cues.savecuelist(True, cfg.cfgdict['project']['folder'] + The_Show.show_conf.settings['cuefile'])
@@ -739,10 +741,11 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         #self.ui_prefdlg.setupUi(self.itb)
         #self.itb.show()
 
-    def set_scribble(self, mxrmap):
-        charcount = int(mxrmap.getroot().attrib['charcount'])
-
-        chars = mxrmap.findall('input')
+    def set_scribble(self, uuid='bad'):
+        #charcount = int(mxrmap.getroot().attrib['charcount'])
+        charcount = The_Show.chrchnmap.getmixermapcharcount(uuid)
+        #chars = mxrmap.findall('input')
+        chars = The_Show.chrchnmap.getmixermapinputs(uuid)
         for char in chars:
             cnum = int(char.attrib['chan'])
             mxrid = int(char.attrib['mixerid'])
@@ -851,12 +854,13 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
     def ExternalCueUpdate(self):
         self.statusBar().showMessage('External Cue Update')
         The_Show.reloadShow(cfg.cfgdict)
-        self.set_scribble(The_Show.chrchnmap.maplist)
         self.setWindowTitle(The_Show.show_conf.settings['title'])
         self.initmutes()
         self.initlevels()
         self.disptext()
         self.setfirstcue()
+        firstuuid = The_Show.cues.getcurrentcueuuid(The_Show.cues.currentcueindex)
+        self.set_scribble(firstuuid)
         self.ExternalEditStarted = False
         self.ExternalEditComplete = False
 
@@ -1010,10 +1014,11 @@ if __name__ == "__main__":
     ui.addChanStrip()
     ui.resize(ui.max_slider_count * ui.ChanStrip_MinWidth, 800)
     ui.disptext()
-    ui.set_scribble(The_Show.chrchnmap.maplist)
     ui.initmutes()
     ui.initlevels()
     ui.setfirstcue()
+    firstuuid = The_Show.cues.getcurrentcueuuid(The_Show.cues.currentcueindex)
+    ui.set_scribble(firstuuid)
     ui.show()
     # except KeyboardInterrupt:
     #     parser.exit('\nInterrupted by user')

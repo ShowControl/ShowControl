@@ -19,5 +19,16 @@ class MixerCharMap:
         '''
         Constructor
         '''
-        self.maplist = ET.parse(mapfilename)
-        
+        self.maptree = ET.parse(mapfilename)
+
+    def getmixermapinputs(self, uuid):
+        maproot = self.maptree.getroot()
+        mapelement = maproot.find("./mixermap[@uuid='" + uuid + "']")
+        mixermapinputs = mapelement.findall("./input")
+        return mixermapinputs
+
+    def getmixermapcharcount(self, uuid):
+        maproot = self.maptree.getroot()
+        mapelement = maproot.find("./mixermap[@uuid='" + uuid + "']")
+        charcount = mapelement.get('charcount')
+        return int(charcount)

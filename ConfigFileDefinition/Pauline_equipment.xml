@@ -19,10 +19,18 @@
 
     <program id="microphones">
     </program>
-    
-     <mixers>
-       <mixer id="0" mfr="Behringer" model="X32" address="192.168.53.40,10023"/><!--for udp the address tag is a comma separate pair "IP,PORT"-->
-       <mixer id="1" mfr="Yamaha" model="01V" address ="2"/><!--for midi the address is simply  the address number "2"-->
-     </mixers>    
+       <mixers>
+       <mixer id="0">
+          <mfr>Behringer</mfr>
+	  <model>X32</model>
+	  <address>192.168.53.40,10023</address>
+       </mixer><!--for udp the address tag is a comma separate pair "IP,PORT"-->
+       <mixer id="1">
+          <mfr>Yamaha</mfr>
+          <model>01V</model>
+          <address>2</address><!--for midi the address is simply  the address number "2"-->
+       </mixer>
+     </mixers>      
+
   </equipment>
 </show_control>

@@ -167,7 +167,7 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         self.externalchangestate = 'None'
         self.CueAppDev = CommAddresses(CUE_IP, CUE_PORT)
         self.setupUi(self)
-        self.setWindowTitle(The_Show.show_conf.settings['title'])
+        self.setWindowTitle(The_Show.show_conf.settings['project']['title'])
         self.nextButton.clicked.connect(self.on_buttonNext_clicked)
         self.prevButton.clicked.connect(self.on_buttonPrev_clicked)
         self.jumpButton.clicked.connect(self.on_buttonJump_clicked)
@@ -434,11 +434,21 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         fdlg.close()
 
         print(fname[0])
-        The_Show.loadNewShow(fname[0])
-        self.setWindowTitle(The_Show.show_conf.settings['name'])
+        newprojectfolder, newprojfile = os.path.split(fname[0])
+        cfg.cfgdict['project']['folder'] = newprojectfolder
+        cfg.cfgdict['project']['file'] = newprojfile
+        newtree = cfg.updateFromDict()
+        cfg.write(newtree, False, CFG_PATH)
+        cfg.reload()
+        The_Show.loadNewShow(cfg.cfgdict)
+
+        # self.stopthreads() todo - mac need to work through re-start of apps....
+        # sleep(.5)
+
+        self.setWindowTitle(The_Show.show_conf.settings['project']['title'])
         self.disptext()
         self.setfirstcue()
-        self.setWindowTitle(self.show_conf.settings('name'))
+        # self.setWindowTitle(self.show_conf.settings('name'))
 
     def saveShow(self):
         print("Save show.")

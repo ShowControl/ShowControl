@@ -13,8 +13,8 @@ class Show:
         '''
         self.cfgdict = cfgdict
         self.show_confpath = self.cfgdict['project']['folder'] + '/'
-        self.show_conf = ShowConf(self.show_confpath + self.cfgdict['project']['file'])
-        self.cues = CueList(self.show_confpath + self.show_conf.settings['cuefile'])
+        self.show_conf = ShowConf(self.cfgdict)
+        self.cues = CueList(self.show_confpath + self.show_conf.settings['project']['cues'])
         self.cues.currentcueindex = 0
         self.cues.previouscueindex = 0
 #        self.cues.setcurrentcuestate(self.cues.currentcueindex)
@@ -41,8 +41,8 @@ class Show:
         # -------------------end: Old stuff
         self.cfgdict = cfgdict
         self.show_confpath = self.cfgdict['project']['folder'] + '/'
-        self.show_conf = ShowConf(self.show_confpath + self.cfgdict['project']['file'])
-        self.cues = CueList(self.show_confpath + self.show_conf.settings['cuefile'])
+        self.show_conf = ShowConf(self.cfgdict)
+        self.cues = CueList(self.show_confpath + self.show_conf.settings['project']['cues'])
         self.cues.currentcueindex = 0
         self.cues.previouscueindex = 0
         self.displayShow()
@@ -50,8 +50,8 @@ class Show:
 
     def reloadShow(self, cfgdict):
         self.show_confpath = cfgdict['project']['folder'] + '/'
-        self.show_conf = ShowConf(self.show_confpath + cfgdict['project']['file'])
-        self.cues = CueList(self.show_confpath + self.show_conf.settings['cuefile'])
+        self.show_conf = ShowConf(cfgdict)
+        self.cues = CueList(self.show_confpath + self.show_conf.settings['project']['cues'])
         self.cues.currentcueindex = 0
         self.cues.previouscueindex = 0
         self.displayShow()

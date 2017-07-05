@@ -42,6 +42,7 @@ class configuration():
         return
 
     def toDict(self):
+        # todo - mac need to handle <prefs><n component><n subelements>
         retdict = {}
         for child in self.doc:
             print('Child tag: {0}'.format(child.tag))
