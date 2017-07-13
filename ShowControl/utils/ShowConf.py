@@ -71,90 +71,69 @@ class ShowConf:
         return
 
     def projecttodict(self):
-        for child in self.doc:
-            print('Child tag: {0}'.format(child.tag))
-            print('Attribs: {0}'.format(child.attrib))
-            if child.find('*') != None:
-                chlddict = {}
-                for kid in child:
-                    print('kid tag: {0}'.format(kid.tag))
-                    print('value: {0}'.format(kid.text))
-                    chlddict[kid.tag] = kid.text.strip('\n\t')
-                    self.settings[child.tag]=chlddict
-            else:
-                self.settings[child.tag] = child.text.strip('\n\t')
-
+        version_element = self.doc.find('./project/version')
+        version = version_element.text
+        self.settings['version'] = version
+        title_element = self.doc.find('./project/title')
+        title = title_element.text
+        self.settings['title'] = title
+        eq_dict = {}
+        eq_files = {}
+        equipment_elements = self.doc.findall('./project/equipment')
+        for i, eq_element in enumerate(equipment_elements):
+            eq_files['href{0}'.format(i)] = eq_element.get('href')
+        eq_dict['equipment'] = eq_files
+        cues_elements = self.doc.findall('./project/cues')
+        cues_dict = {}
+        cues_files = {}
+        self.settings['equipment'] = eq_files
+        for i, cues_element in enumerate(cues_elements):
+            cues_files['href{0}'.format(i)] = cues_element.get('href')
+        cues_dict['equipment'] = cues_files
+        self.settings['cues'] = cues_files
         return
 
 
     def equiptodict(self):
-        equipment_file = self.cfgdict['project']['folder'] + '/' + self.settings['project']['equipment']
-        tree = ET.parse(equipment_file)
-        equipdoc = tree.getroot()
-        # print(doc)
-        allequip = equipdoc.findall('./equipment/*')
-        # if allequip.__len__() != 0:
-        if allequip:
-            for equipitem in allequip:
-                itmlist = {}
-                items = equipitem.findall('./*')
-                if items:
-                    for item in items:
-                        # print('item: {0}'.format(item.tag))
-                        itemattribs = item.attrib
-                        if 'id' in itemattribs:
-                            if itemattribs['id'].isnumeric():
-                                itemindex = int(itemattribs['id'])
-                            else:
-                                itemindex = itemattribs['id']
-                            # print('id: {0} of {1}'.format(itemattribs['id'], itemattribs.__len__()))
-                            subitems = item.findall('./*')
-                            subitemdict = {}
-                            for subitem in subitems:
-                                subitemattribs = subitem.attrib
-                                if subitemattribs:
-                                    subitemdict[subitem.tag] = subitemattribs
-                                else:
-                                    subitemdict[subitem.tag] = subitem.text
-                            itmlist[itemindex] = subitemdict
-                    self.equipment[equipitem.tag] = itmlist
-                else:
-                    self.equipment[equipitem.tag] = equipitem.text
-        # programs = equipdoc.findall('./equipment/programs/*')
-        # if programs.__len__() != 0:
-        #     for program in programs:
-        #         print('tag: {0}'.format(program.tag))
-        #         try:
-        #             print('attribs: {0}'.format(program.attrib))
-        #         except:
-        #             pass
-        #
-        # mixers = equipdoc.findall('./equipment/mixers/*')
-        # for child in programs:
-        #     if child.attrib.__len__() != 0:
-        #         print('Child tag: {0}  Attribs: {1}'.format(child.tag, child.attrib))
-        #     else:
-        #         print('Child tag: {0}  Text: {1}'.format(child.tag, child.text))
-        #     if child.find('*') != None:
-        #         chlddict = {}
-        #         for kid in child:
-        #             print('kid tag: {0}'.format(kid.tag))
-        #             print('value: {0}'.format(kid.text))
-        #             #chlddict[kid.tag] = kid.text.strip('\n\t')
-        #             self.equipment[child.tag]=chlddict
-        #     else:
-        #         self.equipment[child.tag] = child.text.strip('\n\t')
+        equip_files_dict = self.settings['equipment']
+        key_list = list(equip_files_dict.keys())
+        key_list.sort()
+        key_count  = len(key_list)
+        mixer_dict = {}
+        program_dict = {}
+        for key in key_list:
+            print(equip_files_dict[key])
+            equipment_file = self.cfgdict['project']['folder'] + '/' + equip_files_dict[key]
+            tree = ET.parse(equipment_file)
+            equipdoc = tree.getroot()
+            # print(doc)
+            version_element = equipdoc.find('./equipment/version')
+            version = version_element.text
+            self.equipment['version'] = version
+            # handle mixers
+            mixers_dict = equipdoc.findall('./equipment/mixers/mixer')
+            for mixer in mixers_dict:
+                id = mixer.get('id')
+                mfr = mixer.find('./mfr').text
+                model = mixer.find('./model').text
+                IP_address = mixer.find('./IP_address').text
+                port = mixer.find('./port').text
+                midi_address = mixer.find('./MIDI_address').text
+                mixer_dict[id] = {'mfr': mfr, 'model': model, 'IP_address' : IP_address, 'port' : port, 'MIDI_address' : midi_address}
+                pass
+            self.equipment['mixers'] = mixer_dict
+            # handle programs
+            programs_dict = equipdoc.findall('./equipment/program')
+            for program in programs_dict:
+                id = program.get('id')
+                portnum = program.find('./port').text
+                IP_address = program.find('./IP_address').text
+                midi_address = program.find('./MIDI_address').text
+                program_dict[id] = {'port': portnum, 'IP_address' : IP_address, 'MIDI_address' : midi_address}
+                pass
+            self.equipment['program'] = program_dict
 
         return
-
-        # Get mixer info
-        # mixers = doc.find('mixers')
-        # self.settings['mixers'] = {}
-        # for mixer in mixers:
-        #     # print(mixer.attrib)
-        #     mxrid = int(mixer.attrib['id'])
-        #     self.settings['mixers'][mxrid] = {'mxrmodel':mixer.attrib['model'], 'mxrmfr':mixer.attrib['mfr'], 'address':mixer.attrib['address']}
-        # return
 
 
 if __name__ == "__main__":

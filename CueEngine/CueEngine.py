@@ -167,7 +167,7 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         self.externalchangestate = 'None'
         self.CueAppDev = CommAddresses(CUE_IP, CUE_PORT)
         self.setupUi(self)
-        self.setWindowTitle(The_Show.show_conf.settings['project']['title'])
+        self.setWindowTitle(The_Show.show_conf.settings['title'])
         self.nextButton.clicked.connect(self.on_buttonNext_clicked)
         self.prevButton.clicked.connect(self.on_buttonPrev_clicked)
         self.jumpButton.clicked.connect(self.on_buttonJump_clicked)
@@ -405,7 +405,7 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         self.tableView.resizeColumnsToContents()
 
     def get_table_data(self):
-        qs = The_Show.cues.cuelist.findall('cue')
+        qs = The_Show.cues.cuelist.findall('Cue')
         self.tabledata =[]
         for q in qs:
             type_list = q.find('CueType').text.split(',')

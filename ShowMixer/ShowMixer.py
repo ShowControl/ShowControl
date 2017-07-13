@@ -144,10 +144,11 @@ class ShowMxr(Show):
         self.mixers = {}
         for mxrid in self.show_conf.equipment['mixers']:
             #print(mxrid)
+            ++++++++++++++++++++++++++
             self.mixers[mxrid] = MixerConf(path.abspath(path.join(CFG_DIR, cfg.cfgdict['mixers']['folder'], cfg.cfgdict['mixers']['file'])),
                                            self.show_conf.equipment['mixers'][mxrid]['mfr'],
                                            self.show_conf.equipment['mixers'][mxrid]['model'],
-                                           self.show_conf.equipment['mixers'][mxrid]['address'])
+                                           self.show_conf.equipment['mixers'][mxrid]['IP_address'])
 
         self.chrchnmap = MixerCharMap(self.show_confpath + self.show_conf.settings['project']['mixermap'])
 
@@ -158,7 +159,7 @@ class ShowMxr(Show):
             self.mixers[mxrid] = MixerConf(path.abspath(path.join(CFG_DIR, cfg.cfgdict['mixers']['folder'], cfg.cfgdict['mixers']['file'])),
                                            self.show_conf.equipment['mixers'][mxrid]['mfr'],
                                            self.show_conf.equipment['mixers'][mxrid]['model'],
-                                           self.show_conf.equipment['mixers'][mxrid]['address'])
+                                           self.show_conf.equipment['mixers'][mxrid]['IP_address'])
 
         self.chrchnmap = MixerCharMap(self.show_confpath + self.show_conf.settings['project']['mixermap'])
 
