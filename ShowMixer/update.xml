@@ -1,184 +1,5412 @@
 <show_control>
-  <cue num="000" uuid="d888836c-ea38-45be-9ede-474dd596a9af">
-    <Id>0</Id>
-    <Act>0</Act>
-    <Scene> 0</Scene>
-    <Page>0</Page>
-    <Title>Top of Show</Title>
-    <CueCall>None</CueCall>
-    <CueType>Stage,Mixer,Sound,SFX,Light</CueType>
-    <Mutes>M0ch01:0,M0ch02:0,M0ch03:0,M0ch04:0,M0ch05:0,M0ch06:0,M0ch07:0,M0ch08:0,M0ch09:0,M0ch10:0,M0ch11:0,M0ch12:0,M0ch13:0,M0ch14:0,M0ch15:0,M0ch16:0,M0ch17:0,M0ch18:0,M0ch19:0,M0ch20:0,M0ch21:0,M0ch22:0,M0ch23:0,M0ch24:0,M0ch25:0,M0ch26:0,M0ch27:0,M0ch28:0,M0ch29:0,M0ch30:0,M0ch31:0,M0ch32:0,M0main01:1</Mutes>
-    <Entrances>M0main01,M1out01</Entrances>
-    <Exits>M0ch01,M0ch02,M0ch03,M0ch04,M0ch05,M0ch06,M0ch07,M0ch08,M0ch09,M0ch10,M0ch11,M0ch12,M0ch13,M0ch14,M0ch15,M0ch16,M0ch17,M0ch18,M0ch19,M0ch20,M0ch21,M0ch22,M0ch23,M0ch24,M0ch25,M0ch26,M0ch27,M0ch28,M0ch29,M0ch30,M0ch31,M0ch32</Exits>
-    <Levels>M0Ch01:586,M0Ch02:0,M0Ch03:0,M0Ch04:0,M0Ch05:512,M0Ch06:0,M0Ch07:0,M0Ch08:0,M0Ch09:0,M0Ch10:512,M0Ch11:0,M0Ch12:0,M0Ch13:0,M0Ch14:0,M0Ch15:0,M0Ch16:0,M0Ch17:0,M0Ch18:0,M0Ch19:0,M0Ch20:0,M0Ch21:0,M0Ch22:0,M0Ch23:0,M0Ch24:0,M0Ch25:0,M0Ch26:0,M0Ch27:0,M0Ch28:0,M0Ch29:0,M0Ch30:0,M0Ch31:0,M0Ch32:0,M0Aux01:0,M0Aux02:0,M0Aux03:0,M0Aux04:0,M0Aux05:0,M0Aux06:0,M0Bus01:0,M0Bus02:0,M0Bus03:0,M0Bus04:0,M0Bus05:0,M0Bus06:0,M0Bus07:0,M0Bus08:0,M0Bus09:0,M0Bus10:0,M0Bus11:0,M0Bus12:0,M0Bus13:0,M0Bus14:0,M0Bus15:0,M0Bus16:0,M0Main01:512,</Levels>
-    <OnStage />
-    <Note1 />
-    <Note2 />
-    <Note3 />
-  </cue>
-  <cue num="001">
-    <Id>1A</Id>
-    <Act>1</Act>
-    <Scene> 1</Scene>
-    <Page>1</Page>
-    <Title>Scrooge enters</Title>
-    <CueCall>Lights up</CueCall>
-    <CueType>Stage,Light</CueType>
-    <Entrances>ch1</Entrances>
-    <Exits />
-    <Levels>ch01:512,ch02:512,ch03:0,ch04:0,ch05:0,ch06:0,ch07:0,ch08:0,ch09:0,ch10:0,ch11:0,ch12:0,ch13:0,ch14:0,ch15:0,ch16:0,ch17:0,ch18:0,ch19:0,ch20:0,ch21:0,ch22:0,ch23:0,ch24:0,ch25:0,ch26:0,ch27:0,ch28:0,ch29:0,ch30:0,ch31:0,ch32:0</Levels>
-    <OnStage>ch1</OnStage>
-    <Note1 />
-    <Note2 />
-    <Note3 />
-  </cue>
-  <cue num="002">
-    <Id>1B</Id>
-    <Act>1</Act>
-    <Scene> 1</Scene>
-    <Page>1</Page>
-    <Title>Top of show</Title>
-    <CueCall>Church bells chime</CueCall>
-    <CueType>Sound</CueType>
-    <Entrances>ch10,ch2,ch4,ch5,ch6,ch7,ch8 </Entrances>
-    <Exits>ch32</Exits>
-    <OnStage>ch10,ch2,ch4,ch5,ch6,ch7,ch8 </OnStage>
-    <Levels>M0ch01:64,M0ch02:128,M0ch03:194,M0ch04:256,M0ch05:320,M0ch06:384,M0ch07:448,M0ch08:512,M0ch09:576,M0ch10:640,M0ch11:704,M0ch12:768,M0ch13:832,M0ch14:896,M0ch15:960,M0ch16:1024,M0ch17:1024,M0ch18:960,M0ch19:896,M0ch20:832,M0ch21:768,M0ch22:704,M0ch23:640,M0ch24:576,M0ch25:512,M0ch26:448,M0ch27:384,M0ch28:320,M0ch29:256,M0ch30:194,M0ch31:128,M0ch32:64</Levels>
-    <Note1 />
-    <Note2 />
-    <Note3 />
-  </cue>
-  <cue num="003">
-    <Id>2A</Id>
-    <Act>1</Act>
-    <Scene> 2</Scene>
-    <Page>2</Page>
-    <Title>end of "Opening"</Title>
-    <CueCall>Song ends/scene change</CueCall>
-    <CueType>Mixer</CueType>
-    <Mutes>M0ch01:1,M0ch02:0,M0ch03:0,M0ch04:0,M0ch05:0,M0ch06:0,M0ch07:0,M0ch08:0,M0ch09:0,M0ch10:0,M0ch11:0,M0ch12:0,M0ch13:0,M0ch14:0,M0ch15:0,M0ch16:0,M0ch17:0,M0ch18:0,M0ch19:0,M0ch20:0,M0ch21:0,M0ch22:0,M0ch23:0,M0ch24:0,M0ch25:0,M0ch26:0,M0ch27:0,M0ch28:0,M0ch29:0,M0ch30:0,M0ch31:0,M0ch32:0,M0main01:1</Mutes>
-    <Entrances>M0ch01,M1ch01</Entrances>
-    <Exits>M0ch10,M0ch02,M0ch04,M0ch05,M0ch06,M0ch07,M0ch08</Exits>
-    <OnStage />
-    <Levels>M0ch01:64,M0ch02:128,M0ch03:194,M0ch04:256,M0ch05:320,M0ch06:384,M0ch07:448,M0ch08:512,M0ch09:576,M0ch10:640,M0ch11:704,M0ch12:768,M0ch13:832,M0ch14:896,M0ch15:960,M0ch16:1024,M0ch17:1024,M0ch18:960,M0ch19:896,M0ch20:832,M0ch21:768,M0ch22:704,M0ch23:640,M0ch24:576,M0ch25:512,M0ch26:448,M0ch27:384,M0ch28:320,M0ch29:256,M0ch30:194,M0ch31:128,M0ch32:64</Levels>
-    <Note1 />
-    <Note2 />
-    <Note3 />
-  </cue>
-  <cue num="004">
-    <Id>2B</Id>
-    <Act>1</Act>
-    <Scene> 2</Scene>
-    <Page>2</Page>
-    <Title>Scene 2</Title>
-    <CueCall>Scene change ends</CueCall>
-    <CueType>Mixer</CueType>
-    <Mutes>M0ch01:0,M0ch02:0,M0ch03:0,M0ch04:0,M0ch05:0,M0ch06:0,M0ch07:0,M0ch08:0,M0ch09:0,M0ch10:0,M0ch11:0,M0ch12:0,M0ch13:0,M0ch14:0,M0ch15:0,M0ch16:0,M0ch17:0,M0ch18:0,M0ch19:0,M0ch20:0,M0ch21:0,M0ch22:0,M0ch23:0,M0ch24:0,M0ch25:0,M0ch26:0,M0ch27:0,M0ch28:0,M0ch29:0,M0ch30:0,M0ch31:0,M0ch32:0,M0main01:0</Mutes>
-    <Entrances>M0ch01 </Entrances>
-    <Exits />
-    <OnStage>ch1 </OnStage>
-    <Levels>M0ch01:812,M0ch02:812,M0ch03:0,M0ch04:0,M0ch05:0,M0ch06:0,M0ch07:0,M0ch08:0,M0ch09:0,M0ch10:0,M0ch11:0,M0ch12:0,M0ch13:0,M0ch14:0,M0ch15:0,M0ch16:0,M0ch17:0,M0ch18:0,M0ch19:0,M0ch20:0,M0ch21:0,M0ch22:0,M0ch23:0,M0ch24:0,M0ch25:0,M0ch26:0,M0ch27:0,M0ch28:0,M0ch29:0,M0ch30:0,M0ch31:0,M0ch32:0</Levels>
-    <Note1 />
-    <Note2 />
-    <Note3 />
-  </cue>
-  <cue num="005">
-    <Id>3A</Id>
-    <Act>1</Act>
-    <Scene> 2</Scene>
-    <Page>3</Page>
-    <Title>enter Nephew and Bob</Title>
-    <CueCall>"leave a man in peace!"</CueCall>
-    <CueType>Stage</CueType>
-    <Entrances>ch2,ch9 </Entrances>
-    <Exits />
-    <OnStage>ch1,ch2,ch9 </OnStage>
-    <Note1 />
-    <Note2 />
-    <Note3 />
-    <Levels />
-  </cue>
-  <cue num="006">
-    <Id>5A</Id>
-    <Act>1</Act>
-    <Scene> 3</Scene>
-    <Page>5</Page>
-    <Title>Nephew exits</Title>
-    <CueCall>"A happy New Year!"</CueCall>
-    <CueType>Mixer</CueType>
-    <Mutes>M0ch01:1,M0ch02:1,M0ch03:1,M0ch04:1,M0ch05:1,M0ch06:0,M0ch07:0,M0ch08:0,M0ch09:0,M0ch10:0,M0ch11:0,M0ch12:0,M0ch13:0,M0ch14:0,M0ch15:0,M0ch16:0,M0ch17:0,M0ch18:0,M0ch19:0,M0ch20:0,M0ch21:0,M0ch22:0,M0ch23:0,M0ch24:0,M0ch25:0,M0ch26:0,M0ch27:0,M0ch28:0,M0ch29:0,M0ch30:0,M0ch31:0,M0ch32:0,M0main01:0</Mutes>
-    <Entrances />
-    <Exits>M0ch09</Exits>
-    <OnStage>ch1,ch2 </OnStage>
-    <Levels>M0ch01:64,M0ch02:128,M0ch03:194,M0ch04:256,M0ch05:320,M0ch06:384,M0ch07:448,M0ch08:512,M0ch09:576,M0ch10:640,M0ch11:704,M0ch12:768,M0ch13:832,M0ch14:896,M0ch15:960,M0ch16:1024,M0ch17:1024,M0ch18:960,M0ch19:896,M0ch20:832,M0ch21:768,M0ch22:704,M0ch23:640,M0ch24:576,M0ch25:512,M0ch26:448,M0ch27:384,M0ch28:320,M0ch29:256,M0ch30:194,M0ch31:128,M0ch32:64</Levels>
-    <Note1 />
-    <Note2 />
-    <Note3 />
-  </cue>
-  <cue num="007">
-    <Id>5B</Id>
-    <Act>1</Act>
-    <Scene> 3</Scene>
-    <Page>5</Page>
-    <Title>Sound</Title>
-    <CueCall>"Good after-noon sir!"</CueCall>
-    <CueType>Stage</CueType>
-    <Entrances />
-    <Exits />
-    <OnStage>ch1,ch2 </OnStage>
-    <Note1 />
-    <Note2 />
-    <Note3 />
-    <Levels />
-  </cue>
-  <cue num="008">
-    <Id>6A</Id>
-    <Act>1</Act>
-    <Scene> 3</Scene>
-    <Page>6</Page>
-    <Title>Bob exits, "M.O.N.E.Y"</Title>
-    <CueCall>"No offence, sir!"</CueCall>
-    <CueType>Stage</CueType>
-    <Entrances />
-    <Exits>ch2 </Exits>
-    <OnStage>ch1 </OnStage>
-    <Note1 />
-    <Note2 />
-    <Note3 />
-    <Levels />
-  </cue>
-  <cue num="009">
-    <Id>7A</Id>
-    <Act>1</Act>
-    <Scene> 3</Scene>
-    <Page>7</Page>
-    <Title>end of "M.O.N.E.Y"</Title>
-    <CueCall>"M.O.N.E.Y!" blackout</CueCall>
-    <CueType>Mixer</CueType>
-    <Mutes>M0ch01:1,M0ch02:1,M0ch03:1,M0ch04:1,M0ch05:1,M0ch06:0,M0ch07:0,M0ch08:1,M0ch09:1,M0ch10:1,M0ch11:0,M0ch12:0,M0ch13:0,M0ch14:0,M0ch15:0,M0ch16:0,M0ch17:0,M0ch18:0,M0ch19:0,M0ch20:0,M0ch21:0,M0ch22:0,M0ch23:0,M0ch24:0,M0ch25:0,M0ch26:0,M0ch27:0,M0ch28:0,M0ch29:0,M0ch30:0,M0ch31:0,M0ch32:0,M0main01:0</Mutes>
-    <Entrances />
-    <Exits>M0ch01</Exits>
-    <Levels>M0ch01:812,M0ch02:812,M0ch03:0,M0ch04:0,M0ch05:0,M0ch06:0,M0ch07:0,M0ch08:0,M0ch09:0,M0ch10:0,M0ch11:0,M0ch12:0,M0ch13:0,M0ch14:0,M0ch15:0,M0ch16:0,M0ch17:0,M0ch18:0,M0ch19:0,M0ch20:0,M0ch21:0,M0ch22:0,M0ch23:0,M0ch24:0,M0ch25:0,M0ch26:0,M0ch27:0,M0ch28:0,M0ch29:0,M0ch30:0,M0ch31:0,M0ch32:0</Levels>
-    <OnStage />
-    <Note1 />
-    <Note2 />
-    <Note3 />
-  </cue>
-  <cue num="010">
-    <Id>7B</Id>
-    <Act>1</Act>
-    <Scene> 3</Scene>
-    <Page>7</Page>
-    <Title>Scene 3</Title>
-    <CueCall>Lights up</CueCall>
-    <CueType>Mixer</CueType>
-    <Mutes>M0ch01:0,M0ch02:0,M0ch03:0,M0ch04:0,M0ch05:0,M0ch06:0,M0ch07:0,M0ch08:0,M0ch09:0,M0ch10:0,M0ch11:0,M0ch12:0,M0ch13:0,M0ch14:0,M0ch15:0,M0ch16:0,M0ch17:0,M0ch18:0,M0ch19:0,M0ch20:0,M0ch21:0,M0ch22:0,M0ch23:0,M0ch24:0,M0ch25:0,M0ch26:0,M0ch27:0,M0ch28:0,M0ch29:0,M0ch30:0,M0ch31:0,M0ch32:0,M0main01:1</Mutes>
-    <Entrances>M0ch02,M0ch04,M0ch03,M0ch20,M0ch22 ,M0ch23</Entrances>
-    <Exits />
-    <OnStage>ch2,ch4,ch3,Baker Woman ,ch23,Mrs. Carstairs (Susannah Meszynski)</OnStage>
-    <Levels>M0ch01:64,M0ch02:128,M0ch03:194,M0ch04:256,M0ch05:320,M0ch06:384,M0ch07:448,M0ch08:512,M0ch09:576,M0ch10:640,M0ch11:704,M0ch12:768,M0ch13:832,M0ch14:896,M0ch15:960,M0ch16:1024,M0ch17:1024,M0ch18:960,M0ch19:896,M0ch20:832,M0ch21:768,M0ch22:704,M0ch23:640,M0ch24:576,M0ch25:512,M0ch26:448,M0ch27:384,M0ch28:320,M0ch29:256,M0ch30:194,M0ch31:128,M0ch32:64</Levels>
-    <Note1 />
-    <Note2 />
-    <Note3 />
-  </cue>
-  </show_control>
+    <Cue num="000" uuid="cd914ed3-b286-4de6-a346-d101ca4f45f1">
+        <Note1 />
+        <OnStage>
+            Tevye
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances>
+            Tevye
+        </Entrances>
+        <Note3 />
+        <Id>
+            1.1
+        </Id>
+        <Scene>
+            PR
+        </Scene>
+        <Mutes>M0Ch01:0,M0Ch02:1,M0Ch03:1,M0Ch04:1,M0Ch05:1,M0Ch06:1,M0Ch07:1,M0Ch08:1,M0Ch09:1,M0Ch10:1,M0Ch11:1,M0Ch12:1,M0Ch13:1,M0Ch14:1,M0Ch15:1,M0Ch16:1,M0Ch17:1,M0Ch18:1,M0Ch19:1,M0Ch20:1,M0Ch21:1,M0Ch22:1,M0Ch23:1,M0Ch24:1,M0Ch25:1,M0Ch26:1,M0Ch27:1,M0Ch28:1,M0Ch29:1,M0Ch30:1,M0Ch31:1,M0Ch32:1,M0Aux01:1,M0Aux02:1,M0Aux03:1,M0Aux04:1,M0Aux05:1,M0Aux06:1,M0Bus01:1,M0Bus02:1,M0Bus03:1,M0Bus04:1,M0Bus05:1,M0Bus06:1,M0Bus07:1,M0Bus08:1,M0Bus09:1,M0Bus10:1,M0Bus11:1,M0Bus12:1,M0Bus13:1,M0Bus14:1,M0Bus15:1,M0Bus16:1,M0Main01:1,</Mutes>
+        <Title>
+            Tevye On
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            Lights Up
+        </CueCall>
+        <Exits />
+        <Page>
+            1
+        </Page>
+    <Levels>M0Ch01:0,M0Ch02:0,M0Ch03:0,M0Ch04:0,M0Ch05:0,M0Ch06:0,M0Ch07:0,M0Ch08:0,M0Ch09:0,M0Ch10:0,M0Ch11:0,M0Ch12:0,M0Ch13:0,M0Ch14:0,M0Ch15:0,M0Ch16:0,M0Ch17:0,M0Ch18:0,M0Ch19:0,M0Ch20:0,M0Ch21:0,M0Ch22:0,M0Ch23:0,M0Ch24:0,M0Ch25:0,M0Ch26:0,M0Ch27:0,M0Ch28:0,M0Ch29:0,M0Ch30:0,M0Ch31:0,M0Ch32:0,M0Aux01:0,M0Aux02:0,M0Aux03:0,M0Aux04:0,M0Aux05:0,M0Aux06:0,M0Bus01:0,M0Bus02:0,M0Bus03:0,M0Bus04:0,M0Bus05:0,M0Bus06:0,M0Bus07:0,M0Bus08:0,M0Bus09:0,M0Bus10:0,M0Bus11:0,M0Bus12:0,M0Bus13:0,M0Bus14:0,M0Bus15:0,M0Bus16:0,M0Main01:0,</Levels></Cue>
+    <Cue num="001" uuid="02025926-e68b-4ca6-b760-f686e386e447">
+        <Note1 />
+        <OnStage>
+            HangingMics
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances>
+            HangingMics
+        </Entrances>
+        <Note3 />
+        <Id>
+            1.4
+        </Id>
+        <Scene>
+            PR
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Tevye Off
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            Singing "Tradition" starts
+        </CueCall>
+        <Exits>
+            Tevye
+        </Exits>
+        <Page>
+            1
+        </Page>
+    </Cue>
+    <Cue num="002" uuid="77234e71-6650-4963-836e-3773d21992f8">
+        <Note1 />
+        <OnStage>
+            Tevye
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances>
+            Tevye
+        </Entrances>
+        <Note3 />
+        <Id>
+            2.10
+        </Id>
+        <Scene>
+            PR
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:1,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Tevye On
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            Dialogue break in song
+        </CueCall>
+        <Exits>
+            HangingMics
+        </Exits>
+        <Page>
+            2
+        </Page>
+    </Cue>
+    <Cue num="003" uuid="788bae19-6610-459a-824e-37e31b269a4d">
+        <Note1 />
+        <OnStage>
+            Tevye,Avram,Yente
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances>
+            Avram,Yente
+        </Entrances>
+        <Note3 />
+        <Id>
+            2.11
+        </Id>
+        <Scene>
+            PR
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:1,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:1,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:1,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Yente, Avram ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            Tevye: "Yente, the matchmaker"
+        </CueCall>
+        <Exits />
+        <Page>
+            2
+        </Page>
+    </Cue>
+    <Cue num="004" uuid="769d1916-53af-4c11-810a-17f0f8a767bc">
+        <Note1 />
+        <OnStage>
+            Tevye,LazarWolf,RebNachum
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances>
+            LazarWolf,RebNachum
+        </Entrances>
+        <Note3 />
+        <Id>
+            3.5
+        </Id>
+        <Scene>
+            PR
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:1,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Yen, Av OFF Laz, Beg ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            Yente "...a perfect match"
+        </CueCall>
+        <Exits>
+            Avram,Yente
+        </Exits>
+        <Page>
+            3
+        </Page>
+    </Cue>
+    <Cue num="005" uuid="c2d137a3-dfd0-48be-8cfa-642d51f956f3">
+        <Note1 />
+        <OnStage>
+            Tevye,Mendel,Rabbi
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances>
+            Mendel,Rabbi
+        </Entrances>
+        <Note3 />
+        <Id>
+            3.11
+        </Id>
+        <Scene>
+            PR
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:1,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:1,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:1
+        </Mutes>
+        <Title>
+            Beg, Laz OFF Mend, Rab ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "Why should I suffer?"
+        </CueCall>
+        <Exits>
+            LazarWolf,RebNachum
+        </Exits>
+        <Page>
+            3
+        </Page>
+    </Cue>
+    <Cue num="006" uuid="72a86944-6b42-49d0-b438-62acd5c29ce4">
+        <Note1 />
+        <OnStage />
+        <Act>
+            1
+        </Act>
+        <Entrances />
+        <Note3 />
+        <Id>
+            3.17
+        </Id>
+        <Scene>
+            PR
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Tev, Mend, Rab OFF
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "...far away from us!"
+        </CueCall>
+        <Exits>
+            Tevye,Mendel,Rabbi
+        </Exits>
+        <Page>
+            3
+        </Page>
+    </Cue>
+    <Cue num="007" uuid="05890199-e312-4042-acf1-a58fa0951bc7">
+        <Note1 />
+        <OnStage>
+            Tevye,HangingMics
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances>
+            Tevye,HangingMics
+        </Entrances>
+        <Note3 />
+        <Id>
+            3.17A
+        </Id>
+        <Scene>
+            PR
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:1,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Tevye, Hanging mics ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            End of short dance break
+        </CueCall>
+        <Exits />
+        <Page>
+            3
+        </Page>
+    </Cue>
+    <Cue num="008" uuid="55269380-b4d3-4b0b-a281-bc513df03c18">
+        <Note1 />
+        <OnStage />
+        <Act>
+            1
+        </Act>
+        <Entrances />
+        <Note3 />
+        <Id>
+            4.7
+        </Id>
+        <Scene>
+             1
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Tevye OFF
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "...as a fiddler on the roof!"
+        </CueCall>
+        <Exits>
+            Tevye,HangingMics
+        </Exits>
+        <Page>
+            4
+        </Page>
+    </Cue>
+    <Cue num="009" uuid="df84d8e1-b973-4af3-a44b-f735cb086b0b">
+        <Note1 />
+        <OnStage>
+            Tzeitel,Hodel,Golde,Bielke,Shprintze
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances>
+            Tzeitel,Hodel,Golde,Bielke,Shprintze
+        </Entrances>
+        <Note3 />
+        <Id>
+            4.8
+        </Id>
+        <Scene>
+             1
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:1,M0ch20:0,M0ch02:1,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:1,M0ch04:1,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:1,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Shp, Biel, Tz, Hod, Gol ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            A1 S1 Lights up
+        </CueCall>
+        <Exits />
+        <Page>
+            4
+        </Page>
+    </Cue>
+    <Cue num="010" uuid="44f14de9-4bfb-45cc-84e6-695126947e8f">
+        <Note1 />
+        <OnStage>
+            Tzeitel,Hodel,Golde,Bielke,Shprintze,Chava
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances>
+            Chava
+        </Entrances>
+        <Note3 />
+        <Id>
+            5.5
+        </Id>
+        <Scene>
+             1
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:1,M0ch20:0,M0ch02:1,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:1,M0ch13:0,M0ch07:1,M0ch04:1,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:1,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Chava ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "..some more potatoes."
+        </CueCall>
+        <Exits />
+        <Page>
+            5
+        </Page>
+    </Cue>
+    <Cue num="011" uuid="cd025117-6db0-4814-83d2-09665955e7e9">
+        <Note1 />
+        <OnStage>
+            Tzeitel,Hodel,Golde,Bielke,Shprintze
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances />
+        <Note3 />
+        <Id>
+            5.7
+        </Id>
+        <Scene>
+             1
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:1,M0ch20:0,M0ch02:1,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:1,M0ch04:1,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:1,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Chava OFF
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "...better husband? Here."
+        </CueCall>
+        <Exits>
+            Chava
+        </Exits>
+        <Page>
+            5
+        </Page>
+    </Cue>
+    <Cue num="012" uuid="6aece237-4d0f-4ce5-aafa-a7e06d74c0da">
+        <Note1 />
+        <OnStage>
+            Tzeitel,Golde
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances />
+        <Note3 />
+        <Id>
+            6.3
+        </Id>
+        <Scene>
+             1
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:1,M0ch20:0,M0ch02:1,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Shprintze, Bielke, Hodel OFF
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "Go too."
+        </CueCall>
+        <Exits>
+            Hodel,Bielke,Shprintze
+        </Exits>
+        <Page>
+            6
+        </Page>
+    </Cue>
+    <Cue num="013" uuid="12c59f88-3b4a-474b-abb7-ac191d057fad">
+        <Note1 />
+        <OnStage>
+            Golde,Yente
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances>
+            Yente
+        </Entrances>
+        <Note3 />
+        <Id>
+            6.7
+        </Id>
+        <Scene>
+             1
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:1,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:1,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Tzeitel OFF, Yente ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "...the Evil Eye? Inside."
+        </CueCall>
+        <Exits>
+            Tzeitel
+        </Exits>
+        <Page>
+            6
+        </Page>
+    </Cue>
+    <Cue num="014" uuid="3527e1b3-fbc5-4e4e-9392-44ec9c0c624d">
+        <Note1 />
+        <OnStage>
+            Golde,Motel,Yente
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances>
+            Motel
+        </Entrances>
+        <Note3 />
+        <Id>
+            6.8
+        </Id>
+        <Scene>
+             1
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:1,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:1,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:1,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Motel ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "...better than nothing."
+        </CueCall>
+        <Exits />
+        <Page>
+            6
+        </Page>
+    </Cue>
+    <Cue num="015" uuid="4823f67f-f6b4-47bc-9b8a-5ff78374687f">
+        <Note1 />
+        <OnStage>
+            Tzeitel,Golde,Motel,Yente
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances>
+            Tzeitel
+        </Entrances>
+        <Note3 />
+        <Id>
+            6.12
+        </Id>
+        <Scene>
+             1
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:1,M0ch20:0,M0ch02:1,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:1,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:1,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Tzeitel ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "Later."
+        </CueCall>
+        <Exits />
+        <Page>
+            6
+        </Page>
+    </Cue>
+    <Cue num="016" uuid="7ee11f32-6a74-4919-8af0-ac35748415ab">
+        <Note1 />
+        <OnStage>
+            Golde,Motel,Yente
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances />
+        <Note3 />
+        <Id>
+            7.2
+        </Id>
+        <Scene>
+             1
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:1,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:1,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:1,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Tzeitel OFF
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "Finish what you were doing."
+        </CueCall>
+        <Exits>
+            Tzeitel
+        </Exits>
+        <Page>
+            7
+        </Page>
+    </Cue>
+    <Cue num="017" uuid="26a7fa26-9440-4119-a98d-ec332eef59b2">
+        <Note1 />
+        <OnStage>
+            Golde,Yente
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances />
+        <Note3 />
+        <Id>
+            7.3
+        </Id>
+        <Scene>
+             1
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:1,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:1,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Motel OFF
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            Motel's Exit
+        </CueCall>
+        <Exits>
+            Motel
+        </Exits>
+        <Page>
+            7
+        </Page>
+    </Cue>
+    <Cue num="018" uuid="69dd8a0e-4179-4ffc-83f9-775ac98cad43">
+        <Note1 />
+        <OnStage>
+            Tzeitel,Golde
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances>
+            Tzeitel
+        </Entrances>
+        <Note3 />
+        <Id>
+            8.5
+        </Id>
+        <Scene>
+             1
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:1,M0ch20:0,M0ch02:1,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Yente OFF, Tzeitel ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            Yente's Exit
+        </CueCall>
+        <Exits>
+            Yente
+        </Exits>
+        <Page>
+            8
+        </Page>
+    </Cue>
+    <Cue num="019" uuid="ddef8459-ce63-4a98-afdf-a5be6ecd6c74">
+        <Note1 />
+        <OnStage>
+            Tzeitel,Hodel,Chava
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances>
+            Hodel,Chava
+        </Entrances>
+        <Note3 />
+        <Id>
+            8.7
+        </Id>
+        <Scene>
+             1
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:1,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:1,M0ch13:0,M0ch07:0,M0ch04:1,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Gol OFF, Hod, Chava ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            Golde's exit
+        </CueCall>
+        <Exits>
+            Golde
+        </Exits>
+        <Page>
+            8
+        </Page>
+    </Cue>
+    <Cue num="020" uuid="2622a3d9-373c-491d-b7f4-9b16de8375dd">
+        <Note1 />
+        <OnStage>
+            Tzeitel,Hodel,Bielke,Shprintze,Chava
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances>
+            Bielke,Shprintze
+        </Entrances>
+        <Note3 />
+        <Id>
+            9.7
+        </Id>
+        <Scene>
+             1
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:1,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:1,M0ch13:0,M0ch07:1,M0ch04:1,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:1,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Bielke, Shprintze ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            Matchmaker starts
+        </CueCall>
+        <Exits />
+        <Page>
+            9
+        </Page>
+    </Cue>
+    <Cue num="021" uuid="a54b3e42-2387-4b24-91d6-0e51281933ec">
+        <Note1 />
+        <OnStage />
+        <Act>
+            1
+        </Act>
+        <Entrances />
+        <Note3 />
+        <Id>
+            12.1
+        </Id>
+        <Scene>
+             2
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Sisters OFF
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            End of Matchmaker
+        </CueCall>
+        <Exits>
+            Tzeitel,Hodel,Bielke,Shprintze,Chava
+        </Exits>
+        <Page>
+            12
+        </Page>
+    </Cue>
+    <Cue num="022" uuid="592a5fb7-ce8a-4de7-a261-05fa25449f87">
+        <Note1 />
+        <OnStage>
+            Tevye
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances>
+            Tevye
+        </Entrances>
+        <Note3 />
+        <Id>
+            12.2
+        </Id>
+        <Scene>
+             2
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:1,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Tevye ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            A1 S2 Lights up
+        </CueCall>
+        <Exits />
+        <Page>
+            12
+        </Page>
+    </Cue>
+    <Cue num="023" uuid="43e0f4c4-9f38-418b-83ab-f8f068fb4ad8">
+        <Note1 />
+        <OnStage>
+            Tevye,Golde
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances>
+            Golde
+        </Entrances>
+        <Note3 />
+        <Id>
+            12.3
+        </Id>
+        <Scene>
+             2
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:1,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:1,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Golde ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "...my friend, Tevye?"
+        </CueCall>
+        <Exits />
+        <Page>
+            12
+        </Page>
+    </Cue>
+    <Cue num="024" uuid="7734a53d-30e7-489e-a3eb-8a108979e88f">
+        <Note1 />
+        <OnStage>
+            Tevye
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances />
+        <Note3 />
+        <Id>
+            12.8
+        </Id>
+        <Scene>
+             2
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:1,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Golde OFF
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            Golde's exit
+        </CueCall>
+        <Exits>
+            Golde
+        </Exits>
+        <Page>
+            12
+        </Page>
+    </Cue>
+    <Cue num="025" uuid="9416f4ea-baff-4b35-b7f3-ce126110b17c">
+        <Note1 />
+        <OnStage>
+            Tevye,Mendel,Innkeeper,Avram
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances>
+            Mendel,Innkeeper,Avram
+        </Entrances>
+        <Note3 />
+        <Id>
+            14.1
+        </Id>
+        <Scene>
+             2
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:1,M0ch10:0,M0ch01:1,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:1,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:1
+        </Mutes>
+        <Title>
+            Inn, Mend, Av ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            End of Rich Man
+        </CueCall>
+        <Exits />
+        <Page>
+            14
+        </Page>
+    </Cue>
+    <Cue num="026" uuid="753dca7c-2526-47be-8bce-70d39f972124">
+        <Note1 />
+        <OnStage>
+            Tevye,Mendel,Perchik,Innkeeper,Avram
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances>
+            Perchik
+        </Entrances>
+        <Note3 />
+        <Id>
+            16.2
+        </Id>
+        <Scene>
+             2
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:1,M0ch10:1,M0ch01:1,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:1,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:1
+        </Mutes>
+        <Title>
+            Perchik ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "Amen."
+        </CueCall>
+        <Exits />
+        <Page>
+            16
+        </Page>
+    </Cue>
+    <Cue num="027" uuid="d0231c9a-169c-4ab8-977d-6c0cd1257b19">
+        <Note1 />
+        <OnStage>
+            Tevye,Mendel,Perchik
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances />
+        <Note3 />
+        <Id>
+            17.1
+        </Id>
+        <Scene>
+             2
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:1,M0ch01:1,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:1
+        </Mutes>
+        <Title>
+            Av, Inn OFF
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            Avram: "Good Sabbath, Tevye."
+        </CueCall>
+        <Exits>
+            Innkeeper,Avram
+        </Exits>
+        <Page>
+            17
+        </Page>
+    </Cue>
+    <Cue num="028" uuid="bf8872ac-204d-4eb4-b7ef-407ca2990f7d">
+        <Note1 />
+        <OnStage />
+        <Act>
+            1
+        </Act>
+        <Entrances />
+        <Note3 />
+        <Id>
+            19.5
+        </Id>
+        <Scene>
+             3
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Tev, Men, Per OFF
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "...chicken. Good Sabbath."
+        </CueCall>
+        <Exits>
+            Tevye,Mendel,Perchik
+        </Exits>
+        <Page>
+            19
+        </Page>
+    </Cue>
+    <Cue num="029" uuid="886a102b-0849-4593-9e8f-b2b5b27ccd05">
+        <Note1 />
+        <OnStage>
+            Tevye,Tzeitel,Hodel,Perchik
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances>
+            Tevye,Tzeitel,Hodel,Perchik
+        </Entrances>
+        <Note3 />
+        <Id>
+            19.6
+        </Id>
+        <Scene>
+             3
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:1,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:1,M0ch01:1,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:1,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Tev, Hod, Tz, Per ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            A1 S3 Lights Up
+        </CueCall>
+        <Exits />
+        <Page>
+            19
+        </Page>
+    </Cue>
+    <Cue num="030" uuid="04944b01-3961-484a-8028-4214ad96a5f0">
+        <Note1 />
+        <OnStage>
+            Tevye,Tzeitel,Hodel,Golde,Perchik
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances>
+            Golde
+        </Entrances>
+        <Note3 />
+        <Id>
+            20.1
+        </Id>
+        <Scene>
+             3
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:1,M0ch20:0,M0ch02:1,M0ch12:0,M0ch25:0,M0ch10:1,M0ch01:1,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:1,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Golde ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "..Motel Kamzoil and he is..."
+        </CueCall>
+        <Exits />
+        <Page>
+            20
+        </Page>
+    </Cue>
+    <Cue num="031" uuid="ddd82688-2ff2-4eca-9114-3c78579b7c9e">
+        <Note1 />
+        <OnStage>
+            Tevye,Golde
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances />
+        <Note3 />
+        <Id>
+            20.12
+        </Id>
+        <Scene>
+             3
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:1,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:1,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Per, Hod, Tz OFF
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "Chava, you go too."
+        </CueCall>
+        <Exits>
+            Tzeitel,Hodel,Perchik
+        </Exits>
+        <Page>
+            20
+        </Page>
+    </Cue>
+    <Cue num="032" uuid="b2539472-0556-4a1e-985a-8a38d4365260">
+        <Note1 />
+        <OnStage>
+            Tzeitel,Motel
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances>
+            Tzeitel,Motel
+        </Entrances>
+        <Note3 />
+        <Id>
+            22.3
+        </Id>
+        <Scene>
+             3
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:1,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:1,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Tev, Gol OFF, Tz, Mot ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            Tevye and Golde's exit
+        </CueCall>
+        <Exits>
+            Tevye,Golde
+        </Exits>
+        <Page>
+            22
+        </Page>
+    </Cue>
+    <Cue num="033" uuid="4b2a3e63-8808-407c-bccb-3f9ccc0efee6">
+        <Note1 />
+        <OnStage>
+            Tevye,Tzeitel,Motel
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances>
+            Tevye
+        </Entrances>
+        <Note3 />
+        <Id>
+            23.4
+        </Id>
+        <Scene>
+             3
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:1,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:1,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:1,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Tevye ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            Tevye's Entrance
+        </CueCall>
+        <Exits />
+        <Page>
+            23
+        </Page>
+    </Cue>
+    <Cue num="034" uuid="ed2d293e-80ec-4c5e-840d-65aacbd509f4">
+        <Note1 />
+        <OnStage>
+            Tevye,Golde
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances>
+            Golde
+        </Entrances>
+        <Note3 />
+        <Id>
+            23.10
+        </Id>
+        <Scene>
+             3
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:1,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:1,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Tzeitel, Motel OFF, Golde ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "Come children, come."
+        </CueCall>
+        <Exits>
+            Tzeitel,Motel
+        </Exits>
+        <Page>
+            23
+        </Page>
+    </Cue>
+    <Cue num="035" uuid="3538dcef-c5d8-4683-af05-7847e88f7341">
+        <Note1 />
+        <OnStage />
+        <Act>
+            1
+        </Act>
+        <Entrances />
+        <Note3 />
+        <Id>
+            24.5
+        </Id>
+        <Scene>
+             3
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Tevye, Golde OFF
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            End of Sabbath Prayer
+        </CueCall>
+        <Exits>
+            Tevye,Golde
+        </Exits>
+        <Page>
+            24
+        </Page>
+    </Cue>
+    <Cue num="036" uuid="55958b7e-d327-4352-93c5-cd70ca33a1c7">
+        <Note1 />
+        <OnStage>
+            Mendel,LazarWolf,Innkeeper,Avram
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances>
+            Mendel,LazarWolf,Innkeeper,Avram
+        </Entrances>
+        <Note3 />
+        <Id>
+            24.6
+        </Id>
+        <Scene>
+             3
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:1,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:1,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:1
+        </Mutes>
+        <Title>
+            Mend, Laz, Inn, Av ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            A1 S4 Lights up
+        </CueCall>
+        <Exits />
+        <Page>
+            24
+        </Page>
+    </Cue>
+    <Cue num="037" uuid="33da17ad-9b4f-4b98-ba43-cf84f7997ed9">
+        <Note1 />
+        <OnStage>
+            Mendel,LazarWolf,Innkeeper,Avram,Fyedka,Sasha,Russian
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances>
+            Fyedka,Sasha,Russian
+        </Entrances>
+        <Note3 />
+        <Id>
+            25.8
+        </Id>
+        <Scene>
+             4
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:1,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:1,M0ch30:0,M0ch18:1,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:1,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:1,M0ch22:1
+        </Mutes>
+        <Title>
+            Sasha, Fyedka, Russian ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "..without you and your fee."
+        </CueCall>
+        <Exits />
+        <Page>
+            25
+        </Page>
+    </Cue>
+    <Cue num="038" uuid="8195476c-fa18-491e-9b41-2daf91da2100">
+        <Note1 />
+        <OnStage>
+            Tevye,Mendel,LazarWolf,Innkeeper,Avram,Fyedka,Sasha,Russian
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances>
+            Tevye
+        </Entrances>
+        <Note3 />
+        <Id>
+            25.14
+        </Id>
+        <Scene>
+             4
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:1,M0ch10:0,M0ch01:1,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:1,M0ch30:0,M0ch18:1,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:1,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:1,M0ch22:1
+        </Mutes>
+        <Title>
+            Tevye ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            Tevye's entrance
+        </CueCall>
+        <Exits />
+        <Page>
+            25
+        </Page>
+    </Cue>
+    <Cue num="039" uuid="76be313a-2fd9-4aec-abdc-b2bf863047ba">
+        <Note1 />
+        <OnStage>
+            Tevye,LazarWolf
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances />
+        <Note3 />
+        <Id>
+            26.1
+        </Id>
+        <Scene>
+             4
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:1,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            all but Tevye + Lazar OFF
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "...doing here so early?"
+        </CueCall>
+        <Exits>
+            Mendel,Innkeeper,Avram,Fyedka,Sasha,Russian
+        </Exits>
+        <Page>
+            26
+        </Page>
+    </Cue>
+    <Cue num="040" uuid="53f1d061-f45c-408d-9bd5-6a6acd1c0425">
+        <Note1 />
+        <OnStage>
+            Tevye,Mendel,LazarWolf,Innkeeper
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances>
+            Mendel,Innkeeper
+        </Entrances>
+        <Note3 />
+        <Id>
+            30.12
+        </Id>
+        <Scene>
+             4
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:1,M0ch10:0,M0ch01:1,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:1
+        </Mutes>
+        <Title>
+            Mendel, Inkeeper ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "Reb Mordcha."
+        </CueCall>
+        <Exits />
+        <Page>
+            30
+        </Page>
+    </Cue>
+    <Cue num="041" uuid="6773cdcb-899f-4f50-ad92-e062add63e08">
+        <Note1 />
+        <OnStage>
+            Tevye,LazarWolf
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances />
+        <Note3 />
+        <Id>
+            31.1
+        </Id>
+        <Scene>
+             4
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:1,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Mendel, Inkeeper OFF
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "I'm taking myself a bride."
+        </CueCall>
+        <Exits>
+            Mendel,Innkeeper
+        </Exits>
+        <Page>
+            31
+        </Page>
+    </Cue>
+    <Cue num="042" uuid="c918ef1d-e587-4377-83a4-e15e1d34005d">
+        <Note1 />
+        <OnStage>
+            Tevye,LazarWolf,HangingMics
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances>
+            HangingMics
+        </Entrances>
+        <Note3 />
+        <Id>
+            31.4
+        </Id>
+        <Scene>
+             4
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:1,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Hanging Mics On
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            All say congratulations
+        </CueCall>
+        <Exits />
+        <Page>
+            31
+        </Page>
+    </Cue>
+    <Cue num="043" uuid="988c0b01-d224-4b2a-9274-dbcf00442dca">
+        <Note1 />
+        <OnStage>
+            HangingMics
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances />
+        <Note3 />
+        <Id>
+            31.8
+        </Id>
+        <Scene>
+             4
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Tevye, Lazar OFF
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "My wife!"
+        </CueCall>
+        <Exits>
+            Tevye,LazarWolf
+        </Exits>
+        <Page>
+            31
+        </Page>
+    </Cue>
+    <Cue num="044" uuid="d6325f43-3abc-452c-8eec-a1acd1f38202">
+        <Note1 />
+        <OnStage>
+            HangingMics
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances />
+        <Note3 />
+        <Id>
+            32.1
+        </Id>
+        <Scene>
+             5
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Russian (TBD) ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "Dai-dai-dai"'s
+        </CueCall>
+        <Exits />
+        <Page>
+            32
+        </Page>
+    </Cue>
+    <Cue num="045" uuid="fcbfa631-6e66-45a5-ba4f-8606be47230d">
+        <Note1 />
+        <OnStage>
+            Tevye,HangingMics
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances>
+            Tevye
+        </Entrances>
+        <Note3 />
+        <Id>
+            32.3
+        </Id>
+        <Scene>
+             5
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:1,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Russian OFF, Tevye ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            End of Russians singing
+        </CueCall>
+        <Exits />
+        <Page>
+            32
+        </Page>
+    </Cue>
+    <Cue num="046" uuid="fc561989-3620-4aef-a115-25111e76de4b">
+        <Note1 />
+        <OnStage />
+        <Act>
+            1
+        </Act>
+        <Entrances />
+        <Note3 />
+        <Id>
+            32.5
+        </Id>
+        <Scene>
+             5
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Tevye OFF
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            Final "To Life!" as song ends
+        </CueCall>
+        <Exits>
+            Tevye,HangingMics
+        </Exits>
+        <Page>
+            32
+        </Page>
+    </Cue>
+    <Cue num="047" uuid="849fbf65-eea4-46bd-81e1-65226d6fcbd3">
+        <Note1 />
+        <OnStage>
+            Tevye,LazarWolf
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances>
+            Tevye,LazarWolf
+        </Entrances>
+        <Note3 />
+        <Id>
+            32.6
+        </Id>
+        <Scene>
+             5
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:1,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Tevye, Lazar ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            A1 S5 Lights Up
+        </CueCall>
+        <Exits />
+        <Page>
+            32
+        </Page>
+    </Cue>
+    <Cue num="048" uuid="6713d6bc-bb09-485c-be56-154847d8f290">
+        <Note1 />
+        <OnStage>
+            Tevye,Fyedka,Constable
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances>
+            Fyedka,Constable
+        </Entrances>
+        <Note3 />
+        <Id>
+            32.8
+        </Id>
+        <Scene>
+             5
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:1,M0ch14:1,M0ch15:0,M0ch24:0,M0ch27:1,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Con, Fyed ON, Laz OFF
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "...younger than myself"
+        </CueCall>
+        <Exits>
+            LazarWolf
+        </Exits>
+        <Page>
+            32
+        </Page>
+    </Cue>
+    <Cue num="049" uuid="e30e88d0-5ac0-45ea-b86b-4108789df419">
+        <Note1 />
+        <OnStage>
+            Tevye,Constable
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances />
+        <Note3 />
+        <Id>
+            33.2
+        </Id>
+        <Scene>
+             5
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:1,M0ch14:1,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Fyedka OFF
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "...his oldest daughter."
+        </CueCall>
+        <Exits>
+            Fyedka
+        </Exits>
+        <Page>
+            33
+        </Page>
+    </Cue>
+    <Cue num="050" uuid="e016e0b8-c02b-41c8-aebf-c518f8a53602">
+        <Note1 />
+        <OnStage>
+            Tevye
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances />
+        <Note3 />
+        <Id>
+            34.1A
+        </Id>
+        <Scene>
+             6
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:1,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Constable OFF
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "..your honor. Goodbye."
+        </CueCall>
+        <Exits>
+            Constable
+        </Exits>
+        <Page>
+            34
+        </Page>
+    </Cue>
+    <Cue num="051" uuid="031e63cd-1291-45d7-9d9c-cb709467d5c3">
+        <Note1 />
+        <OnStage />
+        <Act>
+            1
+        </Act>
+        <Entrances />
+        <Note3 />
+        <Id>
+            34.1B
+        </Id>
+        <Scene>
+             6
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Tevye OFF
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "...my Tzeitel. L'chaim."
+        </CueCall>
+        <Exits>
+            Tevye
+        </Exits>
+        <Page>
+            34
+        </Page>
+    </Cue>
+    <Cue num="052" uuid="35a8a411-f283-4133-a6da-edffccea1887">
+        <Note1 />
+        <OnStage>
+            Perchik,Bielke,Shprintze
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances>
+            Perchik,Bielke,Shprintze
+        </Entrances>
+        <Note3 />
+        <Id>
+            34.2
+        </Id>
+        <Scene>
+             6
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:1,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:1,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:1,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Per, Shpr, Biel ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            A1 S6 Lights Up
+        </CueCall>
+        <Exits />
+        <Page>
+            34
+        </Page>
+    </Cue>
+    <Cue num="053" uuid="559d592b-8979-47dc-8999-79cbbe8e0658">
+        <Note1 />
+        <OnStage>
+            Hodel,Golde,Perchik,Bielke,Shprintze
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances>
+            Hodel,Golde
+        </Entrances>
+        <Note3 />
+        <Id>
+            34.7
+        </Id>
+        <Scene>
+             6
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:1,M0ch12:0,M0ch25:0,M0ch10:1,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:1,M0ch04:1,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:1,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Golde, Hodel ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "Good, now..."
+        </CueCall>
+        <Exits />
+        <Page>
+            34
+        </Page>
+    </Cue>
+    <Cue num="054" uuid="0e177f4f-eaee-447d-85be-694a19240fea">
+        <Note1 />
+        <OnStage>
+            Hodel,Perchik
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances />
+        <Note3 />
+        <Id>
+            35.3
+        </Id>
+        <Scene>
+             6
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:1,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:1,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Gol, Shpr, Biel OFF
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "...and clean the barn."
+        </CueCall>
+        <Exits>
+            Golde,Bielke,Shprintze
+        </Exits>
+        <Page>
+            35
+        </Page>
+    </Cue>
+    <Cue num="055" uuid="c13d1339-d30d-4080-9bb7-ac918df30f8e">
+        <Note1 />
+        <OnStage>
+            Tevye,Hodel,Perchik
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances>
+            Tevye
+        </Entrances>
+        <Note3 />
+        <Id>
+            36.13
+        </Id>
+        <Scene>
+             6
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:1,M0ch01:1,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:1,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Tevye ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            Perchik: "Good day!"
+        </CueCall>
+        <Exits />
+        <Page>
+            36
+        </Page>
+    </Cue>
+    <Cue num="056" uuid="6cc454a9-79d1-4a5d-9f40-13bc3d9f94bb">
+        <Note1 />
+        <OnStage>
+            Tevye,Perchik
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances />
+        <Note3 />
+        <Id>
+            37.5
+        </Id>
+        <Scene>
+             6
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:1,M0ch01:1,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Hodel OFF
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "Call her out."
+        </CueCall>
+        <Exits>
+            Hodel
+        </Exits>
+        <Page>
+            37
+        </Page>
+    </Cue>
+    <Cue num="057" uuid="03c62fc3-e9df-4745-b050-4ed21cd39a9e">
+        <Note1 />
+        <OnStage>
+            Tevye,Golde,Perchik
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances>
+            Golde
+        </Entrances>
+        <Note3 />
+        <Id>
+            37.6
+        </Id>
+        <Scene>
+             6
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:1,M0ch12:0,M0ch25:0,M0ch10:1,M0ch01:1,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Golde ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            Golde's entrance
+        </CueCall>
+        <Exits />
+        <Page>
+            37
+        </Page>
+    </Cue>
+    <Cue num="058" uuid="5ba98e7d-63ac-4d63-8e14-501b49dd4cd2">
+        <Note1 />
+        <OnStage>
+            Tevye,Tzeitel,Hodel,Golde,Perchik,Chava
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances>
+            Tzeitel,Hodel,Chava
+        </Entrances>
+        <Note3 />
+        <Id>
+            37.9
+        </Id>
+        <Scene>
+             6
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:1,M0ch20:0,M0ch02:1,M0ch12:0,M0ch25:0,M0ch10:1,M0ch01:1,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:1,M0ch13:0,M0ch07:0,M0ch04:1,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Golde, Hodel, Chava ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "You can die from such a man!"
+        </CueCall>
+        <Exits />
+        <Page>
+            37
+        </Page>
+    </Cue>
+    <Cue num="059" uuid="021ad00e-6cc4-43dc-9529-4e929f547f15">
+        <Note1 />
+        <OnStage>
+            Tevye,Tzeitel,Hodel,Perchik,Chava
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances />
+        <Note3 />
+        <Id>
+            38.5
+        </Id>
+        <Scene>
+             6
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:1,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:1,M0ch01:1,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:1,M0ch13:0,M0ch07:0,M0ch04:1,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Gold OFF
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "My Tzeitel, a bride!"
+        </CueCall>
+        <Exits>
+            Golde
+        </Exits>
+        <Page>
+            38
+        </Page>
+    </Cue>
+    <Cue num="060" uuid="bdf7e614-2466-4ae4-8f3c-97600ec651eb">
+        <Note1 />
+        <OnStage>
+            Tevye,Tzeitel,Perchik
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances />
+        <Note3 />
+        <Id>
+            38.6
+        </Id>
+        <Scene>
+             6
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:1,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:1,M0ch01:1,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Hodel, Chava OFF
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "Mazeltov, Tzeitel."
+        </CueCall>
+        <Exits>
+            Hodel,Chava
+        </Exits>
+        <Page>
+            38
+        </Page>
+    </Cue>
+    <Cue num="061" uuid="74c9d302-4835-4928-b92a-8e81ad249402">
+        <Note1 />
+        <OnStage>
+            Tevye,Tzeitel
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances />
+        <Note3 />
+        <Id>
+            39.1
+        </Id>
+        <Scene>
+             6
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:1,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:1,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Perchik OFF
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "I see. I see very well."
+        </CueCall>
+        <Exits>
+            Perchik
+        </Exits>
+        <Page>
+            39
+        </Page>
+    </Cue>
+    <Cue num="062" uuid="ab4f9ef9-0e48-4aa6-8756-5d6f1ce8cd76">
+        <Note1 />
+        <OnStage>
+            Tevye,Tzeitel,Motel
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances>
+            Motel
+        </Entrances>
+        <Note3 />
+        <Id>
+            39.14
+        </Id>
+        <Scene>
+             6
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:1,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:1,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:1,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Motel ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "..after all our hard work."
+        </CueCall>
+        <Exits />
+        <Page>
+            39
+        </Page>
+    </Cue>
+    <Cue num="063" uuid="f439b922-aaa0-4253-a4b5-141246e08d92">
+        <Note1 />
+        <OnStage>
+            Tzeitel,Motel
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances />
+        <Note3 />
+        <Id>
+            44.1
+        </Id>
+        <Scene>
+             6
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:1,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:1,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Tevye OFF
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "Help!"
+        </CueCall>
+        <Exits>
+            Tevye
+        </Exits>
+        <Page>
+            44
+        </Page>
+    </Cue>
+    <Cue num="064" uuid="cd2c08f9-c78e-4504-92a0-d4fdce7b9df4">
+        <Note1 />
+        <OnStage>
+            Motel
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances />
+        <Note3 />
+        <Id>
+            44.3
+        </Id>
+        <Scene>
+             6
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:1,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Tzeitel OFF
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            Start of Miracle or Miracles
+        </CueCall>
+        <Exits>
+            Tzeitel
+        </Exits>
+        <Page>
+            44
+        </Page>
+    </Cue>
+    <Cue num="065" uuid="65d4828e-1b98-45e0-895d-30785e227128">
+        <Note1 />
+        <OnStage />
+        <Act>
+            1
+        </Act>
+        <Entrances />
+        <Note3 />
+        <Id>
+            45.1
+        </Id>
+        <Scene>
+             7
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Motel OFF
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            End of Miracle of Miracles
+        </CueCall>
+        <Exits>
+            Motel
+        </Exits>
+        <Page>
+            45
+        </Page>
+    </Cue>
+    <Cue num="066" uuid="7290801f-2ffc-4129-818c-320a19270ad4">
+        <Note1 />
+        <OnStage>
+            Tevye,Golde
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances>
+            Tevye,Golde
+        </Entrances>
+        <Note3 />
+        <Id>
+            45.2
+        </Id>
+        <Scene>
+             7
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:1,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:1,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Tevye, Golde ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            A1 S7 Lights Up
+        </CueCall>
+        <Exits />
+        <Page>
+            45
+        </Page>
+    </Cue>
+    <Cue num="067" uuid="338062e1-073b-4442-a287-e72fe5ca1b9d">
+        <Note1 />
+        <OnStage>
+            Tevye,Golde,Rabbi,GrandmaTzeitel
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances>
+            Rabbi,GrandmaTzeitel
+        </Entrances>
+        <Note3 />
+        <Id>
+            46.10
+        </Id>
+        <Scene>
+             7
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:1,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:1,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:1,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Grandma, Rabbi ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "She said to me..."
+        </CueCall>
+        <Exits />
+        <Page>
+            46
+        </Page>
+    </Cue>
+    <Cue num="068" uuid="d6daff82-21a5-4659-badd-22a52ac6b9f1">
+        <Note1 />
+        <OnStage>
+            Tevye,Golde,GrandmaTzeitel
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances />
+        <Note3 />
+        <Id>
+            47.11
+        </Id>
+        <Scene>
+             7
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:1,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:1,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Rabbi OFF
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "She must've heard wrong."
+        </CueCall>
+        <Exits>
+            Rabbi
+        </Exits>
+        <Page>
+            47
+        </Page>
+    </Cue>
+    <Cue num="069" uuid="2e9397e6-dbf4-4c5b-8432-404074c796e3">
+        <Note1 />
+        <OnStage>
+            Tevye,HangingMics
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances>
+            HangingMics
+        </Entrances>
+        <Note3 />
+        <Id>
+            48.9
+        </Id>
+        <Scene>
+             7
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:1,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Gol, Gma OFF Hanging mics ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "That's your headache too."
+        </CueCall>
+        <Exits>
+            Golde,GrandmaTzeitel
+        </Exits>
+        <Page>
+            48
+        </Page>
+    </Cue>
+    <Cue num="070" uuid="229db0be-a4dd-4831-8bab-bcebe5099495">
+        <Note1 />
+        <OnStage>
+            Tevye,FrumaSarah
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances>
+            FrumaSarah
+        </Entrances>
+        <Note3 />
+        <Id>
+            49.5
+        </Id>
+        <Scene>
+             7
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:1,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Fruma ON, Hang mics OFF
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            Fruma Sarah's Entrance
+        </CueCall>
+        <Exits>
+            HangingMics
+        </Exits>
+        <Page>
+            49
+        </Page>
+    </Cue>
+    <Cue num="071" uuid="c95d595a-0fcf-4158-a8a1-ad6c012b9eb5">
+        <Note1 />
+        <OnStage>
+            Tevye,Golde
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances>
+            Golde
+        </Entrances>
+        <Note3 />
+        <Id>
+            51.6
+        </Id>
+        <Scene>
+             7
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:1,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:1,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Fruma OFF, Golde ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            End of Fruma's last solo
+        </CueCall>
+        <Exits>
+            FrumaSarah
+        </Exits>
+        <Page>
+            51
+        </Page>
+    </Cue>
+    <Cue num="072" uuid="61f5b5ce-8f2b-4ed9-a0e0-1eb0b18a4d8a">
+        <Note1 />
+        <OnStage />
+        <Act>
+            1
+        </Act>
+        <Entrances />
+        <Note3 />
+        <Id>
+            52.7
+        </Id>
+        <Scene>
+             8
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Tevye, Golde OFF
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            End of song
+        </CueCall>
+        <Exits>
+            Tevye,Golde
+        </Exits>
+        <Page>
+            52
+        </Page>
+    </Cue>
+    <Cue num="073" uuid="102c12c9-ce76-4d51-b074-1a7ad64f23a8">
+        <Note1 />
+        <OnStage>
+            Mendel,Deb,Libby
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances>
+            Mendel,Deb,Libby
+        </Entrances>
+        <Note3 />
+        <Id>
+            52.12
+        </Id>
+        <Scene>
+             8
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:1,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:1,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:1
+        </Mutes>
+        <Title>
+            Mend, Deb, Libby ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            A1 Sc8 Lights up
+        </CueCall>
+        <Exits />
+        <Page>
+            52
+        </Page>
+    </Cue>
+    <Cue num="074" uuid="1e72fd24-890d-4413-a7b6-3d3108c2ed75">
+        <Note1 />
+        <OnStage>
+            Innkeeper,Avram
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances>
+            Innkeeper,Avram
+        </Entrances>
+        <Note3 />
+        <Id>
+            53.3
+        </Id>
+        <Scene>
+             8
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:1,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:1,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Mend, Lib, Deb OFF, Av, Inn ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            All say "Mazeltov"
+        </CueCall>
+        <Exits>
+            Mendel,Deb,Libby
+        </Exits>
+        <Page>
+            53
+        </Page>
+    </Cue>
+    <Cue num="075" uuid="c8d52e65-418b-4cbf-a289-b4ddf80e19ad">
+        <Note1 />
+        <OnStage>
+            Patti,Shaindel
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances>
+            Patti,Shaindel
+        </Entrances>
+        <Note3 />
+        <Id>
+            53.9
+        </Id>
+        <Scene>
+             8
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:1,M0ch09:0,M0ch11:0,M0ch21:1,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Inn, Av OFF, Patti, Sha ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            Inkeeper: "Mazeltov, Motel"
+        </CueCall>
+        <Exits>
+            Innkeeper,Avram
+        </Exits>
+        <Page>
+            53
+        </Page>
+    </Cue>
+    <Cue num="076" uuid="4822aa7f-05ff-44c2-b8c9-d169ad6b9391">
+        <Note1 />
+        <OnStage>
+            Motel,Yussel
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances>
+            Motel,Yussel
+        </Entrances>
+        <Note3 />
+        <Id>
+            53.13
+        </Id>
+        <Scene>
+             8
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:1,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:1,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Women OFF, Mot, Yus ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "Excuse me Shaindel, Mazeltov"
+        </CueCall>
+        <Exits>
+            Patti,Shaindel
+        </Exits>
+        <Page>
+            53
+        </Page>
+    </Cue>
+    <Cue num="077" uuid="ae5b4912-81c6-452f-9dc6-d5d07cf7e924">
+        <Note1 />
+        <OnStage>
+            Motel,Chava,Yussel
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances>
+            Chava
+        </Entrances>
+        <Note3 />
+        <Id>
+            54.5
+        </Id>
+        <Scene>
+             8
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:1,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:1,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:1,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Chava ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "I'll be back soon"
+        </CueCall>
+        <Exits />
+        <Page>
+            54
+        </Page>
+    </Cue>
+    <Cue num="078" uuid="f2f4c586-9b32-41c1-aff2-76d2096b3910">
+        <Note1 />
+        <OnStage>
+            Chava
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances />
+        <Note3 />
+        <Id>
+            54.8
+        </Id>
+        <Scene>
+             8
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:1,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Motel, Yussel OFF
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "Come Motel, I'll show you."
+        </CueCall>
+        <Exits>
+            Motel,Yussel
+        </Exits>
+        <Page>
+            54
+        </Page>
+    </Cue>
+    <Cue num="079" uuid="170dec15-8324-4e57-a8b5-ce819a748c02">
+        <Note1 />
+        <OnStage>
+            Chava,Fyedka,Sasha,Russian
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances>
+            Fyedka,Sasha,Russian
+        </Entrances>
+        <Note3 />
+        <Id>
+            54.10
+        </Id>
+        <Scene>
+             8
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:1,M0ch30:0,M0ch18:1,M0ch08:0,M0ch05:1,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:1,M0ch22:0
+        </Mutes>
+        <Title>
+            Fyedka, Sasha, Russian ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            Russians entrance
+        </CueCall>
+        <Exits />
+        <Page>
+            54
+        </Page>
+    </Cue>
+    <Cue num="080" uuid="112a7193-fba0-468f-a568-9fbdc4e726e2">
+        <Note1 />
+        <OnStage>
+            Chava,Fyedka
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances />
+        <Note3 />
+        <Id>
+            55.5
+        </Id>
+        <Scene>
+             8
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:1,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:1,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Russian, Sasha OFF
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "I said goodbye!"
+        </CueCall>
+        <Exits>
+            Sasha,Russian
+        </Exits>
+        <Page>
+            55
+        </Page>
+    </Cue>
+    <Cue num="081" uuid="22eda761-d9b1-4f42-9bcd-3491f26880ab">
+        <Note1 />
+        <OnStage>
+            Motel,Chava,Fyedka
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances>
+            Motel
+        </Entrances>
+        <Note3 />
+        <Id>
+            56.5
+        </Id>
+        <Scene>
+             8
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:1,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:1,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:1,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Motel ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "..turn out quite pleasant."
+        </CueCall>
+        <Exits />
+        <Page>
+            56
+        </Page>
+    </Cue>
+    <Cue num="082" uuid="f098345c-5b8d-4bad-8c9c-590ce97bbf81">
+        <Note1 />
+        <OnStage />
+        <Act>
+            1
+        </Act>
+        <Entrances />
+        <Note3 />
+        <Id>
+            57.1
+        </Id>
+        <Scene>
+             9
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Motel, Chava, Fyedka OFF
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "Good day, Fyedka."
+        </CueCall>
+        <Exits>
+            Motel,Chava,Fyedka
+        </Exits>
+        <Page>
+            57
+        </Page>
+    </Cue>
+    <Cue num="083" uuid="d93dfaed-9296-410a-b37f-77f139a8081a">
+        <Note1 />
+        <OnStage>
+            Tevye,Golde
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances>
+            Tevye,Golde
+        </Entrances>
+        <Note3 />
+        <Id>
+            57.2
+        </Id>
+        <Scene>
+             9
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:1,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:1,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Golde, Tevye ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            Sunrise, Sunset starts
+        </CueCall>
+        <Exits />
+        <Page>
+            57
+        </Page>
+    </Cue>
+    <Cue num="084" uuid="6496457d-d06d-4be9-817b-2edc1c55fef5">
+        <Note1 />
+        <OnStage>
+            Tevye,Golde,HangingMics
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances>
+            HangingMics
+        </Entrances>
+        <Note3 />
+        <Id>
+            58.2
+        </Id>
+        <Scene>
+             9
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:1,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:1,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Hanging mics ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "...when they were small?"
+        </CueCall>
+        <Exits />
+        <Page>
+            58
+        </Page>
+    </Cue>
+    <Cue num="085" uuid="fe83f9b2-8665-4199-85ab-9be2c1fff33a">
+        <Note1 />
+        <OnStage>
+            Tevye,Hodel,Golde,Perchik,HangingMics
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances>
+            Hodel,Perchik
+        </Entrances>
+        <Note3 />
+        <Id>
+            58.5
+        </Id>
+        <Scene>
+             9
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:1,M0ch12:0,M0ch25:0,M0ch10:1,M0ch01:1,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:1,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Hodel, Perchik ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "from one another, day by day"
+        </CueCall>
+        <Exits />
+        <Page>
+            58
+        </Page>
+    </Cue>
+    <Cue num="086" uuid="1d3415ac-b7c6-47b5-b49d-e3c2b8f3d7a1">
+        <Note1 />
+        <OnStage>
+            HangingMics
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances />
+        <Note3 />
+        <Id>
+            58.8
+        </Id>
+        <Scene>
+             9
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            All but hang mics off
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "a canopy in store for me?"
+        </CueCall>
+        <Exits>
+            Tevye,Hodel,Golde,Perchik
+        </Exits>
+        <Page>
+            58
+        </Page>
+    </Cue>
+    <Cue num="087" uuid="f4373fda-56e9-4c11-b0ed-5a9440c69673">
+        <Note1 />
+        <OnStage>
+            Golde,Innkeeper,HangingMics,Rabbi
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances>
+            Golde,Innkeeper,Rabbi
+        </Entrances>
+        <Note3 />
+        <Id>
+            59.1
+        </Id>
+        <Scene>
+            10
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:1,M0ch12:0,M0ch25:1,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:1,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Inn, Rab, Gol ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            MAZELTOV!
+        </CueCall>
+        <Exits />
+        <Page>
+            59
+        </Page>
+    </Cue>
+    <Cue num="088" uuid="e324fff5-8abb-4d66-a5f9-d781433465b1">
+        <Note1 />
+        <OnStage>
+            Tevye,Golde,Mendel,LazarWolf,Innkeeper,HangingMics,Rabbi
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances>
+            Tevye,Mendel,LazarWolf
+        </Entrances>
+        <Note3 />
+        <Id>
+            60.1
+        </Id>
+        <Scene>
+            10
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:1,M0ch12:0,M0ch25:1,M0ch10:0,M0ch01:1,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:1,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:1
+        </Mutes>
+        <Title>
+            Tev, Laz, Mend ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "Come, Lazar Wolf."
+        </CueCall>
+        <Exits />
+        <Page>
+            60
+        </Page>
+    </Cue>
+    <Cue num="089" uuid="5f92378b-5776-4a49-996b-0eee70bc974a">
+        <Note1 />
+        <OnStage>
+            Tevye,Golde,Mendel,LazarWolf,Innkeeper,HangingMics,Yente,Rabbi,Shaindel
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances>
+            Yente,Shaindel
+        </Entrances>
+        <Note3 />
+        <Id>
+            61.4
+        </Id>
+        <Scene>
+            10
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:1,M0ch12:0,M0ch25:1,M0ch10:0,M0ch01:1,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:1,M0ch05:0,M0ch13:1,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:1,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:1
+        </Mutes>
+        <Title>
+            Yente, Shaindel ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall />
+        <Exits />
+        <Page>
+            61
+        </Page>
+    </Cue>
+    <Cue num="090" uuid="f42d8067-f51d-44d1-9baa-5d6b7c68583d">
+        <Note1 />
+        <OnStage>
+            Tevye,Hodel,Golde,Mendel,Perchik,LazarWolf,Innkeeper,Avram,Yente,Rabbi,Shaindel
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances>
+            Hodel,Perchik,Avram
+        </Entrances>
+        <Note3 />
+        <Id>
+            62.8
+        </Id>
+        <Scene>
+            10
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:1,M0ch12:0,M0ch25:1,M0ch10:1,M0ch01:1,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:1,M0ch05:0,M0ch13:1,M0ch07:0,M0ch04:1,M0ch29:0,M0ch26:0,M0ch16:1,M0ch09:0,M0ch11:1,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:1
+        </Mutes>
+        <Title>
+            Perchik, Avram, Hodel ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            Perchik stands on chair
+        </CueCall>
+        <Exits>
+            HangingMics
+        </Exits>
+        <Page>
+            62
+        </Page>
+    </Cue>
+    <Cue num="091" uuid="baace401-f18f-40d6-bae7-192e18928c4e">
+        <Note1 />
+        <OnStage>
+            Shaindel
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances />
+        <Note3 />
+        <Id>
+            64.11
+        </Id>
+        <Scene>
+            10
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:1,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            All but Shaindel OFF
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "dance with my wife, Golde."
+        </CueCall>
+        <Exits>
+            Tevye,Hodel,Golde,Mendel,Perchik,LazarWolf,Innkeeper,Avram,Yente,Rabbi
+        </Exits>
+        <Page>
+            64
+        </Page>
+    </Cue>
+    <Cue num="092" uuid="80fc693b-f802-4cba-b816-554a4f36a4a9">
+        <Note1 />
+        <OnStage />
+        <Act>
+            1
+        </Act>
+        <Entrances />
+        <Note3 />
+        <Id>
+            64.12
+        </Id>
+        <Scene>
+            10
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Shaindel OFF
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "Motel!"
+        </CueCall>
+        <Exits>
+            Shaindel
+        </Exits>
+        <Page>
+            64
+        </Page>
+    </Cue>
+    <Cue num="093" uuid="f0a17f3e-4446-4add-bd3e-45e35175c4ef">
+        <Note1 />
+        <OnStage>
+            Hodel,Constable
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances>
+            Hodel,Constable
+        </Entrances>
+        <Note3 />
+        <Id>
+            64.13
+        </Id>
+        <Scene>
+            10
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:0,M0ch14:1,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:1,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Constable, Hodel ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            Constable enters
+        </CueCall>
+        <Exits />
+        <Page>
+            64
+        </Page>
+    </Cue>
+    <Cue num="094" uuid="a3ff993c-eff5-4638-bc8e-cad2a4c8e3dc">
+        <Note1 />
+        <OnStage>
+            Tevye,Constable
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances>
+            Tevye
+        </Entrances>
+        <Note3 />
+        <Id>
+            65.3
+        </Id>
+        <Scene>
+            10
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:1,M0ch14:1,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Tevye ON, Hodel OFF
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "You understand."
+        </CueCall>
+        <Exits>
+            Hodel
+        </Exits>
+        <Page>
+            65
+        </Page>
+    </Cue>
+    <Cue num="095" uuid="0beb8731-1988-4d62-bfcd-9ec0f237132e">
+        <Note1 />
+        <OnStage>
+            Tevye,Golde
+        </OnStage>
+        <Act>
+            1
+        </Act>
+        <Entrances>
+            Golde
+        </Entrances>
+        <Note3 />
+        <Id>
+            65.5
+        </Id>
+        <Scene>
+            10
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:1,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:1,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Constable OFF, Golde ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            Constable's exit
+        </CueCall>
+        <Exits>
+            Constable
+        </Exits>
+        <Page>
+            65
+        </Page>
+    </Cue>
+    <Cue num="096" uuid="51083920-4631-412e-93df-4ae7688e31f6">
+        <Note1 />
+        <OnStage />
+        <Act>
+            1
+        </Act>
+        <Entrances />
+        <Note3 />
+        <Id>
+            65.7
+        </Id>
+        <Scene>
+            10
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Tev, Golde OFF
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "Clean up. Clean up."
+        </CueCall>
+        <Exits>
+            Tevye,Golde
+        </Exits>
+        <Page>
+            65
+        </Page>
+    </Cue>
+    <Cue num="097" uuid="d594ea21-bfd7-4ddc-9487-1ec1fb5d6d70">
+        <Note1 />
+        <OnStage>
+            Tevye
+        </OnStage>
+        <Act>
+            2
+        </Act>
+        <Entrances>
+            Tevye
+        </Entrances>
+        <Note3 />
+        <Id>
+            67.1
+        </Id>
+        <Scene>
+             1
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:1,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Tevye ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            A2 Prologue lights up
+        </CueCall>
+        <Exits />
+        <Page>
+            67
+        </Page>
+    </Cue>
+    <Cue num="098" uuid="d7ad2cc6-d3f4-4175-b73e-11e94037a677">
+        <Note1 />
+        <OnStage>
+            Hodel,Perchik
+        </OnStage>
+        <Act>
+            2
+        </Act>
+        <Entrances>
+            Hodel,Perchik
+        </Entrances>
+        <Note3 />
+        <Id>
+            67.2
+        </Id>
+        <Scene>
+             1
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:1,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:1,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Tevye OFF, Hodel, Perchik ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            Tevye's Exit
+        </CueCall>
+        <Exits>
+            Tevye
+        </Exits>
+        <Page>
+            67
+        </Page>
+    </Cue>
+    <Cue num="099" uuid="df2d82b7-f451-4fdc-8cb6-1b4cd8181c29">
+        <Note1 />
+        <OnStage>
+            Tevye,Hodel,Perchik
+        </OnStage>
+        <Act>
+            2
+        </Act>
+        <Entrances>
+            Tevye
+        </Entrances>
+        <Note3 />
+        <Id>
+            70.11
+        </Id>
+        <Scene>
+             1
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:1,M0ch01:1,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:1,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Tevye ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            Tevye's entrance
+        </CueCall>
+        <Exits />
+        <Page>
+            70
+        </Page>
+    </Cue>
+    <Cue num="100" uuid="2fd312ad-26f2-436c-93d4-d2848c6792ba">
+        <Note1 />
+        <OnStage>
+            Tevye,Golde
+        </OnStage>
+        <Act>
+            2
+        </Act>
+        <Entrances>
+            Golde
+        </Entrances>
+        <Note3 />
+        <Id>
+            73.7
+        </Id>
+        <Scene>
+             1
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:1,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:1,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Perchik, Hodel OFF, Golde ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "I can handle my own wife."
+        </CueCall>
+        <Exits>
+            Hodel,Perchik
+        </Exits>
+        <Page>
+            73
+        </Page>
+    </Cue>
+    <Cue num="101" uuid="7b9f6860-7ceb-4ac1-a090-4be0621de5ee">
+        <Note1 />
+        <OnStage />
+        <Act>
+            2
+        </Act>
+        <Entrances />
+        <Note3 />
+        <Id>
+            76.5
+        </Id>
+        <Scene>
+             2
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Golde, Tevye OFF
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            End of "Do You Love Me"
+        </CueCall>
+        <Exits>
+            Tevye,Golde
+        </Exits>
+        <Page>
+            76
+        </Page>
+    </Cue>
+    <Cue num="102" uuid="752e9931-7dc4-45e7-a4a7-244cb356dae6">
+        <Note1 />
+        <OnStage>
+            Tzeitel,Yente,Kerri
+        </OnStage>
+        <Act>
+            2
+        </Act>
+        <Entrances>
+            Tzeitel,Yente,Kerri
+        </Entrances>
+        <Note3 />
+        <Id>
+            76.6
+        </Id>
+        <Scene>
+             2
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:1,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:1,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:1,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Kerri, Yente, Tzeitel ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            A2 S2 Lights up
+        </CueCall>
+        <Exits />
+        <Page>
+            76
+        </Page>
+    </Cue>
+    <Cue num="103" uuid="7411394b-edf1-48db-a6f1-6ebe72f5b778">
+        <Note1 />
+        <OnStage>
+            Yente
+        </OnStage>
+        <Act>
+            2
+        </Act>
+        <Entrances />
+        <Note3 />
+        <Id>
+            77.3
+        </Id>
+        <Scene>
+             2
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:1,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Kerri, Tzeitel OFF
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "It happened to be open..."
+        </CueCall>
+        <Exits>
+            Tzeitel,Kerri
+        </Exits>
+        <Page>
+            77
+        </Page>
+    </Cue>
+    <Cue num="104" uuid="eb56acb6-6d7e-487c-a578-0e4fd180bed3">
+        <Note1 />
+        <OnStage />
+        <Act>
+            2
+        </Act>
+        <Entrances />
+        <Note3 />
+        <Id>
+            77.5
+        </Id>
+        <Scene>
+             2
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Yente OFF, Group 2 (TBD) ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            Yente: "Yes!" (lyric, Rumor)
+        </CueCall>
+        <Exits>
+            Yente
+        </Exits>
+        <Page>
+            77
+        </Page>
+    </Cue>
+    <Cue num="105" uuid="801da845-1bc4-45ff-a370-170a19c27d5e">
+        <Note1 />
+        <OnStage>
+            Mendel
+        </OnStage>
+        <Act>
+            2
+        </Act>
+        <Entrances>
+            Mendel
+        </Entrances>
+        <Note3 />
+        <Id>
+            78.3
+        </Id>
+        <Scene>
+             2
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:1
+        </Mutes>
+        <Title>
+            Group 2 (TBD) OFF, Mendel ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "In Kiev!" (lyric, the Rumor)
+        </CueCall>
+        <Exits />
+        <Page>
+            78
+        </Page>
+    </Cue>
+    <Cue num="106" uuid="fdd4e182-7cd3-434d-a7b1-f856a4f705d9">
+        <Note1 />
+        <OnStage>
+            Avram,Yente
+        </OnStage>
+        <Act>
+            2
+        </Act>
+        <Entrances>
+            Avram,Yente
+        </Entrances>
+        <Note3 />
+        <Id>
+            78.8
+        </Id>
+        <Scene>
+             2
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:1,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:1,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Mendel OFF, Yente, Avram ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "She didn't!" "She did!"
+        </CueCall>
+        <Exits>
+            Mendel
+        </Exits>
+        <Page>
+            78
+        </Page>
+    </Cue>
+    <Cue num="107" uuid="8bf27d89-2724-4c0d-a0e6-b36e4e690aff">
+        <Note1 />
+        <OnStage />
+        <Act>
+            2
+        </Act>
+        <Entrances />
+        <Note3 />
+        <Id>
+            79.2
+        </Id>
+        <Scene>
+             3
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Yente, Avram OFF
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            End of The Rumor
+        </CueCall>
+        <Exits>
+            Avram,Yente
+        </Exits>
+        <Page>
+            79
+        </Page>
+    </Cue>
+    <Cue num="108" uuid="4a49567e-79e8-4348-ae8a-75cc3e6cb295">
+        <Note1 />
+        <OnStage>
+            Tevye,Hodel
+        </OnStage>
+        <Act>
+            2
+        </Act>
+        <Entrances>
+            Tevye,Hodel
+        </Entrances>
+        <Note3 />
+        <Id>
+            79.3
+        </Id>
+        <Scene>
+             3
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:1,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:1,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Hodel, Tevye ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            A2 S3 Lights up
+        </CueCall>
+        <Exits />
+        <Page>
+            79
+        </Page>
+    </Cue>
+    <Cue num="109" uuid="74852f4b-fa9f-4610-9243-1a3d02174f03">
+        <Note1 />
+        <OnStage />
+        <Act>
+            2
+        </Act>
+        <Entrances />
+        <Note3 />
+        <Id>
+            81.5
+        </Id>
+        <Scene>
+             4
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Hodel, Tevye OFF
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            Tevye exits end of scene
+        </CueCall>
+        <Exits>
+            Tevye,Hodel
+        </Exits>
+        <Page>
+            81
+        </Page>
+    </Cue>
+    <Cue num="110" uuid="18d2d3a5-4499-4a6e-8e74-c3870e845421">
+        <Note1 />
+        <OnStage>
+            Mendel,Innkeeper,Avram,Rabbi,Libby
+        </OnStage>
+        <Act>
+            2
+        </Act>
+        <Entrances>
+            Mendel,Innkeeper,Avram,Rabbi,Libby
+        </Entrances>
+        <Note3 />
+        <Id>
+            81.6
+        </Id>
+        <Scene>
+             4
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:1,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:1,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:1,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:1,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:1
+        </Mutes>
+        <Title>
+            Av, Inn, Rab, Mend, Lib ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            A2 S4 Lights up
+        </CueCall>
+        <Exits />
+        <Page>
+            81
+        </Page>
+    </Cue>
+    <Cue num="111" uuid="632a3d0e-541d-4aba-bd9a-d204e5a93e02">
+        <Note1 />
+        <OnStage>
+            Mendel,Innkeeper,Avram,Rabbi,Libby,Shaindel
+        </OnStage>
+        <Act>
+            2
+        </Act>
+        <Entrances>
+            Shaindel
+        </Entrances>
+        <Note3 />
+        <Id>
+            82.2
+        </Id>
+        <Scene>
+             5
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:1,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:1,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:1,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:1,M0ch09:0,M0ch11:1,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:1
+        </Mutes>
+        <Title>
+            Shaindel ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "Where are you running?"
+        </CueCall>
+        <Exits />
+        <Page>
+            82
+        </Page>
+    </Cue>
+    <Cue num="112" uuid="ec2c961e-679e-4dad-8efb-e43d1b242475">
+        <Note1 />
+        <OnStage />
+        <Act>
+            2
+        </Act>
+        <Entrances />
+        <Note3 />
+        <Id>
+            82.4
+        </Id>
+        <Scene>
+             5
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Men, Inn, Av, Rab, Lib, Sh OFF
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            End of scene 4 ("Mazeltov"s)
+        </CueCall>
+        <Exits>
+            Mendel,Innkeeper,Avram,Rabbi,Libby,Shaindel
+        </Exits>
+        <Page>
+            82
+        </Page>
+    </Cue>
+    <Cue num="113" uuid="61d174d4-cf6f-40ec-99c0-c2e2c8dd66e8">
+        <Note1 />
+        <OnStage>
+            Tzeitel,Motel,Innkeeper,Avram
+        </OnStage>
+        <Act>
+            2
+        </Act>
+        <Entrances>
+            Tzeitel,Motel,Innkeeper,Avram
+        </Entrances>
+        <Note3 />
+        <Id>
+            82.5
+        </Id>
+        <Scene>
+             5
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:1,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:1,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:1,M0ch11:1,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Motel, Avram, Tzeitel, Inn ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            A2 S5 Lights up
+        </CueCall>
+        <Exits />
+        <Page>
+            82
+        </Page>
+    </Cue>
+    <Cue num="114" uuid="083837f2-9e71-4a6b-9202-fe428724e3f3">
+        <Note1 />
+        <OnStage>
+            Tzeitel,Motel,Innkeeper,Avram,Rabbi
+        </OnStage>
+        <Act>
+            2
+        </Act>
+        <Entrances>
+            Rabbi
+        </Entrances>
+        <Note3 />
+        <Id>
+            83.5
+        </Id>
+        <Scene>
+             5
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:1,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:1,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:1,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:1,M0ch11:1,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Rabbi ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "The Rabbi, the Rabbi!"
+        </CueCall>
+        <Exits />
+        <Page>
+            83
+        </Page>
+    </Cue>
+    <Cue num="115" uuid="d839c53c-69e0-4a80-aa51-3899c4ff5656">
+        <Note1 />
+        <OnStage>
+            Tzeitel,Golde,Motel
+        </OnStage>
+        <Act>
+            2
+        </Act>
+        <Entrances>
+            Golde
+        </Entrances>
+        <Note3 />
+        <Id>
+            83.10
+        </Id>
+        <Scene>
+             5
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:1,M0ch20:0,M0ch02:1,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:1,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Av, Rab, Inn OFF Golde ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            Ensemble exits
+        </CueCall>
+        <Exits>
+            Innkeeper,Avram,Rabbi
+        </Exits>
+        <Page>
+            83
+        </Page>
+    </Cue>
+    <Cue num="116" uuid="6858e4b2-3ba8-4fe0-b8d0-14eee9f6b19d">
+        <Note1 />
+        <OnStage>
+            Tzeitel,Golde,Motel,Fyedka
+        </OnStage>
+        <Act>
+            2
+        </Act>
+        <Entrances>
+            Fyedka
+        </Entrances>
+        <Note3 />
+        <Id>
+            83.12
+        </Id>
+        <Scene>
+             5
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:1,M0ch20:0,M0ch02:1,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:1,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:1,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Fyedka ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "He's wonderful, Mama."
+        </CueCall>
+        <Exits />
+        <Page>
+            83
+        </Page>
+    </Cue>
+    <Cue num="117" uuid="2d954dab-8b5d-4176-af2f-9ff76a915592">
+        <Note1 />
+        <OnStage>
+            Tzeitel,Golde,Motel
+        </OnStage>
+        <Act>
+            2
+        </Act>
+        <Entrances />
+        <Note3 />
+        <Id>
+            84.7
+        </Id>
+        <Scene>
+             5
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:1,M0ch20:0,M0ch02:1,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:1,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Fyedka OFF
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "Good day." Fyedka exits
+        </CueCall>
+        <Exits>
+            Fyedka
+        </Exits>
+        <Page>
+            84
+        </Page>
+    </Cue>
+    <Cue num="118" uuid="8fb70a6c-7b68-4f2f-a326-9b67087b5323">
+        <Note1 />
+        <OnStage>
+            Chava,Fyedka
+        </OnStage>
+        <Act>
+            2
+        </Act>
+        <Entrances>
+            Chava,Fyedka
+        </Entrances>
+        <Note3 />
+        <Id>
+            84.10
+        </Id>
+        <Scene>
+             5
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:1,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:1,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Mot, Gol, Tz OFF Fyed, Ch ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "..with your hand."
+        </CueCall>
+        <Exits>
+            Tzeitel,Golde,Motel
+        </Exits>
+        <Page>
+            84
+        </Page>
+    </Cue>
+    <Cue num="119" uuid="afae3250-84b7-4d10-9173-cd1f593e4b86">
+        <Note1 />
+        <OnStage>
+            Tevye,Chava,Fyedka
+        </OnStage>
+        <Act>
+            2
+        </Act>
+        <Entrances>
+            Tevye
+        </Entrances>
+        <Note3 />
+        <Id>
+            85.1
+        </Id>
+        <Scene>
+             5
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:1,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:1,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:1,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Tevye ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            Tevye's entrance
+        </CueCall>
+        <Exits />
+        <Page>
+            85
+        </Page>
+    </Cue>
+    <Cue num="120" uuid="71de93f9-1047-4531-9f80-e6c4d68a6bd3">
+        <Note1 />
+        <OnStage>
+            Tevye,Chava
+        </OnStage>
+        <Act>
+            2
+        </Act>
+        <Entrances />
+        <Note3 />
+        <Id>
+            85.3
+        </Id>
+        <Scene>
+             5
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:1,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:1,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Fyedka OFF
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            Fyedka: "Good day."
+        </CueCall>
+        <Exits>
+            Fyedka
+        </Exits>
+        <Page>
+            85
+        </Page>
+    </Cue>
+    <Cue num="121" uuid="35f35b56-a98f-47ff-9900-bc2ab270d279">
+        <Note1 />
+        <OnStage>
+            Tevye,Golde
+        </OnStage>
+        <Act>
+            2
+        </Act>
+        <Entrances>
+            Golde
+        </Entrances>
+        <Note3 />
+        <Id>
+            86.6
+        </Id>
+        <Scene>
+             5
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:1,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:1,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Chava OFF, Golde ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "Yes Papa, I understand you."
+        </CueCall>
+        <Exits>
+            Chava
+        </Exits>
+        <Page>
+            86
+        </Page>
+    </Cue>
+    <Cue num="122" uuid="c738c543-19d3-4dab-84d4-e25ef12f31f1">
+        <Note1 />
+        <OnStage />
+        <Act>
+            2
+        </Act>
+        <Entrances />
+        <Note3 />
+        <Id>
+            86.12
+        </Id>
+        <Scene>
+             5
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Tevye, Golde OFF
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "Now let's go home!"
+        </CueCall>
+        <Exits>
+            Tevye,Golde
+        </Exits>
+        <Page>
+            86
+        </Page>
+    </Cue>
+    <Cue num="123" uuid="a73f1717-3c4c-4c71-8bbf-0c554a497da0">
+        <Note1 />
+        <OnStage>
+            Tevye
+        </OnStage>
+        <Act>
+            2
+        </Act>
+        <Entrances>
+            Tevye
+        </Entrances>
+        <Note3 />
+        <Id>
+            87.1
+        </Id>
+        <Scene>
+             6
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:1,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Tevye ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            A2 S6 Lights up
+        </CueCall>
+        <Exits />
+        <Page>
+            87
+        </Page>
+    </Cue>
+    <Cue num="124" uuid="f144bb4b-7b3b-42e1-9152-82a122bf29b8">
+        <Note1 />
+        <OnStage>
+            Tevye,Golde
+        </OnStage>
+        <Act>
+            2
+        </Act>
+        <Entrances>
+            Golde
+        </Entrances>
+        <Note3 />
+        <Id>
+            87.1A
+        </Id>
+        <Scene>
+             6
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:1,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:1,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Golde ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            Golde enters
+        </CueCall>
+        <Exits />
+        <Page>
+            87
+        </Page>
+    </Cue>
+    <Cue num="125" uuid="a77c0485-f8d9-4b92-8c8d-584cfa788f51">
+        <Note1 />
+        <OnStage>
+            Tevye
+        </OnStage>
+        <Act>
+            2
+        </Act>
+        <Entrances />
+        <Note3 />
+        <Id>
+            87.9
+        </Id>
+        <Scene>
+             6
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:1,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Golde OFF
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "We will forget her. Go home."
+        </CueCall>
+        <Exits>
+            Golde
+        </Exits>
+        <Page>
+            87
+        </Page>
+    </Cue>
+    <Cue num="126" uuid="52d71ecb-7f32-42e7-bfb5-cfb4b8a7c106">
+        <Note1 />
+        <OnStage>
+            Tevye,Chava
+        </OnStage>
+        <Act>
+            2
+        </Act>
+        <Entrances>
+            Chava
+        </Entrances>
+        <Note3 />
+        <Id>
+            88.1
+        </Id>
+        <Scene>
+             6
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:1,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:1,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Chava ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            End of Tevye's singing
+        </CueCall>
+        <Exits />
+        <Page>
+            88
+        </Page>
+    </Cue>
+    <Cue num="127" uuid="ba42b238-a13f-48be-831f-c698d849b5a7">
+        <Note1 />
+        <OnStage />
+        <Act>
+            2
+        </Act>
+        <Entrances />
+        <Note3 />
+        <Id>
+            88.4
+        </Id>
+        <Scene>
+             6
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Tevye, Chava OFF
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            Ensemble sings "Tradition"
+        </CueCall>
+        <Exits>
+            Tevye,Chava
+        </Exits>
+        <Page>
+            88
+        </Page>
+    </Cue>
+    <Cue num="128" uuid="b0e13bf2-fab3-4cfb-b5c5-7ec819b9bb0a">
+        <Note1 />
+        <OnStage>
+            Golde,Yente
+        </OnStage>
+        <Act>
+            2
+        </Act>
+        <Entrances>
+            Golde,Yente
+        </Entrances>
+        <Note3 />
+        <Id>
+            89.1
+        </Id>
+        <Scene>
+             7
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:1,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:1,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Yente, Golde ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            A2 S7 Lights up
+        </CueCall>
+        <Exits />
+        <Page>
+            89
+        </Page>
+    </Cue>
+    <Cue num="129" uuid="4d7363a4-03f9-4f54-8525-75cb1a2125d1">
+        <Note1 />
+        <OnStage>
+            Golde,Mendel,LazarWolf,Innkeeper,Avram,Yente
+        </OnStage>
+        <Act>
+            2
+        </Act>
+        <Entrances>
+            Mendel,LazarWolf,Innkeeper,Avram
+        </Entrances>
+        <Note3 />
+        <Id>
+            89.5
+        </Id>
+        <Scene>
+             7
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:1,M0ch12:0,M0ch25:1,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:1,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:1,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:1
+        </Mutes>
+        <Title>
+            Av, Laz, Mend, Inn ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "...take your pick."
+        </CueCall>
+        <Exits />
+        <Page>
+            89
+        </Page>
+    </Cue>
+    <Cue num="130" uuid="7b3cea7e-aa45-4ac2-aadb-f9edfe20e154">
+        <Note1 />
+        <OnStage>
+            Tevye,Golde,Mendel,LazarWolf,Innkeeper,Avram,Yente
+        </OnStage>
+        <Act>
+            2
+        </Act>
+        <Entrances>
+            Tevye
+        </Entrances>
+        <Note3 />
+        <Id>
+            89.10
+        </Id>
+        <Scene>
+             7
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:1,M0ch12:0,M0ch25:1,M0ch10:0,M0ch01:1,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:1,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:1,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:1
+        </Mutes>
+        <Title>
+            Tevye ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            Tevye's entrance
+        </CueCall>
+        <Exits />
+        <Page>
+            89
+        </Page>
+    </Cue>
+    <Cue num="131" uuid="210dd403-84de-4e92-83a3-67147fa27089">
+        <Note1 />
+        <OnStage>
+            Tevye,Golde,Mendel,LazarWolf,Innkeeper,Avram,Yente,Constable
+        </OnStage>
+        <Act>
+            2
+        </Act>
+        <Entrances>
+            Constable
+        </Entrances>
+        <Note3 />
+        <Id>
+            90.4
+        </Id>
+        <Scene>
+             7
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:1,M0ch12:0,M0ch25:1,M0ch10:0,M0ch01:1,M0ch14:1,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:1,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:1,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:1
+        </Mutes>
+        <Title>
+            Constable ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            Constable enters
+        </CueCall>
+        <Exits />
+        <Page>
+            90
+        </Page>
+    </Cue>
+    <Cue num="132" uuid="df2a96fe-fd5c-4d32-99dc-a3add417a36f">
+        <Note1 />
+        <OnStage>
+            Tevye,Golde,Mendel,LazarWolf,Innkeeper,Avram,Yente,RebNachum,Robyn
+        </OnStage>
+        <Act>
+            2
+        </Act>
+        <Entrances>
+            RebNachum,Robyn
+        </Entrances>
+        <Note3 />
+        <Id>
+            92.2
+        </Id>
+        <Scene>
+             7
+        </Scene>
+        <Mutes>
+            M0ch19:1,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:1,M0ch12:0,M0ch25:1,M0ch10:0,M0ch01:1,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:1,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:1,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:1
+        </Mutes>
+        <Title>
+            Constable OFF, Robyn, Beg ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            Constable exits
+        </CueCall>
+        <Exits>
+            Constable
+        </Exits>
+        <Page>
+            92
+        </Page>
+    </Cue>
+    <Cue num="133" uuid="17622b0a-e7e5-4551-984f-8294d727635e">
+        <Note1 />
+        <OnStage>
+            Tevye,Golde,Mendel,LazarWolf,Avram,Yente
+        </OnStage>
+        <Act>
+            2
+        </Act>
+        <Entrances />
+        <Note3 />
+        <Id>
+            93.1
+        </Id>
+        <Scene>
+             7
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:1,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:1,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:1,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:1,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:1
+        </Mutes>
+        <Title>
+            Inn, Beg, Robyn OFF
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            Start of "Anatevka"
+        </CueCall>
+        <Exits>
+            Innkeeper,RebNachum,Robyn
+        </Exits>
+        <Page>
+            93
+        </Page>
+    </Cue>
+    <Cue num="134" uuid="5c7dc95a-a256-4695-abac-4dc29918b9e6">
+        <Note1 />
+        <OnStage />
+        <Act>
+            2
+        </Act>
+        <Entrances />
+        <Note3 />
+        <Id>
+            94.1
+        </Id>
+        <Scene>
+             7
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            All OFF
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "A piece of cloth."
+        </CueCall>
+        <Exits>
+            Tevye,Golde,Mendel,LazarWolf,Avram,Yente
+        </Exits>
+        <Page>
+            94
+        </Page>
+    </Cue>
+    <Cue num="135" uuid="9341889d-7ca3-467a-bd4c-52af2bd34781">
+        <Note1 />
+        <OnStage>
+            Tevye,Golde,Mendel
+        </OnStage>
+        <Act>
+            2
+        </Act>
+        <Entrances>
+            Tevye,Golde,Mendel
+        </Entrances>
+        <Note3 />
+        <Id>
+            94.1A
+        </Id>
+        <Scene>
+             7
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:1,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:1,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:1
+        </Mutes>
+        <Title>
+            Golde, Mendel, Tevye ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            end of song
+        </CueCall>
+        <Exits />
+        <Page>
+            94
+        </Page>
+    </Cue>
+    <Cue num="136" uuid="b0a9dd19-274e-4dee-b09e-0682474ca1d3">
+        <Note1 />
+        <OnStage />
+        <Act>
+            2
+        </Act>
+        <Entrances />
+        <Note3 />
+        <Id>
+            94.4
+        </Id>
+        <Scene>
+             7
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Golde, Mendel, Tevye OFF
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "always wear our hats..."
+        </CueCall>
+        <Exits>
+            Tevye,Golde,Mendel
+        </Exits>
+        <Page>
+            94
+        </Page>
+    </Cue>
+    <Cue num="137" uuid="84e69f8d-958c-423b-9b3f-d20d6ae841fd">
+        <Note1 />
+        <OnStage>
+            Tzeitel,Motel,Shprintze
+        </OnStage>
+        <Act>
+            2
+        </Act>
+        <Entrances>
+            Tzeitel,Motel,Shprintze
+        </Entrances>
+        <Note3 />
+        <Id>
+            94.5
+        </Id>
+        <Scene>
+             7
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:1,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:1,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:1,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Shprintze, Motel, Tzeitel ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            A2 S8 Lights up
+        </CueCall>
+        <Exits />
+        <Page>
+            94
+        </Page>
+    </Cue>
+    <Cue num="138" uuid="c79e4fd7-f911-4a73-9e8c-d4b40a7affd0">
+        <Note1 />
+        <OnStage>
+            Tzeitel,Golde,Motel,Shprintze
+        </OnStage>
+        <Act>
+            2
+        </Act>
+        <Entrances>
+            Golde
+        </Entrances>
+        <Note3 />
+        <Id>
+            95.1
+        </Id>
+        <Scene>
+             8
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:1,M0ch20:0,M0ch02:1,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:1,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:1,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Golde ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "enough money to join you."
+        </CueCall>
+        <Exits />
+        <Page>
+            95
+        </Page>
+    </Cue>
+    <Cue num="139" uuid="270b73c4-5aff-40d1-8cb9-82a942f3ea45">
+        <Note1 />
+        <OnStage>
+            Golde,Yente
+        </OnStage>
+        <Act>
+            2
+        </Act>
+        <Entrances>
+            Yente
+        </Entrances>
+        <Note3 />
+        <Id>
+            95.3
+        </Id>
+        <Scene>
+             8
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:1,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:1,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Shpr, Mot, Tz OFF Yente ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "pack the rest of the clothes"
+        </CueCall>
+        <Exits>
+            Tzeitel,Motel,Shprintze
+        </Exits>
+        <Page>
+            95
+        </Page>
+    </Cue>
+    <Cue num="140" uuid="4c18d45c-78d2-4775-80c7-48fa510b3e28">
+        <Note1 />
+        <OnStage>
+            Tevye,Golde
+        </OnStage>
+        <Act>
+            2
+        </Act>
+        <Entrances>
+            Tevye
+        </Entrances>
+        <Note3 />
+        <Id>
+            95.8
+        </Id>
+        <Scene>
+             8
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:1,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:1,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Yente OFF, Tevye ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            Yente exits
+        </CueCall>
+        <Exits>
+            Yente
+        </Exits>
+        <Page>
+            95
+        </Page>
+    </Cue>
+    <Cue num="141" uuid="40d38472-1415-4cb9-aa6c-b93043ea4573">
+        <Note1 />
+        <OnStage>
+            Tevye,LazarWolf
+        </OnStage>
+        <Act>
+            2
+        </Act>
+        <Entrances>
+            LazarWolf
+        </Entrances>
+        <Note3 />
+        <Id>
+            96.10
+        </Id>
+        <Scene>
+             8
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:1,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Golde OFF, Lazar ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "leave a dirty house."
+        </CueCall>
+        <Exits>
+            Golde
+        </Exits>
+        <Page>
+            96
+        </Page>
+    </Cue>
+    <Cue num="142" uuid="4e42395b-cc1d-4355-b256-fb1b36c80c89">
+        <Note1 />
+        <OnStage>
+            Tevye,Tzeitel
+        </OnStage>
+        <Act>
+            2
+        </Act>
+        <Entrances>
+            Tzeitel
+        </Entrances>
+        <Note3 />
+        <Id>
+            97.3
+        </Id>
+        <Scene>
+             8
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:1,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:1,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Lazar OFF, Tzeitel ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "Goodbye, Tevye."
+        </CueCall>
+        <Exits>
+            LazarWolf
+        </Exits>
+        <Page>
+            97
+        </Page>
+    </Cue>
+    <Cue num="143" uuid="75271db0-93fd-4fc7-8fae-44ba3480d11b">
+        <Note1 />
+        <OnStage>
+            Tzeitel
+        </OnStage>
+        <Act>
+            2
+        </Act>
+        <Entrances />
+        <Note3 />
+        <Id>
+            97.5A
+        </Id>
+        <Scene>
+             8
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:1,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Tevye OFF
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "Almost, Papa."
+        </CueCall>
+        <Exits>
+            Tevye
+        </Exits>
+        <Page>
+            97
+        </Page>
+    </Cue>
+    <Cue num="144" uuid="95968f19-3bba-4433-9770-58a340ffe2a2">
+        <Note1 />
+        <OnStage>
+            Tzeitel,Chava
+        </OnStage>
+        <Act>
+            2
+        </Act>
+        <Entrances>
+            Chava
+        </Entrances>
+        <Note3 />
+        <Id>
+            97.5B
+        </Id>
+        <Scene>
+             8
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:1,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:1,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Chava ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            Chava and Fyedka enter
+        </CueCall>
+        <Exits />
+        <Page>
+            97
+        </Page>
+    </Cue>
+    <Cue num="145" uuid="2120d6d9-c915-4b2a-a264-2a78d03f8806">
+        <Note1 />
+        <OnStage>
+            Tzeitel,Golde,Chava
+        </OnStage>
+        <Act>
+            2
+        </Act>
+        <Entrances>
+            Golde
+        </Entrances>
+        <Note3 />
+        <Id>
+            97.9
+        </Id>
+        <Scene>
+             8
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:1,M0ch20:0,M0ch02:1,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:1,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Golde ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "I told Mama that..."
+        </CueCall>
+        <Exits />
+        <Page>
+            97
+        </Page>
+    </Cue>
+    <Cue num="146" uuid="c3e30adc-4114-4a2e-b102-2c166491a5f8">
+        <Note1 />
+        <OnStage>
+            Tevye,Tzeitel,Golde,Chava,Fyedka
+        </OnStage>
+        <Act>
+            2
+        </Act>
+        <Entrances>
+            Tevye,Fyedka
+        </Entrances>
+        <Note3 />
+        <Id>
+            98.1
+        </Id>
+        <Scene>
+             8
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:1,M0ch20:0,M0ch02:1,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:1,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:1,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:1,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Fyedka, Tevye ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "We are going to Cracow."
+        </CueCall>
+        <Exits />
+        <Page>
+            98
+        </Page>
+    </Cue>
+    <Cue num="147" uuid="ada4bb09-f835-4e6f-8038-9b0d5a20df14">
+        <Note1 />
+        <OnStage>
+            Tevye,Tzeitel,Golde
+        </OnStage>
+        <Act>
+            2
+        </Act>
+        <Entrances />
+        <Note3 />
+        <Id>
+            98.10
+        </Id>
+        <Scene>
+             8
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:1,M0ch20:0,M0ch02:1,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:1,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Chava, Fyedka OFF
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            Chava's exit
+        </CueCall>
+        <Exits>
+            Chava,Fyedka
+        </Exits>
+        <Page>
+            98
+        </Page>
+    </Cue>
+    <Cue num="148" uuid="c01fcda4-59b2-4eab-a3d4-d7e96318e46c">
+        <Note1 />
+        <OnStage>
+            Tevye,Tzeitel,Golde,Motel,Bielke,Shprintze
+        </OnStage>
+        <Act>
+            2
+        </Act>
+        <Entrances>
+            Motel,Bielke,Shprintze
+        </Entrances>
+        <Note3 />
+        <Id>
+            98.12
+        </Id>
+        <Scene>
+             8
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:1,M0ch20:0,M0ch02:1,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:1,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:1,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:1,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:1,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            Motel, Shprintze, Bielke ON
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "We have a train to catch."
+        </CueCall>
+        <Exits />
+        <Page>
+            98
+        </Page>
+    </Cue>
+    <Cue num="149" uuid="12f0c41c-c63f-43f3-aaf1-241f421dbe5c">
+        <Note1 />
+        <OnStage />
+        <Act>
+            2
+        </Act>
+        <Entrances />
+        <Note3 />
+        <Id>
+            99.12
+        </Id>
+        <Scene>
+             8
+        </Scene>
+        <Mutes>
+            M0ch19:0,M0ch23:0,M0ch03:0,M0ch20:0,M0ch02:0,M0ch12:0,M0ch25:0,M0ch10:0,M0ch01:0,M0ch14:0,M0ch15:0,M0ch24:0,M0ch27:0,M0ch30:0,M0ch18:0,M0ch08:0,M0ch05:0,M0ch13:0,M0ch07:0,M0ch04:0,M0ch29:0,M0ch26:0,M0ch16:0,M0ch09:0,M0ch11:0,M0ch21:0,M0ch28:0,M0ch06:0,M0ch17:0,M0ch22:0
+        </Mutes>
+        <Title>
+            All OFF
+        </Title>
+        <Note2 />
+        <CueType>
+            Mixer
+        </CueType>
+        <CueCall>
+            "Come children..let's go."
+        </CueCall>
+        <Exits>
+            Tevye,Tzeitel,Golde,Motel,Bielke,Shprintze
+        </Exits>
+        <Page>
+            99
+        </Page>
+    </Cue>
+</show_control>

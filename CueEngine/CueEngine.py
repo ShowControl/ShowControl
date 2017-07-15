@@ -6,6 +6,7 @@ import types
 import argparse
 import socket
 from time import sleep
+from curses.ascii import isprint
 
 from PyQt5 import Qt, QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QColor, QBrush
@@ -408,7 +409,8 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         qs = The_Show.cues.cuelist.findall('Cue')
         self.tabledata =[]
         for q in qs:
-            type_list = q.find('CueType').text.split(',')
+            dirty_list = q.find('CueType').text.split(',')
+            type_list = [s.strip() for s in dirty_list]
             for type in cue_types:
                  if type in type_list and self.CueTypeVisible[type]:
                      self.append_table_data(q)
@@ -418,7 +420,12 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
     def append_table_data(self, q):
         tmp_list = ['{0:03}'.format(int(q.attrib['num']))]
         for i in range(1, header.__len__()):
-            tmp_list.append(q.find(header[i].replace(' ','')).text)
+            dirty_data = q.find(header[i].replace(' ','')).text
+            try:
+                clean_data = dirty_data.strip()
+                tmp_list.append(clean_data)
+            except AttributeError:
+                tmp_list.append('')
         self.tabledata.append(tmp_list)
 
     #Menu and Tool Bar functions

@@ -77,16 +77,24 @@ class ShowConf:
         title_element = self.doc.find('./project/title')
         title = title_element.text
         self.settings['title'] = title
-        eq_dict = {}
+
+        # find equipment files
         eq_files = {}
         equipment_elements = self.doc.findall('./project/equipment')
         for i, eq_element in enumerate(equipment_elements):
             eq_files['href{0}'.format(i)] = eq_element.get('href')
-        eq_dict['equipment'] = eq_files
+        self.settings['equipment'] = eq_files
+
+        # find mixermap file
+        try:
+            self.settings['mixermap'] = self.doc.find('.project/mixermap').get('href')
+        except AttributeError:
+            self.settings['mixermap'] = None
+
+        # find cue files
         cues_elements = self.doc.findall('./project/cues')
         cues_dict = {}
         cues_files = {}
-        self.settings['equipment'] = eq_files
         for i, cues_element in enumerate(cues_elements):
             cues_files['href{0}'.format(i)] = cues_element.get('href')
         cues_dict['equipment'] = cues_files
@@ -113,12 +121,41 @@ class ShowConf:
             # handle mixers
             mixers_dict = equipdoc.findall('./equipment/mixers/mixer')
             for mixer in mixers_dict:
-                id = mixer.get('id')
+                # if there is one or more mixer elements
+                # the following elements are required to be there
+                id = int(mixer.get('id'))
                 mfr = mixer.find('./mfr').text
                 model = mixer.find('./model').text
-                IP_address = mixer.find('./IP_address').text
-                port = mixer.find('./port').text
-                midi_address = mixer.find('./MIDI_address').text
+
+                # check for IP_address
+                try:
+                    IP_address = mixer.find('./IP_address').text
+                except AttributeError:
+                    # if there is none and the mixer was previously found use that value
+                    if id in mixer_dict:
+                        IP_address = mixer_dict[id]['IP_address']
+                    else:
+                        IP_address = None
+
+                try:
+                    port = mixer.find('./port').text
+                except AttributeError:
+                    # if there is none and the mixer was previously found use that value
+                    if id in mixer_dict:
+                        port = mixer_dict[id]['port']
+                    else:
+                        port = None
+
+                # check this element for a MIDI address
+                try:
+                    midi_address = mixer.find('./MIDI_address').text
+                except AttributeError:
+                    # if there is none and the mixer was previously found use that value
+                    if id in mixer_dict:
+                        midi_address = mixer_dict[id]['MIDI_address']
+                    else:
+                        # else just set it to None
+                        midi_address = None
                 mixer_dict[id] = {'mfr': mfr, 'model': model, 'IP_address' : IP_address, 'port' : port, 'MIDI_address' : midi_address}
                 pass
             self.equipment['mixers'] = mixer_dict

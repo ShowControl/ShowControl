@@ -70,41 +70,6 @@ class CueList:
         cues = self.cuelist.findall('cue')
         self.cuecount = len(cues)
 
-
-    # def get_cue_mute_state(self, cueindex):
-    #     '''
-    #             Constructor
-    #             '''
-    #     # print('{0:03}'.format(cueindex))
-    #     mutestate = {}
-    #
-    #     thiscue = self.cuelist.find("./cue[@num='" + '{0:03}'.format(cueindex) + "']")
-    #     # print(ET.dump(thiscue))
-    #     try:
-    #         ents = thiscue.find('Entrances')
-    #         #             print(ET.dump(ents))
-    #         #             print(ents.text)
-    #         if ents != None:
-    #             entlist = ents.text
-    #             for entidx in entlist.split(","):
-    #                 mutestate[entidx.strip()] = 1
-    #         else:
-    #             return mutestate
-    #             # todo-mac this currently works since EVERY cue has an <Entrances> and <Exits> elements
-    #     except:
-    #         print('Entrances Index ' + '{0:03}'.format(cueindex) + ' not found!')
-    #     try:
-    #         exts = thiscue.find('Exits')
-    #         #             print(ET.dump(exts))
-    #         #             print(exts.text)
-    #         if exts != None:
-    #             extlist = exts.text
-    #             for extidx in extlist.split(","):
-    #                 mutestate[extidx.strip()] = 0
-    #         return mutestate
-    #         # todo-mac this currently works since EVERY cue has an <Entrances> and <Exits> elements
-    #     except:
-    #         print('Entrances Index ' + '{0:03}'.format(cueindex) + ' not found!')
     def get_cue_mute_state(self, cueindex):
         """Get the mutes element of the cue specified by cueindex.
         Compare it to the previous Mixer cues mute state and
@@ -112,20 +77,26 @@ class CueList:
         If cueindex is 0, then just return the entire mute state, as this is
         the initial cue."""
         mutestate = {}
-        thiscue = self.cuelist.find("./cue[@num='" + '{0:03}'.format(cueindex) + "']")
-        newmutes = thiscue.find('Mutes').text
-        newmutes_list = newmutes.split(',')
+        thiscue = self.cuelist.find("./Cue[@num='" + '{0:03}'.format(cueindex) + "']")
+        try:
+            dirty_newmutes = thiscue.find('Mutes').text
+            newmutes = dirty_newmutes.strip()
+            newmutes_list = newmutes.split(',')
+        except AttributeError:
+            newmutes_list = None
         if cueindex != 0:
             prevcue_index = cueindex
             while True:
                 prevcue_index -= 1
-                prevcue = self.cuelist.find("./cue[@num='" + '{0:03}'.format(prevcue_index) + "']")
-                prevcue_types = prevcue.find('CueType').text
+                prevcue = self.cuelist.find("./Cue[@num='" + '{0:03}'.format(prevcue_index) + "']")
+                dirty_prevcue_types = prevcue.find('CueType').text
+                prevcue_types = dirty_prevcue_types.strip()
                 prevcue_types_list = prevcue_types.split(',')
                 if 'Mixer' in prevcue_types_list:
                     break
 
-            prevmutes = prevcue.find('Mutes').text
+            dirty_prevmutes = prevcue.find('Mutes').text
+            prevmutes = dirty_prevmutes.strip()
             prevmutes_list = prevmutes.split(',')
             for index in range(newmutes_list.__len__()):
                 if newmutes_list[index] != prevmutes_list[index]:
@@ -141,7 +112,7 @@ class CueList:
         """Get the Level element oif the cue specified by cueindex
         return a list of all channel levels"""
         levelstate = {}  # todo-mac maybe should return only deltas as is done in get_cue_mute_state???
-        thiscue = self.cuelist.find("./cue[@num='"+'{0:03}'.format(cueindex)+"']")
+        thiscue = self.cuelist.find("./Cue[@num='"+'{0:03}'.format(cueindex)+"']")
         #print(ET.dump(thiscue))
         try:
             levels = thiscue.find('Levels')
@@ -154,7 +125,7 @@ class CueList:
             print('Levels not found!')
 
     def getcuetype(self, cueindex):
-        thiscue = self.cuelist.find("./cue[@num='" + '{0:03}'.format(cueindex) + "']")
+        thiscue = self.cuelist.find("./Cue[@num='" + '{0:03}'.format(cueindex) + "']")
         try:
             cuetype = thiscue.find('CueType')
             if cuetype != None:
@@ -166,21 +137,8 @@ class CueList:
         except:
             print('Cue type for index ' + '{0:03}'.format(cueindex) + ' not found!')
 
-    # def setcueelement(self, cueindex, levels):  # todo-mac this needs to handle any element type
-    #                                             # probably needs another argument for element type
-    #     thiscue = self.cuelist.find("./cue[@num='" + '{0:03}'.format(cueindex) + "']")
-    #     try:
-    #         cuetype = thiscue.find('Levels')
-    #         if cuetype != None:
-    #             cuetype.text = levels
-    #         else:
-    #             cuetype = ET.SubElement(thiscue, 'Levels')
-    #             cuetype.text = levels
-    #     except:
-    #         print('Cue type for index ' + '{0:03}'.format(cueindex) + ' not found!')
-    #     self.cuelist.write('update.xml')
     def setcueelement(self, cueindex, element_text, element_name):
-        thiscue = self.cuelist.find("./cue[@num='" + '{0:03}'.format(cueindex) + "']")
+        thiscue = self.cuelist.find("./Cue[@num='" + '{0:03}'.format(cueindex) + "']")
         try:
             cuetype = thiscue.find(element_name)
             if cuetype != None:
@@ -194,14 +152,14 @@ class CueList:
 
     def addnewcue(self, cue_data=[]):
         show = self.cuelist.getroot()
-        newcue = ET.Element('cue',attrib={'num':'{0:03}'.format(self.cuecount)})
+        newcue = ET.Element('Cue',attrib={'num':'{0:03}'.format(self.cuecount)})
         for i in range(cue_subelements.__len__()):
             newele = ET.SubElement(newcue, cue_subelements[i].replace('_',''))
             newele.text = cue_data[i]
         show.insert(self.cuecount, newcue)
 
         ET.dump(show)
-        cues = self.cuelist.findall('cue')
+        cues = self.cuelist.findall('Cue')
         self.cuecount = len(cues)
         # self.cuelist.write('addelementtest.xml')
 
@@ -210,26 +168,26 @@ class CueList:
         # create an empty place by incrementing the cue num for this and each subsequent cue
         for anidx in reversed(range(cueindex, self.cuecount)):
             cuenum = '{0:03}'.format(anidx)
-            thiscue = self.cuelist.find("cue[@num='"+cuenum+"']")
+            thiscue = self.cuelist.find("Cue[@num='"+cuenum+"']")
             thisidx = thiscue.get('num')
             thiscue.set('num', '{0:03}'.format(int(thisidx) + 1))
             print(thiscue.get('num'))
         # now we have an empty place
         # create the new cue
         show = self.cuelist.getroot()
-        newcue = ET.Element('cue',attrib={'num':'{0:03}'.format(cueindex)})
+        newcue = ET.Element('Cue',attrib={'num':'{0:03}'.format(cueindex)})
         for i in range(cue_subelements.__len__()):
             newele = ET.SubElement(newcue, cue_subelements[i].replace('_',''))
             newele.text = cue_data[i]
         show.insert(cueindex, newcue)
 
         # ET.dump(show)
-        cues = self.cuelist.findall('cue')
+        cues = self.cuelist.findall('Cue')
         self.cuecount = len(cues)
 
     def getcuelist(self, cueindex):
         cuenum = '{0:03}'.format(cueindex)
-        thiscue = self.cuelist.find("cue[@num='"+cuenum+"']")
+        thiscue = self.cuelist.find("Cue[@num='"+cuenum+"']")
         cuecontents_list = []  # [thiscue.attrib['num']]
         for i in range(cue_subelements.__len__()):
             cuecontents_list.append(thiscue.find(cue_subelements[i].replace('_','')).text)
@@ -237,13 +195,13 @@ class CueList:
 
     def getcurrentcueuuid(self, cueindex):
         cuenum = '{0:03}'.format(cueindex)
-        thiscue = self.cuelist.find("cue[@num='"+cuenum+"']")
+        thiscue = self.cuelist.find("Cue[@num='"+cuenum+"']")
         currentuuid = thiscue.get('uuid')
         return currentuuid
 
     def updatecue(self, cueindex, newcuelist):
         cuenum = '{0:03}'.format(cueindex)
-        cuetomod = self.cuelist.find("cue[@num='"+cuenum+"']")
+        cuetomod = self.cuelist.find("Cue[@num='"+cuenum+"']")
 
         for i in range(cue_subelements.__len__()):
             cuetomod.find(cue_subelements[i].replace('_','')).text = newcuelist[i]
@@ -271,14 +229,14 @@ class CueList:
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication([''])
-    cues = CueList('/home/mac/Shows/Pauline/ThreeCue.xml')
-    # ET.dump(cues.cuelist)
+    cues = CueList('/home/mac/Shows/Fiddler/Fiddler_cuesx.xml')
+    ET.dump(cues.cuelist)
     # cues.addnewcue({'Scene':'1','Title':'A new Cue'})
     # ET.dump(cues.cuelist)
     # cues.savecuelist()
-    cues.savecuelist(True, '/home/mac/Shows/Pauline/ThreeCue.xml')
-    cues.insertcue(2, {'Scene':'1','Title':'A new inserted Cue'})
-    cues.savecuelist(False, '/home/mac/Shows/Pauline/Update.xml')
+    #cues.savecuelist(True, '/home/mac/Shows/Pauline/ThreeCue.xml')
+    #cues.insertcue(2, {'Scene':'1','Title':'A new inserted Cue'})
+    #cues.savecuelist(False, '/home/mac/Shows/Pauline/Update.xml')
     # a = ET.Element('cue',attrib={'num':'000'})
     # c = ET.SubElement(a, 'child1')
     # c.text = "some text"

@@ -144,22 +144,26 @@ class ShowMxr(Show):
         self.mixers = {}
         for mxrid in self.show_conf.equipment['mixers']:
             #print(mxrid)
-            ++++++++++++++++++++++++++
+            if self.show_conf.equipment['mixers'][mxrid]['IP_address']:
+                mixeraddress = self.show_conf.equipment['mixers'][mxrid]['IP_address'] + ',' + self.show_conf.equipment['mixers'][mxrid]['port']
+            else:
+                mixeraddress = self.show_conf.equipment['mixers'][mxrid]['MIDI_address']
             self.mixers[mxrid] = MixerConf(path.abspath(path.join(CFG_DIR, cfg.cfgdict['mixers']['folder'], cfg.cfgdict['mixers']['file'])),
                                            self.show_conf.equipment['mixers'][mxrid]['mfr'],
                                            self.show_conf.equipment['mixers'][mxrid]['model'],
-                                           self.show_conf.equipment['mixers'][mxrid]['IP_address'])
+                                           mixeraddress)
 
-        self.chrchnmap = MixerCharMap(self.show_confpath + self.show_conf.settings['project']['mixermap'])
+        self.chrchnmap = MixerCharMap(self.show_confpath + self.show_conf.settings['mixermap'])
 
     def reload(self):
         self.mixers = {}
         for mxrid in self.show_conf.equipment['mixers']:
             #print(mxrid)
+            mixeraddress = self.show_conf.equipment['mixers'][mxrid]['IP_address'] + ',' + self.show_conf.equipment['mixers'][mxrid]['port']
             self.mixers[mxrid] = MixerConf(path.abspath(path.join(CFG_DIR, cfg.cfgdict['mixers']['folder'], cfg.cfgdict['mixers']['file'])),
                                            self.show_conf.equipment['mixers'][mxrid]['mfr'],
                                            self.show_conf.equipment['mixers'][mxrid]['model'],
-                                           self.show_conf.equipment['mixers'][mxrid]['IP_address'])
+                                           mixeraddress)
 
         self.chrchnmap = MixerCharMap(self.show_confpath + self.show_conf.settings['project']['mixermap'])
 
@@ -289,7 +293,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         self.comm_threads.append(self.cmd_rcvrthread)
 
         self.setupUi(self)
-        self.setWindowTitle(The_Show.show_conf.settings['project']['title'])
+        self.setWindowTitle(The_Show.show_conf.settings['title'])
         self.tabWidget.setCurrentIndex(0)
         self.nextButton.clicked.connect(self.on_buttonNext_clicked)
         self.jumpButton.clicked.connect(self.on_buttonJump_clicked)
@@ -769,10 +773,11 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         #self.tableView.connect(self.tableClicked, QtCore.SIGNAL("clicked()"))
 
     def get_table_data(self):
-        qs = The_Show.cues.cuelist.findall('cue')
+        qs = The_Show.cues.cuelist.findall('Cue')
         self.tabledata =[]
         for q in qs:
-            type_list = q.find('CueType').text.split(',')
+            dirty_list = q.find('CueType').text.split(',')
+            type_list = [s.strip() for s in dirty_list]
             for type in cue_types:
                  if type in type_list and self.CueTypeVisible[type]:
                      self.append_table_data(q)
@@ -781,7 +786,12 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
     def append_table_data(self, q):
         tmp_list = ['{0:03}'.format(int(q.attrib['num']))]
         for i in range(1, header.__len__()):
-            tmp_list.append(q.find(header[i].replace(' ','')).text)
+            dirty_data = q.find(header[i].replace(' ','')).text
+            try:
+                clean_data = dirty_data.strip()
+                tmp_list.append(clean_data)
+            except AttributeError:
+                tmp_list.append('')
         self.tabledata.append(tmp_list)
 
     def tableClicked(self, modelidx):

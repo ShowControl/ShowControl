@@ -32,3 +32,8 @@ class MixerCharMap:
         mapelement = maproot.find("./mixermap[@uuid='" + uuid + "']")
         charcount = mapelement.get('charcount')
         return int(charcount)
+
+if __name__ == "__main__":
+    map = MixerCharMap('/home/mac/Shows/Fiddler/MixerMap.xml')
+    map.getmixermapcharcount('cd914ed3-b286-4de6-a346-d101ca4f45f1')
+    pass
