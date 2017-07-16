@@ -67,7 +67,7 @@ class CueList:
         self.currentcueindex = 0
         self.previouscueindex = 0
         self.previewcueindex = 0
-        cues = self.cuelist.findall('cue')
+        cues = self.cuelist.findall('Cue')
         self.cuecount = len(cues)
 
     def get_cue_mute_state(self, cueindex):
@@ -129,7 +129,8 @@ class CueList:
         try:
             cuetype = thiscue.find('CueType')
             if cuetype != None:
-                type_list = cuetype.text.split(',')
+                dirty_type_list = cuetype.text.split(',')
+                type_list = [s.strip() for s in dirty_type_list]
                 # return cuetype.text
                 return type_list
             else:
@@ -230,6 +231,7 @@ class CueList:
 if __name__ == "__main__":
     app = QtWidgets.QApplication([''])
     cues = CueList('/home/mac/Shows/Fiddler/Fiddler_cuesx.xml')
+    cues.getcuetype(0)
     ET.dump(cues.cuelist)
     # cues.addnewcue({'Scene':'1','Title':'A new Cue'})
     # ET.dump(cues.cuelist)

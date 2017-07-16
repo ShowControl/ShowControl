@@ -14,7 +14,7 @@ class Show:
         self.cfgdict = cfgdict
         self.show_confpath = self.cfgdict['project']['folder'] + '/'
         self.show_conf = ShowConf(self.cfgdict)
-        # todo mac
+        # todo mac - hardwired to look only at href1
         '''This is currently hardwired to only one cue file.
         show_conf.settings['cues'] is a dictionary with a href to all cue files spec'd in the project.xml
         but no process to munge multiple cues at this point 7/13/17'''

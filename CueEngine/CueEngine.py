@@ -323,7 +323,7 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
             chg_list = self.editcuedlg.getchange()
             The_Show.cues.addnewcue(chg_list)
             # save the new version of cue file, overwriting old version
-            The_Show.cues.savecuelist(False, cfg.cfgdict['Show']['folder'] + The_Show.show_conf.settings['cuefile'])
+            The_Show.cues.savecuelist(True, cfg.cfgdict['Show']['folder'] + The_Show.show_conf.settings['cuefile'])
             # display the new state of the cuefile
             The_Show.cues.setup_cues(cfg.cfgdict['Show']['folder'] + The_Show.show_conf.settings['cuefile'])
         The_Show.cues.currentcueindex = cueindex

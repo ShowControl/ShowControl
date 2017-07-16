@@ -530,9 +530,11 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
                 sldr = self.findChild(QtWidgets.QSlider, name='M{0}sldr{1:02}'.format(mxrid, stripGUIindx))
                 levels += 'M{0}{1}:{2},'.format(mxrid, The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['name'], sldr.value())
                 # print('M{0}sldr{1:02}:{2:3}'.format(mxrid, stripGUIindx, sldr.value()))
+        levels = levels[:-1]
         print(levels)
         The_Show.cues.setcueelement(The_Show.cues.currentcueindex, levels, 'Levels')
-        The_Show.cues.addnewcue()
+        #  Commented this out because I don't why I would have changed the levels in an exisiting and then add a new cue
+        # The_Show.cues.addnewcue()
 
     def updatecuestate(self):
         levels = ''
@@ -541,6 +543,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
                 sldr = self.findChild(QtWidgets.QSlider, name='M{0}sldr{1:02}'.format(mxrid, stripGUIindx))
                 levels += 'M{0}{1}:{2},'.format(mxrid, The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['name'], sldr.value())
                 # print('M{0}sldr{1:02}:{2:3}'.format(mxrid, stripGUIindx, sldr.value()))
+        levels = levels[:-1]
         print(levels)
         The_Show.cues.setcueelement(The_Show.cues.currentcueindex, levels, 'Levels')
         pass
@@ -552,6 +555,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
             for stripGUIindx in range(The_Show.mixers[mxrid].mxrconsole.__len__()):
                 mute = self.findChild(QtWidgets.QPushButton, name='M{0}mute{1:02}'.format(mxrid, stripGUIindx))
                 mutes += 'M{0}{1}:{2},'.format(mxrid, The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['name'], '{0}'.format(int(mute.isChecked())))
+        mutes = mutes[:-1]
         print(mutes)
         The_Show.cues.setcueelement(The_Show.cues.currentcueindex, mutes, 'Mutes')
         pass
@@ -808,7 +812,8 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
                 event.ignore()
                 return
             elif reply == QMessageBox.Save:
-                The_Show.cues.savecuelist(True, cfg.cfgdict['project']['folder'] + The_Show.show_conf.settings['cuefile'])
+                # todo - mac this is hardwired to project cue file
+                The_Show.cues.savecuelist(True, cfg.cfgdict['project']['folder'] + '/' + The_Show.show_conf.settings['cues']['href1'])
 
         reply = self.confirmQuit()
         if reply == QMessageBox.Yes:
@@ -924,6 +929,7 @@ class MySlider(QtWidgets.QSlider):
                 sldr = self.window().findChild(QtWidgets.QSlider, name='M{0}sldr{1:02}'.format(mxrid, stripGUIindx))
                 levels += 'M{0}{1}:{2},'.format(mxrid, The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['name'], sldr.value())
                 print('M{0}sldr{1:02}:{2:3}'.format(mxrid, stripGUIindx, sldr.value()))
+        levels = levels[:-1]
         print(levels)
         The_Show.cues.setcueelement(The_Show.cues.currentcueindex, levels, 'Levels')
 
