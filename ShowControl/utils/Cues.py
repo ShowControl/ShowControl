@@ -233,6 +233,9 @@ if __name__ == "__main__":
     cues = CueList('/home/mac/Shows/Fiddler/Fiddler_cuesx.xml')
     cues.getcuetype(0)
     ET.dump(cues.cuelist)
+    somecue = cues.cuelist.find("Cue[@num='149']")
+    somecuelist = cues.getcuelist(149)
+    pass
     # cues.addnewcue({'Scene':'1','Title':'A new Cue'})
     # ET.dump(cues.cuelist)
     # cues.savecuelist()

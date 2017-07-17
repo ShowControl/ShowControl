@@ -28,7 +28,7 @@ except ImportError:
 
 HOME = os.path.expanduser("~")
 
-CFG_DIR = HOME + '/.showcontrol'
+CFG_DIR = HOME + '/.config/ShowControl'
 CFG_PATH = CFG_DIR + '/ShowControl_config.xml'
 
 class configuration():

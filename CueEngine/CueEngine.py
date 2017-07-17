@@ -16,6 +16,13 @@ from PyQt5.QtWidgets import *
 import xml.etree.ElementTree as ET
 from os import path
 
+import logging
+
+logging.basicConfig(filename='CueEngine.log', filemode='w', level=logging.DEBUG)
+
+CD_log = logging.getLogger(__name__)
+CD_log.debug('CueDlg')
+
 _translate = QtCore.QCoreApplication.translate
 
 from rtmidi.midiconstants import CONTROL_CHANGE, NOTE_ON
@@ -159,6 +166,7 @@ class EditCue(QDialog, Ui_dlgEditCue):
                 self.edt_list[i].setToolTip('{0} (read only)'.format(cue_subelements_tooltips[i]))
 
 class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
+
     CueFileUpdate_sig = pyqtSignal()
     def __init__(self, cuelistfile, parent=None):
         super(CueDlg, self).__init__(parent)
@@ -167,6 +175,8 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         self.__index = 0
         self.externalchangestate = 'None'
         self.CueAppDev = CommAddresses(CUE_IP, CUE_PORT)
+        self.SFXAppDev = CommAddresses(The_Show.show_conf.equipment['program']['sound_effects']['IP_address'],
+                                       The_Show.show_conf.equipment['program']['sound_effects']['port'])
         self.setupUi(self)
         self.setWindowTitle(The_Show.show_conf.settings['title'])
         self.nextButton.clicked.connect(self.on_buttonNext_clicked)
@@ -289,6 +299,11 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
             self.snd_sndrthread.queue_msg(msg, self.CueAppDev)
 
     def do_SFX(self):
+        if self.SFXAppProc != None:
+            msg = osc_message_builder.OscMessageBuilder(address='/cue/#')
+            msg.add_arg(The_Show.cues.currentcueindex)
+            msg = msg.build()
+            self.SFX_sndrthread.queue_msg(msg, self.SFXAppDev)
         pass
 
     def do_light(self):
@@ -302,7 +317,10 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         # post edit started to external apps
         """insert a new cue before the selected row"""
         # save the old state of the cuefile with a revision number appended
-        The_Show.cues.savecuelist(True, cfg.cfgdict['project']['folder'] + The_Show.show_conf.settings['cuefile'])
+        # todo - mac this is hardwired to project cue file
+        The_Show.cues.savecuelist(True,
+                                  cfg.cfgdict['project']['folder'] + '/' + The_Show.show_conf.settings['cues']['href1'])
+
         sender_text = self.sender().text()
         if sender_text == 'Insert':
             self.cue_insert()
@@ -323,9 +341,10 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
             chg_list = self.editcuedlg.getchange()
             The_Show.cues.addnewcue(chg_list)
             # save the new version of cue file, overwriting old version
-            The_Show.cues.savecuelist(True, cfg.cfgdict['Show']['folder'] + The_Show.show_conf.settings['cuefile'])
+            # todo - mac this is hardwired to project cue file
+            The_Show.cues.savecuelist(False, cfg.cfgdict['project']['folder'] + '/' + The_Show.show_conf.settings['cues']['href1'])
             # display the new state of the cuefile
-            The_Show.cues.setup_cues(cfg.cfgdict['Show']['folder'] + The_Show.show_conf.settings['cuefile'])
+            The_Show.cues.setup_cues(cfg.cfgdict['project']['folder'] + '/'  + The_Show.show_conf.settings['cues']['href1'])
         The_Show.cues.currentcueindex = cueindex
         self.disptext()
         tblvw.selectRow(The_Show.cues.currentcueindex)
@@ -345,9 +364,10 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
             chg_list = self.editcuedlg.getchange()
             The_Show.cues.insertcue(cueindex, chg_list)
             # save the new version of cue file, overwriting old version
-            The_Show.cues.savecuelist(False, cfg.cfgdict['Show']['folder'] + The_Show.show_conf.settings['cuefile'])
+            # todo - mac hardwired to to second cue file
+            The_Show.cues.savecuelist(False, cfg.cfgdict['project']['folder'] + The_Show.show_conf.settings['cues']['href1'])
             # display the new state of the cuefile
-            The_Show.cues.setup_cues(cfg.cfgdict['Show']['folder'] + The_Show.show_conf.settings['cuefile'])
+            The_Show.cues.setup_cues(cfg.cfgdict['project']['folder'] + The_Show.show_conf.settings['cues']['href1'])
         The_Show.cues.currentcueindex = cueindex
         self.disptext()
         tblvw.selectRow(The_Show.cues.currentcueindex)
@@ -389,7 +409,8 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
                 changeddataindex = cue_subelements.index(header[col].replace(' ', '_'))
                 self.tabledata[cueindex][col] = chg_list[changeddataindex]
             The_Show.cues.updatecue(cueindex, chg_list)
-            The_Show.cues.savecuelist(True, cfg.cfgdict['Show']['folder'] + The_Show.show_conf.settings['cuefile'])
+            # todo - mac hardwired to second cue file
+            The_Show.cues.savecuelist(True, cfg.cfgdict['project']['folder'] + The_Show.show_conf.settings['cues']['href1'])
         The_Show.cues.currentcueindex = cueindex
         self.disptext()
         tblvw.selectRow(The_Show.cues.currentcueindex)
@@ -472,22 +493,46 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         self.disptext()
         self.setfirstcue()
 
+    # launch sound_effects_player
     def ShowSFXApp(self):
+        global CD_log
+        CD_log.debug('Launch SFX App.')
         print("Launch SFX App.")
-        self.SFXAppProc = subprocess.Popen(['python3', '/home/mac/SharedData/PycharmProjs/linux-show-player/linux-show-player', '-f', '/home/mac/Shows/Pauline/sfx.lsp'])
-        #self.SFXAppProc = subprocess.Popen(['/home/mac/PycharmProjs/ShowControl/sound_effects_player/try_player.sh'])
+        SFX_shell = cfg.cfgdict['project']['folder'] + '/' + 'run_sound_effects_player.sh'
+        self.SFXAppProc = subprocess.Popen([SFX_shell])
         #self.SFXAppProc = subprocess.Popen(['sound_effects_player'])
         # setup sound sender thread
-        self.snd_sndrthread = CommHandlers.AMIDIsender()
-        self.snd_sndrthread.setport(['RtMidiIn', 'RtMidiIn Client:RtMidi input'])
-        self.snd_sndrthread.amidi_sndrsignal.connect(self.snd_sndrtestfunc)  # connect to custom signal called 'signal'
-        self.snd_sndrthread.finished.connect(self.snd_sndrthreaddone)  # connect to buitlin signal 'finished'
-        self.snd_sndrthread.start()  # start the thread
-        self.comm_threads.append(self.snd_sndrthread)
 
+        try:
+            self.SFX_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        except socket.error:
+            print('Failed to create SFX socket')
+            sys.exit()
+        self.SFX_sndrthread = CommHandlers.sender(self.SFX_sock)
+        self.SFX_sndrthread.sndrsignal.connect(self.sndrtestfunc)  # connect to custom signal called 'signal'
+        self.SFX_sndrthread.finished.connect(self.sndrthreaddone)  # connect to buitlin signal 'finished'
+        self.SFX_sndrthread.start()  # start the thread
+        self.comm_threads.append(self.SFX_sndrthread)
 
     def EndSFXApp(self):
         self.SFXAppProc.terminate()
+
+    # # saved for running LISP
+    # def ShowSFXApp(self):
+    #     print("Launch SFX App.")
+    #     self.SFXAppProc = subprocess.Popen(['python3', '/home/mac/SharedData/PycharmProjs/linux-show-player/linux-show-player', '-f', '/home/mac/Shows/Pauline/sfx.lsp'])
+    #     #self.SFXAppProc = subprocess.Popen(['/home/mac/PycharmProjs/ShowControl/sound_effects_player/try_player.sh'])
+    #     #self.SFXAppProc = subprocess.Popen(['sound_effects_player'])
+    #     # setup sound sender thread
+    #     self.snd_sndrthread = CommHandlers.AMIDIsender()
+    #     self.snd_sndrthread.setport(['RtMidiIn', 'RtMidiIn Client:RtMidi input'])
+    #     self.snd_sndrthread.amidi_sndrsignal.connect(self.snd_sndrtestfunc)  # connect to custom signal called 'signal'
+    #     self.snd_sndrthread.finished.connect(self.snd_sndrthreaddone)  # connect to buitlin signal 'finished'
+    #     self.snd_sndrthread.start()  # start the thread
+    #     self.comm_threads.append(self.snd_sndrthread)
+    #
+    # def EndSFXApp(self):
+    #     self.SFXAppProc.terminate()
 
     def ShowMxrApp(self):
         if self.MxrAppProc != None:
