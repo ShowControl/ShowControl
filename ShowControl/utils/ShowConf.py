@@ -48,7 +48,7 @@ class ShowConf:
         self.cfgdict = cfgdict
         self.settings = {}
         self.equipment = {}
-        showconf_file = self.cfgdict['project']['folder'] + '/' + self.cfgdict['project']['file']
+        showconf_file = self.cfgdict['configuration']['project']['folder'] + '/' + self.cfgdict['configuration']['project']['file']
         tree = ET.parse(showconf_file)
         self.doc = tree.getroot()
         # print(doc)
@@ -111,7 +111,7 @@ class ShowConf:
         program_dict = {}
         for key in key_list:
             print(equip_files_dict[key])
-            equipment_file = self.cfgdict['project']['folder'] + '/' + equip_files_dict[key]
+            equipment_file = self.cfgdict['configuration']['project']['folder'] + '/' + equip_files_dict[key]
             tree = ET.parse(equipment_file)
             equipdoc = tree.getroot()
             # print(doc)

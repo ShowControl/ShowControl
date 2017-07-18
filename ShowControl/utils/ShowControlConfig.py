@@ -43,19 +43,69 @@ class configuration():
 
     def toDict(self):
         # todo - mac need to handle <prefs><n component><n subelements>
-        retdict = {}
-        for child in self.doc:
-            print('Child tag: {0}'.format(child.tag))
-            print('Attribs: {0}'.format(child.attrib))
-            if child.find('*') != None:
-                chlddict = {}
-                for kid in child:
-                    print('kid tag: {0}'.format(kid.tag))
-                    print('value: {0}'.format(kid.text))
-                    chlddict[kid.tag] = kid.text.strip('\n\t')
-                    retdict[child.tag]=chlddict
-            else:
-                retdict[child.tag] = child.text.strip('\n\t')
+        retdict = {'configuration': {}}
+        configuration_element = self.doc.find('./configuration')
+
+        # get version of configuration file
+        version_element = configuration_element.find('./version')
+        try:
+            version_val = version_element.text
+            version_val = version_val.strip()
+        except AttributeError:
+            version_val = None # todo - mac should throw warning about no version
+        retdict['configuration']['version'] = version_val
+
+        # get project configuration
+        project_element = configuration_element.find('./project')
+        folder_element = project_element.find('./folder')
+        try:
+            folder = folder_element.text
+            folder = folder.strip()
+        except AttributeError:
+            folder = None # todo - mac throw warning about no folder
+        file_element = project_element.find('./file')
+        try:
+            file = file_element.text
+            file = file.strip()
+        except AttributeError:
+            file = None # todo - mac throw warning about no file
+        retdict['configuration']['project'] = {'file': file, 'folder' : folder}
+        mixers_element = configuration_element.find('./mixers')
+        folder_element = mixers_element.find('./folder')
+        try:
+            folder = folder_element.text
+            folder = folder.strip()
+        except AttributeError:
+            folder = None # todo - mac throw warning about no folder
+        file_element = mixers_element.find('./file')
+        try:
+            file = file_element.text
+            file = file.strip()
+        except AttributeError:
+            file = None # todo - mac throw warning about no file
+        retdict['configuration']['mixers'] = {'file': file, 'folder' : folder}
+
+        prefs_element = configuration_element.find('./prefs')
+        exitwithce_element = mixers_element.find('./exitwithce')
+        try:
+            exitwithce_val = exitwithce_element.text
+            exitwithce_val = exitwithce_val.strip()
+        except AttributeError:
+            exitwithce_val = None # todo - mac throw warning about no folder
+        retdict['configuration']['prefs'] = {'exitwithce': exitwithce_val}
+
+        # for child in self.doc:
+        #     print('Child tag: {0}'.format(child.tag))
+        #     print('Attribs: {0}'.format(child.attrib))
+        #     if child.find('*') != None:
+        #         chlddict = {}
+        #         for kid in child:
+        #             print('kid tag: {0}'.format(kid.tag))
+        #             print('value: {0}'.format(kid.text))
+        #             chlddict[kid.tag] = kid.text.strip('\n\t')
+        #             retdict[child.tag]=chlddict
+        #     else:
+        #         retdict[child.tag] = child.text.strip('\n\t')
 
         return retdict
 
@@ -110,6 +160,6 @@ class configuration():
 if __name__ == "__main__":
     conf = configuration()
     cfgdict = conf.toDict()
-    newconf = conf.updateFromDict()
-    conf.write(newconf, True, CFG_PATH)
+    # newconf = conf.updateFromDict()
+    # conf.write(newconf, True, CFG_PATH)
     pass

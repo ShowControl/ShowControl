@@ -12,7 +12,7 @@ class Show:
         Constructor
         '''
         self.cfgdict = cfgdict
-        self.show_confpath = self.cfgdict['project']['folder'] + '/'
+        self.show_confpath = self.cfgdict['configuration']['project']['folder'] + '/'
         self.show_conf = ShowConf(self.cfgdict)
         # todo mac - hardwired to look only at href1
         '''This is currently hardwired to only one cue file.
@@ -49,7 +49,7 @@ class Show:
         # self.displayShow()
         # -------------------end: Old stuff
         self.cfgdict = cfgdict
-        self.show_confpath = self.cfgdict['project']['folder'] + '/'
+        self.show_confpath = self.cfgdict['configuration']['project']['folder'] + '/'
         self.show_conf = ShowConf(self.cfgdict)
         self.cues = CueList(self.show_confpath + self.show_conf.settings['project']['cues'])
         self.cues.currentcueindex = 0

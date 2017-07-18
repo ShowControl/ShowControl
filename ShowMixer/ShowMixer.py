@@ -148,7 +148,7 @@ class ShowMxr(Show):
                 mixeraddress = self.show_conf.equipment['mixers'][mxrid]['IP_address'] + ',' + self.show_conf.equipment['mixers'][mxrid]['port']
             else:
                 mixeraddress = self.show_conf.equipment['mixers'][mxrid]['MIDI_address']
-            self.mixers[mxrid] = MixerConf(path.abspath(path.join(CFG_DIR, cfg.cfgdict['mixers']['folder'], cfg.cfgdict['mixers']['file'])),
+            self.mixers[mxrid] = MixerConf(path.abspath(path.join(CFG_DIR, cfg.cfgdict['configuration']['mixers']['folder'], cfg.cfgdict['configuration']['mixers']['file'])),
                                            self.show_conf.equipment['mixers'][mxrid]['mfr'],
                                            self.show_conf.equipment['mixers'][mxrid]['model'],
                                            mixeraddress)
@@ -160,7 +160,7 @@ class ShowMxr(Show):
         for mxrid in self.show_conf.equipment['mixers']:
             #print(mxrid)
             mixeraddress = self.show_conf.equipment['mixers'][mxrid]['IP_address'] + ',' + self.show_conf.equipment['mixers'][mxrid]['port']
-            self.mixers[mxrid] = MixerConf(path.abspath(path.join(CFG_DIR, cfg.cfgdict['mixers']['folder'], cfg.cfgdict['mixers']['file'])),
+            self.mixers[mxrid] = MixerConf(path.abspath(path.join(CFG_DIR, cfg.cfgdict['configuration']['mixers']['folder'], cfg.cfgdict['configuration']['mixers']['file'])),
                                            self.show_conf.equipment['mixers'][mxrid]['mfr'],
                                            self.show_conf.equipment['mixers'][mxrid]['model'],
                                            mixeraddress)
@@ -576,6 +576,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
                 nbrs = re.findall(r'\d+',key)  # old way to striGUIindex
                 mxrid = int(nbrs[0])
                 chname = key[re.search('\d', key).end():]
+                # for cons_idx in The_Show.mixers:
                 for cons_idx in range(The_Show.mixers[mxrid].mxrconsole.__len__()):
                     if The_Show.mixers[mxrid].mxrconsole[cons_idx]['name'].lower() == chname.lower():
                         # print('found in stp {0}'.format(cons_idx))
@@ -710,8 +711,8 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         # newprojfolder = os.path.dirname(fname(0))
         tabcount = The_Show.mixers.__len__()
         newprojectfolder, newprojfile = os.path.split(fname[0])
-        cfg.cfgdict['project']['folder'] = newprojectfolder
-        cfg.cfgdict['project']['file'] = newprojfile
+        cfg.cfgdict['configuration']['project']['folder'] = newprojectfolder
+        cfg.cfgdict['configuration']['project']['file'] = newprojfile
         newtree = cfg.updateFromDict()
         cfg.write(newtree, False, CFG_PATH)
         cfg.reload()
@@ -732,7 +733,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         self.set_scribble(firstuuid)
 
     def saveShow(self):
-        The_Show.cues.savecuelist(True, cfg.cfgdict['project']['folder'] + The_Show.show_conf.settings['cuefile'])
+        The_Show.cues.savecuelist(True, cfg.cfgdict['configuration']['project']['folder'] + The_Show.show_conf.settings['cuefile'])
         self.cuehaschanged = False
 
     def closeShow(self):
@@ -740,7 +741,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         print(fname)
 
     def editpreferences(self):
-        if cfg.cfgdict['prefs']['exitwithce'] == 'true':
+        if cfg.cfgdict['configuration']['prefs']['exitwithce'] == 'true':
             self.pref_dlg.cbxExitwCueEngine.setCheckState(Qt.Checked)
         else:
             self.pref_dlg.cbxExitwCueEngine.setCheckState(Qt.Unchecked)
@@ -1026,7 +1027,7 @@ if __name__ == "__main__":
     app.setStyleSheet(styles.QLiSPTheme_Dark)
     chans = 32
     #ui = ChanStripDlg(path.abspath(path.join(path.dirname(__file__))) + '/Scrooge Moves.xml')
-    ui = ChanStripDlg(path.abspath(path.join(path.dirname(cfg.cfgdict['project']['folder']))))
+    ui = ChanStripDlg(path.abspath(path.join(path.dirname(cfg.cfgdict['configuration']['project']['folder']))))
     #ui.resize(chans*ui.ChanStrip_MinWidth,800)
     ui.addChanStrip()
     ui.resize(ui.max_slider_count * ui.ChanStrip_MinWidth, 800)

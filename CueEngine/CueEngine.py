@@ -176,7 +176,7 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         self.externalchangestate = 'None'
         self.CueAppDev = CommAddresses(CUE_IP, CUE_PORT)
         self.SFXAppDev = CommAddresses(The_Show.show_conf.equipment['program']['sound_effects']['IP_address'],
-                                       The_Show.show_conf.equipment['program']['sound_effects']['port'])
+                                       int(The_Show.show_conf.equipment['program']['sound_effects']['port']))
         self.setupUi(self)
         self.setWindowTitle(The_Show.show_conf.settings['title'])
         self.nextButton.clicked.connect(self.on_buttonNext_clicked)
@@ -220,7 +220,7 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         self.MxrAppProc = None
         self.dispatch = {'Stage':self.do_stage,
                          'Mixer':self.do_mixer,
-                         'Sound':self.do_sound,
+                         'Sound':self.do_SFX,
                          'SFX':self.do_SFX,
                          'Light':self.do_light}
 
@@ -319,7 +319,7 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         # save the old state of the cuefile with a revision number appended
         # todo - mac this is hardwired to project cue file
         The_Show.cues.savecuelist(True,
-                                  cfg.cfgdict['project']['folder'] + '/' + The_Show.show_conf.settings['cues']['href1'])
+                                  cfg.cfgdict['configuration']['project']['folder'] + '/' + The_Show.show_conf.settings['cues']['href1'])
 
         sender_text = self.sender().text()
         if sender_text == 'Insert':
@@ -342,9 +342,9 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
             The_Show.cues.addnewcue(chg_list)
             # save the new version of cue file, overwriting old version
             # todo - mac this is hardwired to project cue file
-            The_Show.cues.savecuelist(False, cfg.cfgdict['project']['folder'] + '/' + The_Show.show_conf.settings['cues']['href1'])
+            The_Show.cues.savecuelist(False, cfg.cfgdict['configuration']['project']['folder'] + '/' + The_Show.show_conf.settings['cues']['href1'])
             # display the new state of the cuefile
-            The_Show.cues.setup_cues(cfg.cfgdict['project']['folder'] + '/'  + The_Show.show_conf.settings['cues']['href1'])
+            The_Show.cues.setup_cues(cfg.cfgdict['configuration']['project']['folder'] + '/'  + The_Show.show_conf.settings['cues']['href1'])
         The_Show.cues.currentcueindex = cueindex
         self.disptext()
         tblvw.selectRow(The_Show.cues.currentcueindex)
@@ -365,9 +365,9 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
             The_Show.cues.insertcue(cueindex, chg_list)
             # save the new version of cue file, overwriting old version
             # todo - mac hardwired to to second cue file
-            The_Show.cues.savecuelist(False, cfg.cfgdict['project']['folder'] + The_Show.show_conf.settings['cues']['href1'])
+            The_Show.cues.savecuelist(False, cfg.cfgdict['configuration']['project']['folder'] + The_Show.show_conf.settings['cues']['href1'])
             # display the new state of the cuefile
-            The_Show.cues.setup_cues(cfg.cfgdict['project']['folder'] + The_Show.show_conf.settings['cues']['href1'])
+            The_Show.cues.setup_cues(cfg.cfgdict['configuration']['project']['folder'] + The_Show.show_conf.settings['cues']['href1'])
         The_Show.cues.currentcueindex = cueindex
         self.disptext()
         tblvw.selectRow(The_Show.cues.currentcueindex)
@@ -410,7 +410,7 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
                 self.tabledata[cueindex][col] = chg_list[changeddataindex]
             The_Show.cues.updatecue(cueindex, chg_list)
             # todo - mac hardwired to second cue file
-            The_Show.cues.savecuelist(True, cfg.cfgdict['project']['folder'] + The_Show.show_conf.settings['cues']['href1'])
+            The_Show.cues.savecuelist(True, cfg.cfgdict['configuration']['project']['folder'] + The_Show.show_conf.settings['cues']['href1'])
         The_Show.cues.currentcueindex = cueindex
         self.disptext()
         tblvw.selectRow(The_Show.cues.currentcueindex)
@@ -463,8 +463,8 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
 
         print(fname[0])
         newprojectfolder, newprojfile = os.path.split(fname[0])
-        cfg.cfgdict['project']['folder'] = newprojectfolder
-        cfg.cfgdict['project']['file'] = newprojfile
+        cfg.cfgdict['configuration']['project']['folder'] = newprojectfolder
+        cfg.cfgdict['configuration']['project']['file'] = newprojfile
         newtree = cfg.updateFromDict()
         cfg.write(newtree, False, CFG_PATH)
         cfg.reload()
@@ -497,22 +497,29 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
     def ShowSFXApp(self):
         global CD_log
         CD_log.debug('Launch SFX App.')
-        print("Launch SFX App.")
-        SFX_shell = cfg.cfgdict['project']['folder'] + '/' + 'run_sound_effects_player.sh'
-        self.SFXAppProc = subprocess.Popen([SFX_shell])
-        #self.SFXAppProc = subprocess.Popen(['sound_effects_player'])
-        # setup sound sender thread
+        if self.MxrAppProc != None:
+            msg = osc_message_builder.OscMessageBuilder(address='/cue/quit')
+            msg = msg.build()
+            self.SFX_sndrthread.queue_msg(msg, self.CueAppDev)
+            self.SFXAppProc = None
+        else:
 
-        try:
-            self.SFX_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        except socket.error:
-            print('Failed to create SFX socket')
-            sys.exit()
-        self.SFX_sndrthread = CommHandlers.sender(self.SFX_sock)
-        self.SFX_sndrthread.sndrsignal.connect(self.sndrtestfunc)  # connect to custom signal called 'signal'
-        self.SFX_sndrthread.finished.connect(self.sndrthreaddone)  # connect to buitlin signal 'finished'
-        self.SFX_sndrthread.start()  # start the thread
-        self.comm_threads.append(self.SFX_sndrthread)
+            print("Launch SFX App.")
+            SFX_shell = cfg.cfgdict['configuration']['project']['folder'] + '/' + 'run_sound_effects_player.sh'
+            self.SFXAppProc = subprocess.Popen([SFX_shell])
+            #self.SFXAppProc = subprocess.Popen(['sound_effects_player'])
+            # setup sound sender thread
+
+            try:
+                self.SFX_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+            except socket.error:
+                print('Failed to create SFX socket')
+                sys.exit()
+            self.SFX_sndrthread = CommHandlers.sender(self.SFX_sock)
+            self.SFX_sndrthread.sndrsignal.connect(self.sndrtestfunc)  # connect to custom signal called 'signal'
+            self.SFX_sndrthread.finished.connect(self.sndrthreaddone)  # connect to buitlin signal 'finished'
+            self.SFX_sndrthread.start()  # start the thread
+            self.comm_threads.append(self.SFX_sndrthread)
 
     def EndSFXApp(self):
         self.SFXAppProc.terminate()
@@ -561,8 +568,12 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         reply = self.confirmQuit()
         if reply == QMessageBox.Yes:
             if self.SFXAppProc != None:
-                savereply = QMessageBox.warning(self, 'Warning',
-                    "Save changes in FX player before continuing!", QMessageBox.Ok, QMessageBox.Ok)
+                msg = osc_message_builder.OscMessageBuilder(address='/cue/quit')
+                msg = msg.build()
+                self.SFX_sndrthread.queue_msg(msg, self.SFXAppDev)
+                sleep(2)  # wait for message to be sent before killing threads
+                # savereply = QMessageBox.warning(self, 'Warning',
+                #    "Save changes in FX player before continuing!", QMessageBox.Ok, QMessageBox.Ok)
                 self.EndSFXApp()
             try:  # if MxrAppProc was never created it will throw and exception on the next line...so this is probabaly not the right way...
                 if self.MxrAppProc != None:
