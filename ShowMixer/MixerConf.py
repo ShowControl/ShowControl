@@ -15,10 +15,12 @@ try:
 except ImportError:
     import xml.etree.ElementTree as ET
 
+#from SCLog import SCLog
+
 from MixerControl import ControlFactory, supported_protocols, supported_controls
 
 
-class MixerConf:
+class MixerConf():
     '''
     Created on Oct 19, 2014
     MixerConf object returns the configuration of the mixer specified
@@ -39,8 +41,7 @@ class MixerConf:
     @author: mac
     '''
     def __init__(self, mixerconf_file, mixername, mixermodel, mixeraddress):
-        logger = logging.getLogger(__name__)
-        logger.debug('MixerConf __init__')
+        logging.info('MixerConf __init__')
         self.mutestyle = {}
         ''' dictionary of mutestyle  and values that activate a mute or unmute for the mixer
         mutestyle referes to how the mixer indicates the channel is muted

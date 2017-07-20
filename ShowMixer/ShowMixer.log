@@ -1,5 +1,12 @@
-DEBUG:__main__:ChanStripDlg
-DEBUG:MixerConf:MixerConf __init__
-INFO:__main__:Begin
-DEBUG:__main__:in init
-INFO:root:Shutdown
+root INFO Begin
+root INFO b'<show_control>\n  <configuration>\n    <project>\n      <folder>/home/mac/Shows/Fiddler</folder>\n      <file>Fiddler_project.xml</file>\n    </project>\n    <mixers>\n      <folder>\n\t\t\t\thardware\n\t\t\t</folder>\n      <file>\n\t\t\t\tMixerDefs-r2.xml\n\t\t\t</file>\n    </mixers>\n    <prefs>\n      <exitwithce>true</exitwithce>\n    </prefs>\n    <version>\n\t\t\t1.0\n\t\t</version>\n  </configuration>\n</show_control>'
+root INFO {'configuration': {'prefs': {'exitwithce': None}, 'mixers': {'file': 'MixerDefs-r2.xml', 'folder': 'hardware'}, 'version': '1.0', 'project': {'file': 'Fiddler_project.xml', 'folder': '/home/mac/Shows/Fiddler'}}}
+root INFO In Show.py
+root INFO In ShowConf init.
+root INFO In CueList init
+root INFO In CueList setup_cues
+root INFO MixerConf __init__
+root INFO In MixerCharMap.
+root INFO In ChanStripDlg init.
+root INFO In MyTableModel.
+root INFO Shutdown

@@ -10,6 +10,7 @@ import os
 import sys
 import inspect
 from os import path
+import logging
 
 currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 print(currentdir)
@@ -45,6 +46,7 @@ class ShowConf:
     @author: mac
     '''
     def __init__(self, cfgdict):
+        logging.info('In ShowConf init.')
         self.cfgdict = cfgdict
         self.settings = {}
         self.equipment = {}
@@ -163,17 +165,27 @@ class ShowConf:
             programs_dict = equipdoc.findall('./equipment/program')
             for program in programs_dict:
                 id = program.get('id')
-                portnum = program.find('./port').text
-                IP_address = program.find('./IP_address').text
-                midi_address = program.find('./MIDI_address').text
-                program_dict[id] = {'port': portnum, 'IP_address' : IP_address, 'MIDI_address' : midi_address}
-                pass
-            self.equipment['program'] = program_dict
+                if id not in self.equipment:
+                    portnum = program.find('./port').text
+                    IP_address = program.find('./IP_address').text
+                    midi_address = program.find('./MIDI_address').text
+                    program_dict[id] = {'port': portnum, 'IP_address' : IP_address, 'MIDI_address' : midi_address}
+                    pass
+                else:
+                    # todo - mac throw warning second find ignored
+                    pass
+        self.equipment['program'] = program_dict
 
         return
 
 
 if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO,
+                        filename='ShowConf.log', filemode='w',
+                        format='%(name)s %(levelname)s %(message)s')
+
     cfg = configuration()
     show_conf = ShowConf(cfg.cfgdict)
+    logging.info(str(show_conf.settings))
+    logging.info(str(show_conf.equipment))
     pass

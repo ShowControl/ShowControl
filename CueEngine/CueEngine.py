@@ -18,11 +18,6 @@ from os import path
 
 import logging
 
-logging.basicConfig(filename='CueEngine.log', filemode='w', level=logging.DEBUG)
-
-CD_log = logging.getLogger(__name__)
-CD_log.debug('CueDlg')
-
 _translate = QtCore.QCoreApplication.translate
 
 from rtmidi.midiconstants import CONTROL_CHANGE, NOTE_ON
@@ -59,7 +54,6 @@ CUE_PORT = 5005
 INMSG_IP = "127.0.0.1"
 INMSG_PORT = 5006
 
-cfg = configuration()
 import styles
 
 #cfgdict = cfg.toDict()
@@ -86,6 +80,10 @@ class cueTypeDispatcher():
         self.snd_sndrthread.queue_msg(msg, self.CueAppDev)
 
     def do_SFX(self):
+        msg = osc_message_builder.OscMessageBuilder(address='/cue/#')
+        msg.add_arg(The_Show.cues.currentcueindex)
+        msg = msg.build()
+        self.mxr_sndrthread.queue_msg(msg, self.CueAppDev)
         pass
 
     def do_light(self):
@@ -174,7 +172,8 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         QtGui.QIcon.setThemeName(styles.QLiSPIconsThemeName)
         self.__index = 0
         self.externalchangestate = 'None'
-        self.CueAppDev = CommAddresses(CUE_IP, CUE_PORT)
+        self.CueAppDev = CommAddresses(The_Show.show_conf.equipment['program']['ShowMixer']['IP_address'],
+                                       int(The_Show.show_conf.equipment['program']['ShowMixer']['port']))
         self.SFXAppDev = CommAddresses(The_Show.show_conf.equipment['program']['sound_effects']['IP_address'],
                                        int(The_Show.show_conf.equipment['program']['sound_effects']['port']))
         self.setupUi(self)
@@ -300,8 +299,10 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
 
     def do_SFX(self):
         if self.SFXAppProc != None:
-            msg = osc_message_builder.OscMessageBuilder(address='/cue/#')
-            msg.add_arg(The_Show.cues.currentcueindex)
+            cue_uuid = The_Show.cues.getcurrentcueuuid(The_Show.cues.currentcueindex)
+            msg = osc_message_builder.OscMessageBuilder(address='/cue/uuid')
+            # msg.add_arg(The_Show.cues.currentcueindex)
+            msg.add_arg(cue_uuid)
             msg = msg.build()
             self.SFX_sndrthread.queue_msg(msg, self.SFXAppDev)
         pass
@@ -374,6 +375,7 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
 
     def NotifyEditInProgress(self):
         QMessageBox.information(self,'Cue Modification','Cue modification blocked, external edit in progress.', QMessageBox.Ok)
+
     def NotifyReloadBeforeEdit(self):
         QMessageBox.information(self,'Cue Modification','Cues reloaded.', QMessageBox.Ok)
 
@@ -495,14 +497,13 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
 
     # launch sound_effects_player
     def ShowSFXApp(self):
-        global CD_log
-        CD_log.debug('Launch SFX App.')
-        if self.MxrAppProc != None:
+        if self.SFXAppProc != None:
             msg = osc_message_builder.OscMessageBuilder(address='/cue/quit')
             msg = msg.build()
-            self.SFX_sndrthread.queue_msg(msg, self.CueAppDev)
+            self.SFX_sndrthread.queue_msg(msg, self.SFXAppDev)
             self.SFXAppProc = None
         else:
+            logging.info('Launch SFX App.')
 
             print("Launch SFX App.")
             SFX_shell = cfg.cfgdict['configuration']['project']['folder'] + '/' + 'run_sound_effects_player.sh'
@@ -711,15 +712,15 @@ class MyTableModel(QtCore.QAbstractTableModel):
             self.arraydata.reverse()
         self.emit(SIGNAL("layoutChanged()"))
 
-
-
-
-#The_Show = Show(path.abspath(path.join(path.dirname(__file__))) + '/')
-The_Show = Show(cfg.cfgdict)
-The_Show.displayShow()
-
-
 if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO,
+                        filename='CueEngine.log', filemode='w',
+                        format='%(name)s %(levelname)s %(message)s')
+    logging.info('Begin')
+    cfg = configuration()
+    The_Show = Show(cfg.cfgdict)
+    The_Show.displayShow()
+
     app = QtWidgets.QApplication(sys.argv)
 #     app.setStyleSheet(""" QPushButton {color: blue;
 #                          background-color: yellow;
@@ -737,4 +738,6 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     ui.show()
+    logging.info('Shutdown')
+
     sys.exit(app.exec_())

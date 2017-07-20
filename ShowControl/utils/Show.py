@@ -1,9 +1,8 @@
-#import configuration as cfg
-
+import logging
 from ShowConf import ShowConf
 from Cues import CueList
 
-class Show:
+class Show():
     '''
     The Show class contains the information and object that constitute a show
     '''
@@ -11,6 +10,7 @@ class Show:
         '''
         Constructor
         '''
+        logging.info('In Show.py')
         self.cfgdict = cfgdict
         self.show_confpath = self.cfgdict['configuration']['project']['folder'] + '/'
         self.show_conf = ShowConf(self.cfgdict)

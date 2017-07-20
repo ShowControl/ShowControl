@@ -10,6 +10,8 @@ import os
 import sys
 import inspect
 from os import path
+import logging
+
 from PyQt5 import QtWidgets
 
 currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
@@ -36,6 +38,7 @@ class configuration():
         self.settings = {}
         tree = ET.parse(CFG_PATH)
         self.doc = tree.getroot()
+        logging.info(ET.tostring(self.doc))
         print('Root tag: {0}'.format(self.doc.tag))
         print('{0} attribs: {1}'.format(self.doc.tag, self.doc.attrib))
         self.cfgdict = self.toDict()
@@ -106,7 +109,7 @@ class configuration():
         #             retdict[child.tag]=chlddict
         #     else:
         #         retdict[child.tag] = child.text.strip('\n\t')
-
+        logging.info(str(retdict))
         return retdict
 
     def updateFromDict(self):
@@ -158,8 +161,12 @@ class configuration():
 
 
 if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO,
+                        filename='ShowControlConfig.log', filemode='w',
+                        format='%(name)s %(levelname)s %(message)s')
     conf = configuration()
     cfgdict = conf.toDict()
+    logging.info(str(cfgdict))
     # newconf = conf.updateFromDict()
     # conf.write(newconf, True, CFG_PATH)
     pass

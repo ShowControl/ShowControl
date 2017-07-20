@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/CueEngine.py" line="311" />
-    <bookmark url="file://$PROJECT_DIR$/CueEngine.py" line="636" />
-    <bookmark url="file://$PROJECT_DIR$/CueEngine.py" line="167" />
-    <bookmark url="file://$PROJECT_DIR$/CueEngine.py" line="483" />
-    <bookmark url="file://$PROJECT_DIR$/CueEngine.py" line="506" />
-    <bookmark url="file://$PROJECT_DIR$/CueEngine.py" line="513" />
-    <bookmark url="file://$PROJECT_DIR$/CueEngine.py" line="551" />
-    <bookmark url="file://$PROJECT_DIR$/../ShowMixer/ShowMixer.py" line="579" />
+    <bookmark url="file://$PROJECT_DIR$/CueEngine.py" line="312" />
+    <bookmark url="file://$PROJECT_DIR$/CueEngine.py" line="637" />
+    <bookmark url="file://$PROJECT_DIR$/CueEngine.py" line="165" />
+    <bookmark url="file://$PROJECT_DIR$/CueEngine.py" line="485" />
+    <bookmark url="file://$PROJECT_DIR$/CueEngine.py" line="507" />
+    <bookmark url="file://$PROJECT_DIR$/CueEngine.py" line="514" />
+    <bookmark url="file://$PROJECT_DIR$/CueEngine.py" line="552" />
+    <bookmark url="file://$PROJECT_DIR$/../ShowMixer/ShowMixer.py" line="589" />
+    <bookmark url="file://$PROJECT_DIR$/../ShowMixer/ShowMixer.py" line="548" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8474eff5-676b-4712-9539-a7c9c675c28b" name="Default" comment="" />
@@ -33,33 +34,9 @@
       <file leaf-file-name="Cues.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../ShowControl/utils/Cues.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3196">
-              <caret line="190" column="60" lean-forward="false" selection-start-line="190" selection-start-column="36" selection-end-line="190" selection-end-column="60" />
+            <state relative-caret-position="215">
+              <caret line="106" column="0" lean-forward="false" selection-start-line="106" selection-start-column="0" selection-end-line="106" selection-end-column="0" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Show.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../ShowControl/utils/Show.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="510">
-              <caret line="31" column="11" lean-forward="false" selection-start-line="31" selection-start-column="11" selection-end-line="31" selection-end-column="11" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ShowControlConfig.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../ShowControl/utils/ShowControlConfig.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="935">
-              <caret line="109" column="0" lean-forward="false" selection-start-line="109" selection-start-column="0" selection-end-line="109" selection-end-column="0" />
-              <folding>
-                <marker date="1500400747578" expanded="true" signature="3372:3913" ph="..." />
-                <marker date="1500400747578" expanded="true" signature="3527:3829" ph="..." />
-                <marker date="1500400747578" expanded="true" signature="3595:3829" ph="..." />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -67,71 +44,22 @@
       <file leaf-file-name="MixerMap.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../ShowMixer/MixerMap.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="263">
-              <caret line="32" column="0" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CueEngine.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/CueEngine.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="183">
-              <caret line="573" column="0" lean-forward="false" selection-start-line="573" selection-start-column="0" selection-end-line="573" selection-end-column="0" />
+            <state relative-caret-position="680">
+              <caret line="40" column="0" lean-forward="false" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
               <folding>
-                <element signature="e#43#78#0" expanded="true" />
-                <element signature="e#1616#2333#0" expanded="false" />
-                <element signature="e#1644#1873#0" expanded="false" />
-                <element signature="e#1660#1873#0" expanded="false" />
-                <element signature="e#1907#1911#0" expanded="false" />
-                <element signature="e#1945#2142#0" expanded="false" />
-                <element signature="e#2176#2259#0" expanded="false" />
-                <element signature="e#2291#2295#0" expanded="false" />
-                <element signature="e#2329#2333#0" expanded="false" />
-                <element signature="e#2378#5607#0" expanded="false" />
-                <element signature="e#2426#3512#0" expanded="false" />
-                <element signature="e#2716#2781#0" expanded="false" />
-                <element signature="e#3087#3171#0" expanded="false" />
-                <element signature="e#3180#3220#0" expanded="false" />
-                <element signature="e#3544#4295#0" expanded="false" />
-                <element signature="e#3711#4257#0" expanded="false" />
-                <element signature="e#3759#4171#0" expanded="false" />
-                <element signature="e#3872#4125#0" expanded="false" />
-                <element signature="e#3927#4125#0" expanded="false" />
-                <element signature="e#4327#4388#0" expanded="false" />
-                <element signature="e#4423#4442#0" expanded="false" />
-                <element signature="e#4498#5328#0" expanded="false" />
-                <element signature="e#4689#5328#0" expanded="false" />
-                <element signature="e#4737#5243#0" expanded="false" />
-                <element signature="e#5044#5243#0" expanded="false" />
-                <element signature="e#5110#5243#0" expanded="false" />
-                <element signature="e#5175#5243#0" expanded="false" />
-                <element signature="e#5379#5607#0" expanded="false" />
-                <element signature="e#5429#5607#0" expanded="false" />
-                <element signature="e#5474#5607#0" expanded="false" />
+                <marker date="1500472215767" expanded="true" signature="351:396" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ShowConf.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../ShowControl/utils/ShowConf.py">
+      <file leaf-file-name="CueEngine.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CueEngine.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1173">
-              <caret line="72" column="28" lean-forward="false" selection-start-line="72" selection-start-column="28" selection-end-line="72" selection-end-column="28" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CommHandlers.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../ShowControl/utils/CommHandlers.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="419">
-              <caret line="78" column="0" lean-forward="false" selection-start-line="78" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
+            <state relative-caret-position="4607">
+              <caret line="286" column="0" lean-forward="false" selection-start-line="286" selection-start-column="0" selection-end-line="286" selection-end-column="0" />
               <folding>
-                <element signature="e#0#10#0" expanded="true" />
+                <marker date="1500493377178" expanded="true" signature="31335:31361" ph="..." />
               </folding>
             </state>
           </provider>
@@ -149,6 +77,16 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="ShowMixer.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/../ShowMixer/ShowMixer.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="230">
+              <caret line="557" column="25" lean-forward="true" selection-start-line="557" selection-start-column="25" selection-end-line="557" selection-end-column="25" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
     </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
@@ -160,13 +98,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>midi</find>
-      <find>except</find>
-      <find>cue</find>
-      <find>color</find>
-      <find>s</find>
-      <find>columndict</find>
-      <find>Gray</find>
       <find>cue_subelements</find>
       <find>QPlainTextEdit:hover</find>
       <find>QToolT</find>
@@ -175,7 +106,6 @@
       <find>QMess</find>
       <find>tool</find>
       <find>toDict</find>
-      <find>cfgdict</find>
       <find>Show.loa</find>
       <find>header</find>
       <find>cuefile</find>
@@ -190,6 +120,14 @@
       <find>cfgdict[</find>
       <find>stopthreads</find>
       <find>stop</find>
+      <find>CD</find>
+      <find>cfgdict</find>
+      <find>save</find>
+      <find>on_buttonSaveCue_clicked</find>
+      <find>updatecuemutestate</find>
+      <find>updatecuemute</find>
+      <find>checked</find>
+      <find>ischecked</find>
     </findStrings>
     <replaceStrings>
       <replace>EditPrefs</replace>
@@ -220,14 +158,14 @@
         <option value="$PROJECT_DIR$/../ShowControl/utils/ShowConf.py" />
         <option value="$PROJECT_DIR$/../ShowControl/utils/Show.py" />
         <option value="$PROJECT_DIR$/../ShowControl/utils/Cues.py" />
-        <option value="$PROJECT_DIR$/../ShowMixer/ShowMixer.py" />
         <option value="$PROJECT_DIR$/CueEngine.py" />
+        <option value="$PROJECT_DIR$/../ShowMixer/ShowMixer.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1943" />
-    <option name="y" value="28" />
+    <option name="x" value="1945" />
+    <option name="y" value="73" />
     <option name="width" value="1854" />
     <option name="height" value="967" />
   </component>
@@ -246,7 +184,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -307,6 +244,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -314,7 +252,7 @@
     <property name="recentsLimit" value="5" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../ShowControl" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../ShowMixer" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -333,7 +271,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.CueEngine">
+  <component name="RunManager" selected="Python.ShowMixer">
     <configuration default="false" name="CueEngine" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -347,24 +285,6 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="CueEngine" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/CueEngine.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <method />
-    </configuration>
-    <configuration default="false" name="CueEngine_ui" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="CueEngine" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/CueEngine_ui.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -419,6 +339,24 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="CueEngine" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../ShowMixer/MixerMap.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="ShowMixer" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../ShowMixer" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="CueEngine" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../ShowMixer/ShowMixer.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -522,18 +460,18 @@
     </configuration>
     <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Python.CueEngine" />
-      <item index="1" class="java.lang.String" itemvalue="Python.CueEngine_ui" />
-      <item index="2" class="java.lang.String" itemvalue="Python.ShowControlConfig" />
-      <item index="3" class="java.lang.String" itemvalue="Python.ShowConf" />
-      <item index="4" class="java.lang.String" itemvalue="Python.MixerMap" />
+      <item index="1" class="java.lang.String" itemvalue="Python.ShowControlConfig" />
+      <item index="2" class="java.lang.String" itemvalue="Python.ShowConf" />
+      <item index="3" class="java.lang.String" itemvalue="Python.MixerMap" />
+      <item index="4" class="java.lang.String" itemvalue="Python.ShowMixer" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.CueEngine" />
-        <item index="1" class="java.lang.String" itemvalue="Python.MixerMap" />
-        <item index="2" class="java.lang.String" itemvalue="Python.ShowConf" />
-        <item index="3" class="java.lang.String" itemvalue="Python.ShowControlConfig" />
-        <item index="4" class="java.lang.String" itemvalue="Python.CueEngine_ui" />
+        <item index="0" class="java.lang.String" itemvalue="Python.ShowMixer" />
+        <item index="1" class="java.lang.String" itemvalue="Python.CueEngine" />
+        <item index="2" class="java.lang.String" itemvalue="Python.MixerMap" />
+        <item index="3" class="java.lang.String" itemvalue="Python.ShowConf" />
+        <item index="4" class="java.lang.String" itemvalue="Python.ShowControlConfig" />
       </list>
     </recent_temporary>
     <configuration default="true" type="tests" factoryName="Attests">
@@ -582,12 +520,12 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1943" y="28" width="1854" height="967" extended-state="0" />
+    <frame x="1945" y="73" width="1854" height="967" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17440605" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3716916" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32796317" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3256617" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296433" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
@@ -602,6 +540,7 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32796317" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -634,7 +573,7 @@
         </line-breakpoint>
         <line-breakpoint suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/CueEngine.py</url>
-          <line>523</line>
+          <line>524</line>
           <option name="timeStamp" value="44" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -657,31 +596,21 @@
           <line>69</line>
           <option name="timeStamp" value="103" />
         </line-breakpoint>
-        <line-breakpoint suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/CueEngine.py</url>
-          <line>449</line>
-          <option name="timeStamp" value="141" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/CueEngine.py</url>
-          <line>344</line>
+          <line>345</line>
           <option name="timeStamp" value="146" />
         </line-breakpoint>
-        <line-breakpoint suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/CueEngine.py</url>
-          <line>301</line>
-          <option name="timeStamp" value="150" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/CueEngine.py</url>
-          <line>572</line>
-          <option name="timeStamp" value="153" />
+          <url>file://$PROJECT_DIR$/../ShowMixer/ShowMixer.py</url>
+          <line>550</line>
+          <option name="timeStamp" value="157" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="154" />
+      <option name="time" value="158" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -698,36 +627,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#43#78#0" expanded="true" />
-            <element signature="e#1616#2333#0" expanded="false" />
-            <element signature="e#1644#1873#0" expanded="false" />
-            <element signature="e#1660#1873#0" expanded="false" />
-            <element signature="e#1907#1911#0" expanded="false" />
-            <element signature="e#1945#2142#0" expanded="false" />
-            <element signature="e#2176#2259#0" expanded="false" />
-            <element signature="e#2291#2295#0" expanded="false" />
-            <element signature="e#2329#2333#0" expanded="false" />
-            <element signature="e#2378#5607#0" expanded="false" />
-            <element signature="e#2426#3512#0" expanded="false" />
-            <element signature="e#2716#2781#0" expanded="false" />
-            <element signature="e#3087#3171#0" expanded="false" />
-            <element signature="e#3180#3220#0" expanded="false" />
-            <element signature="e#3544#4295#0" expanded="false" />
-            <element signature="e#3711#4257#0" expanded="false" />
-            <element signature="e#3759#4171#0" expanded="false" />
-            <element signature="e#3872#4125#0" expanded="false" />
-            <element signature="e#3927#4125#0" expanded="false" />
-            <element signature="e#4327#4388#0" expanded="false" />
-            <element signature="e#4423#4442#0" expanded="false" />
-            <element signature="e#4498#5328#0" expanded="false" />
-            <element signature="e#4689#5328#0" expanded="false" />
-            <element signature="e#4737#5243#0" expanded="false" />
-            <element signature="e#5044#5243#0" expanded="false" />
-            <element signature="e#5110#5243#0" expanded="false" />
-            <element signature="e#5175#5243#0" expanded="false" />
-            <element signature="e#5379#5607#0" expanded="false" />
-            <element signature="e#5429#5607#0" expanded="false" />
-            <element signature="e#5474#5607#0" expanded="false" />
+            <marker date="1500493377178" expanded="true" signature="31335:31361" ph="..." />
           </folding>
         </state>
       </provider>
@@ -752,36 +652,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#43#78#0" expanded="true" />
-            <element signature="e#1616#2333#0" expanded="false" />
-            <element signature="e#1644#1873#0" expanded="false" />
-            <element signature="e#1660#1873#0" expanded="false" />
-            <element signature="e#1907#1911#0" expanded="false" />
-            <element signature="e#1945#2142#0" expanded="false" />
-            <element signature="e#2176#2259#0" expanded="false" />
-            <element signature="e#2291#2295#0" expanded="false" />
-            <element signature="e#2329#2333#0" expanded="false" />
-            <element signature="e#2378#5607#0" expanded="false" />
-            <element signature="e#2426#3512#0" expanded="false" />
-            <element signature="e#2716#2781#0" expanded="false" />
-            <element signature="e#3087#3171#0" expanded="false" />
-            <element signature="e#3180#3220#0" expanded="false" />
-            <element signature="e#3544#4295#0" expanded="false" />
-            <element signature="e#3711#4257#0" expanded="false" />
-            <element signature="e#3759#4171#0" expanded="false" />
-            <element signature="e#3872#4125#0" expanded="false" />
-            <element signature="e#3927#4125#0" expanded="false" />
-            <element signature="e#4327#4388#0" expanded="false" />
-            <element signature="e#4423#4442#0" expanded="false" />
-            <element signature="e#4498#5328#0" expanded="false" />
-            <element signature="e#4689#5328#0" expanded="false" />
-            <element signature="e#4737#5243#0" expanded="false" />
-            <element signature="e#5044#5243#0" expanded="false" />
-            <element signature="e#5110#5243#0" expanded="false" />
-            <element signature="e#5175#5243#0" expanded="false" />
-            <element signature="e#5379#5607#0" expanded="false" />
-            <element signature="e#5429#5607#0" expanded="false" />
-            <element signature="e#5474#5607#0" expanded="false" />
+            <marker date="1500493377178" expanded="true" signature="31335:31361" ph="..." />
           </folding>
         </state>
       </provider>
@@ -806,36 +677,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#43#78#0" expanded="true" />
-            <element signature="e#1616#2333#0" expanded="false" />
-            <element signature="e#1644#1873#0" expanded="false" />
-            <element signature="e#1660#1873#0" expanded="false" />
-            <element signature="e#1907#1911#0" expanded="false" />
-            <element signature="e#1945#2142#0" expanded="false" />
-            <element signature="e#2176#2259#0" expanded="false" />
-            <element signature="e#2291#2295#0" expanded="false" />
-            <element signature="e#2329#2333#0" expanded="false" />
-            <element signature="e#2378#5607#0" expanded="false" />
-            <element signature="e#2426#3512#0" expanded="false" />
-            <element signature="e#2716#2781#0" expanded="false" />
-            <element signature="e#3087#3171#0" expanded="false" />
-            <element signature="e#3180#3220#0" expanded="false" />
-            <element signature="e#3544#4295#0" expanded="false" />
-            <element signature="e#3711#4257#0" expanded="false" />
-            <element signature="e#3759#4171#0" expanded="false" />
-            <element signature="e#3872#4125#0" expanded="false" />
-            <element signature="e#3927#4125#0" expanded="false" />
-            <element signature="e#4327#4388#0" expanded="false" />
-            <element signature="e#4423#4442#0" expanded="false" />
-            <element signature="e#4498#5328#0" expanded="false" />
-            <element signature="e#4689#5328#0" expanded="false" />
-            <element signature="e#4737#5243#0" expanded="false" />
-            <element signature="e#5044#5243#0" expanded="false" />
-            <element signature="e#5110#5243#0" expanded="false" />
-            <element signature="e#5175#5243#0" expanded="false" />
-            <element signature="e#5379#5607#0" expanded="false" />
-            <element signature="e#5429#5607#0" expanded="false" />
-            <element signature="e#5474#5607#0" expanded="false" />
+            <marker date="1500493377178" expanded="true" signature="31335:31361" ph="..." />
           </folding>
         </state>
       </provider>
@@ -860,36 +702,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#43#78#0" expanded="true" />
-            <element signature="e#1616#2333#0" expanded="false" />
-            <element signature="e#1644#1873#0" expanded="false" />
-            <element signature="e#1660#1873#0" expanded="false" />
-            <element signature="e#1907#1911#0" expanded="false" />
-            <element signature="e#1945#2142#0" expanded="false" />
-            <element signature="e#2176#2259#0" expanded="false" />
-            <element signature="e#2291#2295#0" expanded="false" />
-            <element signature="e#2329#2333#0" expanded="false" />
-            <element signature="e#2378#5607#0" expanded="false" />
-            <element signature="e#2426#3512#0" expanded="false" />
-            <element signature="e#2716#2781#0" expanded="false" />
-            <element signature="e#3087#3171#0" expanded="false" />
-            <element signature="e#3180#3220#0" expanded="false" />
-            <element signature="e#3544#4295#0" expanded="false" />
-            <element signature="e#3711#4257#0" expanded="false" />
-            <element signature="e#3759#4171#0" expanded="false" />
-            <element signature="e#3872#4125#0" expanded="false" />
-            <element signature="e#3927#4125#0" expanded="false" />
-            <element signature="e#4327#4388#0" expanded="false" />
-            <element signature="e#4423#4442#0" expanded="false" />
-            <element signature="e#4498#5328#0" expanded="false" />
-            <element signature="e#4689#5328#0" expanded="false" />
-            <element signature="e#4737#5243#0" expanded="false" />
-            <element signature="e#5044#5243#0" expanded="false" />
-            <element signature="e#5110#5243#0" expanded="false" />
-            <element signature="e#5175#5243#0" expanded="false" />
-            <element signature="e#5379#5607#0" expanded="false" />
-            <element signature="e#5429#5607#0" expanded="false" />
-            <element signature="e#5474#5607#0" expanded="false" />
+            <marker date="1500493377178" expanded="true" signature="31335:31361" ph="..." />
           </folding>
         </state>
       </provider>
@@ -914,36 +727,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#43#78#0" expanded="true" />
-            <element signature="e#1616#2333#0" expanded="false" />
-            <element signature="e#1644#1873#0" expanded="false" />
-            <element signature="e#1660#1873#0" expanded="false" />
-            <element signature="e#1907#1911#0" expanded="false" />
-            <element signature="e#1945#2142#0" expanded="false" />
-            <element signature="e#2176#2259#0" expanded="false" />
-            <element signature="e#2291#2295#0" expanded="false" />
-            <element signature="e#2329#2333#0" expanded="false" />
-            <element signature="e#2378#5607#0" expanded="false" />
-            <element signature="e#2426#3512#0" expanded="false" />
-            <element signature="e#2716#2781#0" expanded="false" />
-            <element signature="e#3087#3171#0" expanded="false" />
-            <element signature="e#3180#3220#0" expanded="false" />
-            <element signature="e#3544#4295#0" expanded="false" />
-            <element signature="e#3711#4257#0" expanded="false" />
-            <element signature="e#3759#4171#0" expanded="false" />
-            <element signature="e#3872#4125#0" expanded="false" />
-            <element signature="e#3927#4125#0" expanded="false" />
-            <element signature="e#4327#4388#0" expanded="false" />
-            <element signature="e#4423#4442#0" expanded="false" />
-            <element signature="e#4498#5328#0" expanded="false" />
-            <element signature="e#4689#5328#0" expanded="false" />
-            <element signature="e#4737#5243#0" expanded="false" />
-            <element signature="e#5044#5243#0" expanded="false" />
-            <element signature="e#5110#5243#0" expanded="false" />
-            <element signature="e#5175#5243#0" expanded="false" />
-            <element signature="e#5379#5607#0" expanded="false" />
-            <element signature="e#5429#5607#0" expanded="false" />
-            <element signature="e#5474#5607#0" expanded="false" />
+            <marker date="1500493377178" expanded="true" signature="31335:31361" ph="..." />
           </folding>
         </state>
       </provider>
@@ -1095,7 +879,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
           <caret line="12" column="17" lean-forward="false" selection-start-line="12" selection-start-column="17" selection-end-line="12" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1131,6 +914,60 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
           <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../ShowControl/utils/Show.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="31" column="11" lean-forward="false" selection-start-line="31" selection-start-column="11" selection-end-line="31" selection-end-column="11" />
+          <folding>
+            <marker date="1500469927685" expanded="true" signature="290:1074" ph="..." />
+            <marker date="1500469927685" expanded="true" signature="290:3021" ph="..." />
+            <marker date="1500469927685" expanded="true" signature="517:746" ph="'''...'''" />
+            <marker date="1500469927685" expanded="true" signature="1176:2423" ph="..." />
+            <marker date="1500469927685" expanded="true" signature="1185:1281" ph="&quot;&quot;&quot;...&quot;&quot;&quot;" />
+            <marker date="1500469927685" expanded="true" signature="1290:2061" ph="..." />
+            <marker date="1500469927685" expanded="true" signature="2460:2764" ph="..." />
+            <marker date="1500469927685" expanded="true" signature="2792:3021" ph="..." />
+            <marker date="1500469927685" expanded="true" signature="2801:2895" ph="&quot;&quot;&quot;...&quot;&quot;&quot;" />
+            <marker date="1500469927685" expanded="true" signature="2976:3021" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../ShowControl/utils/ShowConf.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1207">
+          <caret line="76" column="28" lean-forward="false" selection-start-line="76" selection-start-column="28" selection-end-line="76" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../ShowControl/utils/CommHandlers.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1156">
+          <caret line="78" column="0" lean-forward="false" selection-start-line="78" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#10#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../ShowMixer/MixerMap.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="680">
+          <caret line="40" column="0" lean-forward="false" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
+          <folding>
+            <marker date="1500472215767" expanded="true" signature="351:396" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../ShowControl/utils/ShowControlConfig.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="173">
+          <caret line="25" column="4" lean-forward="true" selection-start-line="25" selection-start-column="4" selection-end-line="25" selection-end-column="4" />
           <folding />
         </state>
       </provider>
@@ -1145,104 +982,29 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../ShowControl/utils/ShowControlConfig.py">
+    <entry file="file://$PROJECT_DIR$/CueEngine.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="935">
-          <caret line="109" column="0" lean-forward="false" selection-start-line="109" selection-start-column="0" selection-end-line="109" selection-end-column="0" />
+        <state relative-caret-position="4607">
+          <caret line="286" column="0" lean-forward="false" selection-start-line="286" selection-start-column="0" selection-end-line="286" selection-end-column="0" />
           <folding>
-            <marker date="1500400747578" expanded="true" signature="3372:3913" ph="..." />
-            <marker date="1500400747578" expanded="true" signature="3527:3829" ph="..." />
-            <marker date="1500400747578" expanded="true" signature="3595:3829" ph="..." />
+            <marker date="1500493377178" expanded="true" signature="31335:31361" ph="..." />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../ShowControl/utils/Show.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="31" column="11" lean-forward="false" selection-start-line="31" selection-start-column="11" selection-end-line="31" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../ShowControl/utils/ShowConf.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1173">
-          <caret line="72" column="28" lean-forward="false" selection-start-line="72" selection-start-column="28" selection-end-line="72" selection-end-column="28" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../ShowControl/utils/Cues.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3196">
-          <caret line="190" column="60" lean-forward="false" selection-start-line="190" selection-start-column="36" selection-end-line="190" selection-end-column="60" />
+        <state relative-caret-position="215">
+          <caret line="106" column="0" lean-forward="false" selection-start-line="106" selection-start-column="0" selection-end-line="106" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../ShowControl/utils/CommHandlers.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="419">
-          <caret line="78" column="0" lean-forward="false" selection-start-line="78" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../ShowMixer/ShowMixer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="164">
-          <caret line="615" column="0" lean-forward="false" selection-start-line="615" selection-start-column="0" selection-end-line="615" selection-end-column="0" />
+        <state relative-caret-position="230">
+          <caret line="557" column="25" lean-forward="true" selection-start-line="557" selection-start-column="25" selection-end-line="557" selection-end-column="25" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../ShowMixer/MixerMap.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="263">
-          <caret line="32" column="0" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CueEngine.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="183">
-          <caret line="573" column="0" lean-forward="false" selection-start-line="573" selection-start-column="0" selection-end-line="573" selection-end-column="0" />
-          <folding>
-            <element signature="e#43#78#0" expanded="true" />
-            <element signature="e#1616#2333#0" expanded="false" />
-            <element signature="e#1644#1873#0" expanded="false" />
-            <element signature="e#1660#1873#0" expanded="false" />
-            <element signature="e#1907#1911#0" expanded="false" />
-            <element signature="e#1945#2142#0" expanded="false" />
-            <element signature="e#2176#2259#0" expanded="false" />
-            <element signature="e#2291#2295#0" expanded="false" />
-            <element signature="e#2329#2333#0" expanded="false" />
-            <element signature="e#2378#5607#0" expanded="false" />
-            <element signature="e#2426#3512#0" expanded="false" />
-            <element signature="e#2716#2781#0" expanded="false" />
-            <element signature="e#3087#3171#0" expanded="false" />
-            <element signature="e#3180#3220#0" expanded="false" />
-            <element signature="e#3544#4295#0" expanded="false" />
-            <element signature="e#3711#4257#0" expanded="false" />
-            <element signature="e#3759#4171#0" expanded="false" />
-            <element signature="e#3872#4125#0" expanded="false" />
-            <element signature="e#3927#4125#0" expanded="false" />
-            <element signature="e#4327#4388#0" expanded="false" />
-            <element signature="e#4423#4442#0" expanded="false" />
-            <element signature="e#4498#5328#0" expanded="false" />
-            <element signature="e#4689#5328#0" expanded="false" />
-            <element signature="e#4737#5243#0" expanded="false" />
-            <element signature="e#5044#5243#0" expanded="false" />
-            <element signature="e#5110#5243#0" expanded="false" />
-            <element signature="e#5175#5243#0" expanded="false" />
-            <element signature="e#5379#5607#0" expanded="false" />
-            <element signature="e#5429#5607#0" expanded="false" />
-            <element signature="e#5474#5607#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>

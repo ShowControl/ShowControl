@@ -11,8 +11,6 @@ import re
 from os import path
 import logging
 
-logging.basicConfig(filename='ShowMixer.log', filemode='w', level=logging.DEBUG)
-
 from time import sleep
 from math import ceil
 
@@ -47,6 +45,7 @@ print(sys.path)
 
 
 # import ShowControl/utils
+# from SCLog import SCLog
 from Show import Show
 #import configuration as cfg
 from ShowControlConfig import configuration, CFG_DIR, CFG_PATH
@@ -72,8 +71,6 @@ CUE_IP = "127.0.0.1"
 CUE_PORT = 5005
 MXR_IP = "192.168.53.40"
 MXR_PORT = 10023
-
-cfg = configuration()
 
 def translate(value, leftMin, leftMax, rightMin, rightMax):
     # Figure out how 'wide' each range is
@@ -168,14 +165,15 @@ class ShowMxr(Show):
         self.chrchnmap = MixerCharMap(self.show_confpath + self.show_conf.settings['project']['mixermap'])
 
 class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
-    CSD_log = logging.getLogger(__name__)
-    CSD_log.debug('ChanStripDlg')
+    #CSD_log = logging.getLogger(__name__)
+    #CSD_log.debug('ChanStripDlg')
     ChanStrip_MinWidth = 50
     CueFileUpdate_sig = pyqtSignal()
 
     def __init__(self, cuelistfile, parent=None):
         super(ChanStripDlg, self).__init__(parent)
-        self.CSD_log.debug('in init')
+        logging.info('In ChanStripDlg init.')
+        #self.logger.info('In ChanStripDlg init.')
         QtGui.QIcon.setThemeSearchPaths(styles.QLiSPIconsThemePaths)
         QtGui.QIcon.setThemeName(styles.QLiSPIconsThemeName)
         self.__index = 0
@@ -362,7 +360,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
 
     def getrtmidiports(self):
         midiclass_ = rtmidi.MidiOut
-        logging.debug("Creating %s object.", midiclass_.__name__)
+        logging.info("Creating %s object.", midiclass_.__name__)
 
         api = get_api_from_environment(rtmidi.API_UNSPECIFIED)
 
@@ -554,7 +552,19 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         for mxrid in range(The_Show.mixers.__len__()):
             for stripGUIindx in range(The_Show.mixers[mxrid].mxrconsole.__len__()):
                 mute = self.findChild(QtWidgets.QPushButton, name='M{0}mute{1:02}'.format(mxrid, stripGUIindx))
-                mutes += 'M{0}{1}:{2},'.format(mxrid, The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['name'], '{0}'.format(int(mute.isChecked())))
+                if The_Show.mixers[mxrid].mutestyle['mutestyle']== 'illuminated':
+                    if mute.isChecked():
+                        mute_val = 0
+                    else:
+                        mute_val = 1
+                else:
+                    if mute.isChecked():
+                        mute_val = 1
+                    else:
+                        mute_val = 0
+
+
+                mutes += 'M{0}{1}:{2},'.format(mxrid, The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['name'], '{0}'.format(mute_val))
         mutes = mutes[:-1]
         print(mutes)
         The_Show.cues.setcueelement(The_Show.cues.currentcueindex, mutes, 'Mutes')
@@ -660,10 +670,11 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
 
     def initlevels(self):
         for mxrid in range(The_Show.mixers.__len__()):
+            low_level = db_to_int(-90)
             for stripGUIindx in range(The_Show.mixers[mxrid].mxrconsole.__len__()):
                 msg = The_Show.mixers[mxrid].mxrstrips[The_Show.mixers[mxrid].
                     mxrconsole[stripGUIindx]['type']]['fader'].\
-                    Set(The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['channum'], 0)
+                    Set(The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['channum'], low_level)
                 if msg is not None: self.mixer_sender_threads[mxrid].queue_msg(msg, The_Show.mixers[mxrid])
 
     def on_buttonMute_clicked(self):
@@ -814,7 +825,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
                 return
             elif reply == QMessageBox.Save:
                 # todo - mac this is hardwired to project cue file
-                The_Show.cues.savecuelist(True, cfg.cfgdict['project']['folder'] + '/' + The_Show.show_conf.settings['cues']['href1'])
+                The_Show.cues.savecuelist(True, cfg.cfgdict['configuration']['project']['folder'] + '/' + The_Show.show_conf.settings['cues']['href1'])
 
         reply = self.confirmQuit()
         if reply == QMessageBox.Yes:
@@ -971,6 +982,7 @@ class MyTableModel(QtCore.QAbstractTableModel):
             datain: a list of lists\n
             headerdata: a list of strings
         """
+        logging.info('In MyTableModel.')
         QtCore.QAbstractTableModel.__init__(self, parent)
         self.arraydata = datain
         self.headerdata = headerdata
@@ -1011,24 +1023,25 @@ class MyTableModel(QtCore.QAbstractTableModel):
             return QtCore.QVariant(self.headerdata[col])
         return QtCore.QVariant()
 
-The_Show = ShowMxr()
-The_Show.displayShow()
-
 if __name__ == "__main__":
-    logger_main = logging.getLogger(__name__)
-    logger_main.info('Begin')
+    logging.basicConfig(level=logging.INFO,
+                        filename='ShowMixer.log', filemode='w',
+                        format='%(name)s %(levelname)s %(message)s')
+    logging.info('Begin')
+    cfg = configuration()
+    The_Show = ShowMxr()
+    The_Show.displayShow()
     # try:
     app = QtWidgets.QApplication(sys.argv)
-#     app.setStyleSheet(""" QPushButton {color: blue;
-#                          background-color: yellow;
-#                          selection-color: blue;
-#                          selection-background-color: green;}""")
-    #app.setStyleSheet("QPushButton {pressed-color: red }")
+    #     app.setStyleSheet(""" QPushButton {color: blue;
+    #                          background-color: yellow;
+    #                          selection-color: blue;
+    #                          selection-background-color: green;}""")
+    # app.setStyleSheet("QPushButton {pressed-color: red }")
     app.setStyleSheet(styles.QLiSPTheme_Dark)
     chans = 32
-    #ui = ChanStripDlg(path.abspath(path.join(path.dirname(__file__))) + '/Scrooge Moves.xml')
     ui = ChanStripDlg(path.abspath(path.join(path.dirname(cfg.cfgdict['configuration']['project']['folder']))))
-    #ui.resize(chans*ui.ChanStrip_MinWidth,800)
+    # ui.resize(chans*ui.ChanStrip_MinWidth,800)
     ui.addChanStrip()
     ui.resize(ui.max_slider_count * ui.ChanStrip_MinWidth, 800)
     ui.disptext()
@@ -1047,3 +1060,4 @@ if __name__ == "__main__":
     #     parser.exit(type(e).__name__ + ': ' + str(e))
     logging.info('Shutdown')
     sys.exit(app.exec_())
+

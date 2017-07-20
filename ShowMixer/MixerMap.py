@@ -3,13 +3,16 @@ Created on Nov 2, 2014
 
 @author: mac
 '''
+import logging
 try:
     from lxml import ET
 except ImportError:
     import xml.etree.ElementTree as ET
 
+#from SCLog import SCLog
 
-class MixerCharMap:
+
+class MixerCharMap():
     '''
     classdocs
     '''
@@ -19,6 +22,7 @@ class MixerCharMap:
         '''
         Constructor
         '''
+        logging.info('In MixerCharMap.')
         self.maptree = ET.parse(mapfilename)
 
     def getmixermapinputs(self, uuid):

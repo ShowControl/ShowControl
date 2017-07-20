@@ -7,11 +7,13 @@ Cue object that maintains the current cue list
 import sys
 from os import path
 from PyQt5 import Qt, QtCore, QtGui, QtWidgets
-
+import logging
 try:
     from lxml import ET
 except ImportError:
     import xml.etree.ElementTree as ET
+
+#from SCLog import SCLog
 
 cue_types = ['Stage', 'Mixer','Sound','SFX', 'Light']
 cue_subelements = ['Id',    'Act',   'Scene', 'Page',  'Title',       'Cue_Call',    'Cue_Type', 'Entrances',   'Exits',       'Levels',      'On_Stage',    'Note_1',      'Note_2',      'Note_3']
@@ -36,7 +38,7 @@ cue_subelements_tooltips = ['Cue number',
 header = ['Cue Number', 'Act', 'Scene', 'Page', 'Id', 'Title', 'Cue Call', 'Cue Type', 'Note 1']
 
 
-class CueList:
+class CueList():
     '''
     CueList object contains information defining the cues for a show
     '''
@@ -50,6 +52,8 @@ class CueList:
         currentindex is an integer that indicates the current cue
         previewcueindex is an integer that indicates the cue being previewed , if a preview is active 
         '''
+        logging.info('In CueList init')
+
         self.setup_cues(cuefilename)
         # self.cuetree = ET.ElementTree(file=cuefilename)
         # self.cuelist = ET.parse(cuefilename)
@@ -61,6 +65,7 @@ class CueList:
         # self.cuecount = len(cues)
 
     def setup_cues(self, cuefilename):
+        logging.info('In CueList setup_cues')
         self.cuetree = ET.ElementTree(file=cuefilename)
         self.cuelist = ET.parse(cuefilename)
         self.cuelist_root = self.cuelist.getroot()
@@ -229,11 +234,21 @@ class CueList:
             self.cuelist.write(filename)
 
 if __name__ == "__main__":
+    #/home/mac/SharedData/PycharmProjs/ShowControl/ShowControl/utils/
+    logging.basicConfig(level=logging.INFO,
+                        filename='CueList.log', filemode='w',
+                        format='%(name)s %(levelname)s %(message)s')
+
     app = QtWidgets.QApplication([''])
-    cues = CueList('/home/mac/Shows/Fiddler/Fiddler_cuesx.xml')
+    cues = CueList('/home/mac/Shows/Fiddler/Fiddler_cuesxt.xml')
     cues.getcuetype(0)
     ET.dump(cues.cuelist)
-    somecue = cues.cuelist.find("Cue[@num='149']")
+    somecue = cues.cuelist.find("Cue[@num='000']")
+    cue_elements = cues.cuelist.findall("./Cue")
+    for index, cue in enumerate(cue_elements):
+        Levels_element = cue.find('./Levels')
+        Level_val = cues.get_cue_levels(index)
+        pass
     somecuelist = cues.getcuelist(149)
     pass
     # cues.addnewcue({'Scene':'1','Title':'A new Cue'})
