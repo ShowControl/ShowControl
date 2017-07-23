@@ -67,6 +67,11 @@ parser = argparse.ArgumentParser()
 # args = parser.parse_args()
 #
 
+class CommAddresses:
+    def __init__(self, IP, PORT):
+        self.IP = IP
+        self.PORT = PORT
+
 CUE_IP = "127.0.0.1"
 CUE_PORT = 5005
 MXR_IP = "192.168.53.40"
@@ -176,6 +181,15 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         #self.logger.info('In ChanStripDlg init.')
         QtGui.QIcon.setThemeSearchPaths(styles.QLiSPIconsThemePaths)
         QtGui.QIcon.setThemeName(styles.QLiSPIconsThemeName)
+        self.ShowMixerAppDev = CommAddresses(The_Show.show_conf.equipment['program']['ShowMixer']['IP_address'],
+                                       int(The_Show.show_conf.equipment['program']['ShowMixer']['port']))
+        logging.info('ShowMixerAppDev IP: {} PORT: {}'.format(self.ShowMixerAppDev.IP, self.ShowMixerAppDev.PORT))
+        ....................................
+        # for mixer in
+        # self.MixerDev = CommAddresses(The_Show.show_conf.equipment['program']['ShowMixer']['IP_address'],
+        #                                int(The_Show.show_conf.equipment['program']['ShowMixer']['port']))
+        # logging.info('CueAppDev IP: {} PORT: {}'.format(self.CueAppDev.IP, self.CueAppDev.PORT))
+
         self.__index = 0
         self.cuehaschanged = False
         self.ExternalEditStarted = False
@@ -315,11 +329,12 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         menu = QMenu()
         menu.addActions(self.sldr_actions_list)
         sldr = self.sender()
-        action = menu.exec_(sldr.mapToGlobal(position))
-        action_name = action.text().replace(' ', '_').lower()
         sldr_name = sldr.objectName()
-        eval('self.slider_action_{} (sldr_name)'.format(action_name))
         print('Sender text: ' + sldr_name)
+        action = menu.exec_(sldr.mapToGlobal(position))
+        if action:
+            action_name = action.text().replace(' ', '_').lower()
+            eval('self.slider_action_{} (sldr_name)'.format(action_name))
 
     def slider_action_set_min(self, sldr_name):
         act_sndr = self.sender()

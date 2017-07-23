@@ -49,8 +49,8 @@ class CommAddresses:
         self.IP = IP
         self.PORT = PORT
 
-CUE_IP = "127.0.0.1"
-CUE_PORT = 5005
+# CUE_IP = "127.0.0.1"
+# CUE_PORT = 5005
 INMSG_IP = "127.0.0.1"
 INMSG_PORT = 5006
 
@@ -174,8 +174,10 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         self.externalchangestate = 'None'
         self.CueAppDev = CommAddresses(The_Show.show_conf.equipment['program']['ShowMixer']['IP_address'],
                                        int(The_Show.show_conf.equipment['program']['ShowMixer']['port']))
+        logging.info('CueAppDev IP: {} PORT: {}'.format(self.CueAppDev.IP, self.CueAppDev.PORT))
         self.SFXAppDev = CommAddresses(The_Show.show_conf.equipment['program']['sound_effects']['IP_address'],
                                        int(The_Show.show_conf.equipment['program']['sound_effects']['port']))
+        logging.info('SFXAppDev IP: {} PORT: {}'.format(self.SFXAppDev.IP, self.SFXAppDev.PORT))
         self.setupUi(self)
         self.setWindowTitle(The_Show.show_conf.settings['title'])
         self.nextButton.clicked.connect(self.on_buttonNext_clicked)
