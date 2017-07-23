@@ -302,6 +302,57 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         self.actionClose_Show.triggered.connect(self.closeShow)
         self.actionPreferences.triggered.connect(self.editpreferences)
         self.pref_dlg=ShowPreferences()
+        self.slider_entered = ''
+        self.sldr_actions_list = []
+        self.sldr_action_names = ['Set Min', 'Set 0db', 'Propagate level']
+        for action_name in self.sldr_action_names:
+
+            newaction = QAction(action_name, None)
+            #newaction.triggered.connect(eval('self.slider_action_{}'.format(action_name.replace(' ', '_').lower())))
+            self.sldr_actions_list.append(newaction)
+
+    def sldr_action_click(self, position):
+        menu = QMenu()
+        menu.addActions(self.sldr_actions_list)
+        sldr = self.sender()
+        action = menu.exec_(sldr.mapToGlobal(position))
+        action_name = action.text().replace(' ', '_').lower()
+        sldr_name = sldr.objectName()
+        eval('self.slider_action_{} (sldr_name)'.format(action_name))
+        print('Sender text: ' + sldr_name)
+
+    def slider_action_set_min(self, sldr_name):
+        act_sndr = self.sender()
+        sldr = self.window().findChild(QtWidgets.QSlider, name=self.slider_entered)
+        print('Set slider to min. Current value: {}'.format(sldr.value()))
+        self.slider_set(self.slider_entered, 0)
+
+    def slider_action_set_0db(self, sldr_name):
+        val = db_to_int(0.0)
+        act_sndr = self.sender()
+        sldr = self.window().findChild(QtWidgets.QSlider, name=self.slider_entered)
+        print('Set slider to 0db Current value: {}'.format(sldr.value()))
+        self.slider_set(self.slider_entered, val)
+
+    def slider_action_propagate_level(self, sldr_name):
+        print('Propagate slider level.')
+        this_sldr_name = self.slider_entered
+        sldr = self.window().findChild(QtWidgets.QSlider, name=this_sldr_name)
+        new_level = sldr.value()
+        mixer_index = int(this_sldr_name[1])
+        chan_index = int(this_sldr_name[-2:len(this_sldr_name)])
+        chan_info = The_Show.mixers[mixer_index].mxrconsole[chan_index]
+        chan_name = chan_info['name']
+        level_name = this_sldr_name.replace('sldr', chan_name)
+        next_cue_index = The_Show.cues.currentcueindex + 1
+        for cue in range(next_cue_index, The_Show.cues.cuecount):
+            levels = The_Show.cues.get_cue_levels(The_Show.cues.currentcueindex)
+            try:
+                chan_level = levels[this_sldr_name]
+            except KeyError:
+                pass
+            print('Cue#{0} Levels:{1}'.format(cue, levels))
+
 
     def startdevicethreads(self):
         # Set up sender threads for each mixer
@@ -407,23 +458,38 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
             self.tabgridlayoutlist[idx].addLayout(self.tabstripgridlist[idx], 0, 0, 1, 1)
             self.tabWidget.insertTab(idx, self.tablist[idx], "Tab {}".format(idx))
             for chn in range(The_Show.mixers[idx].mxrconsole.__len__()):
-                # Add scribble for each channel
+                # Add actor scribble for each channel
                 scrbl = QtWidgets.QLabel()
-                #scrbl.setObjectName('scr{0:02}'.format(chn))
                 scrbl.setObjectName('M{0}scr{1:02}'.format(idx,chn))
                 # print(scrbl.objectName())
                 scrbl.setText(The_Show.mixers[idx].mxrconsole[chn]['name'])
-                #scrbl.setText('M{0} Scribble {1:02}'.format(idx,chn))
                 scrbl.setAlignment(QtCore.Qt.AlignHCenter)
                 scrbl.setMinimumWidth(self.ChanStrip_MinWidth)
                 scrbl.setMinimumHeight(30)
                 scrbl.setWordWrap(True)
-                self.tabstripgridlist[idx].addWidget(scrbl,4,chn,1,1)
+                self.tabstripgridlist[idx].addWidget(scrbl, 4, chn, 1, 1)
+
+                # Add charactor scribble for each channel
+                chscrbl = QtWidgets.QLabel()
+                chscrbl.setObjectName('M{0}chscr{1:02}'.format(idx,chn))
+                # print(scrbl.objectName())
+                chscrbl.setText(The_Show.mixers[idx].mxrconsole[chn]['name'])
+                chscrbl.setAlignment(QtCore.Qt.AlignHCenter)
+                chscrbl.setMinimumWidth(self.ChanStrip_MinWidth)
+                chscrbl.setMinimumHeight(30)
+                chscrbl.setWordWrap(True)
+                self.tabstripgridlist[idx].addWidget(chscrbl, 5, chn, 1, 1)
+
                 # Add slider for this channel
                 # sldr = QtWidgets.QSlider(QtCore.Qt.Vertical)  # default sliders
                 sldr = MySlider()                           # slider with decibel ticks
+                #sldr.setContextMenuPolicy(Qt.ActionsContextMenu)
+                sldr.setContextMenuPolicy(Qt.CustomContextMenu)
+                sldr.customContextMenuRequested.connect(self.sldr_action_click)
+                #sldr.addActions(self.sldr_actions_list)
                 # sldr.valueChanged.connect(self.sliderprint)
-                sldr.sliderMoved.connect(self.sliderprint)
+                sldr.sliderMoved.connect(self.slidermove)
+                #sldr.sliderPressed.connect(self.slder_pressed)
                 sldr.setObjectName('M{0}sldr{1:02}'.format(idx, chn))
                 # print(sldr.objectName())
                 sldr.setMinimumSize(self.ChanStrip_MinWidth,200)
@@ -457,6 +523,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
                 self.tabstripgridlist[idx].addWidget(lbl, 0, chn, 1, 1)
             self.scrollArea[idx].setWidget(self.scrollAreaWidgetContents[idx])
             self.tablistvertlayout[idx].addWidget(self.scrollArea[idx])
+
 
     def changelayout(self):
         self.tablist = []
@@ -497,7 +564,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         QApplication.processEvents()
         return
 
-    def sliderprint(self, val):
+    def slidermove(self, val):
         self.cuehaschanged = True
         sending_slider = self.sender()
         #print('sending_slider name: {0}'.format(sending_slider.objectName()))
@@ -513,6 +580,23 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
             Set(The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['channum'], val)
         if msg is not None:
             self.mixer_sender_threads[mxrid].queue_msg(msg, The_Show.mixers[mxrid])
+
+    def slider_set(self, sldrname, val):
+        self.cuehaschanged = True
+        mxrid = int(sldrname[1])
+        stripGUIindx = int(sldrname[-2:len(sldrname)])
+        scrLblname = sldrname.replace('sldr', 'lev')
+        scrLbl = self.findChild(QtWidgets.QLabel, name=scrLblname)
+        sldr = self.findChild(QtWidgets.QSlider, name=sldrname)
+        val_db = int_to_db(val)
+        scrLbl.setText('{0:>.2f}'.format(val_db))
+        msg = The_Show.mixers[mxrid].mxrstrips[The_Show.mixers[mxrid].
+            mxrconsole[stripGUIindx]['type']]['fader']. \
+            Set(The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['channum'], val)
+        sldr.setSliderPosition(int(val))
+        if msg is not None:
+            self.mixer_sender_threads[mxrid].queue_msg(msg, The_Show.mixers[mxrid])
+
 
     def on_buttonNext_clicked(self):
         self.next_cue()
@@ -775,8 +859,10 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
                 Set(cnum, char.attrib['actor'])
             if msg is not None: self.mixer_sender_threads[mxrid].queue_msg(msg, The_Show.mixers[mxrid])
             # print('M{0}scr{1:02}'.format(mxrid,cnum))
-            thislbl = self.findChild(QtWidgets.QLabel, name='M{0}scr{1:02}'.format(mxrid,cnum-1))
-            thislbl.setText(char.attrib['actor'][:5])
+            actorlbl = self.findChild(QtWidgets.QLabel, name='M{0}scr{1:02}'.format(mxrid,cnum-1))
+            actorlbl.setText(char.attrib['actor'][:7])
+            charlbl = self.findChild(QtWidgets.QLabel, name='M{0}chscr{1:02}'.format(mxrid,cnum-1))
+            charlbl.setText(char.attrib['char'][:7])
 
             pass
 
@@ -945,6 +1031,10 @@ class MySlider(QtWidgets.QSlider):
         print(levels)
         The_Show.cues.setcueelement(The_Show.cues.currentcueindex, levels, 'Levels')
 
+    def mouseDoubleClickEvent(self, QMouseEvent):
+        print('In sldr mouse double click')
+    def enterEvent(self, m_ev):
+        self.window().slider_entered = self.objectName()
     # Note: commented out because it looks too busy with 30+ sliders
     # def paintEvent(self, event):
     #     """Paint log scale ticks"""
