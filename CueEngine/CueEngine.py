@@ -172,12 +172,21 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         QtGui.QIcon.setThemeName(styles.QLiSPIconsThemeName)
         self.__index = 0
         self.externalchangestate = 'None'
-        self.CueAppDev = CommAddresses(The_Show.show_conf.equipment['program']['ShowMixer']['IP_address'],
+
+        self.CueAppDev = CommAddresses(The_Show.show_conf.equipment['program']['CueEngine']['IP_address'],
+                                       int(The_Show.show_conf.equipment['program']['CueEngine']['port']))
+        logging.info('CueEngine receives from IP: {} PORT: {}'.format(self.CueAppDev.IP, self.CueAppDev.PORT))
+
+        self.ShowMixerAppDev = CommAddresses(The_Show.show_conf.equipment['program']['ShowMixer']['IP_address'],
                                        int(The_Show.show_conf.equipment['program']['ShowMixer']['port']))
-        logging.info('CueAppDev IP: {} PORT: {}'.format(self.CueAppDev.IP, self.CueAppDev.PORT))
+        logging.info('ShowMixer commands will be sent to IP: {} PORT: {}'.format(self.ShowMixerAppDev.IP,
+                                                                                 self.ShowMixerAppDev.PORT))
+
         self.SFXAppDev = CommAddresses(The_Show.show_conf.equipment['program']['sound_effects']['IP_address'],
                                        int(The_Show.show_conf.equipment['program']['sound_effects']['port']))
-        logging.info('SFXAppDev IP: {} PORT: {}'.format(self.SFXAppDev.IP, self.SFXAppDev.PORT))
+        logging.info('sound_effects_player commands will be sent IP: {} PORT: {}'.format(self.SFXAppDev.IP,
+                                                                                         self.SFXAppDev.PORT))
+
         self.setupUi(self)
         self.setWindowTitle(The_Show.show_conf.settings['title'])
         self.nextButton.clicked.connect(self.on_buttonNext_clicked)
@@ -227,12 +236,13 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
 
         self.comm_threads = []  # a list of threads in use for later use when app exits
 
-        # setup receiver thread
+        # setup receiver thread for inbound messages from slave apps, etc.
         try:
             self.rcvr_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         except socket.error:
             print('Failed to create message receiver socket')
-        self.rcvr_sock.bind((INMSG_IP, INMSG_PORT))
+        # self.rcvr_sock.bind((INMSG_IP, INMSG_PORT))
+        self.rcvr_sock.bind((self.CueAppDev.IP, self.CueAppDev.PORT))
         self.rcvrthread = CommHandlers.cmd_receiver(self.rcvr_sock)
         self.rcvrthread.cmd_rcvrsignaled.connect(self.rcvrmessage)  # connect to custom signal called 'signal'
         self.rcvrthread.finished.connect(self.rcvrthreaddone)  # conect to buitlin signal 'finished'
@@ -292,12 +302,12 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         msg = osc_message_builder.OscMessageBuilder(address='/cue/#')
         msg.add_arg(The_Show.cues.currentcueindex)
         msg = msg.build()
-        self.mxr_sndrthread.queue_msg(msg, self.CueAppDev)
+        self.mxr_sndrthread.queue_msg(msg, self.ShowMixerAppDev)
 
     def do_sound(self):
         msg = [NOTE_ON, 60, 112]
         if self.SFXAppProc != None:
-            self.snd_sndrthread.queue_msg(msg, self.CueAppDev)
+            self.snd_sndrthread.queue_msg(msg, None)  # todo - mac 2nd arg might blowup...
 
     def do_SFX(self):
         if self.SFXAppProc != None:
@@ -582,7 +592,7 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
                 if self.MxrAppProc != None:
                     msg = osc_message_builder.OscMessageBuilder(address='/cue/quit')
                     msg = msg.build()
-                    self.mxr_sndrthread.queue_msg(msg, self.CueAppDev)
+                    self.mxr_sndrthread.queue_msg(msg, self.ShowMixerAppDev)
                     sleep(2)  # wait for message to be sent before killing threads
             except:
                 raise
@@ -632,7 +642,7 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         print('rcvrmessage')
         msg = osc_message.OscMessage(sigstr)
         print(msg.address)
-        self.statusBar().showMessage('Address: {0}, Message: {1}'.format(msg.address,msg.params[0]))
+        self.statusBar().showMessage('Address: {0}, Message: {1}'.format(msg.address, '{}'.format(msg.params)))
         if msg.address == '/cue/editstarted':
             if msg.params[0] == True:
                 self.ExternalEditStarted = True
@@ -716,7 +726,7 @@ class MyTableModel(QtCore.QAbstractTableModel):
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO,
-                        filename='CueEngine.log', filemode='w',
+                        filename='/home/mac/Shows/Fiddler/CueEngine.log', filemode='w',
                         format='%(name)s %(levelname)s %(message)s')
     logging.info('Begin')
     cfg = configuration()

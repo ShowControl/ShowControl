@@ -14,6 +14,7 @@ import jack
 class receiver(QThread):
     """..."""
     rcvrsignal = pyqtSignal(str, name='rcvrsignaled')  # define a custom signal called 'rcvrsignal' whose name is 'rcvrsignaled'
+    #def __init__(self, sck, mixer_ip, mixer_port):
     def __init__(self, sck, mixer_ip, mixer_port):
         QThread.__init__(self)
         self.mixer_ip = mixer_ip

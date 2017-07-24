@@ -5,8 +5,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../CueEngine/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../CueEngine/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../CueEngine/CueEngine.py" afterPath="$PROJECT_DIR$/../CueEngine/CueEngine.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../MixerMaker/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../MixerMaker/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../MixerMaker/ShowMixer.log" afterPath="$PROJECT_DIR$/../MixerMaker/ShowMixer.log" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/utils/CommHandlers.py" afterPath="$PROJECT_DIR$/utils/CommHandlers.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ShowMixer/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../ShowMixer/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ShowMixer/ShowMixer.log" afterPath="$PROJECT_DIR$/../ShowMixer/ShowMixer.log" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ShowMixer/ShowMixer.py" afterPath="$PROJECT_DIR$/../ShowMixer/ShowMixer.py" />
@@ -33,18 +32,8 @@
       <file leaf-file-name="Cues.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/utils/Cues.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="819">
+            <state relative-caret-position="2145">
               <caret line="250" column="0" lean-forward="false" selection-start-line="250" selection-start-column="0" selection-end-line="250" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="pydevd.py" pinned="false" current-in-tab="false">
-        <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="26418">
-              <caret line="1590" column="0" lean-forward="false" selection-start-line="1590" selection-start-column="0" selection-end-line="1590" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -65,7 +54,7 @@
       <file leaf-file-name="ShowControlConfig.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/utils/ShowControlConfig.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2805">
+            <state relative-caret-position="1582">
               <caret line="171" column="0" lean-forward="false" selection-start-line="171" selection-start-column="0" selection-end-line="171" selection-end-column="0" />
               <folding>
                 <element signature="e#134#143#0" expanded="true" />
@@ -90,8 +79,8 @@
       <file leaf-file-name="CommHandlers.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/utils/CommHandlers.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="952">
-              <caret line="66" column="0" lean-forward="false" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
+            <state relative-caret-position="1258">
+              <caret line="161" column="0" lean-forward="true" selection-start-line="161" selection-start-column="0" selection-end-line="161" selection-end-column="0" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
@@ -102,8 +91,8 @@
       <file leaf-file-name="ShowConf.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/utils/ShowConf.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2499">
-              <caret line="151" column="20" lean-forward="false" selection-start-line="151" selection-start-column="20" selection-end-line="151" selection-end-column="20" />
+            <state relative-caret-position="375">
+              <caret line="158" column="50" lean-forward="true" selection-start-line="158" selection-start-column="50" selection-end-line="158" selection-end-column="50" />
               <folding>
                 <element signature="e#134#143#0" expanded="true" />
               </folding>
@@ -150,7 +139,6 @@
         <option value="$PROJECT_DIR$/ShowBase.py" />
         <option value="$PROJECT_DIR$/utils/ShowBase.py" />
         <option value="$PROJECT_DIR$/JACKStarter.py" />
-        <option value="$PROJECT_DIR$/utils/CommHandlers.py" />
         <option value="$PROJECT_DIR$/testfor.py" />
         <option value="$PROJECT_DIR$/utils/configuration.py" />
         <option value="$PROJECT_DIR$/ShowControlConfig.py" />
@@ -161,6 +149,7 @@
         <option value="$PROJECT_DIR$/utils/ShowConf.py" />
         <option value="$PROJECT_DIR$/utils/ShowConf.log" />
         <option value="$PROJECT_DIR$/utils/Cues.py" />
+        <option value="$PROJECT_DIR$/utils/CommHandlers.py" />
       </list>
     </option>
   </component>
@@ -188,8 +177,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -218,6 +205,8 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -505,8 +494,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="85" y="38" width="1821" height="1007" extended-state="1" />
-    <editor active="true" />
+    <frame x="85" y="38" width="1821" height="1007" extended-state="0" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25728422" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32891566" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -655,11 +643,16 @@
           <line>250</line>
           <option name="timeStamp" value="117" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/utils/CommHandlers.py</url>
+          <line>34</line>
+          <option name="timeStamp" value="119" />
+        </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="119" />
+      <option name="time" value="120" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -978,27 +971,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/utils/SCLog.py" />
     <entry file="file://$PROJECT_DIR$/ShowControlConfig.log" />
-    <entry file="file://$PROJECT_DIR$/utils/CommHandlers.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="952">
-          <caret line="66" column="0" lean-forward="false" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/utils/ShowConf.log" />
-    <entry file="file://$PROJECT_DIR$/utils/ShowConf.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2499">
-          <caret line="151" column="20" lean-forward="false" selection-start-line="151" selection-start-column="20" selection-end-line="151" selection-end-column="20" />
-          <folding>
-            <element signature="e#134#143#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/utils/Show.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1016,17 +989,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="26418">
-          <caret line="1590" column="0" lean-forward="false" selection-start-line="1590" selection-start-column="0" selection-end-line="1590" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/utils/ShowControlConfig.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2805">
+        <state relative-caret-position="1582">
           <caret line="171" column="0" lean-forward="false" selection-start-line="171" selection-start-column="0" selection-end-line="171" selection-end-column="0" />
           <folding>
             <element signature="e#134#143#0" expanded="true" />
@@ -1034,9 +999,37 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="817">
+          <caret line="1590" column="0" lean-forward="false" selection-start-line="1590" selection-start-column="0" selection-end-line="1590" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/ShowConf.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="158" column="50" lean-forward="true" selection-start-line="158" selection-start-column="50" selection-end-line="158" selection-end-column="50" />
+          <folding>
+            <element signature="e#134#143#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/CommHandlers.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1258">
+          <caret line="161" column="0" lean-forward="true" selection-start-line="161" selection-start-column="0" selection-end-line="161" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/utils/Cues.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="819">
+        <state relative-caret-position="2145">
           <caret line="250" column="0" lean-forward="false" selection-start-line="250" selection-start-column="0" selection-end-line="250" selection-end-column="0" />
           <folding />
         </state>

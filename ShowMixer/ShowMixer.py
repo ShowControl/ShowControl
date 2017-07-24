@@ -72,8 +72,8 @@ class CommAddresses:
         self.IP = IP
         self.PORT = PORT
 
-CUE_IP = "127.0.0.1"
-CUE_PORT = 5005
+# CUE_IP = "127.0.0.1"
+# CUE_PORT = 5005
 MXR_IP = "192.168.53.40"
 MXR_PORT = 10023
 
@@ -181,14 +181,15 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         #self.logger.info('In ChanStripDlg init.')
         QtGui.QIcon.setThemeSearchPaths(styles.QLiSPIconsThemePaths)
         QtGui.QIcon.setThemeName(styles.QLiSPIconsThemeName)
+
         self.ShowMixerAppDev = CommAddresses(The_Show.show_conf.equipment['program']['ShowMixer']['IP_address'],
                                        int(The_Show.show_conf.equipment['program']['ShowMixer']['port']))
-        logging.info('ShowMixerAppDev IP: {} PORT: {}'.format(self.ShowMixerAppDev.IP, self.ShowMixerAppDev.PORT))
-        ....................................
-        # for mixer in
-        # self.MixerDev = CommAddresses(The_Show.show_conf.equipment['program']['ShowMixer']['IP_address'],
-        #                                int(The_Show.show_conf.equipment['program']['ShowMixer']['port']))
-        # logging.info('CueAppDev IP: {} PORT: {}'.format(self.CueAppDev.IP, self.CueAppDev.PORT))
+        logging.info('ShowMixer receives commands from IP: {} PORT: {}'.format(self.ShowMixerAppDev.IP,
+                                                                               self.ShowMixerAppDev.PORT))
+
+        self.CueAppDev = CommAddresses(The_Show.show_conf.equipment['program']['CueEngine']['IP_address'],
+                                      int(The_Show.show_conf.equipment['program']['CueEngine']['port']))
+        logging.info('CueEngine response will be sent to IP: {} PORT: {}'.format(self.CueAppDev.IP, self.CueAppDev.PORT))
 
         self.__index = 0
         self.cuehaschanged = False
@@ -296,7 +297,8 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         except socket.error:
             print('Failed to create mixer socket')  #todo-mac need exception and logging here
             sys.exit()
-        self.cmd_sock.bind((CUE_IP, CUE_PORT))
+        #self.cmd_sock.bind((CUE_IP, CUE_PORT))
+        self.cmd_sock.bind((self.ShowMixerAppDev.IP, self.ShowMixerAppDev.PORT))
         # setup command receiver thread
         self.cmd_rcvrthread = CommHandlers.cmd_receiver(self.cmd_sock)
         self.cmd_rcvrthread.cmd_rcvrsignal.connect(self.cmd_rcvrtestfunc)  # connect to custom signal called 'signal'
@@ -351,23 +353,23 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
 
     def slider_action_propagate_level(self, sldr_name):
         print('Propagate slider level.')
-        this_sldr_name = self.slider_entered
-        sldr = self.window().findChild(QtWidgets.QSlider, name=this_sldr_name)
+        sldr = self.window().findChild(QtWidgets.QSlider, name=sldr_name)
         new_level = sldr.value()
-        mixer_index = int(this_sldr_name[1])
-        chan_index = int(this_sldr_name[-2:len(this_sldr_name)])
+        mixer_index = int(sldr_name[1])
+        chan_index = int(sldr_name[-2:len(sldr_name)])
         chan_info = The_Show.mixers[mixer_index].mxrconsole[chan_index]
         chan_name = chan_info['name']
-        level_name = this_sldr_name.replace('sldr', chan_name)
+        level_name = sldr_name[:-2].replace('sldr', chan_name)
         next_cue_index = The_Show.cues.currentcueindex + 1
         for cue in range(next_cue_index, The_Show.cues.cuecount):
             levels = The_Show.cues.get_cue_levels(The_Show.cues.currentcueindex)
             try:
-                chan_level = levels[this_sldr_name]
+                chan_level = levels[level_name]
+                levels[level_name] = new_level
+                The_Show.cues.setcueelement(cue, levels, 'Levels')
             except KeyError:
                 pass
             print('Cue#{0} Levels:{1}'.format(cue, levels))
-
 
     def startdevicethreads(self):
         # Set up sender threads for each mixer
@@ -383,7 +385,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
             if The_Show.mixers[idx].protocol == 'osc':
                 # Setup thread and udp to handle mixer I/O
                 try:
-                    senderthread = CommHandlers.sender(self.mxr_sock)  #, MXR_IP, MXR_PORT)
+                    senderthread = CommHandlers.sender(self.mxr_sock)   #, MXR_IP, MXR_PORT)
                     senderthread.sndrsignal.connect(self.sndrtestfunc)  # connect to custom signal called 'signal'
                     senderthread.finished.connect(self.sndrthreaddone)  # connect to buitlin signal 'finished'
                     senderthread.start()  # start the thread
@@ -1130,7 +1132,7 @@ class MyTableModel(QtCore.QAbstractTableModel):
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO,
-                        filename='ShowMixer.log', filemode='w',
+                        filename='/home/mac/Shows/Fiddler/ShowMixer.log', filemode='w',
                         format='%(name)s %(levelname)s %(message)s')
     logging.info('Begin')
     cfg = configuration()
