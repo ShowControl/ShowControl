@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'CueEngine-5_w_res.ui'
+# Form implementation generated from reading ui file 'CueEngine-6_w_res.ui'
 #
 # Created by: PyQt5 UI code generator 5.7
 #
@@ -20,10 +20,10 @@ class Ui_MainWindow(object):
         self.verticalLayout.setObjectName("verticalLayout")
         self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")
-        self.nextButton = QtWidgets.QPushButton(self.centralwidget)
-        self.nextButton.setMinimumSize(QtCore.QSize(64, 64))
-        self.nextButton.setObjectName("nextButton")
-        self.horizontalLayout.addWidget(self.nextButton)
+        self.goButton = QtWidgets.QPushButton(self.centralwidget)
+        self.goButton.setMinimumSize(QtCore.QSize(64, 64))
+        self.goButton.setObjectName("goButton")
+        self.horizontalLayout.addWidget(self.goButton)
         self.prevButton = QtWidgets.QPushButton(self.centralwidget)
         self.prevButton.setMinimumSize(QtCore.QSize(64, 64))
         self.prevButton.setObjectName("prevButton")
@@ -160,7 +160,7 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Cue Engine"))
-        self.nextButton.setText(_translate("MainWindow", "Next"))
+        self.goButton.setText(_translate("MainWindow", "Go"))
         self.prevButton.setText(_translate("MainWindow", "Previous"))
         self.jumpButton.setText(_translate("MainWindow", "Jump"))
         self.quitButton.setText(_translate("MainWindow", "Quit"))

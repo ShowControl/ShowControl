@@ -189,7 +189,7 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
 
         self.setupUi(self)
         self.setWindowTitle(The_Show.show_conf.settings['title'])
-        self.nextButton.clicked.connect(self.on_buttonNext_clicked)
+        self.goButton.clicked.connect(self.on_buttonGo_clicked)
         self.prevButton.clicked.connect(self.on_buttonPrev_clicked)
         self.jumpButton.clicked.connect(self.on_buttonJump_clicked)
         self.tableView.doubleClicked.connect(self.on_table_dblclick)
@@ -249,18 +249,19 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         self.rcvrthread.start()  # start the thread
         self.comm_threads.append(self.rcvrthread)
 
-    def on_buttonNext_clicked(self):
-        print('Next')
+    def on_buttonGo_clicked(self):
+        """Execute the currently highlighted cue (current)"""
+        print('Go')
         tblvw = self.findChild(QtWidgets.QTableView)
         selections = tblvw.selectedIndexes()  # selections is a list that contains an entry for each column in the row
         tblrow = selections[0].row()  # the row is the index to the tabledata for the cue
-        tblrow += 1  # next row
-        cuedata = self.tabledata[tblrow]  # data for next row
+        #tblrow += 1  # next row
+        cuedata = self.tabledata[tblrow]  # data for this row
         cueindex = int(self.tabledata[tblrow][0])
-        The_Show.cues.previouscueindex = The_Show.cues.currentcueindex  # save previous cue index
         The_Show.cues.currentcueindex = cueindex  # new current cue index is the cue we want to execute
-        tblvw.selectRow(tblrow)  # select the next row
         self.dispatch_cue()  # execute the cue
+        The_Show.cues.previouscueindex = The_Show.cues.currentcueindex  # save this as the previous cue index
+        tblvw.selectRow(tblrow + 1 )  # select the next row
 
     def on_buttonPrev_clicked(self):
         print('Prev')
@@ -299,8 +300,10 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         pass
 
     def do_mixer(self):
-        msg = osc_message_builder.OscMessageBuilder(address='/cue/#')
-        msg.add_arg(The_Show.cues.currentcueindex)
+        cue_uuid = The_Show.cues.getcurrentcueuuid(The_Show.cues.currentcueindex)
+        msg = osc_message_builder.OscMessageBuilder(address='/cue/uuid')
+        # msg.add_arg(The_Show.cues.currentcueindex)
+        msg.add_arg(cue_uuid)
         msg = msg.build()
         self.mxr_sndrthread.queue_msg(msg, self.ShowMixerAppDev)
 

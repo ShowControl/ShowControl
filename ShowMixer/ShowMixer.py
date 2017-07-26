@@ -620,9 +620,10 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         pass
 
     def slidervalchanged(self, val):
-        self.cuehaschanged = True
         sending_slider = self.sender()
-        print(sending_slider.isSliderDown())
+        print('SliderDown is : {}'.format(sending_slider.isSliderDown()))
+        if sending_slider.isSliderDown():
+            self.cuehaschanged = True
         print('In slidervalchanged, sending_slider name: {0}'.format(sending_slider.objectName()))
         sldrname = sending_slider.objectName()
         mxrid = int(sldrname[1])
@@ -711,7 +712,13 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         The_Show.cues.setcueelement(The_Show.cues.currentcueindex, mutes, 'Mutes')
         pass
 
+    def execute_cue_uuid(self, uuid):
+        cueidx = The_Show.cues.getcueindexbyuuid(uuid)
+        print('In execute_cue_uuid, cue index={}'.format(cueidx))
+        self.execute_cue(int(cueidx))
+
     def execute_cue(self, num):
+        print('In execute_cue, cue number:{}'.format(num))
         The_Show.cues.previouscueindex = The_Show.cues.currentcueindex
         The_Show.cues.currentcueindex = num
         tblvw = self.findChild(QtWidgets.QTableView)
@@ -1003,14 +1010,19 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
     def cmd_rcvrtestfunc(self, sigstr):
         """..."""
         msg = osc_message.OscMessage(sigstr)
-        # print(msg.address)
-        for param in msg.params:
-            print(param)
+        print('In cmd_rcvrtestfunc, OSC address: {}'.format(msg.address))
+        for idx, param in enumerate(msg.params):
+            print('param[{0}]: {1}'.format(idx, param))
         if msg.address == '/cue':
-            if msg.params[0] == "NEXT":
+            if msg.params[0] == "Next":
+                print('OSC msg.params[0]: {}'.format(msg.params[0]))
                 self.next_cue()
         elif msg.address == '/cue/#':
+            print('cue # : {}'.format(msg.params[0]))
             self.execute_cue(msg.params[0])
+        elif msg.address == '/cue/uuid':
+            print('cue uuid : {}'.format(msg.params[0]))
+            self.execute_cue_uuid(msg.params[0])
         elif msg.address == '/cue/editstarted':
             if msg.params[0] == True:
                 self.ExternalEditStarted = True

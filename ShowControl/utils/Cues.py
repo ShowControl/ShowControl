@@ -207,6 +207,12 @@ class CueList():
         currentuuid = thiscue.get('uuid')
         return currentuuid
 
+    def getcueindexbyuuid(self, uuid):
+        #cuenum = '{0:03}'.format(cueindex)
+        thiscue = self.cuelist.find("Cue[@uuid='"+ uuid +"']")
+        cueindex = thiscue.get('num')
+        return cueindex
+
     def updatecue(self, cueindex, newcuelist):
         cuenum = '{0:03}'.format(cueindex)
         cuetomod = self.cuelist.find("Cue[@num='"+cuenum+"']")
