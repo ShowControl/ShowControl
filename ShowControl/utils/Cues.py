@@ -6,6 +6,7 @@ Cue object that maintains the current cue list
 
 import sys
 from os import path
+import shutil
 from PyQt5 import Qt, QtCore, QtGui, QtWidgets
 import logging
 try:
@@ -114,8 +115,8 @@ class CueList():
         return mutestate
 
     def get_cue_levels(self, cueindex):
-        """Get the Level element oif the cue specified by cueindex
-        return a list of all channel levels"""
+        """Get the Level element of the cue specified by cueindex
+        return a dictionary of all channel levels"""
         levelstate = {}  # todo-mac maybe should return only deltas as is done in get_cue_mute_state???
         thiscue = self.cuelist.find("./Cue[@num='"+'{0:03}'.format(cueindex)+"']")
         #print(ET.dump(thiscue))
@@ -144,6 +145,7 @@ class CueList():
             print('Cue type for index ' + '{0:03}'.format(cueindex) + ' not found!')
 
     def setcueelement(self, cueindex, element_text, element_name):
+        # find the cue specified by cueindex
         thiscue = self.cuelist.find("./Cue[@num='" + '{0:03}'.format(cueindex) + "']")
         try:
             cuetype = thiscue.find(element_name)
@@ -229,9 +231,13 @@ class CueList():
             oldroot, extension = path.splitext(filename)
             while path.isfile(oldroot + '-{0}'.format(rev) + extension):
                 rev += 1
-            self.cuelist.write(oldroot + '-{0}'.format(rev) + extension)
-        else:
-            self.cuelist.write(filename)
+            # commented this out to make chage below
+            # self.cuelist.write(oldroot + '-{0}'.format(rev) + extension)
+            # modified to copy existing to revision
+            shutil.copyfile(filename, oldroot + '-{0}'.format(rev) + extension)
+        # else:
+            # self.cuelist.write(filename)
+        self.cuelist.write(filename)
 
 if __name__ == "__main__":
     #/home/mac/SharedData/PycharmProjs/ShowControl/ShowControl/utils/
@@ -240,7 +246,7 @@ if __name__ == "__main__":
                         format='%(name)s %(levelname)s %(message)s')
 
     app = QtWidgets.QApplication([''])
-    cues = CueList('/home/mac/Shows/Fiddler/Fiddler_cuesxt.xml')
+    cues = CueList('/home/mac/Shows/Fiddler/Fiddler_cuesx.xml')
     cues.getcuetype(0)
     ET.dump(cues.cuelist)
     somecue = cues.cuelist.find("Cue[@num='000']")
