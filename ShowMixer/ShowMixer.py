@@ -661,7 +661,8 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
     def on_buttonJump_clicked(self):
         self.execute_cue(The_Show.cues.selectedcueindex)
 
-    def on_buttonSaveCue_clicked(self):
+    def on_buttonSaveCue_clicked(self): # todo mac this needs to save mute state
+        """Save the current state of the levels and mutes for this cue"""
         print('Save Cue clicked!')
         levels = ''
         for mxrid in range(The_Show.mixers.__len__()):
@@ -673,7 +674,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         levels = levels[:-1]
         print(levels)
         The_Show.cues.setcueelement(The_Show.cues.currentcueindex, levels, 'Levels')
-        #  Commented this out because I don't why I would have changed the levels in an exisiting and then add a new cue
+        #  Commented this out because I don't why I would have changed the levels in an existing and then add a new cue
         # The_Show.cues.addnewcue()
 
     def updatecuestate(self):
@@ -723,7 +724,15 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         The_Show.cues.currentcueindex = num
         tblvw = self.findChild(QtWidgets.QTableView)
         tblvw.selectRow(The_Show.cues.currentcueindex)
+        self.execute_mutes()
+        self.execute_levels()
+        # move table focus to next cue
+        The_Show.cues.previouscueindex = The_Show.cues.currentcueindex
+        The_Show.cues.currentcueindex += 1
+        tblvw.selectRow(The_Show.cues.currentcueindex)
 
+
+    def execute_mutes(self):
         mute_changes = The_Show.cues.get_cue_mute_state(The_Show.cues.currentcueindex)
         # iterate through mute changes, if any
         if mute_changes != None:
@@ -762,6 +771,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
                 if msg is not None: self.mixer_sender_threads[mxrid].queue_msg(msg, The_Show.mixers[mxrid])
                 pass
 
+    def execute_levels(self):
         levels = The_Show.cues.get_cue_levels(The_Show.cues.currentcueindex)
         if levels != None:
             for key, value in levels.items():
@@ -794,6 +804,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
     def next_cue(self):
         nextmxrcuefound = False
         index = The_Show.cues.currentcueindex
+        # find the next cue with type Mixer
         while not nextmxrcuefound:
             index += 1
             if index < The_Show.cues.cuecount:
@@ -854,7 +865,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
     def setfirstcue(self):
         tblvw = self.findChild(QtWidgets.QTableView)
         tblvw.selectRow(The_Show.cues.currentcueindex)
-        self.execute_cue(The_Show.cues.currentcueindex)
+        # self.execute_cue(The_Show.cues.currentcueindex)
 
     def openShow(self):
         '''
@@ -1227,7 +1238,9 @@ if __name__ == "__main__":
     ui.setfirstcue()
     firstuuid = The_Show.cues.getcurrentcueuuid(The_Show.cues.currentcueindex)
     ui.set_scribble(firstuuid)
+    ui.execute_cue_uuid(firstuuid)
     ui.show()
+    # execute the 000 cue to initialize the mixer
     # except KeyboardInterrupt:
     #     parser.exit('\nInterrupted by user')
     # # except (queue.Full):

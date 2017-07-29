@@ -1,178 +1,138 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ui version="4.0">
- <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>1019</width>
-    <height>614</height>
-   </rect>
-  </property>
-  <property name="windowTitle">
-   <string>Show Mixer</string>
-  </property>
-  <widget class="QWidget" name="centralwidget">
-   <layout class="QHBoxLayout" name="horizontalLayout">
-    <item>
-     <layout class="QVBoxLayout" name="verticalLayout">
-      <item>
-       <spacer name="verticalSpacer_2">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeType">
-         <enum>QSizePolicy::Expanding</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>40</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
-       <layout class="QGridLayout" name="stripgridLayout"/>
-      </item>
-      <item>
-       <spacer name="verticalSpacer">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeType">
-         <enum>QSizePolicy::Expanding</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>200</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
-       <widget class="QTableView" name="tableView"/>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="butonsLayout">
-        <property name="sizeConstraint">
-         <enum>QLayout::SetFixedSize</enum>
-        </property>
-        <item>
-         <widget class="QPushButton" name="nextButton">
-          <property name="text">
-           <string>PushButton</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <spacer name="horizontalSpacer_3">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeType">
-           <enum>QSizePolicy::Expanding</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
-         <widget class="QPushButton" name="quitButton">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="text">
-           <string>Quit</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-     </layout>
-    </item>
-   </layout>
-  </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>1019</width>
-     <height>27</height>
-    </rect>
-   </property>
-   <widget class="QMenu" name="menuFile">
-    <property name="title">
-     <string>File</string>
-    </property>
-    <addaction name="actionOpen_Show"/>
-    <addaction name="separator"/>
-    <addaction name="actionClose_Show"/>
-    <addaction name="separator"/>
-    <addaction name="actionExit"/>
-   </widget>
-   <addaction name="menuFile"/>
-  </widget>
-  <widget class="QStatusBar" name="statusbar"/>
-  <action name="actionOpen_Show">
-   <property name="text">
-    <string>Open Show</string>
-   </property>
-  </action>
-  <action name="actionClose_Show">
-   <property name="text">
-    <string>Close Show</string>
-   </property>
-  </action>
-  <action name="actionExit">
-   <property name="text">
-    <string>Exit</string>
-   </property>
-  </action>
- </widget>
- <resources/>
- <connections>
-  <connection>
-   <sender>actionExit</sender>
-   <signal>triggered()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>close()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>399</x>
-     <y>299</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>quitButton</sender>
-   <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>close()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>965</x>
-     <y>567</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>509</x>
-     <y>306</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
-</ui>
+# -*- coding: utf-8 -*-
+
+# Form implementation generated from reading ui file 'ShowMixer_r5.ui'
+#
+# Created by: PyQt5 UI code generator 5.7
+#
+# WARNING! All changes made in this file will be lost!
+
+from PyQt5 import QtCore, QtGui, QtWidgets
+
+class Ui_MainWindow(object):
+    def setupUi(self, MainWindow):
+        MainWindow.setObjectName("MainWindow")
+        MainWindow.resize(1019, 614)
+        self.centralwidget = QtWidgets.QWidget(MainWindow)
+        self.centralwidget.setObjectName("centralwidget")
+        self.horizontalLayout = QtWidgets.QHBoxLayout(self.centralwidget)
+        self.horizontalLayout.setObjectName("horizontalLayout")
+        self.verticalLayout = QtWidgets.QVBoxLayout()
+        self.verticalLayout.setObjectName("verticalLayout")
+        spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout.addItem(spacerItem)
+        self.stripgridLayout = QtWidgets.QGridLayout()
+        self.stripgridLayout.setObjectName("stripgridLayout")
+        self.verticalLayout.addLayout(self.stripgridLayout)
+        self.tabWidget = QtWidgets.QTabWidget(self.centralwidget)
+        self.tabWidget.setObjectName("tabWidget")
+        self.verticalLayout.addWidget(self.tabWidget)
+        spacerItem1 = QtWidgets.QSpacerItem(20, 200, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout.addItem(spacerItem1)
+        self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_2.setObjectName("horizontalLayout_2")
+        self.tableView = QtWidgets.QTableView(self.centralwidget)
+        self.tableView.setObjectName("tableView")
+        self.horizontalLayout_2.addWidget(self.tableView)
+        self.verticalScrollBar = QtWidgets.QScrollBar(self.centralwidget)
+        self.verticalScrollBar.setOrientation(QtCore.Qt.Vertical)
+        self.verticalScrollBar.setObjectName("verticalScrollBar")
+        self.horizontalLayout_2.addWidget(self.verticalScrollBar)
+        self.verticalLayout.addLayout(self.horizontalLayout_2)
+        self.butonsLayout = QtWidgets.QHBoxLayout()
+        self.butonsLayout.setSizeConstraint(QtWidgets.QLayout.SetFixedSize)
+        self.butonsLayout.setObjectName("butonsLayout")
+        self.goButton = QtWidgets.QPushButton(self.centralwidget)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.goButton.sizePolicy().hasHeightForWidth())
+        self.goButton.setSizePolicy(sizePolicy)
+        self.goButton.setObjectName("goButton")
+        self.butonsLayout.addWidget(self.goButton)
+        self.prevButton = QtWidgets.QPushButton(self.centralwidget)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.prevButton.sizePolicy().hasHeightForWidth())
+        self.prevButton.setSizePolicy(sizePolicy)
+        self.prevButton.setObjectName("prevButton")
+        self.butonsLayout.addWidget(self.prevButton)
+        self.jumpButton = QtWidgets.QPushButton(self.centralwidget)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.jumpButton.sizePolicy().hasHeightForWidth())
+        self.jumpButton.setSizePolicy(sizePolicy)
+        self.jumpButton.setObjectName("jumpButton")
+        self.butonsLayout.addWidget(self.jumpButton)
+        spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.butonsLayout.addItem(spacerItem2)
+        self.savecueButton = QtWidgets.QPushButton(self.centralwidget)
+        self.savecueButton.setObjectName("savecueButton")
+        self.butonsLayout.addWidget(self.savecueButton)
+        spacerItem3 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.butonsLayout.addItem(spacerItem3)
+        self.quitButton = QtWidgets.QPushButton(self.centralwidget)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.quitButton.sizePolicy().hasHeightForWidth())
+        self.quitButton.setSizePolicy(sizePolicy)
+        self.quitButton.setObjectName("quitButton")
+        self.butonsLayout.addWidget(self.quitButton)
+        self.verticalLayout.addLayout(self.butonsLayout)
+        self.horizontalLayout.addLayout(self.verticalLayout)
+        MainWindow.setCentralWidget(self.centralwidget)
+        self.menubar = QtWidgets.QMenuBar(MainWindow)
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1019, 28))
+        self.menubar.setObjectName("menubar")
+        self.menuFile = QtWidgets.QMenu(self.menubar)
+        self.menuFile.setObjectName("menuFile")
+        self.menuEdit = QtWidgets.QMenu(self.menubar)
+        self.menuEdit.setObjectName("menuEdit")
+        MainWindow.setMenuBar(self.menubar)
+        self.statusbar = QtWidgets.QStatusBar(MainWindow)
+        self.statusbar.setObjectName("statusbar")
+        MainWindow.setStatusBar(self.statusbar)
+        self.actionOpen_Show = QtWidgets.QAction(MainWindow)
+        self.actionOpen_Show.setObjectName("actionOpen_Show")
+        self.actionClose_Show = QtWidgets.QAction(MainWindow)
+        self.actionClose_Show.setObjectName("actionClose_Show")
+        self.actionExit = QtWidgets.QAction(MainWindow)
+        self.actionExit.setObjectName("actionExit")
+        self.actionSave_Show = QtWidgets.QAction(MainWindow)
+        self.actionSave_Show.setObjectName("actionSave_Show")
+        self.actionPreferences = QtWidgets.QAction(MainWindow)
+        self.actionPreferences.setObjectName("actionPreferences")
+        self.menuFile.addAction(self.actionOpen_Show)
+        self.menuFile.addAction(self.actionSave_Show)
+        self.menuFile.addAction(self.actionClose_Show)
+        self.menuFile.addSeparator()
+        self.menuFile.addSeparator()
+        self.menuFile.addAction(self.actionExit)
+        self.menuEdit.addAction(self.actionPreferences)
+        self.menubar.addAction(self.menuFile.menuAction())
+        self.menubar.addAction(self.menuEdit.menuAction())
+
+        self.retranslateUi(MainWindow)
+        self.tabWidget.setCurrentIndex(-1)
+        self.actionExit.triggered.connect(MainWindow.close)
+        self.quitButton.clicked.connect(MainWindow.close)
+        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+
+    def retranslateUi(self, MainWindow):
+        _translate = QtCore.QCoreApplication.translate
+        MainWindow.setWindowTitle(_translate("MainWindow", "Show Mixer"))
+        self.goButton.setText(_translate("MainWindow", "Go"))
+        self.prevButton.setText(_translate("MainWindow", "Previous"))
+        self.jumpButton.setText(_translate("MainWindow", "Jump"))
+        self.savecueButton.setText(_translate("MainWindow", "Save Cue"))
+        self.quitButton.setText(_translate("MainWindow", "Quit"))
+        self.menuFile.setTitle(_translate("MainWindow", "File"))
+        self.menuEdit.setTitle(_translate("MainWindow", "Edit"))
+        self.actionOpen_Show.setText(_translate("MainWindow", "Open Show"))
+        self.actionClose_Show.setText(_translate("MainWindow", "Close Show"))
+        self.actionExit.setText(_translate("MainWindow", "Exit"))
+        self.actionSave_Show.setText(_translate("MainWindow", "Save Show"))
+        self.actionPreferences.setText(_translate("MainWindow", "Preferences"))
+

@@ -1,0 +1,9 @@
+<RCC>
+  <qresource prefix="Res">
+    <file>DnChevron.png</file>
+    <file>UpChevron.png</file>
+    <file>close_base.png</file>
+    <file>open_base.png</file>
+    <file>Update_base.png</file>
+  </qresource>
+</RCC>

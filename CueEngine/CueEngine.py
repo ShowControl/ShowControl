@@ -432,7 +432,12 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         self.disptext()
         tblvw.selectRow(The_Show.cues.currentcueindex)
 
-    def setfirstcue(self):
+    def setfirstcue(self, index=0):
+        if index == 0:
+            The_Show.cues.previouscueindex = 0
+        else:
+            The_Show.cues.previouscueindex = index -1
+        The_Show.cues.currentcueindex = index
         tblvw = self.findChild(QtWidgets.QTableView)
         tblvw.selectRow(The_Show.cues.currentcueindex)
 
@@ -746,7 +751,7 @@ if __name__ == "__main__":
     ui = CueDlg(path.abspath(path.join(path.dirname(__file__))) + '/Scrooge Moves.xml')
     ui.resize(800,800)
     ui.disptext()
-    ui.setfirstcue()
+    ui.setfirstcue(1)  # slaves should execute cue 0 as the initialization
     parser = argparse.ArgumentParser()
     parser.add_argument("--ip", default="192.168.53.40", help="The ip of the OSC server")
     parser.add_argument("--port", type=int, default=5005, help="The port the OSC server is listening on")
