@@ -76,7 +76,7 @@ class CueList():
         cues = self.cuelist.findall('Cue')
         self.cuecount = len(cues)
 
-    def get_cue_mute_state(self, cueindex):
+    def get_cue_mute_state(self, cueindex, direction=1):
         """Get the mutes element of the cue specified by cueindex.
         Compare it to the previous Mixer cues mute state and
         return a list of channels to mute or unmute.

@@ -312,6 +312,8 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         self.nextButton.clicked.connect(self.on_buttonNext_clicked)
         self.jumpButton.clicked.connect(self.on_buttonJump_clicked)
         self.savecueButton.clicked.connect(self.on_buttonSaveCue_clicked)
+        self.row_focus_upButton.clicked.connect(self.scroll_cue_list)
+        self.row_focus_downButton.clicked.connect(self.scroll_cue_list)
         self.tableView.clicked.connect(self.tableClicked)
         self.actionOpen_Show.triggered.connect(self.openShow)
         self.actionSave_Show.triggered.connect(self.saveShow)
@@ -638,7 +640,6 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         if msg is not None:
             self.mixer_sender_threads[mxrid].queue_msg(msg, The_Show.mixers[mxrid])
 
-
     def slider_set(self, sldrname, val):
         self.cuehaschanged = True
         mxrid = int(sldrname[1])
@@ -730,7 +731,6 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         The_Show.cues.previouscueindex = The_Show.cues.currentcueindex
         The_Show.cues.currentcueindex += 1
         tblvw.selectRow(The_Show.cues.currentcueindex)
-
 
     def execute_mutes(self):
         mute_changes = The_Show.cues.get_cue_mute_state(The_Show.cues.currentcueindex)
@@ -866,6 +866,83 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         tblvw = self.findChild(QtWidgets.QTableView)
         tblvw.selectRow(The_Show.cues.currentcueindex)
         # self.execute_cue(The_Show.cues.currentcueindex)
+
+    def scroll_cue_list(self):
+        source_name = self.sender().objectName()
+        tblvw = self.findChild(QtWidgets.QTableView)
+        if 'up' in source_name:  # scrol up the table, i.e. previous cue
+            The_Show.cues.currentcueindex -= 1
+            The_Show.cues.previouscueindex = The_Show.cues.currentcueindex -1
+            direction = -1
+        else:  # scroll down the table, i.e. the next cue
+            The_Show.cues.previouscueindex = The_Show.cues.currentcueindex
+            The_Show.cues.currentcueindex += 1
+            direction = 1
+        tblvw.selectRow(The_Show.cues.currentcueindex)
+        self.display_cue_mutes(direction)
+        self.display_cue_levels()
+
+    def display_cue_mutes(self, direction):
+        mutes = The_Show.cues.get_cue_mute_state(The_Show.cues.currentcueindex, direction)
+        # iterate through mute changes, if any
+        if mutes != None:
+            for key, value in mutes.items():
+                # find the channel name in the mxrconsole list
+                # that should be the stripGUIindex
+                #get name from key
+                nbrs = re.findall(r'\d+',key)  # old way to striGUIindex
+                mxrid = int(nbrs[0])
+                chname = key[re.search('\d', key).end():]
+                # for cons_idx in The_Show.mixers:
+                for cons_idx in range(The_Show.mixers[mxrid].mxrconsole.__len__()):
+                    if The_Show.mixers[mxrid].mxrconsole[cons_idx]['name'].lower() == chname.lower():
+                        # print('found in stp {0}'.format(cons_idx))
+                        stripGUIindx = cons_idx
+                        break
+                # stripGUIindx = int(nbrs[1]) - 1
+                mute = self.findChild(QtWidgets.QPushButton, name='M{0}mute{1:02}'.format(mxrid, stripGUIindx))
+                if value == 1:  # 1 >> unmute  0 >> mute
+                    # Handle unmute
+                    if The_Show.mixers[mxrid].mutestyle['mutestyle'] == 'illuminated':
+                        mute.setChecked(False)  # for illuminated = unmuted
+                    else:
+                        mute.setChecked(True)  # for a dark = umuted
+                    muteval = The_Show.mixers[mxrid].mutestyle['unmute']
+                else:
+                    # Handle mute
+                    if The_Show.mixers[mxrid].mutestyle['mutestyle'] == 'illuminated':
+                        mute.setChecked(True)
+                    else:
+                        mute.setChecked(False)
+                    muteval = The_Show.mixers[mxrid].mutestyle['mute']
+                return
+
+    def display_cue_levels(self):
+        levels = The_Show.cues.get_cue_levels(The_Show.cues.currentcueindex)
+        if levels != None:
+            for key, value in levels.items():
+                # find the channel name in the mxrconsole list
+                # that should be the stripGUIindex
+                #get name from key
+                nbrs = re.findall(r'\d+',key)
+                mxrid = int(nbrs[0])
+                chname = key[re.search('\d', key).end():]
+                for cons_idx in range(The_Show.mixers[mxrid].mxrconsole.__len__()):
+                    if The_Show.mixers[mxrid].mxrconsole[cons_idx]['name'].lower() == chname.lower():
+                        # print('found in stp {0}'.format(cons_idx))
+                        stripGUIindx = cons_idx
+                        break
+
+                ####
+                # stripGUIindx = int(nbrs[1]) - 1
+                sldr = self.findChild(QtWidgets.QSlider, name='M{0}sldr{1:02}'.format(mxrid, stripGUIindx))
+                scrLbl = self.findChild(QtWidgets.QLabel, name='M{0}lev{1:02}'.format(mxrid, stripGUIindx))
+                val_db = int_to_db(int(value))
+                scrLbl.setText('{0:>.2f}'.format(val_db))
+                if sldr.sliderPosition() != value:
+                    sldr.setSliderPosition(int(value))
+                return
+
 
     def openShow(self):
         '''
