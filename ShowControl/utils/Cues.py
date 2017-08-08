@@ -76,20 +76,39 @@ class CueList():
         cues = self.cuelist.findall('Cue')
         self.cuecount = len(cues)
 
-    def get_cue_mute_state(self, cueindex, direction=1):
+    def get_cue_mute_state_by_index(self, cueindex):
         """Get the mutes element of the cue specified by cueindex.
-        Compare it to the previous Mixer cues mute state and
+        Compare it to the next (direction==1)/previous(direction==-1) Mixer cues mute state and
         return a list of channels to mute or unmute.
         If cueindex is 0, then just return the entire mute state, as this is
         the initial cue."""
         mutestate = {}
         thiscue = self.cuelist.find("./Cue[@num='" + '{0:03}'.format(cueindex) + "']")
         try:
-            dirty_newmutes = thiscue.find('Mutes').text
-            newmutes = dirty_newmutes.strip()
-            newmutes_list = newmutes.split(',')
+            dirty_current_mutes = thiscue.find('Mutes').text
+            current_mutes = dirty_current_mutes.strip()
+            current_mutes_list = current_mutes.split(',')
         except AttributeError:
-            newmutes_list = None
+            current_mutes_list = None
+        for index in range(current_mutes_list.__len__()):
+            key, value = current_mutes_list[index].split(':')
+            mutestate[key] = int(value)
+        return mutestate
+
+    def get_cue_mute_state_delta(self, cueindex, direction=1):
+        """Get the mutes element of the cue specified by cueindex.
+        Compare it to the next (direction==1)/previous(direction==-1) Mixer cues mute state and
+        return a list of channels to mute or unmute.
+        If cueindex is 0, then just return the entire mute state, as this is
+        the initial cue."""
+        mutestate = {}
+        thiscue = self.cuelist.find("./Cue[@num='" + '{0:03}'.format(cueindex) + "']")
+        try:
+            dirty_current_mutes = thiscue.find('Mutes').text
+            current_mutes = dirty_current_mutes.strip()
+            current_mutes_list = current_mutes.split(',')
+        except AttributeError:
+            current_mutes_list = None
         if cueindex != 0:
             prevcue_index = cueindex
             while True:
@@ -104,13 +123,13 @@ class CueList():
             dirty_prevmutes = prevcue.find('Mutes').text
             prevmutes = dirty_prevmutes.strip()
             prevmutes_list = prevmutes.split(',')
-            for index in range(newmutes_list.__len__()):
-                if newmutes_list[index] != prevmutes_list[index]:
-                    key, value = newmutes_list[index].split(':')
+            for index in range(current_mutes_list.__len__()):
+                if current_mutes_list[index] != prevmutes_list[index]:
+                    key, value = current_mutes_list[index].split(':')
                     mutestate[key] = int(value)
         else:  # index zero is a special case, since there was no previous cue
-            for index in range(newmutes_list.__len__()):
-                    key, value = newmutes_list[index].split(':')
+            for index in range(current_mutes_list.__len__()):
+                    key, value = current_mutes_list[index].split(':')
                     mutestate[key] = int(value)
         return mutestate
 

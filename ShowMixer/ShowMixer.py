@@ -309,9 +309,10 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         self.setupUi(self)
         self.setWindowTitle(The_Show.show_conf.settings['title'])
         self.tabWidget.setCurrentIndex(0)
-        self.nextButton.clicked.connect(self.on_buttonNext_clicked)
-        self.jumpButton.clicked.connect(self.on_buttonJump_clicked)
-        self.savecueButton.clicked.connect(self.on_buttonSaveCue_clicked)
+        # Comment out the next lines to disable the associated buttons
+        #self.nextButton.clicked.connect(self.on_buttonNext_clicked)
+        #self.jumpButton.clicked.connect(self.on_buttonJump_clicked)
+        #self.savecueButton.clicked.connect(self.on_buttonSaveCue_clicked)
         self.row_focus_upButton.clicked.connect(self.scroll_cue_list)
         self.row_focus_downButton.clicked.connect(self.scroll_cue_list)
         self.tableView.clicked.connect(self.tableClicked)
@@ -614,7 +615,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         for mxrid in range(The_Show.mixers.__len__()):
             for stripGUIindx in range(The_Show.mixers[mxrid].mxrconsole.__len__()):
                 sldr = self.window().findChild(QtWidgets.QSlider, name='M{0}sldr{1:02}'.format(mxrid, stripGUIindx))
-                levels += 'M{0}{1}:{2},'.format(mxrid, The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['name'], sldr.value())
+                levels += 'M{0}{1}:{2},'.format(mxrid, The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['name'].lower(), sldr.value())
                 print('M{0}sldr{1:02}:{2:3}'.format(mxrid, stripGUIindx, sldr.value()))
         levels = levels[:-1]
         print(levels)
@@ -660,7 +661,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         self.next_cue()
 
     def on_buttonJump_clicked(self):
-        self.execute_cue(The_Show.cues.selectedcueindex)
+        self.execute_cue(The_Show.cues.selectedcueindex) # selectedcueindex no longer
 
     def on_buttonSaveCue_clicked(self): # todo mac this needs to save mute state
         """Save the current state of the levels and mutes for this cue"""
@@ -683,7 +684,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         for mxrid in range(The_Show.mixers.__len__()):
             for stripGUIindx in range(The_Show.mixers[mxrid].mxrconsole.__len__()):
                 sldr = self.findChild(QtWidgets.QSlider, name='M{0}sldr{1:02}'.format(mxrid, stripGUIindx))
-                levels += 'M{0}{1}:{2},'.format(mxrid, The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['name'], sldr.value())
+                levels += 'M{0}{1}:{2},'.format(mxrid, The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['name'].lower(), sldr.value())
                 # print('M{0}sldr{1:02}:{2:3}'.format(mxrid, stripGUIindx, sldr.value()))
         levels = levels[:-1]
         print(levels)
@@ -707,8 +708,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
                     else:
                         mute_val = 0
 
-
-                mutes += 'M{0}{1}:{2},'.format(mxrid, The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['name'], '{0}'.format(mute_val))
+                mutes += 'M{0}{1}:{2},'.format(mxrid, The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['name'].lower(), '{0}'.format(mute_val))
         mutes = mutes[:-1]
         print(mutes)
         The_Show.cues.setcueelement(The_Show.cues.currentcueindex, mutes, 'Mutes')
@@ -733,7 +733,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         tblvw.selectRow(The_Show.cues.currentcueindex)
 
     def execute_mutes(self):
-        mute_changes = The_Show.cues.get_cue_mute_state(The_Show.cues.currentcueindex)
+        mute_changes = The_Show.cues.get_cue_mute_state_delta(The_Show.cues.currentcueindex)
         # iterate through mute changes, if any
         if mute_changes != None:
             for key, value in mute_changes.items():
@@ -781,6 +781,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
                 nbrs = re.findall(r'\d+',key)
                 mxrid = int(nbrs[0])
                 chname = key[re.search('\d', key).end():]
+                print(chname)
                 for cons_idx in range(The_Show.mixers[mxrid].mxrconsole.__len__()):
                     if The_Show.mixers[mxrid].mxrconsole[cons_idx]['name'].lower() == chname.lower():
                         # print('found in stp {0}'.format(cons_idx))
@@ -879,12 +880,12 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
             The_Show.cues.currentcueindex += 1
             direction = 1
         tblvw.selectRow(The_Show.cues.currentcueindex)
-        self.display_cue_mutes(direction)
+        self.display_cue_mutes()
         self.display_cue_levels()
 
-    def display_cue_mutes(self, direction):
-        mutes = The_Show.cues.get_cue_mute_state(The_Show.cues.currentcueindex, direction)
-        # iterate through mute changes, if any
+    def display_cue_mutes(self):
+        mutes = The_Show.cues.get_cue_mute_state_by_index(The_Show.cues.currentcueindex)
+        # iterate through mutes
         if mutes != None:
             for key, value in mutes.items():
                 # find the channel name in the mxrconsole list
@@ -915,7 +916,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
                     else:
                         mute.setChecked(False)
                     muteval = The_Show.mixers[mxrid].mutestyle['mute']
-                return
+            return
 
     def display_cue_levels(self):
         levels = The_Show.cues.get_cue_levels(The_Show.cues.currentcueindex)
@@ -1046,6 +1047,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
                 tmp_list.append(clean_data)
             except AttributeError:
                 tmp_list.append('')
+        tmp_list.append('junk')
         self.tabledata.append(tmp_list)
 
     def tableClicked(self, modelidx):
@@ -1182,7 +1184,7 @@ class MySlider(QtWidgets.QSlider):
         # for mxrid in range(The_Show.mixers.__len__()):
         #     for stripGUIindx in range(The_Show.mixers[mxrid].mxrconsole.__len__()):
         #         sldr = self.window().findChild(QtWidgets.QSlider, name='M{0}sldr{1:02}'.format(mxrid, stripGUIindx))
-        #         levels += 'M{0}{1}:{2},'.format(mxrid, The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['name'], sldr.value())
+        #         levels += 'M{0}{1}:{2},'.format(mxrid, The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['name'].lower(), sldr.value())
         #         print('M{0}sldr{1:02}:{2:3}'.format(mxrid, stripGUIindx, sldr.value()))
         # levels = levels[:-1]
         # print(levels)
@@ -1197,7 +1199,7 @@ class MySlider(QtWidgets.QSlider):
             for mxrid in range(The_Show.mixers.__len__()):
                 for stripGUIindx in range(The_Show.mixers[mxrid].mxrconsole.__len__()):
                     sldr = self.window().findChild(QtWidgets.QSlider, name='M{0}sldr{1:02}'.format(mxrid, stripGUIindx))
-                    levels += 'M{0}{1}:{2},'.format(mxrid, The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['name'], sldr.value())
+                    levels += 'M{0}{1}:{2},'.format(mxrid, The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['name'].lower(), sldr.value())
                     print('M{0}sldr{1:02}:{2:3}'.format(mxrid, stripGUIindx, sldr.value()))
             levels = levels[:-1]
             print(levels)
@@ -1257,7 +1259,11 @@ class MyTableModel(QtCore.QAbstractTableModel):
 
     def columnCount(self, parent):
         if len(self.arraydata) > 0: 
-            return len(self.arraydata[0]) 
+            #return len(self.arraydata[0])  # this will attempt to do all columns in arraydata
+                                            # and since headerdata is shorter than the number of columns
+                                            # (if all cue data is in the array) then it gets an
+                                            # index error when it trys to index to column(len(headerdata)+1)
+            return len(self.headerdata)  # this only displays the colmns defined in headerdata
         return 0
 
     def data(self, index, role):
