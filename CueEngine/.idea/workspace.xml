@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/CueEngine.py" line="327" />
-    <bookmark url="file://$PROJECT_DIR$/CueEngine.py" line="657" />
-    <bookmark url="file://$PROJECT_DIR$/CueEngine.py" line="165" />
-    <bookmark url="file://$PROJECT_DIR$/CueEngine.py" line="505" />
-    <bookmark url="file://$PROJECT_DIR$/CueEngine.py" line="527" />
-    <bookmark url="file://$PROJECT_DIR$/CueEngine.py" line="534" />
-    <bookmark url="file://$PROJECT_DIR$/CueEngine.py" line="572" />
-    <bookmark url="file://$PROJECT_DIR$/../ShowMixer/ShowMixer.py" line="694" />
+    <bookmark url="file://$PROJECT_DIR$/CueEngine.py" line="398" />
+    <bookmark url="file://$PROJECT_DIR$/CueEngine.py" line="799" />
+    <bookmark url="file://$PROJECT_DIR$/CueEngine.py" line="666" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8474eff5-676b-4712-9539-a7c9c675c28b" name="Default" comment="" />
@@ -32,8 +27,20 @@
       <file leaf-file-name="Cues.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../ShowControl/utils/Cues.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="181">
-              <caret line="139" column="16" lean-forward="false" selection-start-line="139" selection-start-column="8" selection-end-line="139" selection-end-column="16" />
+            <state relative-caret-position="2618">
+              <caret line="158" column="16" lean-forward="false" selection-start-line="158" selection-start-column="8" selection-end-line="158" selection-end-column="16" />
+              <folding>
+                <marker date="1502225488374" expanded="true" signature="6276:6352" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Show.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../ShowControl/utils/Show.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="261">
+              <caret line="70" column="4" lean-forward="false" selection-start-line="70" selection-start-column="4" selection-end-line="70" selection-end-column="4" />
               <folding />
             </state>
           </provider>
@@ -42,11 +49,19 @@
       <file leaf-file-name="CueEngine.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/CueEngine.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="36">
-              <caret line="80" column="0" lean-forward="true" selection-start-line="80" selection-start-column="0" selection-end-line="80" selection-end-column="0" />
-              <folding>
-                <marker date="1502232798386" expanded="true" signature="5806:7357" ph="..." />
-              </folding>
+            <state relative-caret-position="165">
+              <caret line="301" column="22" lean-forward="false" selection-start-line="301" selection-start-column="22" selection-end-line="301" selection-end-column="22" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CueEngine_ui.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CueEngine_ui.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="138">
+              <caret line="91" column="36" lean-forward="false" selection-start-line="91" selection-start-column="36" selection-end-line="91" selection-end-column="36" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -54,9 +69,11 @@
       <file leaf-file-name="ShowMixer.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../ShowMixer/ShowMixer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="325">
-              <caret line="784" column="0" lean-forward="false" selection-start-line="784" selection-start-column="0" selection-end-line="784" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="145">
+              <caret line="741" column="68" lean-forward="false" selection-start-line="741" selection-start-column="67" selection-end-line="741" selection-end-column="68" />
+              <folding>
+                <marker date="1502407385164" expanded="true" signature="46019:46213" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -72,24 +89,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>sndrtestfunc</find>
-      <find>mxr_sock</find>
-      <find>CommAddresses</find>
-      <find>CueAppDev</find>
-      <find>getmixer</find>
-      <find>cfgdict[</find>
-      <find>stopthreads</find>
-      <find>stop</find>
-      <find>CD</find>
-      <find>cfgdict</find>
-      <find>save</find>
-      <find>on_buttonSaveCue_clicked</find>
-      <find>updatecuemutestate</find>
-      <find>updatecuemute</find>
-      <find>checked</find>
-      <find>ischecked</find>
-      <find>left</find>
-      <find>dispat</find>
       <find>AF_INET</find>
       <find>INMSG_IP</find>
       <find>CUE_IP</find>
@@ -102,6 +101,24 @@
       <find>currentcueindex</find>
       <find>exec</find>
       <find>size</find>
+      <find>change</find>
+      <find>cueengine</find>
+      <find>MainW</find>
+      <find>jump</find>
+      <find>thread</find>
+      <find>sender</find>
+      <find>/cue/editstarted</find>
+      <find>params</find>
+      <find>build</find>
+      <find>LEDLabel</find>
+      <find>CER</find>
+      <find>/cue/edit</find>
+      <find>mxr</find>
+      <find>logging</find>
+      <find>clicked</find>
+      <find>hardw</find>
+      <find>SFXAppProc</find>
+      <find>updatecuestate</find>
     </findStrings>
     <replaceStrings>
       <replace>EditPrefs</replace>
@@ -128,18 +145,21 @@
         <option value="$PROJECT_DIR$/theme_dark/style.css" />
         <option value="$PROJECT_DIR$/EditPrefs_ui.py" />
         <option value="$PROJECT_DIR$/../ShowControl/utils/CommHandlers.py" />
-        <option value="$PROJECT_DIR$/CueEngine_ui.py" />
         <option value="$PROJECT_DIR$/../ShowControl/utils/ShowConf.py" />
-        <option value="$PROJECT_DIR$/../ShowControl/utils/Show.py" />
         <option value="$PROJECT_DIR$/../ShowControl/utils/Cues.py" />
+        <option value="$PROJECT_DIR$/LEDTest.py" />
+        <option value="$PROJECT_DIR$/LEDTest2.py" />
+        <option value="$PROJECT_DIR$/labeltest.py" />
+        <option value="$PROJECT_DIR$/CueEngine_ui.py" />
         <option value="$PROJECT_DIR$/CueEngine.py" />
+        <option value="$PROJECT_DIR$/../ShowControl/utils/Show.py" />
         <option value="$PROJECT_DIR$/../ShowMixer/ShowMixer.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1940" />
-    <option name="y" value="42" />
+    <option name="x" value="1956" />
+    <option name="y" value="113" />
     <option name="width" value="1854" />
     <option name="height" value="967" />
   </component>
@@ -214,53 +234,36 @@
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
     </configuration>
-    <configuration name="MixerMap" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="CueEngine_ui" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../ShowMixer" />
-      <option name="IS_MODULE_SDK" value="false" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="CueEngine" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../ShowMixer/MixerMap.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/CueEngine_ui.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
     </configuration>
-    <configuration name="ShowConf" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="LEDTest2" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../ShowControl/utils" />
-      <option name="IS_MODULE_SDK" value="false" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="CueEngine" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../ShowControl/utils/ShowConf.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-    </configuration>
-    <configuration name="ShowControlConfig" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../ShowControl/utils" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="CueEngine" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../ShowControl/utils/ShowControlConfig.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/LEDTest2.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -397,20 +400,37 @@
       <option name="USE_PATTERN" value="false" />
       <method />
     </configuration>
+    <configuration name="labeltest" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="CueEngine" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/labeltest.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+    </configuration>
     <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Python.CueEngine" />
-      <item index="1" class="java.lang.String" itemvalue="Python.ShowControlConfig" />
-      <item index="2" class="java.lang.String" itemvalue="Python.ShowConf" />
-      <item index="3" class="java.lang.String" itemvalue="Python.MixerMap" />
-      <item index="4" class="java.lang.String" itemvalue="Python.ShowMixer" />
+      <item index="1" class="java.lang.String" itemvalue="Python.ShowMixer" />
+      <item index="2" class="java.lang.String" itemvalue="Python.LEDTest2" />
+      <item index="3" class="java.lang.String" itemvalue="Python.labeltest" />
+      <item index="4" class="java.lang.String" itemvalue="Python.CueEngine_ui" />
     </list>
     <recent_temporary>
       <list size="5">
         <item index="0" class="java.lang.String" itemvalue="Python.CueEngine" />
-        <item index="1" class="java.lang.String" itemvalue="Python.ShowMixer" />
-        <item index="2" class="java.lang.String" itemvalue="Python.MixerMap" />
-        <item index="3" class="java.lang.String" itemvalue="Python.ShowConf" />
-        <item index="4" class="java.lang.String" itemvalue="Python.ShowControlConfig" />
+        <item index="1" class="java.lang.String" itemvalue="Python.CueEngine_ui" />
+        <item index="2" class="java.lang.String" itemvalue="Python.ShowMixer" />
+        <item index="3" class="java.lang.String" itemvalue="Python.labeltest" />
+        <item index="4" class="java.lang.String" itemvalue="Python.LEDTest2" />
       </list>
     </recent_temporary>
   </component>
@@ -440,19 +460,20 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1940" y="42" width="1854" height="967" extended-state="0" />
+    <frame x="1956" y="113" width="1854" height="967" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17440605" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3716916" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39722863" sideWeight="0.50215983" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3256351" sideWeight="0.5053996" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32794458" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3256351" sideWeight="0.49460045" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296433" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3256351" sideWeight="0.49568033" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39722863" sideWeight="0.49568033" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39722863" sideWeight="0.49784017" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -460,7 +481,6 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32794458" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -491,11 +511,6 @@
           <line>23</line>
           <option name="timeStamp" value="22" />
         </line-breakpoint>
-        <line-breakpoint suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/CueEngine.py</url>
-          <line>547</line>
-          <option name="timeStamp" value="44" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/test_multicombo.py</url>
           <line>40</line>
@@ -518,52 +533,60 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/CueEngine.py</url>
-          <line>363</line>
+          <line>434</line>
           <option name="timeStamp" value="146" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/CueEngine.py</url>
-          <line>655</line>
-          <option name="timeStamp" value="159" />
         </line-breakpoint>
         <line-breakpoint suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/CueEngine.py</url>
-          <line>303</line>
+          <line>374</line>
           <option name="timeStamp" value="160" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/../ShowMixer/ShowMixer.py</url>
-          <line>948</line>
+          <line>1041</line>
           <option name="timeStamp" value="165" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/../ShowMixer/ShowMixer.py</url>
-          <line>774</line>
-          <option name="timeStamp" value="166" />
+          <url>file://$PROJECT_DIR$/CueEngine.py</url>
+          <line>669</line>
+          <option name="timeStamp" value="190" />
+        </line-breakpoint>
+        <line-breakpoint suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/CueEngine.py</url>
+          <line>630</line>
+          <option name="timeStamp" value="192" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/../ShowMixer/ShowMixer.py</url>
-          <line>784</line>
-          <option name="timeStamp" value="168" />
+          <url>file://$PROJECT_DIR$/CueEngine.py</url>
+          <line>593</line>
+          <option name="timeStamp" value="196" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/../ShowMixer/ShowMixer.py</url>
-          <line>792</line>
-          <option name="timeStamp" value="170" />
+          <url>file://$PROJECT_DIR$/CueEngine.py</url>
+          <line>582</line>
+          <option name="timeStamp" value="197" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="172" />
+      <option name="time" value="199" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
-        <watch expression="chname" language="Python" />
+        <watch expression="self.MxrApp_pid" language="Python" />
       </configuration>
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/../../SafeKeeping/Cues.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="9" column="23" lean-forward="false" selection-start-line="9" selection-start-column="23" selection-end-line="9" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/CueEngine_ui.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -575,9 +598,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <marker date="1502232798386" expanded="true" signature="5806:7357" ph="..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -600,59 +621,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <marker date="1502232798386" expanded="true" signature="5806:7357" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../SafeKeeping/Cues.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="9" column="23" lean-forward="false" selection-start-line="9" selection-start-column="23" selection-end-line="9" selection-end-column="23" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CueEngine_ui.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="79" column="59" lean-forward="false" selection-start-line="79" selection-start-column="59" selection-end-line="79" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CueEngine.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <marker date="1502232798386" expanded="true" signature="5806:7357" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../SafeKeeping/Cues.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="9" column="23" lean-forward="false" selection-start-line="9" selection-start-column="23" selection-end-line="9" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CueEngine_ui.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="79" column="59" lean-forward="false" selection-start-line="79" selection-start-column="59" selection-end-line="79" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CueEngine.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <marker date="1502232798386" expanded="true" signature="5806:7357" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -675,9 +644,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <marker date="1502232798386" expanded="true" signature="5806:7357" ph="..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -839,13 +806,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CueEngine_ui.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="214">
-          <caret line="176" column="35" lean-forward="true" selection-start-line="176" selection-start-column="35" selection-end-line="176" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/lib/python3/dist-packages/apport_python_hook.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="799">
@@ -857,13 +817,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
           <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../ShowControl/utils/Show.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="31" column="11" lean-forward="false" selection-start-line="31" selection-start-column="11" selection-end-line="31" selection-end-column="11" />
         </state>
       </provider>
     </entry>
@@ -911,27 +864,57 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/../ShowControl/utils/Cues.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="181">
-          <caret line="139" column="16" lean-forward="false" selection-start-line="139" selection-start-column="8" selection-end-line="139" selection-end-column="16" />
+        <state relative-caret-position="2618">
+          <caret line="158" column="16" lean-forward="false" selection-start-line="158" selection-start-column="8" selection-end-line="158" selection-end-column="16" />
+          <folding>
+            <marker date="1502225488374" expanded="true" signature="6276:6352" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LEDTest_ui.py" />
+    <entry file="file://$PROJECT_DIR$/LEDTest2.py" />
+    <entry file="file://$PROJECT_DIR$/LEDTest.py" />
+    <entry file="file://$PROJECT_DIR$/labeltest.py" />
+    <entry file="file:///usr/lib/python3.5/subprocess.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../ShowControl/utils/Show.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="261">
+          <caret line="70" column="4" lean-forward="false" selection-start-line="70" selection-start-column="4" selection-end-line="70" selection-end-column="4" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../ShowMixer/ShowMixer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="325">
-          <caret line="784" column="0" lean-forward="false" selection-start-line="784" selection-start-column="0" selection-end-line="784" selection-end-column="0" />
+        <state relative-caret-position="145">
+          <caret line="741" column="68" lean-forward="false" selection-start-line="741" selection-start-column="67" selection-end-line="741" selection-end-column="68" />
+          <folding>
+            <marker date="1502407385164" expanded="true" signature="46019:46213" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CueEngine_ui.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="91" column="36" lean-forward="false" selection-start-line="91" selection-start-column="36" selection-end-line="91" selection-end-column="36" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/CueEngine.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
-          <caret line="80" column="0" lean-forward="true" selection-start-line="80" selection-start-column="0" selection-end-line="80" selection-end-column="0" />
-          <folding>
-            <marker date="1502232798386" expanded="true" signature="5806:7357" ph="..." />
-          </folding>
+        <state relative-caret-position="165">
+          <caret line="301" column="22" lean-forward="false" selection-start-line="301" selection-start-column="22" selection-end-line="301" selection-end-column="22" />
+          <folding />
         </state>
       </provider>
     </entry>

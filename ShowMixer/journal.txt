@@ -1,6 +1,6 @@
 Sun Jun 28 09:17:45 EDT 2015
 
-Not sure ChanStripDlg.closeShow method required?
+Not sure ChanStripMainWindow.closeShow method required?
 
 What to work on next?
 - Add open show to CueEngine
@@ -35,13 +35,13 @@ Added double click on tabel to edit a cue
 
 
 Thu Dec 22 17:49:06 EST 2016
-Updated ShowMixer.py <class ChanStripDlg> added initlevels()
+Updated ShowMixer.py <class ChanStripMainWindow> added initlevels()
 Aded line to main to initialize the levels.
 In Cue.py added levdic dictionary of levels for each channel of the cue.
 Action needed:
 Add level entity in Paulie_cues_w_cuetypes.xml
 Confirm lev dic for all cues in cue list
-modify on_buttonNext_clicked in <class ChanStripDlg> to handle setting levels when cue is activated.
+modify on_buttonNext_clicked in <class ChanStripMainWindow> to handle setting levels when cue is activated.
 
 Thu Dec 22 18:31:07 EST 2016
 Levels of cue are now activated

@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/../ShowControl/utils/ShowConf.py" line="98" />
-    <bookmark url="file://$PROJECT_DIR$/ShowMixer.py" line="1072" />
-    <bookmark url="file://$PROJECT_DIR$/ShowMixer.py" line="357" />
-    <bookmark url="file://$PROJECT_DIR$/ShowMixer.py" line="186" />
-    <bookmark url="file://$PROJECT_DIR$/ShowMixer.py" line="299" />
+    <bookmark url="file://$PROJECT_DIR$/ShowMixer.py" line="674" />
+    <bookmark url="file://$PROJECT_DIR$/ShowMixer.py" line="372" />
+    <bookmark url="file://$PROJECT_DIR$/ShowMixer.py" line="936" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="abfe075f-0c42-4a77-bd66-15c5b772e7d4" name="Default" comment="" />
@@ -29,21 +27,12 @@
       <file leaf-file-name="Cues.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../ShowControl/utils/Cues.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="518">
-              <caret line="84" column="8" lean-forward="true" selection-start-line="84" selection-start-column="8" selection-end-line="84" selection-end-column="8" />
+            <state relative-caret-position="121">
+              <caret line="84" column="0" lean-forward="false" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
               <folding>
                 <element signature="e#92#102#0" expanded="true" />
+                <marker date="1502225488374" expanded="true" signature="6276:6352" ph="..." />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="apport_python_hook.py" pinned="false" current-in-tab="false">
-        <entry file="file:///usr/lib/python3/dist-packages/apport_python_hook.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="799">
-              <caret line="48" column="43" lean-forward="false" selection-start-line="48" selection-start-column="43" selection-end-line="48" selection-end-column="43" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -62,7 +51,7 @@
         <entry file="file://$PROJECT_DIR$/MixerMap.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="561">
-              <caret line="33" column="41" lean-forward="true" selection-start-line="33" selection-start-column="41" selection-end-line="33" selection-end-column="41" />
+              <caret line="33" column="41" lean-forward="false" selection-start-line="33" selection-start-column="41" selection-end-line="33" selection-end-column="41" />
               <folding>
                 <marker date="1500472215767" expanded="true" signature="351:396" ph="..." />
               </folding>
@@ -70,11 +59,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ShowControlConfig.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../ShowControl/utils/ShowControlConfig.py">
+      <file leaf-file-name="CommHandlers.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../ShowControl/utils/CommHandlers.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="714">
-              <caret line="48" column="0" lean-forward="false" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
+            <state relative-caret-position="1037">
+              <caret line="71" column="0" lean-forward="false" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -103,11 +92,9 @@
       <file leaf-file-name="ShowMixer.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ShowMixer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="50">
-              <caret line="704" column="21" lean-forward="true" selection-start-line="704" selection-start-column="21" selection-end-line="704" selection-end-column="21" />
-              <folding>
-                <element signature="e#43#58#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="236">
+              <caret line="940" column="13" lean-forward="false" selection-start-line="940" selection-start-column="13" selection-end-line="940" selection-end-column="13" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -133,21 +120,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>logging.info</find>
-      <find>CUE_IP</find>
-      <find>OSC</find>
-      <find>MXR_IP</find>
-      <find>queue_msg</find>
-      <find>cmd_</find>
-      <find>bind</find>
-      <find>propa</find>
-      <find>setcueelement</find>
-      <find>propag</find>
-      <find>save</find>
-      <find>updatecuestate</find>
-      <find>sliderprint</find>
-      <find>tableview</find>
-      <find>uuid</find>
       <find>tableclicked</find>
       <find>jump_clicked</find>
       <find>execute</find>
@@ -157,12 +129,27 @@
       <find>color</find>
       <find>size</find>
       <find>scroll</find>
-      <find>change</find>
       <find>mute</find>
       <find>[stripGUIindx]['name']</find>
       <find>selectedcueindex</find>
       <find>slider</find>
       <find>stripGUIindx]['na</find>
+      <find>editstarted</find>
+      <find>sndr</find>
+      <find>senderthread</find>
+      <find>startCEResponsethread</find>
+      <find>CueAppDev</find>
+      <find>CEResponsethread</find>
+      <find>queue_msg</find>
+      <find>/cue/</find>
+      <find>change</find>
+      <find>on_buttonMute_clicked</find>
+      <find>clicked</find>
+      <find>propagate</find>
+      <find>CER</find>
+      <find>save</find>
+      <find>saveshow</find>
+      <find>propa</find>
     </findStrings>
     <replaceStrings>
       <replace>control_type</replace>
@@ -206,13 +193,14 @@
         <option value="$PROJECT_DIR$/MixerConf.py" />
         <option value="$PROJECT_DIR$/../ShowControl/utils/ShowControlConfig.py" />
         <option value="$PROJECT_DIR$/../ShowControl/utils/Cues.py" />
+        <option value="$PROJECT_DIR$/TestXMLtoDICT.py" />
         <option value="$PROJECT_DIR$/ShowMixer.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1939" />
-    <option name="y" value="26" />
+    <option name="x" value="1963" />
+    <option name="y" value="88" />
     <option name="width" value="1854" />
     <option name="height" value="924" />
   </component>
@@ -238,12 +226,27 @@
               <item name="ShowMixer" type="b2602c69:ProjectViewProjectNode" />
               <item name="ShowMixer" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="ShowMixer" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+            </path>
+            <path>
+              <item name="ShowMixer" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="&lt; Python 3.5.2 (/usr/bin/python3.5) &gt;" type="70bed36:NamedLibraryElementNode" />
+            </path>
+            <path>
+              <item name="ShowMixer" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="&lt; Python 3.5.2 (/usr/bin/python3.5) &gt;" type="70bed36:NamedLibraryElementNode" />
+              <item name="dist-packages" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
       <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -263,12 +266,13 @@
     </option>
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/../../MuteMap/TestXMLtoDict.py" />
       <recent name="$PROJECT_DIR$/../ShowControl/utils" />
       <recent name="$PROJECT_DIR$/showcontrol/utils" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -284,6 +288,23 @@
     </option>
   </component>
   <component name="RunManager" selected="Python.ShowMixer">
+    <configuration name="CommHandlers" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../ShowControl/utils" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="ShowMixer" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../ShowControl/utils/CommHandlers.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+    </configuration>
     <configuration name="Cues" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -301,23 +322,6 @@
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
     </configuration>
-    <configuration name="MixerMap" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="ShowMixer" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/MixerMap.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-    </configuration>
     <configuration name="ShowConf" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -331,23 +335,6 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="ShowMixer" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../ShowControl/utils/ShowConf.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-    </configuration>
-    <configuration name="ShowControlConfig" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../ShowControl/utils" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="ShowMixer" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../ShowControl/utils/ShowControlConfig.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -372,6 +359,23 @@
       <RunnerSettings RunnerId="PythonRunner" />
       <ConfigurationWrapper RunnerId="PyDebugRunner" />
       <ConfigurationWrapper RunnerId="PythonRunner" />
+    </configuration>
+    <configuration name="TestXMLtoDICT" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="ShowMixer" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../../MuteMap/TestXMLtoDict.py/TestXMLtoDICT.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
     </configuration>
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -509,17 +513,17 @@
       <item index="0" class="java.lang.String" itemvalue="Python.ShowMixer" />
       <item index="1" class="java.lang.String" itemvalue="Python.Cues" />
       <item index="2" class="java.lang.String" itemvalue="Python.ShowConf" />
-      <item index="3" class="java.lang.String" itemvalue="Python.MixerMap" />
-      <item index="4" class="java.lang.String" itemvalue="Python.ShowControlConfig" />
-      <item index="5" class="java.lang.String" itemvalue="Python.apport_python_hook" />
+      <item index="3" class="java.lang.String" itemvalue="Python.apport_python_hook" />
+      <item index="4" class="java.lang.String" itemvalue="Python.TestXMLtoDICT" />
+      <item index="5" class="java.lang.String" itemvalue="Python.CommHandlers" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.Cues" />
-        <item index="1" class="java.lang.String" itemvalue="Python.apport_python_hook" />
-        <item index="2" class="java.lang.String" itemvalue="Python.ShowConf" />
-        <item index="3" class="java.lang.String" itemvalue="Python.ShowControlConfig" />
-        <item index="4" class="java.lang.String" itemvalue="Python.MixerMap" />
+        <item index="0" class="java.lang.String" itemvalue="Python.CommHandlers" />
+        <item index="1" class="java.lang.String" itemvalue="Python.TestXMLtoDICT" />
+        <item index="2" class="java.lang.String" itemvalue="Python.Cues" />
+        <item index="3" class="java.lang.String" itemvalue="Python.apport_python_hook" />
+        <item index="4" class="java.lang.String" itemvalue="Python.ShowConf" />
       </list>
     </recent_temporary>
   </component>
@@ -550,19 +554,20 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1939" y="26" width="1854" height="924" extended-state="0" />
+    <frame x="1963" y="88" width="1854" height="924" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1387689" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32796317" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40583232" sideWeight="0.5107991" order="11" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36816525" sideWeight="0.51133907" order="11" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3414338" sideWeight="0.49784017" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36816525" sideWeight="0.4886609" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="right" auto_hide="true" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.3277405" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36816525" sideWeight="0.4924406" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40583232" sideWeight="0.48920086" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32991362" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -590,59 +595,78 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/../ShowControl/utils/Cues.py</url>
-          <line>182</line>
+          <line>201</line>
           <option name="timeStamp" value="469" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/ShowMixer.py</url>
-          <line>425</line>
-          <option name="timeStamp" value="488" />
         </line-breakpoint>
         <line-breakpoint suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/ShowMixer.py</url>
-          <line>369</line>
+          <line>382</line>
           <option name="timeStamp" value="500" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+        <line-breakpoint suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/ShowMixer.py</url>
-          <line>623</line>
-          <option name="timeStamp" value="509" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/ShowMixer.py</url>
-          <line>667</line>
+          <line>753</line>
           <option name="timeStamp" value="512" />
         </line-breakpoint>
         <line-breakpoint suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/ShowMixer.py</url>
-          <line>949</line>
+          <line>1042</line>
           <option name="timeStamp" value="514" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/ShowMixer.py</url>
-          <line>963</line>
+          <line>1061</line>
           <option name="timeStamp" value="515" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/ShowMixer.py</url>
-          <line>888</line>
-          <option name="timeStamp" value="523" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <condition expression="chname.lower() == 'ch01'" language="Python" />
-          <url>file://$PROJECT_DIR$/ShowMixer.py</url>
-          <line>895</line>
-          <option name="timeStamp" value="524" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/../ShowControl/utils/Cues.py</url>
-          <line>235</line>
+          <line>254</line>
           <option name="timeStamp" value="525" />
         </line-breakpoint>
         <line-breakpoint suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/ShowMixer.py</url>
-          <line>710</line>
+          <line>796</line>
           <option name="timeStamp" value="526" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/../../MuteMap/TestXMLtoDICT.py</url>
+          <line>102</line>
+          <option name="timeStamp" value="527" />
+        </line-breakpoint>
+        <line-breakpoint suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/ShowMixer.py</url>
+          <line>713</line>
+          <option name="timeStamp" value="534" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/ShowMixer.py</url>
+          <line>910</line>
+          <option name="timeStamp" value="538" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/ShowMixer.py</url>
+          <line>770</line>
+          <option name="timeStamp" value="539" />
+        </line-breakpoint>
+        <line-breakpoint suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/ShowMixer.py</url>
+          <line>372</line>
+          <option name="timeStamp" value="540" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/ShowMixer.py</url>
+          <line>1044</line>
+          <option name="timeStamp" value="541" />
+        </line-breakpoint>
+        <line-breakpoint suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/ShowMixer.py</url>
+          <line>381</line>
+          <option name="timeStamp" value="542" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/../ShowControl/utils/Cues.py</url>
+          <line>84</line>
+          <option name="timeStamp" value="544" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
@@ -657,30 +681,15 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="527" />
+      <option name="time" value="545" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
-        <watch expression="The_Show.mixers[mxrid].mxrconsole[cons_idx]['name'].lower()" language="Python" />
-        <watch expression="chname.lower()" language="Python" />
+        <watch expression="self.objectName()" language="Python" />
       </configuration>
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file:///usr/lib/python3.5/socket.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1257">
-          <caret line="48" column="11" lean-forward="false" selection-start-line="48" selection-start-column="11" selection-end-line="48" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../SafeKeeping/Show.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="70" column="0" lean-forward="false" selection-start-line="70" selection-start-column="0" selection-end-line="70" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/TestInherit.py" />
     <entry file="file://$USER_HOME$/.PyCharmCE2016.3/system/python_stubs/-1247971764/PyQt5/QtWidgets/QWidget.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -807,13 +816,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="172">
           <caret line="356" column="0" lean-forward="false" selection-start-line="356" selection-start-column="0" selection-end-line="356" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../ShowControl/utils/CommHandlers.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3480">
-          <caret line="242" column="0" lean-forward="false" selection-start-line="242" selection-start-column="0" selection-end-line="242" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -974,38 +976,53 @@
     <entry file="file://$PROJECT_DIR$/MixerMap.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="561">
-          <caret line="33" column="41" lean-forward="true" selection-start-line="33" selection-start-column="41" selection-end-line="33" selection-end-column="41" />
+          <caret line="33" column="41" lean-forward="false" selection-start-line="33" selection-start-column="41" selection-end-line="33" selection-end-column="41" />
           <folding>
             <marker date="1500472215767" expanded="true" signature="351:396" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file:///usr/local/lib/python3.5/dist-packages/xmltodict.py" />
+    <entry file="file://$PROJECT_DIR$/../../MuteMap/TestXMLtoDICT.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="10" lean-forward="true" selection-start-line="7" selection-start-column="10" selection-end-line="7" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../ShowControl/utils/CommHandlers.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1037">
+          <caret line="71" column="0" lean-forward="false" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file:///usr/lib/python3/dist-packages/apport_python_hook.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="799">
+        <state relative-caret-position="431">
           <caret line="48" column="43" lean-forward="false" selection-start-line="48" selection-start-column="43" selection-end-line="48" selection-end-column="43" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../ShowControl/utils/Cues.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="518">
-          <caret line="84" column="8" lean-forward="true" selection-start-line="84" selection-start-column="8" selection-end-line="84" selection-end-column="8" />
+        <state relative-caret-position="121">
+          <caret line="84" column="0" lean-forward="false" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
           <folding>
             <element signature="e#92#102#0" expanded="true" />
+            <marker date="1502225488374" expanded="true" signature="6276:6352" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ShowMixer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="50">
-          <caret line="704" column="21" lean-forward="true" selection-start-line="704" selection-start-column="21" selection-end-line="704" selection-end-column="21" />
-          <folding>
-            <element signature="e#43#58#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="236">
+          <caret line="940" column="13" lean-forward="false" selection-start-line="940" selection-start-column="13" selection-end-line="940" selection-end-column="13" />
+          <folding />
         </state>
       </provider>
     </entry>

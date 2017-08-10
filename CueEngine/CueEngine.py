@@ -7,9 +7,11 @@ import argparse
 import socket
 from time import sleep
 from curses.ascii import isprint
+import psutil
 
 from PyQt5 import Qt, QtCore, QtGui, QtWidgets
-from PyQt5.QtGui import QColor, QBrush
+from PyQt5.QtGui import QColor, QBrush, QPalette, QPainter, QPen, QPixmap
+
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 
@@ -163,6 +165,27 @@ class EditCue(QDialog, Ui_dlgEditCue):
                 self.edt_list[i].setReadOnly(True)
                 self.edt_list[i].setToolTip('{0} (read only)'.format(cue_subelements_tooltips[i]))
 
+class LED(QLabel):
+    def __init__(self, parent=None):
+        QLabel.__init__(self, parent)
+        self.state_brush = QBrush(Qt.green)
+    def paintEvent(self, event):
+        painter = QPainter()
+        painter.begin(self)
+        painter.setRenderHint(QPainter.Antialiasing)
+
+        painter.fillRect(event.rect(), self.state_brush)
+        painter.setPen(QPen(Qt.NoPen))
+        painter.end()
+
+    def toggle(self, state=False):
+        if state == True:
+            self.state_brush = QBrush(Qt.red)
+        else:
+            self.state_brush = QBrush(Qt.green)
+        self.update()
+
+
 class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
 
     CueFileUpdate_sig = pyqtSignal()
@@ -189,6 +212,12 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
 
         self.setupUi(self)
         self.setWindowTitle(The_Show.show_conf.settings['title'])
+        self.LED_ext_cue_change = LED()
+        self.LED_ext_cue_change.setMaximumSize(QtCore.QSize(32, 32))
+        self.LED_ext_cue_change.setObjectName("extCueChanged")
+        self.horizontalLayout.addWidget(self.LED_ext_cue_change)
+        self.update()
+
         self.goButton.clicked.connect(self.on_buttonGo_clicked)
         self.prevButton.clicked.connect(self.on_buttonPrev_clicked)
         self.jumpButton.clicked.connect(self.on_buttonJump_clicked)
@@ -226,14 +255,24 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         # connect callbacks for launching external apps
         self.action_Sound_FX.triggered.connect(self.ShowSFXApp)
         self.action_Mixer.triggered.connect(self.ShowMxrApp)
+
+        # initiallize SFX player objects
         self.SFXAppProc = None
+        self.SFXApp_pid = None
+        self.SFX_sock = None
+        self.SFX_sndrthread = None
+
+        # initialize mixer app objects
         self.MxrAppProc = None
+        self.MxrApp_pid = None
+        self.mxr_sock = None
+        self.mxr_sndrthread = None
+
         self.dispatch = {'Stage':self.do_stage,
                          'Mixer':self.do_mixer,
                          'Sound':self.do_SFX,
                          'SFX':self.do_SFX,
                          'Light':self.do_light}
-
         self.comm_threads = []  # a list of threads in use for later use when app exits
 
         # setup receiver thread for inbound messages from slave apps, etc.
@@ -517,19 +556,42 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
 
     # launch sound_effects_player
     def ShowSFXApp(self):
-        if self.SFXAppProc != None:
-            msg = osc_message_builder.OscMessageBuilder(address='/cue/quit')
-            msg = msg.build()
-            self.SFX_sndrthread.queue_msg(msg, self.SFXAppDev)
-            self.SFXAppProc = None
-        else:
-            logging.info('Launch SFX App.')
+        sender_action = self.sender()
+        if sender_action.isChecked():
 
-            print("Launch SFX App.")
-            SFX_shell = cfg.cfgdict['configuration']['project']['folder'] + '/' + 'run_sound_effects_player.sh'
-            self.SFXAppProc = subprocess.Popen([SFX_shell])
-            #self.SFXAppProc = subprocess.Popen(['sound_effects_player'])
-            # setup sound sender thread
+            for process in psutil.process_iter():
+                print(process.pid)
+                try:
+                    if 'run_sound_effects_player.sh' in process.cmdline()[1]:
+                        self.SFXApp_pid = process.pid
+                        print('SFX player pid:{}'.format(self.SFXp_pid))
+                        logging.info('ShowMixer pid:{}'.format(self.SFX_pid))
+                        break
+                except IndexError:
+                    self.SFX_pid = None
+            if self.SFXApp_pid is None:
+                logging.info('SFX player not found, attempting to launch')
+                print("Launch SFX player.")
+                # self.SFXAppProc = subprocess.Popen(['python3', '/home/mac/SharedData/PycharmProjs/ShowControl/ShowMixer/ShowMixer.py'])
+                SFX_shell = cfg.cfgdict['configuration']['project']['folder'] + '/' + 'run_sound_effects_player.sh'
+                self.SFXAppProc = subprocess.Popen([SFX_shell])
+                if self.SFXAppProc is not None:
+                    self.SFXApp_pid = self.SFXAppProc.pid
+                    logging.info('SFX player launch success, pid: {}'.format(self.SFXApp_pid))
+        else:
+            # stop SFX player
+            logging.info('ShowMixer shutdown requested.')
+            # if we have a sender thread attempt to tell ShowMixer to quit
+            try:  # if SFXAppProc was never created it will throw and exception on the next line...so this is probabaly not the right way...
+                if self.SFXApp_pid is not None:
+                    msg = osc_message_builder.OscMessageBuilder(address='/cue/quit')
+                    msg = msg.build()
+                    self.SFX_sndrthread.queue_msg(msg, self.SFXAppDev)
+                    sleep(2)  # wait for message to be sent
+            except:
+                raise
+
+        if self.SFX_sock is None:
 
             try:
                 self.SFX_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -563,20 +625,48 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
     #     self.SFXAppProc.terminate()
 
     def ShowMxrApp(self):
-        if self.MxrAppProc != None:
-            msg = osc_message_builder.OscMessageBuilder(address='/cue/quit')
-            #msg.add_arg(The_Show.cues.currentcueindex)
-            msg = msg.build()
-            self.mxr_sndrthread.queue_msg(msg, self.CueAppDev)
-            self.MxrAppProc = None
+        sender_action = self.sender()
+        if sender_action.isChecked():
+
+            for process in psutil.process_iter():
+                print(process.pid)
+                try:
+                    if 'ShowMixer.py' in process.cmdline()[1]:
+                        self.MxrApp_pid = process.pid
+                        print('ShowMixer pid:{}'.format(self.MxrApp_pid))
+                        logging.info('ShowMixer pid:{}'.format(self.MxrApp_pid))
+                        break
+                except IndexError:
+                    self.MxrApp_pid = None
+            if self.MxrApp_pid is None:
+                logging.info('ShowMixer not found, attempting to launch')
+                print('ShowMixer not found, attempting to launch')
+                #self.MxrAppProc = subprocess.Popen(['python3', '/home/mac/SharedData/PycharmProjs/ShowControl/ShowMixer/ShowMixer.py'])
+                self.MxrAppProc = subprocess.Popen(
+                    ['python3', parentdir + '/ShowMixer/ShowMixer.py'])
+                if self.MxrAppProc is not None:
+                    self.MxrApp_pid = self.MxrAppProc.pid
+                    logging.info('ShowMixer launch success, pid: {}'.format(self.MxrApp_pid))
         else:
-            print("Launch Mxr App.")
-            self.MxrAppProc = subprocess.Popen(['python3', '/home/mac/SharedData/PycharmProjs/ShowControl/ShowMixer/ShowMixer.py'])
+            # stop ShowMixer
+            logging.info('ShowMixer shutdown requested.')
+            # if we have a sender thread attempt to tell ShowMixer to quit
+            try:  # if MxrAppProc was never created it will throw and exception on the next line...so this is probabaly not the right way...
+                if self.MxrApp_pid is not None:
+                    msg = osc_message_builder.OscMessageBuilder(address='/cue/quit')
+                    msg = msg.build()
+                    self.mxr_sndrthread.queue_msg(msg, self.ShowMixerAppDev)
+                    sleep(2)  # wait for message to be sent
+            except:
+                raise
+
+        if self.mxr_sock is None:
             # setup mixer sender thread
             try:
                 self.mxr_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
             except socket.error:
                 print('Failed to create mixer socket')
+                logging.info('Failed to create mixer socket')
                 sys.exit()
             self.mxr_sndrthread = CommHandlers.sender(self.mxr_sock)
             self.mxr_sndrthread.sndrsignal.connect(self.sndrtestfunc)  # connect to custom signal called 'signal'
@@ -588,7 +678,7 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
     def closeEvent(self, event):
         reply = self.confirmQuit()
         if reply == QMessageBox.Yes:
-            if self.SFXAppProc != None:
+            if self.SFXApp_pid is not None:
                 msg = osc_message_builder.OscMessageBuilder(address='/cue/quit')
                 msg = msg.build()
                 self.SFX_sndrthread.queue_msg(msg, self.SFXAppDev)
@@ -597,7 +687,7 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
                 #    "Save changes in FX player before continuing!", QMessageBox.Ok, QMessageBox.Ok)
                 self.EndSFXApp()
             try:  # if MxrAppProc was never created it will throw and exception on the next line...so this is probabaly not the right way...
-                if self.MxrAppProc != None:
+                if self.MxrApp_pid is not None:
                     msg = osc_message_builder.OscMessageBuilder(address='/cue/quit')
                     msg = msg.build()
                     self.mxr_sndrthread.queue_msg(msg, self.ShowMixerAppDev)
@@ -654,9 +744,11 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         if msg.address == '/cue/editstarted':
             if msg.params[0] == True:
                 self.ExternalEditStarted = True
+                self.LED_ext_cue_change.toggle(True)
         elif msg.address == '/cue/editcomplete':
             if msg.params[0] == True:
                 self.ExternalEditComplete = True
+                self.LED_ext_cue_change.toggle(False)
                 self.CueFileUpdate_sig.emit()
 
     def ExternalCueUpdate(self):

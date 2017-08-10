@@ -125,7 +125,7 @@ if __name__ == "__main__":
     #app.setStyleSheet("QPushButton {pressed-color: red }")
     app.setStyleSheet(styles.QLiSPTheme_Dark)
     chans = 32
-    #ui = ChanStripDlg(path.abspath(path.join(path.dirname(__file__))) + '/Scrooge Moves.xml')
+    #ui = ChanStripMainWindow(path.abspath(path.join(path.dirname(__file__))) + '/Scrooge Moves.xml')
     ui = ChanStripDlg(path.abspath(path.join(path.dirname(cfgdict['Show']['folder']))))
     ui.addChanStrip()
     ui.resize(32 * ui.ChanStrip_MinWidth, 800)

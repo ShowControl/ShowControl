@@ -169,16 +169,16 @@ class ShowMxr(Show):
 
         self.chrchnmap = MixerCharMap(self.show_confpath + self.show_conf.settings['project']['mixermap'])
 
-class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
+class ChanStripMainWindow(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
     #CSD_log = logging.getLogger(__name__)
-    #CSD_log.debug('ChanStripDlg')
+    #CSD_log.debug('ChanStripMainWindow')
     ChanStrip_MinWidth = 50
     CueFileUpdate_sig = pyqtSignal()
 
     def __init__(self, cuelistfile, parent=None):
-        super(ChanStripDlg, self).__init__(parent)
-        logging.info('In ChanStripDlg init.')
-        #self.logger.info('In ChanStripDlg init.')
+        super(ChanStripMainWindow, self).__init__(parent)
+        logging.info('In ChanStripMainWindow init.')
+        #self.logger.info('In ChanStripMainWindow init.')
         QtGui.QIcon.setThemeSearchPaths(styles.QLiSPIconsThemePaths)
         QtGui.QIcon.setThemeName(styles.QLiSPIconsThemeName)
 
@@ -306,6 +306,9 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         self.cmd_rcvrthread.start()  # start the thread
         self.comm_threads.append(self.cmd_rcvrthread)
 
+        #  Setup to send responses to CueEngine
+        self.startCEResponsethread()
+
         self.setupUi(self)
         self.setWindowTitle(The_Show.show_conf.settings['title'])
         self.tabWidget.setCurrentIndex(0)
@@ -342,12 +345,14 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
             eval('self.slider_action_{} (sldr_name)'.format(action_name))
 
     def slider_action_set_min(self, sldr_name):
+        self.CER_send_edit_start()
         act_sndr = self.sender()
         sldr = self.window().findChild(QtWidgets.QSlider, name=self.slider_entered)
         print('Set slider to min. Current value: {}'.format(sldr.value()))
         self.slider_set(self.slider_entered, 0)
 
     def slider_action_set_0db(self, sldr_name):
+        self.CER_send_edit_start()
         val = db_to_int(0.00)
         act_sndr = self.sender()
         sldr = self.window().findChild(QtWidgets.QSlider, name=self.slider_entered)
@@ -355,6 +360,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         self.slider_set(self.slider_entered, val)
 
     def slider_action_propagate_level(self, sldr_name):
+        self.CER_send_edit_start()
         print('Propagate slider level.')
         sldr = self.window().findChild(QtWidgets.QSlider, name=sldr_name)
         new_level = sldr.value()
@@ -370,10 +376,56 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
                 chan_level = levels[level_name]
                 levels[level_name] = new_level
                 level_text = ','.join(str(key) + ':' + str(levels.get(key)) for key in levels)
-                The_Show.cues.setcueelement(cue_idx, level_text, 'Levels')
+                level_list = level_text.split(',')
+                level_list_sorted = self.sort_controls(level_list)
+                level_text_sorted = ','.join(str(s) for s in level_list_sorted)
+                The_Show.cues.setcueelement(cue_idx, level_text_sorted, 'Levels')
             except KeyError:
                 pass
             print('Cue#{0} Levels:{1}'.format(cue_idx, levels))
+
+    def sort_controls(self, control_list=[]):
+        chlist = []
+        auxlist = []
+        buslist = []
+        mainlist = []
+        for control in control_list:
+            if 'bus' in control:
+                buslist.append(control)
+            elif 'aux' in control:
+                auxlist.append(control)
+            elif 'main' in control:
+                mainlist.append(control)
+            elif 'ch' in control:
+                chlist.append(control)
+        buslist = sorted(buslist)
+        auxlist = sorted(auxlist)
+        mainlist = sorted(mainlist)
+        chlist = sorted(chlist)
+        sorted_controls = chlist + auxlist + buslist + mainlist
+        return sorted_controls
+
+
+    def startCEResponsethread(self):
+        # Set up sender thread to send responses/alerts to CueEngine
+
+        try:
+            self.CEResp_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        except socket.error:
+            # todo-mac need exception and logging here
+            print('Failed to create CueEngine response socket')
+            sys.exit()
+        # Setup thread and udp to handle mixer I/O
+        try:
+            self.CEResponsethread = CommHandlers.sender(self.CEResp_sock)  # , MXR_IP, MXR_PORT)
+            self.CEResponsethread.setObjectName('CEResponsethread')
+            self.CEResponsethread.sndrsignal.connect(self.CER_signal_handler)  # connect to custom signal called 'signal'
+            self.CEResponsethread.finished.connect(self.CER_finished_signal_handler)  # connect to buitlin signal 'finished'
+            self.CEResponsethread.start()  # start the thread
+            self.comm_threads.append(self.CEResponsethread)
+        except socket.error:
+            print('Failed to create mixer socket')  # todo-mac need exception and logging here
+            sys.exit()
 
     def startdevicethreads(self):
         # Set up sender threads for each mixer
@@ -627,6 +679,10 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         print('SliderDown is : {}'.format(sending_slider.isSliderDown()))
         if sending_slider.isSliderDown():
             self.cuehaschanged = True
+            CE_msg = osc_message_builder.OscMessageBuilder(address='/cue/editstarted')
+            CE_msg.add_arg(True)
+            CE_msg = CE_msg.build()
+            self.CEResponsethread.queue_msg(CE_msg, self.CueAppDev)
         print('In slidervalchanged, sending_slider name: {0}'.format(sending_slider.objectName()))
         sldrname = sending_slider.objectName()
         mxrid = int(sldrname[1])
@@ -640,6 +696,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
             Set(The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['channum'], val)
         if msg is not None:
             self.mixer_sender_threads[mxrid].queue_msg(msg, The_Show.mixers[mxrid])
+        self.updatecuelevelstate()
 
     def slider_set(self, sldrname, val):
         self.cuehaschanged = True
@@ -679,7 +736,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         #  Commented this out because I don't why I would have changed the levels in an existing and then add a new cue
         # The_Show.cues.addnewcue()
 
-    def updatecuestate(self):
+    def updatecuelevelstate(self):
         levels = ''
         for mxrid in range(The_Show.mixers.__len__()):
             for stripGUIindx in range(The_Show.mixers[mxrid].mxrconsole.__len__()):
@@ -839,6 +896,10 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
 
     def on_buttonMute_clicked(self):
         self.cuehaschanged = True
+        CE_msg = osc_message_builder.OscMessageBuilder(address='/cue/editstarted')
+        CE_msg.add_arg(True)
+        CE_msg = CE_msg.build()
+        self.CEResponsethread.queue_msg(CE_msg, self.CueAppDev)
         mbtn=self.sender()
         print('sending_slider name: {0}'.format(mbtn.objectName()))
         mbtnname = mbtn.objectName()
@@ -872,13 +933,14 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         source_name = self.sender().objectName()
         tblvw = self.findChild(QtWidgets.QTableView)
         if 'up' in source_name:  # scrol up the table, i.e. previous cue
+            if The_Show.cues.currentcueindex > 0:
             The_Show.cues.currentcueindex -= 1
-            The_Show.cues.previouscueindex = The_Show.cues.currentcueindex -1
-            direction = -1
+            #The_Show.cues.previouscueindex = The_Show.cues.currentcueindex -1
+            #direction = -1
         else:  # scroll down the table, i.e. the next cue
-            The_Show.cues.previouscueindex = The_Show.cues.currentcueindex
+            #The_Show.cues.previouscueindex = The_Show.cues.currentcueindex
             The_Show.cues.currentcueindex += 1
-            direction = 1
+            #direction = 1
         tblvw.selectRow(The_Show.cues.currentcueindex)
         self.display_cue_mutes()
         self.display_cue_levels()
@@ -886,7 +948,7 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
     def display_cue_mutes(self):
         mutes = The_Show.cues.get_cue_mute_state_by_index(The_Show.cues.currentcueindex)
         # iterate through mutes
-        if mutes != None:
+        if mutes is not None:
             for key, value in mutes.items():
                 # find the channel name in the mxrconsole list
                 # that should be the stripGUIindex
@@ -894,7 +956,6 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
                 nbrs = re.findall(r'\d+',key)  # old way to striGUIindex
                 mxrid = int(nbrs[0])
                 chname = key[re.search('\d', key).end():]
-                # for cons_idx in The_Show.mixers:
                 for cons_idx in range(The_Show.mixers[mxrid].mxrconsole.__len__()):
                     if The_Show.mixers[mxrid].mxrconsole[cons_idx]['name'].lower() == chname.lower():
                         # print('found in stp {0}'.format(cons_idx))
@@ -981,8 +1042,13 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         self.set_scribble(firstuuid)
 
     def saveShow(self):
-        The_Show.cues.savecuelist(True, cfg.cfgdict['configuration']['project']['folder'] + The_Show.show_conf.settings['cuefile'])
+        The_Show.cues.savecuelist(True, cfg.cfgdict['configuration']['project']['folder'] + '/' + The_Show.show_conf.settings['cues']['href1'])
         self.cuehaschanged = False
+        self.CER_send_edit_complete()
+        # CE_msg = osc_message_builder.OscMessageBuilder(address='/cue/editcomplete')
+        # CE_msg.add_arg(True)
+        # CE_msg = CE_msg.build()
+        # self.CEResponsethread.queue_msg(CE_msg, self.CueAppDev)
 
     def closeShow(self):
         fname = QtWidgets.QFileDialog.getOpenFileName(self, 'Open file', '/home')
@@ -1089,6 +1155,33 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
                                      QMessageBox.Save | QMessageBox.Discard | QMessageBox.Cancel,
                                      QMessageBox.Cancel)
 
+    '''CueEngine thread functions'''
+    def CER_q_put(self, msg):
+        """..."""
+        self.CERespthread.queue_msg(msg)
+
+    def CER_signal_handler(self, sigstr):
+        """..."""
+        # print(sigstr)
+        self.statusBar().showMessage(sigstr)
+
+    def CER_finished_signal_handler(self):
+        """called when the signal called 'signal' is emitted from thread called CEResponse thread """
+        print('CE Response thread done')
+
+    def CER_send_edit_start(self):
+        self.cuehaschanged = True
+        CE_msg = osc_message_builder.OscMessageBuilder(address='/cue/editstarted')
+        CE_msg.add_arg(True)
+        CE_msg = CE_msg.build()
+        self.CEResponsethread.queue_msg(CE_msg, self.CueAppDev)
+
+    def CER_send_edit_complete(self):
+        CE_msg = osc_message_builder.OscMessageBuilder(address='/cue/editcomplete')
+        CE_msg.add_arg(True)
+        CE_msg = CE_msg.build()
+        self.CEResponsethread.queue_msg(CE_msg, self.CueAppDev)
+
     '''sender functions'''
     '''testfucn
         - gets called when the signal called 'signal' is emitted from thread called 'thread' '''
@@ -1136,7 +1229,6 @@ class ChanStripDlg(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         self.set_scribble(firstuuid)
         self.ExternalEditStarted = False
         self.ExternalEditComplete = False
-
 
     def sndrqput(self, msg):
         """..."""
@@ -1311,7 +1403,7 @@ if __name__ == "__main__":
     # app.setStyleSheet("QPushButton {pressed-color: red }")
     app.setStyleSheet(styles.QLiSPTheme_Dark)
     chans = 32
-    ui = ChanStripDlg(path.abspath(path.join(path.dirname(cfg.cfgdict['configuration']['project']['folder']))))
+    ui = ChanStripMainWindow(path.abspath(path.join(path.dirname(cfg.cfgdict['configuration']['project']['folder']))))
     # ui.resize(chans*ui.ChanStrip_MinWidth,800)
     ui.addChanStrip()
     ui.resize(ui.max_slider_count * ui.ChanStrip_MinWidth, 800)
