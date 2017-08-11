@@ -14,29 +14,86 @@ try:
 except ImportError:
     import xml.etree.ElementTree as ET
 
-#from SCLog import SCLog
-
 cue_types = ['Stage', 'Mixer','Sound','SFX', 'Light']
-cue_subelements = ['Id',    'Act',   'Scene', 'Page',  'Title',       'Cue_Call',    'Cue_Type', 'Entrances',   'Exits',       'Levels',      'On_Stage',    'Note_1',      'Note_2',      'Note_3']
 
-cue_fields = ['Cue_Number',  'Id',    'Act',   'Scene', 'Page',  'Title',       'Cue_Call',    'Cue_Type', 'Entrances',   'Exits',       'Levels',      'On_Stage',    'Note_1',      'Note_2',      'Note_3']
-cue_edit_sizes =  ['60,20',       '60,20', '60,20', '60,20', '60,20', '16000000,20', '16000000,20', '60,20',    '16000000,20', '16000000,20', '16000000,20', '16000000,20', '16000000,20', '16000000,20', '16000000,20']
-cue_subelements_tooltips = ['Cue number',
-                            'Unique id for this cue',
-                            'Enter act number for this cue',
-                            'Enter scene number for this cue',
-                            'Enter page number in script where this cue happens',
-                            'Enter title for this cue',
-                            'Enter cue call for this cue',
-                            'Select one or more cue types for this cue',
-                            'Specifies the channels to be unmuted for this cue',
-                            'Specifies the channels to be muted for this cue',
-                            'Specifies the fader level for all channels',
-                            'Specifies who is on stage',
-                            'Enter notes about this cue',
-                            'Enter notes about this cue',
-                            'Enter notes about this cue']
-header = ['Cue Number', 'Act', 'Scene', 'Page', 'Id', 'Title', 'Cue Call', 'Cue Type', 'Note 1']
+cue_subelements = [ 'Id',
+                    'Act',
+                    'Scene',
+                    'Page',
+                    'Title',
+                    'Cue_Call',
+                    'Cue_Type',
+                    'Entrances',
+                    'Exits',
+                    'Mutes',
+                    'Levels',
+                    'On_Stage',
+                    'Note_1',
+                    'Note_2',
+                    'Note_3']
+
+cue_fields = ['Cue_Number',     # Cue_Number
+              'Id',             # Id
+              'Act',            # Act
+              'Scene',          # Scene
+              'Page',           # Page
+              'Title',          # Title
+              'Cue_Call',       # Cue_Call
+              'Cue_Type',       # Cue_Type
+              'Entrances',      # Entrances
+              'Exits',          # Exits
+              'Mutes',          # Mutes
+              'Levels',         # Levels
+              'On_Stage',       # On_Sta
+              'Note_1',         # Note_1
+              'Note_2',         # Note_2
+              'Note_3']         # Note_3
+
+cue_edit_sizes =  [	'60,20',		    # Cue_Number
+                    '60,20',            # Id
+                    '60,20',            # Act
+                    '60,20',            # Scene
+                    '60,20',            # Page
+                    '16000000,20',      # Title
+                    '16000000,20',      # Cue_Call
+                    '60,20',            # Cue_Type
+                    '16000000,20',      # Mutes
+                    '16000000,20',      # Entrances
+                    '16000000,20',      # Exits
+                    '16000000,20',      # Levels
+                    '16000000,20',      # On_Stage
+                    '16000000,20',      # Note_1
+                    '16000000,20',      # Note_2
+                    '16000000,20']      # Note_3
+
+cue_subelements_tooltips = ['Cue number',											# Cue_Number
+                            'Unique id for this cue',								# Id
+                            'Enter act number for this cue',						# Act
+                            'Enter scene number for this cue',						# Scene
+                            'Enter page number in script where this cue happens',   # Page
+                            'Enter title for this cue',								# Title
+                            'Enter cue call for this cue',							# Cue_Call
+                            'Select one or more cue types for this cue',			# Cue_Type
+                            'Specifies the channels to be unmuted for this cue',    # Entrances
+                            'Specifies the channels to be muted for this cue',		# Exits
+                            'Specifies the mute state for all channels',			# Mutes
+                            'Specifies the fader level for all channels',			# Levels
+                            'Specifies who is on stage',							# On_Stage
+                            'Enter notes about this cue',							# Note_1
+                            'Enter notes about this cue',							# Note_2
+                            'Enter notes about this cue']							# Note_3
+
+header = [  'Cue Number',
+            'Act',
+            'Scene',
+            'Page',
+            'Id',
+            'Title',
+            'Cue Call',
+            'Cue Type',
+            'Note 1']
+
+
 
 
 class CueList():
@@ -83,6 +140,12 @@ class CueList():
         If cueindex is 0, then just return the entire mute state, as this is
         the initial cue."""
         mutestate = {}
+        if cueindex < 0:
+            logging.info('cueindex received: {}, setting to 0.'.format(cueindex))
+            cueindex = 0
+        elif cueindex >= self.cuecount:
+            logging.info('cueindex received: {}, setting to last cue.'.format(cueindex))
+            cueindex = self.cuecount - 1
         thiscue = self.cuelist.find("./Cue[@num='" + '{0:03}'.format(cueindex) + "']")
         try:
             dirty_current_mutes = thiscue.find('Mutes').text

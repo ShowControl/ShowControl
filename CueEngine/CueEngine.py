@@ -195,18 +195,21 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         QtGui.QIcon.setThemeName(styles.QLiSPIconsThemeName)
         self.__index = 0
         self.externalchangestate = 'None'
-
+        self.CommAddress_dict = {}
         self.CueAppDev = CommAddresses(The_Show.show_conf.equipment['program']['CueEngine']['IP_address'],
                                        int(The_Show.show_conf.equipment['program']['CueEngine']['port']))
+        self.CommAddress_dict['CueEngine'] = self.CueAppDev
         logging.info('CueEngine receives from IP: {} PORT: {}'.format(self.CueAppDev.IP, self.CueAppDev.PORT))
 
         self.ShowMixerAppDev = CommAddresses(The_Show.show_conf.equipment['program']['ShowMixer']['IP_address'],
                                        int(The_Show.show_conf.equipment['program']['ShowMixer']['port']))
+        self.CommAddress_dict['ShowMixer'] = self.ShowMixerAppDev
         logging.info('ShowMixer commands will be sent to IP: {} PORT: {}'.format(self.ShowMixerAppDev.IP,
                                                                                  self.ShowMixerAppDev.PORT))
 
         self.SFXAppDev = CommAddresses(The_Show.show_conf.equipment['program']['sound_effects']['IP_address'],
                                        int(The_Show.show_conf.equipment['program']['sound_effects']['port']))
+        self.CommAddress_dict['SFXApp'] = self.SFXAppDev
         logging.info('sound_effects_player commands will be sent IP: {} PORT: {}'.format(self.SFXAppDev.IP,
                                                                                          self.SFXAppDev.PORT))
 
@@ -274,7 +277,8 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
                          'SFX':self.do_SFX,
                          'Light':self.do_light}
         self.comm_threads = []  # a list of threads in use for later use when app exits
-
+        self.sender_threads = []
+        self.receiver_threads = []
         # setup receiver thread for inbound messages from slave apps, etc.
         try:
             self.rcvr_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -283,10 +287,12 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         # self.rcvr_sock.bind((INMSG_IP, INMSG_PORT))
         self.rcvr_sock.bind((self.CueAppDev.IP, self.CueAppDev.PORT))
         self.rcvrthread = CommHandlers.cmd_receiver(self.rcvr_sock)
+        self.rcvrthread.setObjectName('CueEngine')
         self.rcvrthread.cmd_rcvrsignaled.connect(self.rcvrmessage)  # connect to custom signal called 'signal'
         self.rcvrthread.finished.connect(self.rcvrthreaddone)  # conect to buitlin signal 'finished'
         self.rcvrthread.start()  # start the thread
         self.comm_threads.append(self.rcvrthread)
+        self.receiver_threads.append(self.rcvrthread)
 
     def on_buttonGo_clicked(self):
         """Execute the currently highlighted cue (current)"""
@@ -383,13 +389,14 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
             self.cue_add()
 
     def cue_add(self):
+        self.notify_slaves_edit_start()
         tblvw = self.findChild(QtWidgets.QTableView)
         oldlastcue = The_Show.cues.getcuelist(The_Show.cues.cuecount-1)  # get the last cues data
         cueindex = The_Show.cues.cuecount
         self.editcuedlg = EditCue(cueindex)
         self.editcuedlg.setWindowTitle(_translate("dlgEditCue", "Add Cue"))
-
-        self.editcuedlg.setROcueelements(['Cue_Number','Entrances', 'Exits', 'Levels', 'On_Stage'])
+        #self.editcuedlg.setROcueelements(['Cue_Number', 'Mutes', 'Entrances', 'Exits', 'Levels', 'On_Stage'])
+        self.editcuedlg.setROcueelements(['Cue_Number', 'Mutes', 'Levels'])
         self.editcuedlg.fillfields(cueindex, oldlastcue)
         self.editcuedlg.exec_()
         if self.editcuedlg.changeflag:
@@ -403,15 +410,17 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         The_Show.cues.currentcueindex = cueindex
         self.disptext()
         tblvw.selectRow(The_Show.cues.currentcueindex)
+        self.notify_slaves_edit_complete()
 
     def cue_insert(self):
+        self.notify_slaves_edit_start()
         tblvw = self.findChild(QtWidgets.QTableView)
         # index[0].row() will be where the user clicked
         index = tblvw.selectedIndexes()
         cueindex = int(self.tabledata[index[0].row()][0])
         self.editcuedlg = EditCue(cueindex)
         self.editcuedlg.setWindowTitle(_translate("dlgEditCue", "Edit Cue"))
-        self.editcuedlg.setROcueelements(['Cue_Number','Entrances', 'Exits', 'Levels', 'On_Stage'])
+        self.editcuedlg.setROcueelements(['Cue_Number', 'Mutes', 'Levels'])
         thiscue = The_Show.cues.getcuelist(cueindex)
         self.editcuedlg.fillfields(cueindex, thiscue)
         self.editcuedlg.exec_()
@@ -426,6 +435,7 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         The_Show.cues.currentcueindex = cueindex
         self.disptext()
         tblvw.selectRow(The_Show.cues.currentcueindex)
+        self.notify_slaves_edit_complete()
 
     def NotifyEditInProgress(self):
         QMessageBox.information(self,'Cue Modification','Cue modification blocked, external edit in progress.', QMessageBox.Ok)
@@ -599,10 +609,12 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
                 print('Failed to create SFX socket')
                 sys.exit()
             self.SFX_sndrthread = CommHandlers.sender(self.SFX_sock)
+            self.SFX_sndrthread.setObjectName('SFXApp')
             self.SFX_sndrthread.sndrsignal.connect(self.sndrtestfunc)  # connect to custom signal called 'signal'
             self.SFX_sndrthread.finished.connect(self.sndrthreaddone)  # connect to buitlin signal 'finished'
             self.SFX_sndrthread.start()  # start the thread
             self.comm_threads.append(self.SFX_sndrthread)
+            self.sender_threads.append(self.SFX_sndrthread)
 
     def EndSFXApp(self):
         self.SFXAppProc.terminate()
@@ -669,10 +681,12 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
                 logging.info('Failed to create mixer socket')
                 sys.exit()
             self.mxr_sndrthread = CommHandlers.sender(self.mxr_sock)
+            self.mxr_sndrthread.setObjectName('ShowMixer')
             self.mxr_sndrthread.sndrsignal.connect(self.sndrtestfunc)  # connect to custom signal called 'signal'
             self.mxr_sndrthread.finished.connect(self.sndrthreaddone)  # connect to buitlin signal 'finished'
             self.mxr_sndrthread.start()  # start the thread
             self.comm_threads.append(self.mxr_sndrthread)
+            self.sender_threads.append(self.mxr_sndrthread)
 
 
     def closeEvent(self, event):
@@ -704,6 +718,22 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
             "Are you sure you want to quit?", QMessageBox.Yes |
             QMessageBox.No, QMessageBox.No)
         return reply
+
+    def notify_slaves_edit_start(self):
+        self.cuehaschanged = True
+        msg = osc_message_builder.OscMessageBuilder(address='/cue/editstarted')
+        msg.add_arg(True)
+        msg = msg.build()
+        for slave in self.sender_threads:
+            slave.queue_msg(msg, self.CommAddress_dict[slave.objectName()])
+
+    def notify_slaves_edit_complete(self):
+        msg = osc_message_builder.OscMessageBuilder(address='/cue/editcomplete')
+        msg.add_arg(True)
+        msg = msg.build()
+        for slave in self.sender_threads:
+            slave.queue_msg(msg, self.CommAddress_dict[slave.objectName()])
+
 
     '''gets called by main to tell the thread to stop'''
     def stopthreads(self):

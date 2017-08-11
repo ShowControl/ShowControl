@@ -71,11 +71,33 @@ class CommAddresses:
     def __init__(self, IP, PORT):
         self.IP = IP
         self.PORT = PORT
-
 # CUE_IP = "127.0.0.1"
 # CUE_PORT = 5005
 MXR_IP = "192.168.53.40"
 MXR_PORT = 10023
+
+
+class LED(QLabel):
+    def __init__(self, parent=None):
+        QLabel.__init__(self, parent)
+        self.state_brush = QBrush(Qt.green)
+    def paintEvent(self, event):
+        painter = QPainter()
+        painter.begin(self)
+        painter.setRenderHint(QPainter.Antialiasing)
+
+        painter.fillRect(event.rect(), self.state_brush)
+        painter.setPen(QPen(Qt.NoPen))
+        painter.end()
+
+    def toggle(self, state=False):
+        if state == True:
+            self.state_brush = QBrush(Qt.red)
+        else:
+            self.state_brush = QBrush(Qt.green)
+        self.update()
+
+
 
 def translate(value, leftMin, leftMax, rightMin, rightMax):
     # Figure out how 'wide' each range is
@@ -311,6 +333,13 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
 
         self.setupUi(self)
         self.setWindowTitle(The_Show.show_conf.settings['title'])
+        self.LED_ext_cue_change = LED()
+        self.LED_ext_cue_change.setMaximumSize(QtCore.QSize(32, 32))
+        self.LED_ext_cue_change.setFixedSize((QtCore.QSize(32,32)))
+        self.LED_ext_cue_change.setObjectName("extCueChanged")
+        self.verticalLayout_2.insertWidget(0, self.LED_ext_cue_change)
+        self.update()
+
         self.tabWidget.setCurrentIndex(0)
         # Comment out the next lines to disable the associated buttons
         #self.nextButton.clicked.connect(self.on_buttonNext_clicked)
@@ -529,7 +558,13 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
             self.tabstripgridlist.append(QtWidgets.QGridLayout())
             self.tabstripgridlist[idx].setObjectName("stripgridLayout{}".format(idx))
             self.tabgridlayoutlist[idx].addLayout(self.tabstripgridlist[idx], 0, 0, 1, 1)
-            self.tabWidget.insertTab(idx, self.tablist[idx], "Tab {}".format(idx))
+            #self.tabWidget.insertTab(idx, self.tablist[idx], "Tab {}".format(idx))
+            tab_label = '{} {} ({})'.format(The_Show.show_conf.equipment['mixers'][idx]['mfr'],
+                                  The_Show.show_conf.equipment['mixers'][idx]['model'],
+                                    idx)
+            self.tabWidget.insertTab(idx, self.tablist[idx], tab_label)
+            #The_Show.show_conf.equipment['mixers'][0]['mfr']
+
             for chn in range(The_Show.mixers[idx].mxrconsole.__len__()):
                 # Add actor scribble for each channel
                 scrbl = QtWidgets.QLabel()
@@ -778,15 +813,16 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
 
     def execute_cue(self, num):
         print('In execute_cue, cue number:{}'.format(num))
-        The_Show.cues.previouscueindex = The_Show.cues.currentcueindex
+        The_Show.cues.previouscueindex = The_Show.cues.currentcueindex # todo - mac previouscueindex no longer used
         The_Show.cues.currentcueindex = num
         tblvw = self.findChild(QtWidgets.QTableView)
         tblvw.selectRow(The_Show.cues.currentcueindex)
         self.execute_mutes()
         self.execute_levels()
         # move table focus to next cue
-        The_Show.cues.previouscueindex = The_Show.cues.currentcueindex
-        The_Show.cues.currentcueindex += 1
+        # ***changed this: now mutes/sliders show state of highlighted cue
+        # The_Show.cues.previouscueindex = The_Show.cues.currentcueindex
+        # The_Show.cues.currentcueindex += 1
         tblvw.selectRow(The_Show.cues.currentcueindex)
 
     def execute_mutes(self):
@@ -934,12 +970,17 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         tblvw = self.findChild(QtWidgets.QTableView)
         if 'up' in source_name:  # scrol up the table, i.e. previous cue
             if The_Show.cues.currentcueindex > 0:
-            The_Show.cues.currentcueindex -= 1
+                The_Show.cues.currentcueindex -= 1
+            else:
+                The_Show.cues.currentcueindex = 0
             #The_Show.cues.previouscueindex = The_Show.cues.currentcueindex -1
             #direction = -1
         else:  # scroll down the table, i.e. the next cue
-            #The_Show.cues.previouscueindex = The_Show.cues.currentcueindex
-            The_Show.cues.currentcueindex += 1
+            if The_Show.cues.currentcueindex < The_Show.cues.cuecount - 1:
+                #The_Show.cues.previouscueindex = The_Show.cues.currentcueindex
+                The_Show.cues.currentcueindex += 1
+            else:
+                The_Show.cues.currentcueindex = The_Show.cues.cuecount - 1
             #direction = 1
         tblvw.selectRow(The_Show.cues.currentcueindex)
         self.display_cue_mutes()
@@ -1118,9 +1159,12 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
 
     def tableClicked(self, modelidx):
         rowidx = modelidx.row()
-        The_Show.cues.selectedcueindex = rowidx
-        self.tableView.selectRow(The_Show.cues.selectedcueindex)
+        The_Show.cues.currentcueindex = rowidx
+        self.tableView.selectRow(The_Show.cues.currentcueindex)
         # print('table clicked, row{}'.format(rowidx))
+        self.display_cue_mutes()
+        self.display_cue_levels()
+
 
     def closeEvent(self, event):
         """..."""
@@ -1209,10 +1253,12 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         elif msg.address == '/cue/editstarted':
             if msg.params[0] == True:
                 self.ExternalEditStarted = True
+                self.LED_ext_cue_change.toggle(True)
         elif msg.address == '/cue/editcomplete':
             if msg.params[0] == True:
                 self.ExternalEditComplete = True
                 self.CueFileUpdate_sig.emit()
+                self.LED_ext_cue_change.toggle(False)
         elif msg.address == '/cue/quit':
             self.externalclose = True
             self.close()
