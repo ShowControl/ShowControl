@@ -14,10 +14,10 @@ QStatusBar {
 
 QToolTip {
     border: 1px solid #3A3939;
-    background-color: white;
+    background-color: lightgrey;
     color: black;
     padding: 1px;
-    opacity: 100;
+    opacity: 253;
 }
 
 QWidget {

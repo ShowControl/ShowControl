@@ -74,11 +74,11 @@ cue_subelements_tooltips = ['Cue number',											# Cue_Number
                             'Enter title for this cue',								# Title
                             'Enter cue call for this cue',							# Cue_Call
                             'Select one or more cue types for this cue',			# Cue_Type
-                            'Specifies the channels to be unmuted for this cue',    # Entrances
-                            'Specifies the channels to be muted for this cue',		# Exits
+                            'Specifies the characters who enter for this cue',      # Entrances
+                            'Specifies the characters who exit for this cue',		# Exits
                             'Specifies the mute state for all channels',			# Mutes
                             'Specifies the fader level for all channels',			# Levels
-                            'Specifies who is on stage',							# On_Stage
+                            'Specifies characters who are on stage',				# On_Stage
                             'Enter notes about this cue',							# Note_1
                             'Enter notes about this cue',							# Note_2
                             'Enter notes about this cue']							# Note_3
@@ -270,7 +270,6 @@ class CueList():
             newele = ET.SubElement(newcue, cue_subelements[i].replace('_',''))
             newele.text = cue_data[i]
         show.insert(cueindex, newcue)
-
         # ET.dump(show)
         cues = self.cuelist.findall('Cue')
         self.cuecount = len(cues)
@@ -301,6 +300,11 @@ class CueList():
 
         for i in range(cue_subelements.__len__()):
             cuetomod.find(cue_subelements[i].replace('_','')).text = newcuelist[i]
+
+    def updatecueelement(self, cueindex, elementname, newelementvalue):
+        cuenum = '{0:03}'.format(cueindex)
+        cuetomod = self.cuelist.find("Cue[@num='"+cuenum+"']")
+        cuetomod.find(elementname).text = newelementvalue
 
     def savecuelist(self, revision=True, filename=''):
         """save the current state of the cuelist.

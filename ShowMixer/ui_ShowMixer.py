@@ -69,7 +69,7 @@ class Ui_MainWindow(object):
         self.row_focus_downButton.setAutoRepeat(False)
         self.row_focus_downButton.setObjectName("row_focus_downButton")
         self.verticalLayout_2.addWidget(self.row_focus_downButton)
-        spacerItem3 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        spacerItem3 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
         self.verticalLayout_2.addItem(spacerItem3)
         self.horizontalLayout_2.addLayout(self.verticalLayout_2)
         self.verticalLayout.addLayout(self.horizontalLayout_2)

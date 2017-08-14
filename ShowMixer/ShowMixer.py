@@ -71,11 +71,6 @@ class CommAddresses:
     def __init__(self, IP, PORT):
         self.IP = IP
         self.PORT = PORT
-# CUE_IP = "127.0.0.1"
-# CUE_PORT = 5005
-MXR_IP = "192.168.53.40"
-MXR_PORT = 10023
-
 
 class LED(QLabel):
     def __init__(self, parent=None):
@@ -121,7 +116,7 @@ def int_to_db( value ):
         d = ((value/1024) * 480.0) - 90.0
     elif value == 0:
         d = -90.0
-    return d
+    return int(d)  # return int so the db value steps in increments of 1db
 
 def db_to_int( db ):
     db_f = float( db )
@@ -286,7 +281,7 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         #         raise ValueError('Mixer ID:{0} Unknown or missing protocol.')
 
         # setup receiver thread
-        self.mxr_rcvrthread = CommHandlers.receiver(self.mxr_sock, MXR_IP, MXR_PORT)
+        self.mxr_rcvrthread = CommHandlers.receiver(self.mxr_sock, self.ShowMixerAppDev.IP, self.ShowMixerAppDev.PORT)
         self.mxr_rcvrthread.rcvrsignal.connect(self.rcvrtestfunc)  # connect to custom signal called 'signal'
         self.mxr_rcvrthread.finished.connect(self.rcvrthreaddone)  # conect to buitlin signal 'finished'
         self.mxr_rcvrthread.start()  # start the thread
@@ -357,10 +352,115 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         self.sldr_actions_list = []
         self.sldr_action_names = ['Set Min', 'Set 0db', 'Propagate level']
         for action_name in self.sldr_action_names:
-
             newaction = QAction(action_name, None)
-            #newaction.triggered.connect(eval('self.slider_action_{}'.format(action_name.replace(' ', '_').lower())))
             self.sldr_actions_list.append(newaction)
+        self.mute_actions_list = []
+        self.mute_action_names = ['Propagate to next', 'Propagate to end']
+        for action_name in self.mute_action_names:
+            newaction = QAction(action_name, None)
+            self.mute_actions_list.append(newaction)
+
+    def mute_action_click(self, position):
+        menu = QMenu()
+        menu.addActions(self.mute_actions_list)
+        mute = self.sender()
+        mute_name = mute.objectName()
+        print('Sender text: ' + mute_name)
+        action = menu.exec_(mute.mapToGlobal(position))
+        if action:
+            action_name = action.text().replace(' ', '_').lower()
+            eval('self.mute_action_{} (mute_name)'.format(action_name))
+
+    def mute_action_propagate_to_next(self, mute_name):
+        self.CER_send_edit_start()
+        mute = self.window().findChild(QtWidgets.QPushButton, name=mute_name)
+        print('Propagate mute {} to next.'.format(mute.objectName()))
+        self.mute_propagate(mute)
+
+    def mute_action_propagate_to_end(self, mute_name):
+        self.CER_send_edit_start()
+        mute = self.window().findChild(QtWidgets.QPushButton, name=mute_name)
+        print('Propagate mute {} to next.'.format(mute.objectName()))
+        self.mute_propagate(mute, 'end')
+
+    def mute_propagate(self, mute_button, destination='next'):
+        mute_button_name = mute_button.objectName()
+        mute_chan_name = mute_button_name.replace('mute', 'ch')
+        checked_state = mute_button.isChecked()
+        control_name = self.get_control_name_from_chan_name(mute_chan_name)
+        # start with next cue
+        start_index = The_Show.cues.currentcueindex + 1
+        for mxrid in range(The_Show.mixers.__len__()):
+            if The_Show.mixers[mxrid].mutestyle['mutestyle'] == 'illuminated':
+                if checked_state:
+                    mute_val = 0
+                else:
+                    mute_val = 1
+            else:
+                if checked_state:
+                    mute_val = 1
+                else:
+                    mute_val = 0
+
+            # iterate through all cues and set the mute state of this mute
+            for idx in range(start_index, The_Show.cues.cuecount - 1):
+                cue_mutes = The_Show.cues.get_cue_mute_state_by_index(idx)
+                mute_state_in_cue = cue_mutes[control_name]
+                # if destination is end continue to last cue
+                if destination == 'end':
+                    # update cue
+                    cue_mutes[control_name] = mute_val
+                    cue_mutes_list = []
+                    for key in cue_mutes: cue_mutes_list.append('{}:{}'.format(key, cue_mutes[key]))
+                    cue_mutes_list_sorted = self.sort_controls(cue_mutes_list)
+                    cue_mutes_text_sorted = ','.join(str(s) for s in cue_mutes_list_sorted)
+
+                    The_Show.cues.updatecueelement(idx, 'Mutes', cue_mutes_text_sorted)
+                else:
+                    if mute_state_in_cue != mute_val:
+                        # update cue
+                        cue_mutes[control_name] = mute_val
+                        cue_mutes_list = []
+                        for key in cue_mutes: cue_mutes_list.append('{}:{}'.format(key, cue_mutes[key]))
+                        cue_mutes_list_sorted = self.sort_controls(cue_mutes_list)
+                        cue_mutes_text_sorted = ','.join(str(s) for s in cue_mutes_list_sorted)
+
+                        The_Show.cues.updatecueelement(idx, 'Mutes', cue_mutes_text_sorted)
+                    else:
+                        break
+
+        print()
+
+    def sort_controls(self, control_list=[]):
+        chlist = []
+        auxlist = []
+        buslist = []
+        mainlist = []
+        for control in control_list:
+            if 'bus' in control:
+                buslist.append(control)
+            elif 'aux' in control:
+                auxlist.append(control)
+            elif 'main' in control:
+                mainlist.append(control)
+            elif 'ch' in control:
+                chlist.append(control)
+        buslist = sorted(buslist)
+        auxlist = sorted(auxlist)
+        mainlist = sorted(mainlist)
+        chlist = sorted(chlist)
+        sorted_controls = chlist + auxlist + buslist + mainlist
+        return sorted_controls
+
+
+    def get_control_name_from_chan_name(self, control_name):
+        mixer_index = int(control_name[1])
+        control_index = int(control_name[-2:len(control_name)])
+        chan_info = The_Show.mixers[mixer_index].mxrconsole[control_index]
+        chan_name = chan_info['name']
+        ret_name = control_name[:2] + chan_name.lower()
+        return ret_name
+
 
     def sldr_action_click(self, position):
         menu = QMenu()
@@ -411,7 +511,7 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
                 The_Show.cues.setcueelement(cue_idx, level_text_sorted, 'Levels')
             except KeyError:
                 pass
-            print('Cue#{0} Levels:{1}'.format(cue_idx, levels))
+            #print('Cue#{0} Levels:{1}'.format(cue_idx, levels))
 
     def sort_controls(self, control_list=[]):
         chlist = []
@@ -433,7 +533,6 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         chlist = sorted(chlist)
         sorted_controls = chlist + auxlist + buslist + mainlist
         return sorted_controls
-
 
     def startCEResponsethread(self):
         # Set up sender thread to send responses/alerts to CueEngine
@@ -599,7 +698,7 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
                 sldr.sliderMoved.connect(self.slidermove)
                 sldr.valueChanged.connect(self.slidervalchanged)
                 sldr.sliderReleased.connect(self.sldrmovedone)
-                #sldr.sliderPressed.connect(self.slder_pressed)
+                sldr.sliderPressed.connect(self.slder_pressed)
                 sldr.setObjectName('M{0}sldr{1:02}'.format(idx, chn))
                 # print(sldr.objectName())
                 sldr.setMinimumSize(self.ChanStrip_MinWidth,200)
@@ -619,6 +718,8 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
                 self.tabstripgridlist[idx].addWidget(lev,2,chn, 1, 1)
                 #Add mute button for this channel
                 mute = QtWidgets.QPushButton()
+                mute.setContextMenuPolicy(Qt.CustomContextMenu)
+                mute.customContextMenuRequested.connect(self.mute_action_click)
                 mute.setCheckable(True)
                 mute.clicked.connect(self.on_buttonMute_clicked)
                 mute.setObjectName('M{0}mute{1:02}'.format(idx, chn))
@@ -695,9 +796,21 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         # if msg is not None:
         #     self.mixer_sender_threads[mxrid].queue_msg(msg, The_Show.mixers[mxrid])
 
+    def slder_pressed(self):
+        # if external change in progress, return
+        if self.ExternalEditStarted and not self.ExternalEditComplete:
+            self.NotifyEditInProgress()
+            return
+
+
     def sldrmovedone(self):
         print('In sldrmovedone')
         sldr = self.sender()
+        # if external change in progress, return
+        if self.ExternalEditStarted and not self.ExternalEditComplete:
+            self.NotifyEditInProgress()
+            return
+
         levels = ''
         for mxrid in range(The_Show.mixers.__len__()):
             for stripGUIindx in range(The_Show.mixers[mxrid].mxrconsole.__len__()):
@@ -931,12 +1044,19 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
                 if msg is not None: self.mixer_sender_threads[mxrid].queue_msg(msg, The_Show.mixers[mxrid])
 
     def on_buttonMute_clicked(self):
+        mbtn = self.sender()
+        # if external change in progress, return
+        if self.ExternalEditStarted and not self.ExternalEditComplete:
+            self.NotifyEditInProgress()
+            #mbtn.setChecked(not mbtn.isChecked())
+            mbtn.toggle()
+            return
+
         self.cuehaschanged = True
         CE_msg = osc_message_builder.OscMessageBuilder(address='/cue/editstarted')
         CE_msg.add_arg(True)
         CE_msg = CE_msg.build()
         self.CEResponsethread.queue_msg(CE_msg, self.CueAppDev)
-        mbtn=self.sender()
         print('sending_slider name: {0}'.format(mbtn.objectName()))
         mbtnname = mbtn.objectName()
         mxrid = int(mbtnname[1])
@@ -1263,6 +1383,9 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
             self.externalclose = True
             self.close()
 
+    def NotifyEditInProgress(self):
+        QMessageBox.information(self,'Cue Modification','Cue modification blocked, external edit in progress.', QMessageBox.Ok)
+
     def ExternalCueUpdate(self):
         self.statusBar().showMessage('External Cue Update')
         The_Show.reloadShow(cfg.cfgdict)
@@ -1343,9 +1466,6 @@ class MySlider(QtWidgets.QSlider):
             print(levels)
             The_Show.cues.setcueelement(The_Show.cues.currentcueindex, levels, 'Levels')
         QtWidgets.QSlider.keyPressEvent(self, k_ev)
-
-    def mouseDoubleClickEvent(self, QMouseEvent):
-        print('In sldr mouse double click')
 
     def enterEvent(self, m_ev):
         self.window().slider_entered = self.objectName()

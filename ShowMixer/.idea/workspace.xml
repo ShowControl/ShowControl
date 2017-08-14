@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/ShowMixer.py" line="813" />
+    <bookmark url="file://$PROJECT_DIR$/ShowMixer.py" line="898" />
+    <bookmark url="file://$PROJECT_DIR$/ShowMixer.py" line="385" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="abfe075f-0c42-4a77-bd66-15c5b772e7d4" name="Default" comment="" />
@@ -25,11 +26,11 @@
       <file leaf-file-name="Cues.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../ShowControl/utils/Cues.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-308">
-              <caret line="96" column="0" lean-forward="false" selection-start-line="96" selection-start-column="0" selection-end-line="96" selection-end-column="0" />
+            <state relative-caret-position="155">
+              <caret line="159" column="0" lean-forward="true" selection-start-line="159" selection-start-column="0" selection-end-line="159" selection-end-column="0" />
               <folding>
                 <element signature="e#92#102#0" expanded="true" />
-                <marker date="1502476030048" expanded="true" signature="8206:8282" ph="..." />
+                <marker date="1502734455900" expanded="true" signature="8214:8290" ph="..." />
               </folding>
             </state>
           </provider>
@@ -90,8 +91,20 @@
       <file leaf-file-name="ShowMixer.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ShowMixer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="339">
-              <caret line="1260" column="52" lean-forward="false" selection-start-line="1260" selection-start-column="52" selection-end-line="1260" selection-end-column="52" />
+            <state relative-caret-position="85">
+              <caret line="412" column="39" lean-forward="true" selection-start-line="412" selection-start-column="39" selection-end-line="412" selection-end-column="39" />
+              <folding>
+                <element signature="e#43#58#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="style.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/theme_dark/style.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="323">
+              <caret line="19" column="14" lean-forward="false" selection-start-line="19" selection-start-column="14" selection-end-line="19" selection-end-column="14" />
               <folding />
             </state>
           </provider>
@@ -108,36 +121,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>execute</find>
-      <find>execute_cue</find>
-      <find>scroll_</find>
-      <find>get_cue_mute_state</find>
-      <find>color</find>
-      <find>size</find>
-      <find>mute</find>
-      <find>[stripGUIindx]['name']</find>
-      <find>slider</find>
-      <find>stripGUIindx]['na</find>
-      <find>editstarted</find>
-      <find>sndr</find>
-      <find>senderthread</find>
-      <find>startCEResponsethread</find>
-      <find>CueAppDev</find>
       <find>CEResponsethread</find>
       <find>queue_msg</find>
       <find>/cue/</find>
       <find>change</find>
-      <find>on_buttonMute_clicked</find>
       <find>propagate</find>
       <find>CER</find>
       <find>save</find>
       <find>saveshow</find>
       <find>propa</find>
-      <find>clicked</find>
       <find>scroll</find>
       <find>scroll_cue_list</find>
       <find>row</find>
       <find>selectedcueindex</find>
+      <find>clicked</find>
+      <find>slider</find>
+      <find>sldrmovedone</find>
+      <find>reload</find>
+      <find>MXR_IP</find>
+      <find>CueAppDev</find>
+      <find>QToolT</find>
+      <find>self.external</find>
+      <find>cmd_rcvrtestfunc</find>
+      <find>externalclose</find>
+      <find>setCurrentIndex</find>
+      <find>sldr_action_click</find>
+      <find>on_buttonMute_clicked</find>
+      <find>updatecuemutestate</find>
+      <find>propage</find>
+      <find>update</find>
+      <find>propaga</find>
     </findStrings>
     <replaceStrings>
       <replace>control_type</replace>
@@ -171,7 +184,6 @@
         <option value="$PROJECT_DIR$/test.py" />
         <option value="$PROJECT_DIR$/dbtest.py" />
         <option value="$PROJECT_DIR$/LearnPainter.py" />
-        <option value="$PROJECT_DIR$/theme_dark/style.css" />
         <option value="$PROJECT_DIR$/tempp.py" />
         <option value="$PROJECT_DIR$/ProgamReAddTabs.py" />
         <option value="$PROJECT_DIR$/../ShowControl/utils/ShowConf.py" />
@@ -179,18 +191,19 @@
         <option value="$PROJECT_DIR$/MixerMap.py" />
         <option value="$PROJECT_DIR$/MixerConf.py" />
         <option value="$PROJECT_DIR$/../ShowControl/utils/ShowControlConfig.py" />
-        <option value="$PROJECT_DIR$/../ShowControl/utils/Cues.py" />
         <option value="$PROJECT_DIR$/TestXMLtoDICT.py" />
         <option value="$PROJECT_DIR$/ui_ShowMixer.py" />
+        <option value="$PROJECT_DIR$/theme_dark/style.css" />
+        <option value="$PROJECT_DIR$/../ShowControl/utils/Cues.py" />
         <option value="$PROJECT_DIR$/ShowMixer.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1970" />
-    <option name="y" value="30" />
-    <option name="width" value="1854" />
-    <option name="height" value="924" />
+    <option name="x" value="50" />
+    <option name="y" value="51" />
+    <option name="width" value="1804" />
+    <option name="height" value="944" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -213,6 +226,11 @@
             <path>
               <item name="ShowMixer" type="b2602c69:ProjectViewProjectNode" />
               <item name="ShowMixer" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ShowMixer" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ShowMixer" type="462c0819:PsiDirectoryNode" />
+              <item name="theme_dark" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ShowMixer" type="b2602c69:ProjectViewProjectNode" />
@@ -507,10 +525,10 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.ui_ShowMixer" />
-        <item index="1" class="java.lang.String" itemvalue="Python.CommHandlers" />
-        <item index="2" class="java.lang.String" itemvalue="Python.TestXMLtoDICT" />
-        <item index="3" class="java.lang.String" itemvalue="Python.Cues" />
+        <item index="0" class="java.lang.String" itemvalue="Python.Cues" />
+        <item index="1" class="java.lang.String" itemvalue="Python.ui_ShowMixer" />
+        <item index="2" class="java.lang.String" itemvalue="Python.CommHandlers" />
+        <item index="3" class="java.lang.String" itemvalue="Python.TestXMLtoDICT" />
         <item index="4" class="java.lang.String" itemvalue="Python.apport_python_hook" />
       </list>
     </recent_temporary>
@@ -542,19 +560,18 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1970" y="30" width="1854" height="924" extended-state="0" />
+    <frame x="50" y="51" width="1804" height="944" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1387689" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14261931" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32796317" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36816525" sideWeight="0.51133907" order="11" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3414338" sideWeight="0.49784017" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36816525" sideWeight="0.4886609" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36773428" sideWeight="0.4886609" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="right" auto_hide="true" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.3277405" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40583232" sideWeight="0.48920086" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40569395" sideWeight="0.48920086" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32991362" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
@@ -564,6 +581,7 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3414338" sideWeight="0.49784017" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -578,6 +596,11 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/.." />
+    </ignored-roots>
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
@@ -588,32 +611,22 @@
         </line-breakpoint>
         <line-breakpoint suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/ShowMixer.py</url>
-          <line>411</line>
-          <option name="timeStamp" value="500" />
-        </line-breakpoint>
-        <line-breakpoint suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/ShowMixer.py</url>
-          <line>788</line>
-          <option name="timeStamp" value="512" />
-        </line-breakpoint>
-        <line-breakpoint suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/ShowMixer.py</url>
-          <line>1083</line>
+          <line>1203</line>
           <option name="timeStamp" value="514" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/ShowMixer.py</url>
-          <line>1102</line>
+          <line>1222</line>
           <option name="timeStamp" value="515" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/../ShowControl/utils/Cues.py</url>
-          <line>317</line>
+          <line>321</line>
           <option name="timeStamp" value="525" />
         </line-breakpoint>
         <line-breakpoint suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/ShowMixer.py</url>
-          <line>832</line>
+          <line>945</line>
           <option name="timeStamp" value="526" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -623,43 +636,43 @@
         </line-breakpoint>
         <line-breakpoint suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/ShowMixer.py</url>
-          <line>748</line>
+          <line>861</line>
           <option name="timeStamp" value="534" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/ShowMixer.py</url>
-          <line>946</line>
-          <option name="timeStamp" value="538" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/ShowMixer.py</url>
-          <line>805</line>
-          <option name="timeStamp" value="539" />
-        </line-breakpoint>
-        <line-breakpoint suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/ShowMixer.py</url>
-          <line>401</line>
-          <option name="timeStamp" value="540" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/ShowMixer.py</url>
-          <line>1085</line>
+          <line>1205</line>
           <option name="timeStamp" value="541" />
         </line-breakpoint>
-        <line-breakpoint suspend="THREAD" type="python-line">
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/ShowMixer.py</url>
-          <line>410</line>
-          <option name="timeStamp" value="542" />
+          <line>377</line>
+          <option name="timeStamp" value="560" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/ShowMixer.py</url>
+          <line>429</line>
+          <option name="timeStamp" value="561" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/ShowMixer.py</url>
+          <line>411</line>
+          <option name="timeStamp" value="562" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/../ShowControl/utils/Cues.py</url>
-          <line>141</line>
-          <option name="timeStamp" value="544" />
+          <line>193</line>
+          <option name="timeStamp" value="566" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/../ShowControl/utils/Cues.py</url>
+          <line>166</line>
+          <option name="timeStamp" value="567" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/ShowMixer.py</url>
-          <line>963</line>
-          <option name="timeStamp" value="548" />
+          <line>941</line>
+          <option name="timeStamp" value="568" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
@@ -674,7 +687,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="549" />
+      <option name="time" value="570" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
@@ -795,13 +808,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
           <caret line="5" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/theme_dark/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="274">
-          <caret line="124" column="13" lean-forward="false" selection-start-line="124" selection-start-column="12" selection-end-line="124" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -989,18 +995,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
           <caret line="1595" column="0" lean-forward="false" selection-start-line="1595" selection-start-column="0" selection-end-line="1595" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../ShowControl/utils/Cues.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-308">
-          <caret line="96" column="0" lean-forward="false" selection-start-line="96" selection-start-column="0" selection-end-line="96" selection-end-column="0" />
-          <folding>
-            <element signature="e#92#102#0" expanded="true" />
-            <marker date="1502476030048" expanded="true" signature="8206:8282" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1012,11 +1006,32 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/theme_dark/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="19" column="14" lean-forward="false" selection-start-line="19" selection-start-column="14" selection-end-line="19" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../ShowControl/utils/Cues.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="155">
+          <caret line="159" column="0" lean-forward="true" selection-start-line="159" selection-start-column="0" selection-end-line="159" selection-end-column="0" />
+          <folding>
+            <element signature="e#92#102#0" expanded="true" />
+            <marker date="1502734455900" expanded="true" signature="8214:8290" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/ShowMixer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="339">
-          <caret line="1260" column="52" lean-forward="false" selection-start-line="1260" selection-start-column="52" selection-end-line="1260" selection-end-column="52" />
-          <folding />
+        <state relative-caret-position="85">
+          <caret line="412" column="39" lean-forward="true" selection-start-line="412" selection-start-column="39" selection-end-line="412" selection-end-column="39" />
+          <folding>
+            <element signature="e#43#58#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

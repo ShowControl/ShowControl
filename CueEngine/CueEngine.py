@@ -213,6 +213,13 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         logging.info('sound_effects_player commands will be sent IP: {} PORT: {}'.format(self.SFXAppDev.IP,
                                                                                          self.SFXAppDev.PORT))
 
+        self.MuteMapAppDev = CommAddresses(The_Show.show_conf.equipment['program']['MuteMap']['IP_address'],
+                                      int(The_Show.show_conf.equipment['program']['MuteMap']['port']))
+        self.CommAddress_dict['MuteMap'] = self.MuteMapAppDev
+        logging.info('CueEngine response will be sent to IP: {} PORT: {}'.format(self.MuteMapAppDev.IP, self.MuteMapAppDev.PORT))
+
+
+
         self.setupUi(self)
         self.setWindowTitle(The_Show.show_conf.settings['title'])
         self.LED_ext_cue_change = LED()
@@ -226,12 +233,19 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         self.jumpButton.clicked.connect(self.on_buttonJump_clicked)
         self.tableView.doubleClicked.connect(self.on_table_dblclick)
         self.tableView.clicked.connect(self.on_table_click)
-
         self.tableView.setContextMenuPolicy(Qt.ActionsContextMenu)
-        self.action_list = ['Insert', 'Add']
+
+        # set up right click actions for tableView
+        self.action_list = ['Edit','Insert', 'Add']  # actions that can be triggered by right click on table
+        # add "Edit" action to the tableView
+        self.editAction = QAction("Edit", None)
+        self.editAction.triggered.connect(self.on_table_rightclick)
+        self.tableView.addAction(self.editAction)
+        # add "Insert" action to the tableView
         self.insertAction = QAction("Insert", None)
         self.insertAction.triggered.connect(self.on_table_rightclick)
         self.tableView.addAction(self.insertAction)
+        # add "Add" action to the tableView
         self.AddAction = QAction("Add", None)
         self.AddAction.triggered.connect(self.on_table_rightclick)
         self.tableView.addAction(self.AddAction)
@@ -306,7 +320,9 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         The_Show.cues.currentcueindex = cueindex  # new current cue index is the cue we want to execute
         self.dispatch_cue()  # execute the cue
         The_Show.cues.previouscueindex = The_Show.cues.currentcueindex  # save this as the previous cue index
-        tblvw.selectRow(tblrow + 1 )  # select the next row
+        The_Show.cues.currentcueindex += 1
+        #tblvw.selectRow(tblrow + 1 )  # select the next row
+        tblvw.selectRow(The_Show.cues.currentcueindex)
 
     def on_buttonPrev_clicked(self):
         print('Prev')
@@ -329,6 +345,15 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         self.dispatch_cue()
 
     def dispatch_cue(self):
+        mutemap_msg = osc_message_builder.OscMessageBuilder(address='/cue/#')
+        mutemap_msg.add_arg(The_Show.cues.currentcueindex)
+        mutemap_msg = mutemap_msg.build()
+        try:
+            self.mxr_sndrthread.queue_msg(mutemap_msg, self.MuteMapAppDev)
+        except AttributeError as e:
+            logging.error(e)
+            self.NotifyNoSlaveApp('MuteMap')
+
         for type in The_Show.cues.getcuetype(The_Show.cues.currentcueindex):
             self.dispatch[type]()
             # if type in 'Mixer':
@@ -350,7 +375,11 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         # msg.add_arg(The_Show.cues.currentcueindex)
         msg.add_arg(cue_uuid)
         msg = msg.build()
-        self.mxr_sndrthread.queue_msg(msg, self.ShowMixerAppDev)
+        try:
+            self.mxr_sndrthread.queue_msg(msg, self.ShowMixerAppDev)
+        except AttributeError as e:
+            logging.error('do_mixer:{}'.format(e))
+            self.NotifyNoSlaveApp('mixer')
 
     def do_sound(self):
         msg = [NOTE_ON, 60, 112]
@@ -358,13 +387,17 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
             self.snd_sndrthread.queue_msg(msg, None)  # todo - mac 2nd arg might blowup...
 
     def do_SFX(self):
-        if self.SFXAppProc != None:
-            cue_uuid = The_Show.cues.getcurrentcueuuid(The_Show.cues.currentcueindex)
-            msg = osc_message_builder.OscMessageBuilder(address='/cue/uuid')
-            # msg.add_arg(The_Show.cues.currentcueindex)
-            msg.add_arg(cue_uuid)
-            msg = msg.build()
+#        if self.SFXAppProc != None:
+        cue_uuid = The_Show.cues.getcurrentcueuuid(The_Show.cues.currentcueindex)
+        msg = osc_message_builder.OscMessageBuilder(address='/cue/uuid')
+        # msg.add_arg(The_Show.cues.currentcueindex)
+        msg.add_arg(cue_uuid)
+        msg = msg.build()
+        try:
             self.SFX_sndrthread.queue_msg(msg, self.SFXAppDev)
+        except AttributeError as e:
+            logging.error('do_SFX:{}'.format(e))
+            self.NotifyNoSlaveApp('SFX')
         pass
 
     def do_light(self):
@@ -383,7 +416,9 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
                                   cfg.cfgdict['configuration']['project']['folder'] + '/' + The_Show.show_conf.settings['cues']['href1'])
 
         sender_text = self.sender().text()
-        if sender_text == 'Insert':
+        if sender_text == 'Edit':
+            self.cue_edit()
+        elif sender_text == 'Insert':
             self.cue_insert()
         elif sender_text == 'Add':
             self.cue_add()
@@ -406,10 +441,11 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
             # todo - mac this is hardwired to project cue file
             The_Show.cues.savecuelist(False, cfg.cfgdict['configuration']['project']['folder'] + '/' + The_Show.show_conf.settings['cues']['href1'])
             # display the new state of the cuefile
-            The_Show.cues.setup_cues(cfg.cfgdict['configuration']['project']['folder'] + '/'  + The_Show.show_conf.settings['cues']['href1'])
+            The_Show.cues.setup_cues(cfg.cfgdict['configuration']['project']['folder'] + '/' + The_Show.show_conf.settings['cues']['href1'])
         The_Show.cues.currentcueindex = cueindex
         self.disptext()
         tblvw.selectRow(The_Show.cues.currentcueindex)
+        tblvw.scrollToBottom()
         self.notify_slaves_edit_complete()
 
     def cue_insert(self):
@@ -429,19 +465,48 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
             The_Show.cues.insertcue(cueindex, chg_list)
             # save the new version of cue file, overwriting old version
             # todo - mac hardwired to to second cue file
-            The_Show.cues.savecuelist(False, cfg.cfgdict['configuration']['project']['folder'] + The_Show.show_conf.settings['cues']['href1'])
+            The_Show.cues.savecuelist(False, cfg.cfgdict['configuration']['project']['folder'] + '/' + The_Show.show_conf.settings['cues']['href1'])
             # display the new state of the cuefile
-            The_Show.cues.setup_cues(cfg.cfgdict['configuration']['project']['folder'] + The_Show.show_conf.settings['cues']['href1'])
+            The_Show.cues.setup_cues(cfg.cfgdict['configuration']['project']['folder'] + '/' + The_Show.show_conf.settings['cues']['href1'])
         The_Show.cues.currentcueindex = cueindex
         self.disptext()
         tblvw.selectRow(The_Show.cues.currentcueindex)
         self.notify_slaves_edit_complete()
+
+    def cue_edit(self):
+        self.notify_slaves_edit_start()
+        tblvw = self.findChild(QtWidgets.QTableView)
+        index = tblvw.selectedIndexes()
+        cueindex = int(self.tabledata[index[0].row()][0])
+        self.editcuedlg = EditCue(cueindex)
+        self.editcuedlg.setWindowTitle(_translate("dlgEditCue", "Edit Cue"))
+        self.editcuedlg.setROcueelements(['Cue_Number', 'Mutes', 'Levels'])
+        thiscue = The_Show.cues.getcuelist(cueindex)
+        self.editcuedlg.fillfields(cueindex, thiscue)
+        self.editcuedlg.exec_()
+        if self.editcuedlg.changeflag:
+            chg_list = self.editcuedlg.getchange()
+            The_Show.cues.updatecue(cueindex, chg_list)
+            # save the new version of cue file, overwriting old version
+            # todo - mac this is hardwired to project cue file
+            The_Show.cues.savecuelist(False, cfg.cfgdict['configuration']['project']['folder'] + '/' + The_Show.show_conf.settings['cues']['href1'])
+            # display the new state of the cuefile
+            The_Show.cues.setup_cues(cfg.cfgdict['configuration']['project']['folder'] + '/'  + The_Show.show_conf.settings['cues']['href1'])
+        The_Show.cues.currentcueindex = cueindex
+        self.disptext()
+        tblvw.selectRow(The_Show.cues.currentcueindex)
+        self.notify_slaves_edit_complete()
+
 
     def NotifyEditInProgress(self):
         QMessageBox.information(self,'Cue Modification','Cue modification blocked, external edit in progress.', QMessageBox.Ok)
 
     def NotifyReloadBeforeEdit(self):
         QMessageBox.information(self,'Cue Modification','Cues reloaded.', QMessageBox.Ok)
+
+    def NotifyNoSlaveApp(self, name):
+        QMessageBox.warning(self,'Slave Comm Failure','Slave App {} not active.'.format(name), QMessageBox.Ok)
+
 
     def on_table_click(self,index):
         """Set a selected cue
@@ -705,6 +770,7 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
                     msg = osc_message_builder.OscMessageBuilder(address='/cue/quit')
                     msg = msg.build()
                     self.mxr_sndrthread.queue_msg(msg, self.ShowMixerAppDev)
+                    self.mxr_sndrthread.queue_msg(msg, self.MuteMapAppDev)
                     sleep(2)  # wait for message to be sent before killing threads
             except:
                 raise
