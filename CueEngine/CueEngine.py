@@ -236,7 +236,7 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         self.tableView.setContextMenuPolicy(Qt.ActionsContextMenu)
 
         # set up right click actions for tableView
-        self.action_list = ['Edit','Insert', 'Add']  # actions that can be triggered by right click on table
+        self.action_list = ['Edit','Insert', 'Add', 'Delete']  # actions that can be triggered by right click on table
         # add "Edit" action to the tableView
         self.editAction = QAction("Edit", None)
         self.editAction.triggered.connect(self.on_table_rightclick)
@@ -249,6 +249,10 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         self.AddAction = QAction("Add", None)
         self.AddAction.triggered.connect(self.on_table_rightclick)
         self.tableView.addAction(self.AddAction)
+        # add "Delete" action to the tableView
+        self.DeleteAction = QAction("Delete", None)
+        self.DeleteAction.triggered.connect(self.on_table_rightclick)
+        self.tableView.addAction(self.DeleteAction)
         self.ExternalEditStarted = False
         self.ExternalEditComplete = False
         self.CueFileUpdate_sig.connect(self.ExternalCueUpdate)
@@ -422,6 +426,8 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
             self.cue_insert()
         elif sender_text == 'Add':
             self.cue_add()
+        elif sender_text == 'Delete':
+            self.cue_delete()
 
     def cue_add(self):
         self.notify_slaves_edit_start()
@@ -492,6 +498,24 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
             The_Show.cues.savecuelist(False, cfg.cfgdict['configuration']['project']['folder'] + '/' + The_Show.show_conf.settings['cues']['href1'])
             # display the new state of the cuefile
             The_Show.cues.setup_cues(cfg.cfgdict['configuration']['project']['folder'] + '/'  + The_Show.show_conf.settings['cues']['href1'])
+        The_Show.cues.currentcueindex = cueindex
+        self.disptext()
+        tblvw.selectRow(The_Show.cues.currentcueindex)
+        self.notify_slaves_edit_complete()
+
+    def cue_delete(self):
+        print('In cue delete')
+        self.notify_slaves_edit_start()
+        tblvw = self.findChild(QtWidgets.QTableView)
+        # index[0].row() will be where the user clicked
+        index = tblvw.selectedIndexes()
+        cueindex = int(self.tabledata[index[0].row()][0])
+        The_Show.cues.deletecue(cueindex)
+        # save the new version of cue file, overwriting old version
+        # todo - mac this is hardwired to project cue file
+        The_Show.cues.savecuelist(False, cfg.cfgdict['configuration']['project']['folder'] + '/' + The_Show.show_conf.settings['cues']['href1'])
+        # display the new state of the cuefile
+        The_Show.cues.setup_cues(cfg.cfgdict['configuration']['project']['folder'] + '/'  + The_Show.show_conf.settings['cues']['href1'])
         The_Show.cues.currentcueindex = cueindex
         self.disptext()
         tblvw.selectRow(The_Show.cues.currentcueindex)

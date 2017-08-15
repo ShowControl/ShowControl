@@ -5,12 +5,10 @@
     <list default="true" id="95f4ee2b-56f1-467f-bb66-46001cf99115" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../CueEngine/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../CueEngine/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../CueEngine/CueEngine.py" afterPath="$PROJECT_DIR$/../CueEngine/CueEngine.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../CueEngine/theme_dark/style.css" afterPath="$PROJECT_DIR$/../CueEngine/theme_dark/style.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/utils/Cues.py" afterPath="$PROJECT_DIR$/utils/Cues.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ShowMixer/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../ShowMixer/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ShowMixer/ShowMixer.py" afterPath="$PROJECT_DIR$/../ShowMixer/ShowMixer.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ShowMixer/theme_dark/style.css" afterPath="$PROJECT_DIR$/../ShowMixer/theme_dark/style.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ShowMixer/ui_ShowMixer.py" afterPath="$PROJECT_DIR$/../ShowMixer/ui_ShowMixer.py" />
     </list>
     <ignored path="ShowControl.iws" />
@@ -34,8 +32,10 @@
         <entry file="file://$PROJECT_DIR$/utils/Cues.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="2448">
-              <caret line="148" column="0" lean-forward="false" selection-start-line="148" selection-start-column="0" selection-end-line="148" selection-end-column="0" />
-              <folding />
+              <caret line="149" column="0" lean-forward="false" selection-start-line="149" selection-start-column="0" selection-end-line="149" selection-end-column="0" />
+              <folding>
+                <marker date="1502817484131" expanded="true" signature="8368:9041" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -178,9 +178,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane" />
       <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -610,17 +610,17 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/utils/Cues.py</url>
-          <line>362</line>
+          <line>383</line>
           <option name="timeStamp" value="120" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/utils/Cues.py</url>
-          <line>215</line>
+          <line>217</line>
           <option name="timeStamp" value="122" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/utils/Cues.py</url>
-          <line>350</line>
+          <line>371</line>
           <option name="timeStamp" value="123" />
         </line-breakpoint>
       </breakpoints>
@@ -994,8 +994,10 @@
     <entry file="file://$PROJECT_DIR$/utils/Cues.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2448">
-          <caret line="148" column="0" lean-forward="false" selection-start-line="148" selection-start-column="0" selection-end-line="148" selection-end-column="0" />
-          <folding />
+          <caret line="149" column="0" lean-forward="false" selection-start-line="149" selection-start-column="0" selection-end-line="149" selection-end-column="0" />
+          <folding>
+            <marker date="1502817484131" expanded="true" signature="8368:9041" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>

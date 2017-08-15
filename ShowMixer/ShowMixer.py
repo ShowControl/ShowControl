@@ -327,6 +327,7 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         self.startCEResponsethread()
 
         self.setupUi(self)
+        self.progressBar.setVisible(False)
         self.setWindowTitle(The_Show.show_conf.settings['title'])
         self.LED_ext_cue_change = LED()
         self.LED_ext_cue_change.setMaximumSize(QtCore.QSize(32, 32))
@@ -403,7 +404,7 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
                     mute_val = 0
 
             # iterate through all cues and set the mute state of this mute
-            for idx in range(start_index, The_Show.cues.cuecount - 1):
+            for idx in range(start_index, The_Show.cues.cuecount):
                 cue_mutes = The_Show.cues.get_cue_mute_state_by_index(idx)
                 mute_state_in_cue = cue_mutes[control_name]
                 # if destination is end continue to last cue
@@ -499,7 +500,11 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         chan_name = chan_info['name']
         level_name = sldr_name[:-2].replace('sldr', chan_name.lower())
         next_cue_index = The_Show.cues.currentcueindex + 1
+        self.progressBar.setRange(0, 100)
+        self.progressBar.setValue(0)
+        self.progressBar.setVisible(True)
         for cue_idx in range(next_cue_index, The_Show.cues.cuecount):
+            self.progressBar.setValue(int((100*(cue_idx/The_Show.cues.cuecount))))
             levels = The_Show.cues.get_cue_levels(cue_idx)
             try:
                 chan_level = levels[level_name]
@@ -512,6 +517,8 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
             except KeyError:
                 pass
             #print('Cue#{0} Levels:{1}'.format(cue_idx, levels))
+        self.progressBar.setValue(0)
+        self.progressBar.setVisible(False)
 
     def sort_controls(self, control_list=[]):
         chlist = []

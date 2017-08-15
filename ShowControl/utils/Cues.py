@@ -7,6 +7,7 @@ Cue object that maintains the current cue list
 import sys
 from os import path
 import shutil
+import uuid
 from PyQt5 import Qt, QtCore, QtGui, QtWidgets
 import logging
 try:
@@ -207,10 +208,11 @@ class CueList():
             if levels != None:
                 levelslist = levels.text
                 levelstate = dict(item.split(":") for item in levelslist.split(","))
-                print(levelstate)
+                #print(levelstate)
             return levelstate
         except:
             print('Levels not found!')
+            logging.error('CueList.get_cue_levels: Levels element not found')
 
     def getcuetype(self, cueindex):
         thiscue = self.cuelist.find("./Cue[@num='" + '{0:03}'.format(cueindex) + "']")
@@ -242,7 +244,7 @@ class CueList():
 
     def addnewcue(self, cue_data=[]):
         show = self.cuelist.getroot()
-        newcue = ET.Element('Cue',attrib={'num':'{0:03}'.format(self.cuecount)})
+        newcue = ET.Element('Cue',attrib={'uuid':'{0}'.format(uuid.uuid4()), 'num':'{0:03}'.format(self.cuecount)})
         for i in range(cue_subelements.__len__()):
             newele = ET.SubElement(newcue, cue_subelements[i].replace('_',''))
             newele.text = cue_data[i]
@@ -265,12 +267,31 @@ class CueList():
         # now we have an empty place
         # create the new cue
         show = self.cuelist.getroot()
-        newcue = ET.Element('Cue',attrib={'num':'{0:03}'.format(cueindex)})
+        newcue = ET.Element('Cue',attrib={'uuid':'{0}'.format(uuid.uuid4()), 'num':'{0:03}'.format(cueindex)})
         for i in range(cue_subelements.__len__()):
             newele = ET.SubElement(newcue, cue_subelements[i].replace('_',''))
             newele.text = cue_data[i]
         show.insert(cueindex, newcue)
         # ET.dump(show)
+        cues = self.cuelist.findall('Cue')
+        self.cuecount = len(cues)
+
+    def deletecue(self, cueindex):
+        '''Delete the cue specified by index
+        and re-index the list'''
+        # find the cue
+        cuenum = '{0:03}'.format(cueindex)
+        thiscue = self.cuelist.find("Cue[@num='" + cuenum + "']")
+        # delete the cue from the tree
+        self.cuelist_root.remove(thiscue)
+        cues = self.cuelist.findall('Cue')
+        self.cuecount = len(cues)
+        print('cuecount: {}'.format(self.cuecount))
+        for anidx in range(cueindex + 1, self.cuecount + 1):
+            cuenum = '{0:03}'.format(anidx)
+            thiscue = self.cuelist.find("Cue[@num='"+cuenum+"']")
+            thisidx = thiscue.get('num')
+            thiscue.set('num', '{0:03}'.format(int(anidx) - 1))
         cues = self.cuelist.findall('Cue')
         self.cuecount = len(cues)
 
