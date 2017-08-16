@@ -63,7 +63,9 @@ class Show():
         # todo mac - hardwired to look only at href1
         '''This is currently hardwired to only one cue file.
         show_conf.settings['cues'] is a dictionary with a href to all cue files spec'd in the project.xml'''
-        self.cues = CueList(self.show_confpath + self.show_conf.settings['cues']['href1'])
+        #self.cues = CueList(self.show_confpath + self.show_conf.settings['cues']['href1'])
+        # changed to below, from above, shouldn't have to recreate the cues object, just reload with new file
+        self.cues.setup_cues(self.show_confpath + self.show_conf.settings['cues']['href1'])
         self.cues.currentcueindex = 0
         self.cues.previouscueindex = 0
         self.displayShow()

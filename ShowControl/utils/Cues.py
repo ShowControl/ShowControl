@@ -348,6 +348,7 @@ class CueList():
             # self.cuelist.write(oldroot + '-{0}'.format(rev) + extension)
             # modified to copy existing to revision
             shutil.copyfile(filename, oldroot + '-{0}'.format(rev) + extension)
+            #self.cuelist.write(oldroot + '-{0}'.format(rev) + extension)
         # else:
             # self.cuelist.write(filename)
         self.cuelist.write(filename)

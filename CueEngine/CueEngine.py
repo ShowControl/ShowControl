@@ -221,7 +221,12 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
 
 
         self.setupUi(self)
-        self.setWindowTitle(The_Show.show_conf.settings['title'])
+        self.setWindowTitle('CueEngine - {}'.format(The_Show.show_conf.settings['title']))
+        self.action_MuteMap = QtWidgets.QAction(self)
+        self.action_MuteMap.setCheckable(True)
+        self.action_MuteMap.setText('Show MuteMap')
+        self.action_MuteMap.triggered.connect(self.show_MuteMap)
+        self.menu_Application.addAction(self.action_MuteMap)
         self.LED_ext_cue_change = LED()
         self.LED_ext_cue_change.setMaximumSize(QtCore.QSize(32, 32))
         self.LED_ext_cue_change.setObjectName("extCueChanged")
@@ -291,8 +296,8 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
 
         self.dispatch = {'Stage':self.do_stage,
                          'Mixer':self.do_mixer,
-                         'Sound':self.do_SFX,
-                         'SFX':self.do_SFX,
+                         'LISP':self.do_LISP,
+                         'SFX':self.do_soundFX,
                          'Light':self.do_light}
         self.comm_threads = []  # a list of threads in use for later use when app exits
         self.sender_threads = []
@@ -385,12 +390,12 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
             logging.error('do_mixer:{}'.format(e))
             self.NotifyNoSlaveApp('mixer')
 
-    def do_sound(self):
+    def do_LISP(self):
         msg = [NOTE_ON, 60, 112]
         if self.SFXAppProc != None:
             self.snd_sndrthread.queue_msg(msg, None)  # todo - mac 2nd arg might blowup...
 
-    def do_SFX(self):
+    def do_soundFX(self):
 #        if self.SFXAppProc != None:
         cue_uuid = The_Show.cues.getcurrentcueuuid(The_Show.cues.currentcueindex)
         msg = osc_message_builder.OscMessageBuilder(address='/cue/uuid')
@@ -400,8 +405,8 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         try:
             self.SFX_sndrthread.queue_msg(msg, self.SFXAppDev)
         except AttributeError as e:
-            logging.error('do_SFX:{}'.format(e))
-            self.NotifyNoSlaveApp('SFX')
+            logging.error('do_soundFX:{}'.format(e))
+            self.NotifyNoSlaveApp('soundFX')
         pass
 
     def do_light(self):
@@ -708,23 +713,6 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
     def EndSFXApp(self):
         self.SFXAppProc.terminate()
 
-    # # saved for running LISP
-    # def ShowSFXApp(self):
-    #     print("Launch SFX App.")
-    #     self.SFXAppProc = subprocess.Popen(['python3', '/home/mac/SharedData/PycharmProjs/linux-show-player/linux-show-player', '-f', '/home/mac/Shows/Pauline/sfx.lsp'])
-    #     #self.SFXAppProc = subprocess.Popen(['/home/mac/PycharmProjs/ShowControl/sound_effects_player/try_player.sh'])
-    #     #self.SFXAppProc = subprocess.Popen(['sound_effects_player'])
-    #     # setup sound sender thread
-    #     self.snd_sndrthread = CommHandlers.AMIDIsender()
-    #     self.snd_sndrthread.setport(['RtMidiIn', 'RtMidiIn Client:RtMidi input'])
-    #     self.snd_sndrthread.amidi_sndrsignal.connect(self.snd_sndrtestfunc)  # connect to custom signal called 'signal'
-    #     self.snd_sndrthread.finished.connect(self.snd_sndrthreaddone)  # connect to buitlin signal 'finished'
-    #     self.snd_sndrthread.start()  # start the thread
-    #     self.comm_threads.append(self.snd_sndrthread)
-    #
-    # def EndSFXApp(self):
-    #     self.SFXAppProc.terminate()
-
     def ShowMxrApp(self):
         sender_action = self.sender()
         if sender_action.isChecked():
@@ -776,6 +764,60 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
             self.mxr_sndrthread.start()  # start the thread
             self.comm_threads.append(self.mxr_sndrthread)
             self.sender_threads.append(self.mxr_sndrthread)
+
+    def show_MuteMap(self):
+        sender_action = self.sender()
+        if sender_action.isChecked():
+
+            for process in psutil.process_iter():
+                print(process.pid)
+                try:
+                    if 'MuteMap.py' in process.cmdline()[1]:
+                        self.MxrApp_pid = process.pid
+                        print('MuteMap pid:{}'.format(self.MuteMapApp_pid))
+                        logging.info('ShowMixer pid:{}'.format(self.MuteMapApp_pid))
+                        break
+                except IndexError:
+                    self.MuteMapApp_pid = None
+            if self.MuteMapApp_pid is None:
+                logging.info('MuteMap not found, attempting to launch')
+                print('MuteMap not found, attempting to launch')
+                self.MuteMapAppProc = subprocess.Popen(
+                    ['python3', parentdir + '/MuteMap/MuteMap.py'])
+                if self.MuteMapAppProc is not None:
+                    self.MuteMapApp_pid = self.MuteMapAppProc.pid
+                    logging.info('MuteMap launch success, pid: {}'.format(self.MuteMapApp_pid))
+        else:
+            # stop MuteMap
+            logging.info('ShowMixer shutdown requested.')
+            # if we have a sender thread attempt to tell ShowMixer to quit
+            try:  # if MuteMapAppProc was never created it will throw and exception on the next line...so this is probabaly not the right way...
+                if self.MuteMapApp_pid is not None:
+                    msg = osc_message_builder.OscMessageBuilder(address='/cue/quit')
+                    msg = msg.build()
+                    self.mxr_sndrthread.queue_msg(msg, self.MuteMapAppDev)
+                    sleep(2)  # wait for message to be sent
+            except:
+                raise
+
+    def ShowLISP(self):
+        pass
+    # # saved for running LISP
+    # def ShowLISP(self):
+    #     print("Launch SFX App.")
+    #     self.SFXAppProc = subprocess.Popen(['python3', '/home/mac/SharedData/PycharmProjs/linux-show-player/linux-show-player', '-f', '/home/mac/Shows/Pauline/sfx.lsp'])
+    #     #self.SFXAppProc = subprocess.Popen(['/home/mac/PycharmProjs/ShowControl/sound_effects_player/try_player.sh'])
+    #     #self.SFXAppProc = subprocess.Popen(['sound_effects_player'])
+    #     # setup sound sender thread
+    #     self.snd_sndrthread = CommHandlers.AMIDIsender()
+    #     self.snd_sndrthread.setport(['RtMidiIn', 'RtMidiIn Client:RtMidi input'])
+    #     self.snd_sndrthread.amidi_sndrsignal.connect(self.snd_sndrtestfunc)  # connect to custom signal called 'signal'
+    #     self.snd_sndrthread.finished.connect(self.snd_sndrthreaddone)  # connect to buitlin signal 'finished'
+    #     self.snd_sndrthread.start()  # start the thread
+    #     self.comm_threads.append(self.snd_sndrthread)
+    #
+    # def EndSFXApp(self):
+    #     self.SFXAppProc.terminate()
 
 
     def closeEvent(self, event):

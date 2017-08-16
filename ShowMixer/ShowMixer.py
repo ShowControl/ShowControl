@@ -328,7 +328,7 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
 
         self.setupUi(self)
         self.progressBar.setVisible(False)
-        self.setWindowTitle(The_Show.show_conf.settings['title'])
+        self.setWindowTitle('ShowMixer - {}'.format(The_Show.show_conf.settings['title']))
         self.LED_ext_cue_change = LED()
         self.LED_ext_cue_change.setMaximumSize(QtCore.QSize(32, 32))
         self.LED_ext_cue_change.setFixedSize((QtCore.QSize(32,32)))
@@ -391,6 +391,9 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         control_name = self.get_control_name_from_chan_name(mute_chan_name)
         # start with next cue
         start_index = The_Show.cues.currentcueindex + 1
+        self.progressBar.setRange(0, 100)
+        self.progressBar.setValue(0)
+        self.progressBar.setVisible(True)
         for mxrid in range(The_Show.mixers.__len__()):
             if The_Show.mixers[mxrid].mutestyle['mutestyle'] == 'illuminated':
                 if checked_state:
@@ -405,6 +408,7 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
 
             # iterate through all cues and set the mute state of this mute
             for idx in range(start_index, The_Show.cues.cuecount):
+                self.progressBar.setValue(int((100 * (idx / The_Show.cues.cuecount))))
                 cue_mutes = The_Show.cues.get_cue_mute_state_by_index(idx)
                 mute_state_in_cue = cue_mutes[control_name]
                 # if destination is end continue to last cue
@@ -429,8 +433,9 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
                         The_Show.cues.updatecueelement(idx, 'Mutes', cue_mutes_text_sorted)
                     else:
                         break
+        self.progressBar.setValue(0)
+        self.progressBar.setVisible(False)
 
-        print()
 
     def sort_controls(self, control_list=[]):
         chlist = []
@@ -509,13 +514,15 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
             try:
                 chan_level = levels[level_name]
                 levels[level_name] = new_level
-                level_text = ','.join(str(key) + ':' + str(levels.get(key)) for key in levels)
-                level_list = level_text.split(',')
+                # level_text = ','.join(str(key) + ':' + str(levels.get(key)) for key in levels)
+                # level_list = level_text.split(',')
+                level_list = []
+                for key in levels: level_list.append('{}:{}'.format(key, levels[key]))
                 level_list_sorted = self.sort_controls(level_list)
                 level_text_sorted = ','.join(str(s) for s in level_list_sorted)
                 The_Show.cues.setcueelement(cue_idx, level_text_sorted, 'Levels')
             except KeyError:
-                pass
+                logging.error('In slider_action_propagate_level key {} not found for index: {}!'.format(level_name, cue_idx))
             #print('Cue#{0} Levels:{1}'.format(cue_idx, levels))
         self.progressBar.setValue(0)
         self.progressBar.setVisible(False)
@@ -1395,6 +1402,7 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
 
     def ExternalCueUpdate(self):
         self.statusBar().showMessage('External Cue Update')
+        index_before_update = The_Show.cues.currentcueindex
         The_Show.reloadShow(cfg.cfgdict)
         self.setWindowTitle(The_Show.show_conf.settings['title'])
         self.initmutes()
@@ -1403,6 +1411,11 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         self.setfirstcue()
         firstuuid = The_Show.cues.getcurrentcueuuid(The_Show.cues.currentcueindex)
         self.set_scribble(firstuuid)
+        The_Show.cues.currentcueindex = index_before_update
+        self.tableView.selectRow(The_Show.cues.currentcueindex)
+        self.display_cue_mutes()
+        self.display_cue_levels()
+
         self.ExternalEditStarted = False
         self.ExternalEditComplete = False
 
