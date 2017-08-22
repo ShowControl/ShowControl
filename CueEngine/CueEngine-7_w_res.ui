@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>Cue Engine</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="CueEngine_rsrc.qrc">
+    <normaloff>:/Res/CueEngine_icon.png</normaloff>:/Res/CueEngine_icon.png</iconset>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout_2">
     <item>

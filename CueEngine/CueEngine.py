@@ -240,9 +240,10 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         self.LED_ext_cue_change.setFixedSize((QtCore.QSize(32,32)))
         self.LED_ext_cue_change.setObjectName("extCueChanged")
 
-        self.LED_ext_cue_change.setObjectName("extCueChanged")
         self.horizontalLayout.insertWidget(4,self.LED_ext_cue_change)
         self.update()
+
+        self.goButton.setShortcut(QtGui.QKeySequence(Qt.CTRL + Qt.SHIFT + Qt.Key_G))
 
         # Setup multiple sound player apps
         self.action_Sound_FX2 = QtWidgets.QAction(self)
@@ -364,7 +365,6 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         self.dispatch_cue()  # execute the cue
         The_Show.cues.previouscueindex = The_Show.cues.currentcueindex  # save this as the previous cue index
         The_Show.cues.currentcueindex += 1
-        #tblvw.selectRow(tblrow + 1 )  # select the next row
         tblvw.selectRow(The_Show.cues.currentcueindex)
 
     def on_buttonPrev_clicked(self):
@@ -373,7 +373,7 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
             previdx = The_Show.cues.currentcueindex
             The_Show.cues.currentcueindex -= 1
             print('Old index: ' + str(previdx) + '   New: ' + str(The_Show.cues.currentcueindex))
-            The_Show.cues.setcurrentcuestate(The_Show.cues.currentcueindex)
+            #The_Show.cues.setcurrentcuestate(The_Show.cues.currentcueindex)
         else:
             The_Show.cues.currentcueindex = 0
         tblvw = self.findChild(QtWidgets.QTableView)
@@ -1023,8 +1023,11 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
 
     def ExternalCueUpdate(self):
         self.statusBar().showMessage('External Cue Update')
+        last_index = The_Show.cues.currentcueindex
         The_Show.reloadShow(cfg.cfgdict)
         self.disptext()
+        The_Show.cues.currentcueindex = last_index
+        self.tableView.selectRow(The_Show.cues.currentcueindex)
         self.ExternalEditStarted = False
         self.ExternalEditComplete = False
 

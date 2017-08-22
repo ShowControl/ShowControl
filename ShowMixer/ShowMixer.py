@@ -341,6 +341,7 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         #self.nextButton.clicked.connect(self.on_buttonNext_clicked)
         #self.jumpButton.clicked.connect(self.on_buttonJump_clicked)
         #self.savecueButton.clicked.connect(self.on_buttonSaveCue_clicked)
+        self.scrollView = False
         self.row_focus_upButton.clicked.connect(self.scroll_cue_list)
         self.row_focus_downButton.clicked.connect(self.scroll_cue_list)
         self.tableView.clicked.connect(self.tableClicked)
@@ -852,12 +853,13 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         scrLbl = self.findChild(QtWidgets.QLabel, name=scrLblname)
         val_db = int_to_db(val)
         scrLbl.setText('{0:>.2f}'.format(val_db))  # todo - mac see here for formating db rounded display
-        msg = The_Show.mixers[mxrid].mxrstrips[The_Show.mixers[mxrid].
-            mxrconsole[stripGUIindx]['type']]['fader']. \
-            Set(The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['channum'], val)
-        if msg is not None:
-            self.mixer_sender_threads[mxrid].queue_msg(msg, The_Show.mixers[mxrid])
-        self.updatecuelevelstate()
+        if not self.scrollView:
+            msg = The_Show.mixers[mxrid].mxrstrips[The_Show.mixers[mxrid].
+                mxrconsole[stripGUIindx]['type']]['fader']. \
+                Set(The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['channum'], val)
+            if msg is not None:
+                self.mixer_sender_threads[mxrid].queue_msg(msg, The_Show.mixers[mxrid])
+            self.updatecuelevelstate()
 
     def slider_set(self, sldrname, val):
         self.cuehaschanged = True
@@ -953,7 +955,8 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         tblvw.selectRow(The_Show.cues.currentcueindex)
 
     def execute_mutes(self):
-        mute_changes = The_Show.cues.get_cue_mute_state_delta(The_Show.cues.currentcueindex)
+        #mute_changes = The_Show.cues.get_cue_mute_state_delta(The_Show.cues.currentcueindex)
+        mute_changes = The_Show.cues.get_cue_mute_state_by_index(The_Show.cues.currentcueindex)
         # iterate through mute changes, if any
         if mute_changes != None:
             for key, value in mute_changes.items():
@@ -1152,12 +1155,10 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
 
     def display_cue_mutes(self):
         mutes = The_Show.cues.get_cue_mute_state_by_index(The_Show.cues.currentcueindex)
-        # iterate through mutes
-        if mutes is not None:
+        if mutes is not None:  # iterate through mutes
             for key, value in mutes.items():
-                # find the channel name in the mxrconsole list
-                # that should be the stripGUIindex
-                #get name from key
+                # find the channel name in the mxrconsole list, it should be the stripGUIindex
+                # get name from key
                 nbrs = re.findall(r'\d+',key)  # old way to striGUIindex
                 mxrid = int(nbrs[0])
                 chname = key[re.search('\d', key).end():]
@@ -1166,7 +1167,6 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
                         # print('found in stp {0}'.format(cons_idx))
                         stripGUIindx = cons_idx
                         break
-                # stripGUIindx = int(nbrs[1]) - 1
                 mute = self.findChild(QtWidgets.QPushButton, name='M{0}mute{1:02}'.format(mxrid, stripGUIindx))
                 if value == 1:  # 1 >> unmute  0 >> mute
                     # Handle unmute
@@ -1174,17 +1174,17 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
                         mute.setChecked(False)  # for illuminated = unmuted
                     else:
                         mute.setChecked(True)  # for a dark = umuted
-                    muteval = The_Show.mixers[mxrid].mutestyle['unmute']
-                else:
-                    # Handle mute
+                    #muteval = The_Show.mixers[mxrid].mutestyle['unmute']
+                else:  # Handle mute
                     if The_Show.mixers[mxrid].mutestyle['mutestyle'] == 'illuminated':
                         mute.setChecked(True)
                     else:
                         mute.setChecked(False)
-                    muteval = The_Show.mixers[mxrid].mutestyle['mute']
-            return
+                    #muteval = The_Show.mixers[mxrid].mutestyle['mute']
+        return
 
     def display_cue_levels(self):
+        self.scrollView = True
         levels = The_Show.cues.get_cue_levels(The_Show.cues.currentcueindex)
         if levels != None:
             for key, value in levels.items():
@@ -1208,7 +1208,8 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
                 scrLbl.setText('{0:>.2f}'.format(val_db))
                 if sldr.sliderPosition() != value:
                     sldr.setSliderPosition(int(value))
-                return
+        self.scrollView = False
+        return
 
 
     def openShow(self):

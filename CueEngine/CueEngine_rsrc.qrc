@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="Res">
+    <file>CueEngine_icon.png</file>
     <file>MixerApp_depressed.png</file>
     <file>SoundFXApp_pressed.png</file>
     <file>SoundFXApp_pressed.png</file>

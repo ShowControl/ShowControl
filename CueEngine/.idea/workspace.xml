@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/CueEngine.py" line="826" />
-    <bookmark url="file://$PROJECT_DIR$/CueEngine.py" line="863" />
-    <bookmark url="file://$PROJECT_DIR$/CueEngine.py" line="417" />
+    <bookmark url="file://$PROJECT_DIR$/../ShowMixer/ShowMixer.py" line="838" />
+    <bookmark url="file://$PROJECT_DIR$/../ShowMixer/ShowMixer.py" line="1185" />
+    <bookmark url="file://$PROJECT_DIR$/CueEngine.py" line="354" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8474eff5-676b-4712-9539-a7c9c675c28b" name="Default" comment="" />
@@ -27,7 +27,7 @@
       <file leaf-file-name="Cues.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../ShowControl/utils/Cues.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5508">
+            <state relative-caret-position="3001">
               <caret line="324" column="0" lean-forward="false" selection-start-line="324" selection-start-column="0" selection-end-line="324" selection-end-column="0" />
               <folding>
                 <element signature="e#92#102#0" expanded="true" />
@@ -60,8 +60,8 @@
       <file leaf-file-name="CueEngine.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/CueEngine.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="209">
-              <caret line="963" column="0" lean-forward="false" selection-start-line="963" selection-start-column="0" selection-end-line="963" selection-end-column="0" />
+            <state relative-caret-position="66">
+              <caret line="348" column="88" lean-forward="false" selection-start-line="348" selection-start-column="88" selection-end-line="348" selection-end-column="88" />
               <folding />
             </state>
           </provider>
@@ -81,9 +81,10 @@
         <entry file="file://$PROJECT_DIR$/CueEngine_ui.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="2669">
-              <caret line="157" column="0" lean-forward="false" selection-start-line="156" selection-start-column="0" selection-end-line="157" selection-end-column="0" />
+              <caret line="160" column="0" lean-forward="false" selection-start-line="159" selection-start-column="0" selection-end-line="160" selection-end-column="0" />
               <folding>
-                <marker date="1503151448626" expanded="true" signature="6931:9041" ph="..." />
+                <marker date="1503410030180" expanded="true" signature="310:9215" ph="..." />
+                <marker date="1503410030180" expanded="true" signature="7550:9215" ph="..." />
               </folding>
             </state>
           </provider>
@@ -92,10 +93,11 @@
       <file leaf-file-name="ShowMixer.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../ShowMixer/ShowMixer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17782">
-              <caret line="1057" column="0" lean-forward="false" selection-start-line="1057" selection-start-column="0" selection-end-line="1057" selection-end-column="0" />
+            <state relative-caret-position="117">
+              <caret line="841" column="0" lean-forward="false" selection-start-line="841" selection-start-column="0" selection-end-line="841" selection-end-column="0" />
               <folding>
-                <marker date="1503352032250" expanded="true" signature="61924:62413" ph="..." />
+                <marker date="1503427774493" expanded="true" signature="45433:47741" ph="..." />
+                <marker date="1503427774493" expanded="true" signature="62068:62557" ph="..." />
               </folding>
             </state>
           </provider>
@@ -112,12 +114,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>sorted</find>
-      <find>insert</find>
-      <find>EditCue</find>
-      <find>on_table_rightclick</find>
-      <find>cue_de</find>
-      <find>connec</find>
       <find>show_MuteMap</find>
       <find>lisp</find>
       <find>action_M</find>
@@ -142,6 +138,12 @@
       <find>ShowLISP</find>
       <find>execute_cue</find>
       <find>executeMixerMap</find>
+      <find>updatecuelevelstate</find>
+      <find>slidervalchanged</find>
+      <find>setcurrentcuestate</find>
+      <find>tableView.s</find>
+      <find>tableView.se</find>
+      <find>on_buttonGo_clicked</find>
     </findStrings>
     <replaceStrings>
       <replace>EditPrefs</replace>
@@ -202,7 +204,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -220,6 +221,7 @@
         </subPane>
       </pane>
       <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -495,13 +497,13 @@
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17440605" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3716916" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32794458" sideWeight="0.5064795" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3256351" sideWeight="0.4924406" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296433" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3256351" sideWeight="0.4924406" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31755197" sideWeight="0.49352053" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -567,7 +569,7 @@
         </line-breakpoint>
         <line-breakpoint suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/CueEngine.py</url>
-          <line>1047</line>
+          <line>1050</line>
           <option name="timeStamp" value="192" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -582,24 +584,39 @@
         </line-breakpoint>
         <line-breakpoint suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/../ShowMixer/ShowMixer.py</url>
-          <line>1070</line>
+          <line>1073</line>
           <option name="timeStamp" value="227" />
         </line-breakpoint>
         <line-breakpoint suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/../ShowMixer/ShowMixer.py</url>
-          <line>1057</line>
+          <line>1060</line>
           <option name="timeStamp" value="228" />
         </line-breakpoint>
         <line-breakpoint suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/../ShowMixer/ShowMixer.py</url>
-          <line>1081</line>
+          <line>1084</line>
           <option name="timeStamp" value="229" />
+        </line-breakpoint>
+        <line-breakpoint suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/../ShowMixer/ShowMixer.py</url>
+          <line>841</line>
+          <option name="timeStamp" value="230" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/../ShowMixer/ShowMixer.py</url>
+          <line>823</line>
+          <option name="timeStamp" value="231" />
+        </line-breakpoint>
+        <line-breakpoint suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/CueEngine.py</url>
+          <line>356</line>
+          <option name="timeStamp" value="234" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="230" />
+      <option name="time" value="235" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
@@ -899,9 +916,10 @@
     <entry file="file://$PROJECT_DIR$/CueEngine_ui.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2669">
-          <caret line="157" column="0" lean-forward="false" selection-start-line="156" selection-start-column="0" selection-end-line="157" selection-end-column="0" />
+          <caret line="160" column="0" lean-forward="false" selection-start-line="159" selection-start-column="0" selection-end-line="160" selection-end-column="0" />
           <folding>
-            <marker date="1503151448626" expanded="true" signature="6931:9041" ph="..." />
+            <marker date="1503410030180" expanded="true" signature="310:9215" ph="..." />
+            <marker date="1503410030180" expanded="true" signature="7550:9215" ph="..." />
           </folding>
         </state>
       </provider>
@@ -910,17 +928,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
           <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../ShowControl/utils/Cues.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5508">
-          <caret line="324" column="0" lean-forward="false" selection-start-line="324" selection-start-column="0" selection-end-line="324" selection-end-column="0" />
-          <folding>
-            <element signature="e#92#102#0" expanded="true" />
-            <marker date="1503156262536" expanded="true" signature="3708:9685" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -934,18 +941,30 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/../ShowMixer/ShowMixer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17782">
-          <caret line="1057" column="0" lean-forward="false" selection-start-line="1057" selection-start-column="0" selection-end-line="1057" selection-end-column="0" />
+        <state relative-caret-position="117">
+          <caret line="841" column="0" lean-forward="false" selection-start-line="841" selection-start-column="0" selection-end-line="841" selection-end-column="0" />
           <folding>
-            <marker date="1503352032250" expanded="true" signature="61924:62413" ph="..." />
+            <marker date="1503427774493" expanded="true" signature="45433:47741" ph="..." />
+            <marker date="1503427774493" expanded="true" signature="62068:62557" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../ShowControl/utils/Cues.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3001">
+          <caret line="324" column="0" lean-forward="false" selection-start-line="324" selection-start-column="0" selection-end-line="324" selection-end-column="0" />
+          <folding>
+            <element signature="e#92#102#0" expanded="true" />
+            <marker date="1503156262536" expanded="true" signature="3708:9685" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/CueEngine.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="963" column="0" lean-forward="false" selection-start-line="963" selection-start-column="0" selection-end-line="963" selection-end-column="0" />
+        <state relative-caret-position="66">
+          <caret line="348" column="88" lean-forward="false" selection-start-line="348" selection-start-column="88" selection-end-line="348" selection-end-column="88" />
           <folding />
         </state>
       </provider>
