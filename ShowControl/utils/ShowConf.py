@@ -166,10 +166,27 @@ class ShowConf:
             for program in programs_dict:
                 id = program.get('id')
                 if id not in self.equipment:
+                    try:
+                        app = program.find('./app').get('href')
+                    except:
+                        app = None
+                    try:
+                        args = program.find('./args').text
+                    except:
+                        args = None
+                    try:
+                        setup = program.find('./setup').text
+                    except:
+                        setup = None
                     portnum = program.find('./port').text
                     IP_address = program.find('./IP_address').text
                     midi_address = program.find('./MIDI_address').text
-                    program_dict[id] = {'port': portnum, 'IP_address' : IP_address, 'MIDI_address' : midi_address}
+                    program_dict[id] = {'port': portnum,
+                                        'IP_address' : IP_address,
+                                        'MIDI_address' : midi_address,
+                                        'app' : app,
+                                        'args' : args,
+                                        'setup' : setup}
                     pass
                 else:
                     # todo - mac throw warning second find ignored

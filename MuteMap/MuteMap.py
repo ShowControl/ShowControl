@@ -55,7 +55,7 @@ from MixerMap import MixerCharMap
 
 #import styles
 
-parser = argparse.ArgumentParser()
+asparser = argparse.ArgumentParser()
 
 
 import MuteMap_ui

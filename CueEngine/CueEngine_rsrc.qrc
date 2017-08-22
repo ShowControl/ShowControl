@@ -1,5 +1,8 @@
 <RCC>
   <qresource prefix="Res">
+    <file>MixerApp_depressed.png</file>
+    <file>SoundFXApp_pressed.png</file>
+    <file>SoundFXApp_pressed.png</file>
     <file>Button.png</file>
     <file>mixer-icon.png</file>
     <file>Lighting.png</file>

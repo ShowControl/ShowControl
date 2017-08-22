@@ -8,6 +8,10 @@ import socket
 from time import sleep
 from curses.ascii import isprint
 import psutil
+import rtmidi
+from rtmidi.midiutil import get_api_from_environment
+from rtmidi.midiconstants import CONTROL_CHANGE, NOTE_ON
+import re
 
 from PyQt5 import Qt, QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QColor, QBrush, QPalette, QPainter, QPen, QPixmap
@@ -23,6 +27,9 @@ import logging
 _translate = QtCore.QCoreApplication.translate
 
 from rtmidi.midiconstants import CONTROL_CHANGE, NOTE_ON
+RtMidiIn_client_re = re.compile('.*RtMidi input')
+#a = RtMidiIn_client_re.findall('xxxRtMidiIn Clientxxxx:RtMidi input xxxx128:0')
+#b = RtMidiIn_client_re.findall('xxxRtMixdiIn Clientxxxx:RtMixdi input xxxx128:0')
 
 currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 print(currentdir)
@@ -78,6 +85,7 @@ class cueTypeDispatcher():
         self.mxr_sndrthread.queue_msg(msg, self.CueAppDev)
 
     def do_sound(self):
+
         msg = [NOTE_ON, 60, 112]
         self.snd_sndrthread.queue_msg(msg, self.CueAppDev)
 
@@ -229,8 +237,24 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         self.menu_Application.addAction(self.action_MuteMap)
         self.LED_ext_cue_change = LED()
         self.LED_ext_cue_change.setMaximumSize(QtCore.QSize(32, 32))
+        self.LED_ext_cue_change.setFixedSize((QtCore.QSize(32,32)))
         self.LED_ext_cue_change.setObjectName("extCueChanged")
-        self.horizontalLayout.addWidget(self.LED_ext_cue_change)
+
+        self.LED_ext_cue_change.setObjectName("extCueChanged")
+        self.horizontalLayout.insertWidget(4,self.LED_ext_cue_change)
+        self.update()
+
+        # Setup multiple sound player apps
+        self.action_Sound_FX2 = QtWidgets.QAction(self)
+        self.action_Sound_FX2.setCheckable(True)
+        icon7 = QtGui.QIcon()
+        icon7.addPixmap(QtGui.QPixmap(":/Res/SoundFXApp_pressed.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
+        icon7.addPixmap(QtGui.QPixmap(":/Res/SoundFXApp.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.action_Sound_FX2.setIcon(icon7)
+        self.action_Sound_FX2.setObjectName("action_Sound_FX2")
+        self.action_Sound_FX2.setToolTip('Show/hide LISP')
+        self.menu_Application.addAction(self.action_Sound_FX2)
+        self.toolBarApps.addAction(self.action_Sound_FX2)
         self.update()
 
         self.goButton.clicked.connect(self.on_buttonGo_clicked)
@@ -280,6 +304,7 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         self.action_Lighting_Cues.cuetype = 'Light'
         # connect callbacks for launching external apps
         self.action_Sound_FX.triggered.connect(self.ShowSFXApp)
+        self.action_Sound_FX2.triggered.connect(self.ShowLISP)
         self.action_Mixer.triggered.connect(self.ShowMxrApp)
 
         # initiallize SFX player objects
@@ -288,15 +313,24 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         self.SFX_sock = None
         self.SFX_sndrthread = None
 
+        # initialize SFX2 player objects
+        self.LISPAppProc = None
+        self.LISPApp_pid = None
+        self.LISP_sndrthread = None
+        self.midinoteoffset = 60
+        self.portlist = []
+
         # initialize mixer app objects
         self.MxrAppProc = None
         self.MxrApp_pid = None
+        self.MuteMapAppProc = None
+        self.MuteMapApp_pid = None
         self.mxr_sock = None
         self.mxr_sndrthread = None
 
         self.dispatch = {'Stage':self.do_stage,
                          'Mixer':self.do_mixer,
-                         'LISP':self.do_LISP,
+                         'Sound':self.do_LISP,
                          'SFX':self.do_soundFX,
                          'Light':self.do_light}
         self.comm_threads = []  # a list of threads in use for later use when app exits
@@ -365,15 +399,6 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
 
         for type in The_Show.cues.getcuetype(The_Show.cues.currentcueindex):
             self.dispatch[type]()
-            # if type in 'Mixer':
-            #     msg = osc_message_builder.OscMessageBuilder(address='/cue/#')
-            #     msg.add_arg(The_Show.cues.currentcueindex)
-            #     msg = msg.build()
-            #     self.mxr_sndrthread.queue_msg(msg, self.CueAppDev)
-            # elif type == 'Sound':
-            #     msg = [NOTE_ON, 60, 112]
-            #     self.snd_sndrthread.queue_msg(msg, self.CueAppDev)
-
 
     def do_stage(self):
         pass
@@ -391,9 +416,11 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
             self.NotifyNoSlaveApp('mixer')
 
     def do_LISP(self):
-        msg = [NOTE_ON, 60, 112]
-        if self.SFXAppProc != None:
-            self.snd_sndrthread.queue_msg(msg, None)  # todo - mac 2nd arg might blowup...
+        index = The_Show.cues.currentcueindex
+        note = self.midinoteoffset + index
+        msg = [NOTE_ON, note, 112]
+        if self.LISPAppProc != None:
+            self.LISP_sndrthread.queue_msg(msg, None)  # todo - mac 2nd arg might blowup...
 
     def do_soundFX(self):
 #        if self.SFXAppProc != None:
@@ -635,9 +662,6 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         cfg.reload()
         The_Show.loadNewShow(cfg.cfgdict)
 
-        # self.stopthreads() todo - mac need to work through re-start of apps....
-        # sleep(.5)
-
         self.setWindowTitle(The_Show.show_conf.settings['project']['title'])
         self.disptext()
         self.setfirstcue()
@@ -669,7 +693,7 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
                     if 'run_sound_effects_player.sh' in process.cmdline()[1]:
                         self.SFXApp_pid = process.pid
                         print('SFX player pid:{}'.format(self.SFXp_pid))
-                        logging.info('ShowMixer pid:{}'.format(self.SFX_pid))
+                        logging.info('SFX player pid:{}'.format(self.SFX_pid))
                         break
                 except IndexError:
                     self.SFX_pid = None
@@ -684,7 +708,7 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
                     logging.info('SFX player launch success, pid: {}'.format(self.SFXApp_pid))
         else:
             # stop SFX player
-            logging.info('ShowMixer shutdown requested.')
+            logging.info('SFX player shutdown requested.')
             # if we have a sender thread attempt to tell ShowMixer to quit
             try:  # if SFXAppProc was never created it will throw and exception on the next line...so this is probabaly not the right way...
                 if self.SFXApp_pid is not None:
@@ -775,7 +799,7 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
                     if 'MuteMap.py' in process.cmdline()[1]:
                         self.MxrApp_pid = process.pid
                         print('MuteMap pid:{}'.format(self.MuteMapApp_pid))
-                        logging.info('ShowMixer pid:{}'.format(self.MuteMapApp_pid))
+                        logging.info('MuteMAp pid:{}'.format(self.MuteMapApp_pid))
                         break
                 except IndexError:
                     self.MuteMapApp_pid = None
@@ -801,7 +825,72 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
                 raise
 
     def ShowLISP(self):
-        pass
+        sender_action = self.sender()
+        if sender_action.isChecked():
+
+            for process in psutil.process_iter():
+                print(process.pid)
+                try:
+                    if 'linux-show-player' in process.cmdline()[1]:
+                        self.LISPApp_pid = process.pid
+                        print('LISP pid:{}'.format(self.LISPApp_pid))
+                        logging.info('LISP pid:{}'.format(self.LISPApp_pid))
+                        break
+                except IndexError:
+                    self.LISPApp_pid = None
+            if self.LISPApp_pid is None:
+                logging.info('LISP not found, attempting to launch')
+                print('LISP not found, attempting to launch')
+                #The_Show.show_conf.equipment['program']['LISP']['app']
+                self.LISPAppProc = subprocess.Popen(
+                    ['python3', The_Show.show_conf.equipment['program']['LISP']['app'],
+                     The_Show.show_conf.equipment['program']['LISP']['args'],
+                     cfg.cfgdict['configuration']['project']['folder'] + '/'
+                     + The_Show.show_conf.equipment['program']['LISP']['setup']])
+                if self.LISPAppProc is not None:
+                    self.LISPApp_pid = self.LISPAppProc.pid
+                    logging.info('LISP launch success, pid: {}'.format(self.LISPApp_pid))
+        else:
+            # stop LISP
+            logging.info('LISP shutdown requested.')
+            # if we have a sender thread attempt to tell ShowMixer to quit
+            try:  # if LISPAppProc was never created it will throw and exception on the next line...so this is probabaly not the right way...
+                if self.LISPAppProc is not None:
+                    self.LISPAppProc.terminate()
+            except:
+                print('LISP process not running, could not close.')
+                logging.info('LISP process not running, could not close.')
+
+        if self.LISP_sndrthread is None:
+            # assume LISP just launced, give it a chance to establish the midi port
+            count = 0
+            index = None
+            while count < 10:
+                self.portlist = self.getrtmidiports()
+                for index, client in enumerate(self.portlist):
+                    if 'RtMidi input' in client:
+                        break
+                count += 1
+                sleep(0.5)
+            if index:
+                self.selidx = index
+                if isinstance(self.portlist[self.selidx], str):
+                    print('ALSA port {} selected, client name: {}'.format(self.selidx, client))
+                    logging.info(('ALSA port {} selected, client name: {}'.format(self.selidx, client)))
+                    self.LISP_sndrthread = CommHandlers.AMIDIsender()
+                    self.LISP_sndrthread.setObjectName('LISP')
+                    partofname = self.portlist[self.selidx].split(':')
+                    self.LISP_sndrthread.setport([partofname[0], self.portlist[self.selidx]])
+                    self.LISP_sndrthread.amidi_sndrsignal.connect(
+                        self.snd_sndrtestfunc)  # connect to custom signal called 'signal'
+                    self.LISP_sndrthread.finished.connect(
+                        self.snd_sndrthreaddone)  # connect to buitlin signal 'finished'
+                    self.LISP_sndrthread.start()  # start the thread
+                self.sender_threads.append(self.LISP_sndrthread)
+            else:
+                print('RtMidi port not found')
+                logging.error('RtMidi port not found!')
+
     # # saved for running LISP
     # def ShowLISP(self):
     #     print("Launch SFX App.")
@@ -816,8 +905,18 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
     #     self.snd_sndrthread.start()  # start the thread
     #     self.comm_threads.append(self.snd_sndrthread)
     #
-    # def EndSFXApp(self):
-    #     self.SFXAppProc.terminate()
+    def getrtmidiports(self):
+        midiclass_ = rtmidi.MidiOut
+        logging.info("Creating %s object.", midiclass_.__name__)
+
+        api = get_api_from_environment(rtmidi.API_UNSPECIFIED)
+
+        midiobj = midiclass_(api, None)
+        type_ = "input" if isinstance(midiobj, rtmidi.MidiIn) else "output"
+
+        ports = midiobj.get_ports()
+        midiobj = None
+        return ports
 
 
     def closeEvent(self, event):
@@ -840,6 +939,11 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
                     sleep(2)  # wait for message to be sent before killing threads
             except:
                 raise
+            try:
+                if self.LISPApp_pid is not None:
+                    self.LISPAppProc.terminate()
+            except:
+                raise
             self.stopthreads()
             event.accept()
         else:
@@ -857,14 +961,18 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         msg.add_arg(True)
         msg = msg.build()
         for slave in self.sender_threads:
-            slave.queue_msg(msg, self.CommAddress_dict[slave.objectName()])
+            # quick fix to handle LISP doesn't care if cue is edited todo mac fix this
+            if slave.objectName() != 'LISP':
+                slave.queue_msg(msg, self.CommAddress_dict[slave.objectName()])
 
     def notify_slaves_edit_complete(self):
         msg = osc_message_builder.OscMessageBuilder(address='/cue/editcomplete')
         msg.add_arg(True)
         msg = msg.build()
         for slave in self.sender_threads:
-            slave.queue_msg(msg, self.CommAddress_dict[slave.objectName()])
+            # quick fix to handle LISP doesn't care if cue is edited todo mac fix this
+            if slave.objectName() != 'LISP':
+                slave.queue_msg(msg, self.CommAddress_dict[slave.objectName()])
 
 
     '''gets called by main to tell the thread to stop'''
@@ -1003,7 +1111,7 @@ if __name__ == "__main__":
     #app.setStyleSheet("QPushButton {pressed-color: red }")
     app.setStyleSheet(styles.QLiSPTheme_Dark)
     ui = CueDlg(path.abspath(path.join(path.dirname(__file__))) + '/Scrooge Moves.xml')
-    ui.resize(800,800)
+    ui.resize(900,800)
     ui.disptext()
     ui.setfirstcue(1)  # slaves should execute cue 0 as the initialization
     parser = argparse.ArgumentParser()

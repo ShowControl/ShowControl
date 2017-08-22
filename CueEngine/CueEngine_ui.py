@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'CueEngine-6_w_res.ui'
+# Form implementation generated from reading ui file 'CueEngine-7_w_res.ui'
 #
 # Created by: PyQt5 UI code generator 5.7
 #
@@ -32,8 +32,8 @@ class Ui_MainWindow(object):
         self.jumpButton.setMinimumSize(QtCore.QSize(64, 64))
         self.jumpButton.setObjectName("jumpButton")
         self.horizontalLayout.addWidget(self.jumpButton)
-        #spacerItem = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        #self.horizontalLayout.addItem(spacerItem)
+        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout.addItem(spacerItem)
         self.verticalLayout.addLayout(self.horizontalLayout)
         self.tableView = QtWidgets.QTableView(self.centralwidget)
         self.tableView.setObjectName("tableView")
@@ -105,6 +105,7 @@ class Ui_MainWindow(object):
         self.action_Mixer = QtWidgets.QAction(MainWindow)
         self.action_Mixer.setCheckable(True)
         icon5 = QtGui.QIcon()
+        icon5.addPixmap(QtGui.QPixmap(":/Res/MixerApp_depressed.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
         icon5.addPixmap(QtGui.QPixmap(":/Res/MixerApp.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.action_Mixer.setIcon(icon5)
         self.action_Mixer.setObjectName("action_Mixer")
@@ -119,6 +120,7 @@ class Ui_MainWindow(object):
         self.action_Sound_FX = QtWidgets.QAction(MainWindow)
         self.action_Sound_FX.setCheckable(True)
         icon6 = QtGui.QIcon()
+        icon6.addPixmap(QtGui.QPixmap(":/Res/SoundFXApp_pressed.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
         icon6.addPixmap(QtGui.QPixmap(":/Res/SoundFXApp.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.action_Sound_FX.setIcon(icon6)
         self.action_Sound_FX.setObjectName("action_Sound_FX")

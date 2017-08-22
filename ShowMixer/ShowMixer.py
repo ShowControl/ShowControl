@@ -436,7 +436,6 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         self.progressBar.setValue(0)
         self.progressBar.setVisible(False)
 
-
     def sort_controls(self, control_list=[]):
         chlist = []
         auxlist = []
@@ -946,6 +945,7 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         tblvw.selectRow(The_Show.cues.currentcueindex)
         self.execute_mutes()
         self.execute_levels()
+        self.execute_MixerMap()
         # move table focus to next cue
         # ***changed this: now mutes/sliders show state of highlighted cue
         # The_Show.cues.previouscueindex = The_Show.cues.currentcueindex
@@ -1021,6 +1021,36 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
                     sldr.setSliderPosition(int(value))
                     if msg is not None: self.mixer_sender_threads[mxrid].queue_msg(msg, The_Show.mixers[mxrid])
                 pass
+
+    def execute_MixerMap(self):
+        """Check for MixerMap entrees with this cues uuid
+        if true, do the map"""
+        current_cue_uuid = The_Show.cues.getcurrentcueuuid(The_Show.cues.currentcueindex)
+        # get the cue index of the current map (i.e. the last cue that set the map)
+        cur_map_cue_uuid = The_Show.chrchnmap.map_list[The_Show.chrchnmap.current_map_index]
+        cur_map_change_index_str = The_Show.cues.getcueindexbyuuid(cur_map_cue_uuid)
+        cur_map_change_index = int(cur_map_change_index_str)
+
+        # get the cue index of the previous map
+        # prev_map_cue_index = The_Show.cues.getcueindexbyuuid(
+        #     The_Show.chrchnmap.map_list[The_Show.chrchnmap.previous_map_index])
+        # prev_map_cue_index = int(prev_map_cue_index)
+        prev_map_cue_uuid = The_Show.chrchnmap.map_list[The_Show.chrchnmap.previous_map_index]
+
+        # if this cue has a matching uuid in the chrchnmap, execute it
+        if The_Show.chrchnmap.mapchange(current_cue_uuid): # this cue IS a map change, do it
+            target_uuid = current_cue_uuid
+        elif The_Show.cues.currentcueindex < cur_map_change_index:
+            # if we are going to an earlier cue
+            # get the index of the last cue used to set a map
+            # set target of the map to previous
+            target_uuid = The_Show.chrchnmap.map_list[The_Show.chrchnmap.previous_map_index]
+        else: # do nothing
+            target_uuid = None
+
+        if target_uuid:
+            self.set_scribble(target_uuid)
+            The_Show.chrchnmap.update_state(target_uuid)
 
     def next_cue(self):
         nextmxrcuefound = False
@@ -1250,7 +1280,7 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
             mxrid = int(char.attrib['mixerid'])
             msg = The_Show.mixers[mxrid].mxrstrips[The_Show.mixers[mxrid].
                 mxrconsole[cnum - 1]['type']]['scribble'].\
-                Set(cnum, char.attrib['actor'])
+                Set(cnum, char.attrib['char'])
             if msg is not None: self.mixer_sender_threads[mxrid].queue_msg(msg, The_Show.mixers[mxrid])
             # print('M{0}scr{1:02}'.format(mxrid,cnum))
             actorlbl = self.findChild(QtWidgets.QLabel, name='M{0}scr{1:02}'.format(mxrid,cnum-1))
