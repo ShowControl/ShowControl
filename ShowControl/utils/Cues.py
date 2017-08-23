@@ -228,14 +228,24 @@ class CueList():
         except:
             print('Cue type for index ' + '{0:03}'.format(cueindex) + ' not found!')
 
+    # def get_cue_element_by_name(self, cueindex, element_name):
+    #     thiscue = self.cuelist.find("./Cue[@num='" + '{0:03}'.format(cueindex) + "']")
+    #     try:
+    #         element = thiscue.find(element_name)
+    #         if element != None:
+    #             return element.text
+    #         else:
+    #             return ['']
+    #     except:
+    #         print('Cue element {} for index ' + '{:03}'.format(element_name,cueindex) + ' not found!')
     def get_cue_element_by_name(self, cueindex, element_name):
         thiscue = self.cuelist.find("./Cue[@num='" + '{0:03}'.format(cueindex) + "']")
         try:
             element = thiscue.find(element_name)
             if element != None:
-                return element.text
+                return element
             else:
-                return ['']
+                return None
         except:
             print('Cue element {} for index ' + '{:03}'.format(element_name,cueindex) + ' not found!')
 
@@ -381,7 +391,15 @@ if __name__ == "__main__":
         Level_val = cues.get_cue_levels(index)
         pass
     somecuelist = cues.getcuelist(149)
-    element_by_name = cues.get_cue_element_by_name(3,'midi')
+    mixermap_element = cues.get_cue_element_by_name(56,'mixermap')
+    if mixermap_element:
+        input_maps = mixermap_element.findall('input')
+        for input_map in input_maps:
+            mixerid = input_map.get('mixerid')
+            mixerchan = input_map.get('chan')
+            actor = input_map.get('actor')
+            char = input_map.get('char')
+            print('Mixer id: {}, chan: {}, actor: {}, char: {}'.format(mixerid, mixerchan, actor, char))
     pass
     # cues.addnewcue({'Scene':'1','Title':'A new Cue'})
     # ET.dump(cues.cuelist)

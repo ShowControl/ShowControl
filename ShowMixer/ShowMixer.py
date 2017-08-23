@@ -212,6 +212,7 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         self.cuehaschanged = False
         self.ExternalEditStarted = False
         self.ExternalEditComplete = False
+        self.last_mixermap = 0
         self.ctrl_s = QShortcut(QtGui.QKeySequence(Qt.CTRL + Qt.Key_S), self)
         self.ctrl_s.activated.connect(self.saveShow)
         self.CueFileUpdate_sig.connect(self.ExternalCueUpdate)
@@ -1028,32 +1029,29 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
     def execute_MixerMap(self):
         """Check for MixerMap entrees with this cues uuid
         if true, do the map"""
-        current_cue_uuid = The_Show.cues.getcurrentcueuuid(The_Show.cues.currentcueindex)
-        # get the cue index of the current map (i.e. the last cue that set the map)
-        cur_map_cue_uuid = The_Show.chrchnmap.map_list[The_Show.chrchnmap.current_map_index]
-        cur_map_change_index_str = The_Show.cues.getcueindexbyuuid(cur_map_cue_uuid)
-        cur_map_change_index = int(cur_map_change_index_str)
-
-        # get the cue index of the previous map
-        # prev_map_cue_index = The_Show.cues.getcueindexbyuuid(
-        #     The_Show.chrchnmap.map_list[The_Show.chrchnmap.previous_map_index])
-        # prev_map_cue_index = int(prev_map_cue_index)
-        prev_map_cue_uuid = The_Show.chrchnmap.map_list[The_Show.chrchnmap.previous_map_index]
-
-        # if this cue has a matching uuid in the chrchnmap, execute it
-        if The_Show.chrchnmap.mapchange(current_cue_uuid): # this cue IS a map change, do it
-            target_uuid = current_cue_uuid
-        elif The_Show.cues.currentcueindex < cur_map_change_index:
-            # if we are going to an earlier cue
-            # get the index of the last cue used to set a map
-            # set target of the map to previous
-            target_uuid = The_Show.chrchnmap.map_list[The_Show.chrchnmap.previous_map_index]
-        else: # do nothing
-            target_uuid = None
-
-        if target_uuid:
-            self.set_scribble(target_uuid)
-            The_Show.chrchnmap.update_state(target_uuid)
+        mixermap_element = The_Show.cues.get_cue_element_by_name(The_Show.cues.currentcueindex, 'map')
+        if mixermap_element != None:
+            current_map_index = int(mixermap_element.text)
+        else:
+            current_map_index = 0
+        # if mixermap_element:
+        #     input_maps = mixermap_element.findall('input')
+        #     for input_map in input_maps:
+        #         mixerid = input_map.get('mixerid')
+        #         mixerchan = input_map.get('chan')
+        #         actor = input_map.get('actor')
+        #         char = input_map.get('char')
+        #         print('Mixer id: {}, chan: {}, actor: {}, char: {}'.format(mixerid, mixerchan, actor, char))
+        current_cue_uuid = None
+        print('last map: {}, current map:{}'.format(self.last_mixermap, current_map_index))
+        if current_map_index > self.last_mixermap:  # we're going up in cue numbers
+        #     current_cue_uuid = The_Show.cues.getcurrentcueuuid(The_Show.cues.currentcueindex)
+        # if current_cue_uuid:
+            self.set_scribble_bycount(current_map_index)
+        elif current_map_index < self.last_mixermap:  # we're going backwards, do cumulative maps to new current point
+            for mm in range(0, current_map_index + 1):
+                self.set_scribble_bycount(mm)
+        self.last_mixermap = current_map_index
 
     def next_cue(self):
         nextmxrcuefound = False
@@ -1290,6 +1288,27 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
             charlbl.setText(char.attrib['char'][:7])
 
             pass
+
+    def set_scribble_bycount(self, count=0):
+        mixermap_element = The_Show.chrchnmap.get_map_element_by_count(count)
+        if mixermap_element:
+            input_maps = mixermap_element.findall('input')
+            for input_map in input_maps:
+                mixerid = int(input_map.get('mixerid'))
+                mixerchan = int(input_map.get('chan'))
+                actor = input_map.get('actor')
+                char = input_map.get('char')
+                print('Mixer id: {}, chan: {}, actor: {}, char: {}'.format(mixerid, mixerchan, actor, char))
+                msg = The_Show.mixers[mixerid].mxrstrips[The_Show.mixers[mixerid].
+                    mxrconsole[mixerchan - 1]['type']]['scribble'].\
+                    Set(mixerchan, char)
+                if msg is not None: self.mixer_sender_threads[mixerid].queue_msg(msg, The_Show.mixers[mixerid])
+                # print('M{0}scr{1:02}'.format(mxrid,cnum))
+                actorlbl = self.findChild(QtWidgets.QLabel, name='M{0}scr{1:02}'.format(mixerid,mixerchan-1))
+                actorlbl.setText(actor[:7])
+                charlbl = self.findChild(QtWidgets.QLabel, name='M{0}chscr{1:02}'.format(mixerid,mixerchan-1))
+                charlbl.setText(char[:7])
+        return
 
     def disptext(self):
         self.get_table_data()

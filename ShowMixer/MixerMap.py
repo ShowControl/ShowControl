@@ -79,6 +79,15 @@ class MixerCharMap():
         else:
             return False
 
+    def get_map_element_by_count(self, count=0):
+        map = None
+        try:
+            map = self.maproot.find("./mixermap[@count='" + '{}'.format(count) + "']")
+        except:
+            print('mixermap count: {}'.format(count) + ' not found!')
+        return map
+
+
 if __name__ == "__main__":
     map = MixerCharMap('/home/mac/Shows/Fiddler/MixerMap.xml')
     print(map.getmixermapcharcount('cd914ed3-b286-4de6-a346-d101ca4f45f1'))
