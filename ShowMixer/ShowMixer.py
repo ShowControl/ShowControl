@@ -953,7 +953,9 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         # ***changed this: now mutes/sliders show state of highlighted cue
         # The_Show.cues.previouscueindex = The_Show.cues.currentcueindex
         # The_Show.cues.currentcueindex += 1
-        tblvw.selectRow(The_Show.cues.currentcueindex)
+        # tblvw.selectRow(The_Show.cues.currentcueindex)
+        self.update()
+        return
 
     def execute_mutes(self):
         #mute_changes = The_Show.cues.get_cue_mute_state_delta(The_Show.cues.currentcueindex)
@@ -1044,13 +1046,21 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         #         print('Mixer id: {}, chan: {}, actor: {}, char: {}'.format(mixerid, mixerchan, actor, char))
         current_cue_uuid = None
         print('last map: {}, current map:{}'.format(self.last_mixermap, current_map_index))
-        if current_map_index > self.last_mixermap:  # we're going up in cue numbers
-        #     current_cue_uuid = The_Show.cues.getcurrentcueuuid(The_Show.cues.currentcueindex)
-        # if current_cue_uuid:
+        logging.info('last map: {}, current map:{}'.format(self.last_mixermap, current_map_index))
+        map_index_delta = current_map_index - self.last_mixermap
+        indexes = []
+        if map_index_delta == 1:  # we single stepped to a new map
+            logging.info('executing map {}'.format(current_map_index))
+            indexes.append(current_map_index)
             self.set_scribble_bycount(current_map_index)
-        elif current_map_index < self.last_mixermap:  # we're going backwards, do cumulative maps to new current point
-            for mm in range(0, current_map_index + 1):
-                self.set_scribble_bycount(mm)
+        elif map_index_delta > 1:  # we've jumped forward, do last + 1 through and including current
+            logging.info('executing map {} thru {}'.format(self.last_mixermap, current_map_index))
+            indexes = list(range(self.last_mixermap + 1, current_map_index + 1))
+        elif map_index_delta < 0:  #  we're going backwards, do cumulative maps to new current point
+            logging.info('executing cumulative map')
+            indexes = range(0, current_map_index + 1)
+        for mm in indexes:
+            self.set_scribble_bycount(mm)
         self.last_mixermap = current_map_index
 
     def next_cue(self):
@@ -1319,15 +1329,26 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         #self.tableView.connect(self.tableClicked, QtCore.SIGNAL("clicked()"))
 
     def get_table_data(self):
-        qs = The_Show.cues.cuelist.findall('Cue')
-        self.tabledata =[]
-        for q in qs:
-            dirty_list = q.find('CueType').text.split(',')
-            type_list = [s.strip() for s in dirty_list]
+        self.tabledata = []
+        for index in range(0, The_Show.cues.cuecount):
+            cuenum = '{0:03}'.format(index)
+            q = The_Show.cues.cuelist.find("Cue[@num='"+cuenum+"']")
+            type_list = q.find('CueType').text.split(',')
             for type in cue_types:
-                 if type in type_list and self.CueTypeVisible[type]:
-                     self.append_table_data(q)
-                     break
+                if type in type_list and self.CueTypeVisible[type]:
+                    self.append_table_data(q)
+                    break
+        # print(self.tabledata)
+        return
+        # qs = The_Show.cues.cuelist.findall('Cue')
+        # self.tabledata =[]
+        # for q in qs:
+        #     dirty_list = q.find('CueType').text.split(',')
+        #     type_list = [s.strip() for s in dirty_list]
+        #     for type in cue_types:
+        #         if type in type_list and self.CueTypeVisible[type]:
+        #             self.append_table_data(q)
+        #             break
 
     def append_table_data(self, q):
         tmp_list = ['{0:03}'.format(int(q.attrib['num']))]

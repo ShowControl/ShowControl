@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/../ShowMixer/ShowMixer.py" line="838" />
-    <bookmark url="file://$PROJECT_DIR$/../ShowMixer/ShowMixer.py" line="1185" />
-    <bookmark url="file://$PROJECT_DIR$/CueEngine.py" line="354" />
+    <bookmark url="file://$PROJECT_DIR$/CueEngine.py" line="513" />
+    <bookmark url="file://$PROJECT_DIR$/CueEngine.py" line="404" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8474eff5-676b-4712-9539-a7c9c675c28b" name="Default" comment="" />
@@ -27,11 +26,70 @@
       <file leaf-file-name="Cues.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../ShowControl/utils/Cues.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3001">
-              <caret line="324" column="0" lean-forward="false" selection-start-line="324" selection-start-column="0" selection-end-line="324" selection-end-column="0" />
+            <state relative-caret-position="2261">
+              <caret line="138" column="36" lean-forward="false" selection-start-line="138" selection-start-column="36" selection-end-line="138" selection-end-column="36" />
               <folding>
                 <element signature="e#92#102#0" expanded="true" />
-                <marker date="1503156262536" expanded="true" signature="3708:9685" ph="..." />
+                <marker date="1503597429568" expanded="true" signature="374:799" ph="..." />
+                <marker date="1503597429568" expanded="true" signature="3719:3902" ph="..." />
+                <marker date="1503597429568" expanded="true" signature="3924:16391" ph="..." />
+                <marker date="1503597429568" expanded="true" signature="3929:4009" ph="&quot;&quot;&quot;...&quot;&quot;&quot;" />
+                <marker date="1503597429568" expanded="true" signature="4046:4969" ph="..." />
+                <marker date="1503597429568" expanded="true" signature="4055:4546" ph="&quot;&quot;&quot;...&quot;&quot;&quot;" />
+                <marker date="1503597429568" expanded="true" signature="4633:4969" ph="..." />
+                <marker date="1503597429568" expanded="true" signature="5009:5421" ph="..." />
+                <marker date="1503597429568" expanded="true" signature="5475:6650" ph="..." />
+                <marker date="1503597429568" expanded="true" signature="5484:5796" ph="&quot;&quot;&quot;...&quot;&quot;&quot;" />
+                <marker date="1503597429568" expanded="true" signature="5844:5951" ph="..." />
+                <marker date="1503597429568" expanded="true" signature="5991:6121" ph="..." />
+                <marker date="1503597429568" expanded="true" signature="6221:6396" ph="..." />
+                <marker date="1503597429568" expanded="true" signature="6523:6625" ph="..." />
+                <marker date="1503597429568" expanded="true" signature="6714:8580" ph="..." />
+                <marker date="1503597429568" expanded="true" signature="6723:7035" ph="&quot;&quot;&quot;...&quot;&quot;&quot;" />
+                <marker date="1503597429568" expanded="true" signature="7158:7333" ph="..." />
+                <marker date="1503597429568" expanded="true" signature="7428:8296" ph="..." />
+                <marker date="1503597429568" expanded="true" signature="7489:7889" ph="..." />
+                <marker date="1503597429568" expanded="true" signature="8107:8296" ph="..." />
+                <marker date="1503597429568" expanded="true" signature="8178:8296" ph="..." />
+                <marker date="1503597429568" expanded="true" signature="8310:8555" ph="..." />
+                <marker date="1503597429568" expanded="true" signature="8437:8555" ph="..." />
+                <marker date="1503597429568" expanded="true" signature="8621:9372" ph="..." />
+                <marker date="1503597429568" expanded="true" signature="8973:9239" ph="..." />
+                <marker date="1503597429568" expanded="true" signature="9048:9209" ph="..." />
+                <marker date="1503597429568" expanded="true" signature="9255:9372" ph="..." />
+                <marker date="1503597429568" expanded="true" signature="9409:9928" ph="..." />
+                <marker date="1503597429568" expanded="true" signature="9509:9827" ph="..." />
+                <marker date="1503597429568" expanded="true" signature="9587:9781" ph="..." />
+                <marker date="1503597429568" expanded="true" signature="9934:10394" ph="..." />
+                <marker date="1503597429568" expanded="true" signature="10457:10834" ph="..." />
+                <marker date="1503597429568" expanded="true" signature="10557:10715" ph="..." />
+                <marker date="1503597429568" expanded="true" signature="10902:11446" ph="..." />
+                <marker date="1503597429568" expanded="true" signature="11047:11293" ph="..." />
+                <marker date="1503597429568" expanded="true" signature="11190:11293" ph="..." />
+                <marker date="1503597429568" expanded="true" signature="11485:12001" ph="..." />
+                <marker date="1503597429568" expanded="true" signature="11690:11807" ph="..." />
+                <marker date="1503597429568" expanded="true" signature="12050:13044" ph="..." />
+                <marker date="1503597429568" expanded="true" signature="12059:12204" ph="..." />
+                <marker date="1503597429568" expanded="true" signature="12267:12522" ph="..." />
+                <marker date="1503597429568" expanded="true" signature="12531:12588" ph="..." />
+                <marker date="1503597429568" expanded="true" signature="12788:12905" ph="..." />
+                <marker date="1503597429568" expanded="true" signature="13080:13853" ph="..." />
+                <marker date="1503597429568" expanded="true" signature="13561:13776" ph="..." />
+                <marker date="1503597429568" expanded="true" signature="13890:14226" ph="..." />
+                <marker date="1503597429568" expanded="true" signature="14270:14444" ph="..." />
+                <marker date="1503597429568" expanded="true" signature="14484:14653" ph="..." />
+                <marker date="1503597429568" expanded="true" signature="14701:14942" ph="..." />
+                <marker date="1503597429568" expanded="true" signature="15015:15179" ph="..." />
+                <marker date="1503597429568" expanded="true" signature="15235:16391" ph="..." />
+                <marker date="1503597429568" expanded="true" signature="15244:15579" ph="&quot;&quot;&quot;...&quot;&quot;&quot;" />
+                <marker date="1503597429568" expanded="true" signature="15606:15769" ph="..." />
+                <marker date="1503597429568" expanded="true" signature="15806:16354" ph="..." />
+                <marker date="1503597429568" expanded="true" signature="15974:16141" ph="..." />
+                <marker date="1503597429568" expanded="true" signature="16234:16354" ph="..." />
+                <marker date="1503597429568" expanded="true" signature="16964:17070" ph="..." />
+                <marker date="1503597429568" expanded="true" signature="17201:17575" ph="..." />
+                <marker date="1503597429568" expanded="true" signature="17293:17575" ph="..." />
+                <marker date="1503597429568" expanded="true" signature="17589:18191" ph="..." />
               </folding>
             </state>
           </provider>
@@ -50,9 +108,24 @@
       <file leaf-file-name="MixerMap.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../ShowMixer/MixerMap.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1462">
-              <caret line="86" column="0" lean-forward="false" selection-start-line="86" selection-start-column="0" selection-end-line="86" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="816">
+              <caret line="50" column="0" lean-forward="false" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
+              <folding>
+                <marker date="1503613132693" expanded="true" signature="197:2677" ph="..." />
+                <marker date="1503613132693" expanded="true" signature="197:2951" ph="..." />
+                <marker date="1503613132693" expanded="true" signature="266:1009" ph="..." />
+                <marker date="1503613132693" expanded="true" signature="1043:1527" ph="..." />
+                <marker date="1503613132693" expanded="true" signature="1103:1512" ph="..." />
+                <marker date="1503613132693" expanded="true" signature="1139:1512" ph="..." />
+                <marker date="1503613132693" expanded="true" signature="1561:1768" ph="..." />
+                <marker date="1503613132693" expanded="true" signature="1621:1748" ph="..." />
+                <marker date="1503613132693" expanded="true" signature="1808:2010" ph="..." />
+                <marker date="1503613132693" expanded="true" signature="2053:2399" ph="..." />
+                <marker date="1503613132693" expanded="true" signature="2108:2239" ph="..." />
+                <marker date="1503613132693" expanded="true" signature="2275:2369" ph="..." />
+                <marker date="1503613132693" expanded="true" signature="2431:2677" ph="..." />
+                <marker date="1503613132693" expanded="true" signature="2727:2951" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -60,8 +133,8 @@
       <file leaf-file-name="CueEngine.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/CueEngine.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="66">
-              <caret line="348" column="88" lean-forward="false" selection-start-line="348" selection-start-column="88" selection-end-line="348" selection-end-column="88" />
+            <state relative-caret-position="47">
+              <caret line="372" column="0" lean-forward="false" selection-start-line="372" selection-start-column="0" selection-end-line="372" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -80,10 +153,9 @@
       <file leaf-file-name="CueEngine_ui.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/CueEngine_ui.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2669">
+            <state relative-caret-position="2720">
               <caret line="160" column="0" lean-forward="false" selection-start-line="159" selection-start-column="0" selection-end-line="160" selection-end-column="0" />
               <folding>
-                <marker date="1503410030180" expanded="true" signature="310:9215" ph="..." />
                 <marker date="1503410030180" expanded="true" signature="7550:9215" ph="..." />
               </folding>
             </state>
@@ -93,12 +165,85 @@
       <file leaf-file-name="ShowMixer.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../ShowMixer/ShowMixer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="117">
-              <caret line="841" column="0" lean-forward="false" selection-start-line="841" selection-start-column="0" selection-end-line="841" selection-end-column="0" />
+            <state relative-caret-position="24429">
+              <caret line="1469" column="0" lean-forward="false" selection-start-line="1469" selection-start-column="0" selection-end-line="1469" selection-end-column="0" />
               <folding>
-                <marker date="1503427774493" expanded="true" signature="45433:47741" ph="..." />
-                <marker date="1503427774493" expanded="true" signature="62068:62557" ph="..." />
+                <marker date="1503613351299" expanded="true" signature="6232:72065" ph="..." />
+                <marker date="1503613351299" expanded="true" signature="44729:45388" ph="..." />
+                <marker date="1503613351299" expanded="true" signature="65477:65495" ph="..." />
+                <marker date="1503613351299" expanded="true" signature="65532:65952" ph="..." />
+                <marker date="1503613351299" expanded="true" signature="65636:65880" ph="..." />
+                <marker date="1503613351299" expanded="true" signature="65717:65809" ph="..." />
+                <marker date="1503613351299" expanded="true" signature="65991:66256" ph="..." />
+                <marker date="1503613351299" expanded="true" signature="66291:66915" ph="..." />
+                <marker date="1503613351299" expanded="true" signature="66340:66743" ph="..." />
+                <marker date="1503613351299" expanded="true" signature="66426:66480" ph="..." />
+                <marker date="1503613351299" expanded="true" signature="66524:66743" ph="..." />
+                <marker date="1503613351299" expanded="true" signature="66816:66874" ph="..." />
+                <marker date="1503613351299" expanded="true" signature="66943:67243" ph="..." />
+                <marker date="1503613351299" expanded="true" signature="67043:67222" ph="..." />
+                <marker date="1503613351299" expanded="true" signature="67274:67520" ph="..." />
+                <marker date="1503613351299" expanded="true" signature="67588:67647" ph="..." />
+                <marker date="1503613351299" expanded="true" signature="67690:67777" ph="..." />
+                <marker date="1503613351299" expanded="true" signature="67821:67964" ph="..." />
+                <marker date="1503613351299" expanded="true" signature="68000:68242" ph="..." />
+                <marker date="1503613351299" expanded="true" signature="68281:68490" ph="..." />
+                <marker date="1503613351299" expanded="true" signature="68523:68631" ph="'''...'''" />
+                <marker date="1503613351299" expanded="true" signature="68667:68754" ph="..." />
+                <marker date="1503613351299" expanded="true" signature="68795:70022" ph="..." />
+                <marker date="1503613351299" expanded="true" signature="69071:69212" ph="..." />
+                <marker date="1503613351299" expanded="true" signature="69111:69212" ph="..." />
+                <marker date="1503613351299" expanded="true" signature="69250:69348" ph="..." />
+                <marker date="1503613351299" expanded="true" signature="69389:69495" ph="..." />
+                <marker date="1503613351299" expanded="true" signature="69543:69682" ph="..." />
+                <marker date="1503613351299" expanded="true" signature="69581:69682" ph="..." />
+                <marker date="1503613351299" expanded="true" signature="69731:69918" ph="..." />
+                <marker date="1503613351299" expanded="true" signature="69769:69918" ph="..." />
+                <marker date="1503613351299" expanded="true" signature="69959:70022" ph="..." />
+                <marker date="1503613351299" expanded="true" signature="70059:70187" ph="..." />
+                <marker date="1503613351299" expanded="true" signature="70221:70945" ph="..." />
+                <marker date="1503613351299" expanded="true" signature="70975:71032" ph="..." />
+                <marker date="1503613351299" expanded="true" signature="71038:71156" ph="'''...'''" />
+                <marker date="1503613351299" expanded="true" signature="71192:71279" ph="..." />
+                <marker date="1503613351299" expanded="true" signature="71364:71566" ph="..." />
+                <marker date="1503613351299" expanded="true" signature="71418:71470" ph="..." />
+                <marker date="1503613351299" expanded="true" signature="71514:71566" ph="..." />
+                <marker date="1503613351299" expanded="true" signature="71673:71727" ph="..." />
+                <marker date="1503613351299" expanded="true" signature="71834:71890" ph="..." />
+                <marker date="1503613351299" expanded="true" signature="72001:72065" ph="..." />
+                <marker date="1503613351299" expanded="true" signature="72101:75273" ph="..." />
+                <marker date="1503613351299" expanded="true" signature="72138:72185" ph="..." />
+                <marker date="1503613351299" expanded="true" signature="72225:72971" ph="..." />
+                <marker date="1503613351299" expanded="true" signature="72272:72915" ph="..." />
+                <marker date="1503613351299" expanded="true" signature="73007:73883" ph="..." />
+                <marker date="1503613351299" expanded="true" signature="73125:73831" ph="..." />
+                <marker date="1503613351299" expanded="true" signature="73244:73683" ph="..." />
+                <marker date="1503613351299" expanded="true" signature="73332:73683" ph="..." />
+                <marker date="1503613351299" expanded="true" signature="73916:75273" ph="..." />
+                <marker date="1503613351299" expanded="true" signature="73979:75273" ph="..." />
+                <marker date="1503613351299" expanded="true" signature="75323:77462" ph="..." />
+                <marker date="1503613351299" expanded="true" signature="75380:75666" ph="..." />
+                <marker date="1503613351299" expanded="true" signature="75389:75498" ph="&quot;&quot;&quot;...&quot;&quot;&quot;" />
+                <marker date="1503613351299" expanded="true" signature="75699:75734" ph="..." />
+                <marker date="1503613351299" expanded="true" signature="75770:76324" ph="..." />
+                <marker date="1503613351299" expanded="true" signature="75806:76307" ph="..." />
+                <marker date="1503613351299" expanded="true" signature="75820:76212" ph="..." />
+                <marker date="1503613351299" expanded="true" signature="76358:77146" ph="..." />
+                <marker date="1503613351299" expanded="true" signature="76465:76988" ph="..." />
+                <marker date="1503613351299" expanded="true" signature="77190:77239" ph="..." />
+                <marker date="1503613351299" expanded="true" signature="77290:77462" ph="..." />
+                <marker date="1503613351299" expanded="true" signature="77854:78150" ph="..." />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="osc_message.py" pinned="false" current-in-tab="false">
+        <entry file="file:///usr/local/lib/python3.5/dist-packages/pythonosc/osc_message.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1326">
+              <caret line="80" column="0" lean-forward="false" selection-start-line="80" selection-start-column="0" selection-end-line="80" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -114,19 +259,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>show_MuteMap</find>
-      <find>lisp</find>
-      <find>action_M</find>
-      <find>LED</find>
-      <find>action_Sound</find>
-      <find>ShowSFXApp</find>
-      <find>MuteMapApp_pid</find>
-      <find>MxrApp_pid</find>
-      <find>LISPAppProc</find>
-      <find>do_SFX</find>
-      <find>cueTypeDispatcher</find>
-      <find>do_mixer</find>
-      <find>LISP_sndrthread</find>
       <find>snd_sndrtestfunc</find>
       <find>rtmidi</find>
       <find>dispatch</find>
@@ -136,7 +268,6 @@
       <find>ALSA</find>
       <find>do_LIS</find>
       <find>ShowLISP</find>
-      <find>execute_cue</find>
       <find>executeMixerMap</find>
       <find>updatecuelevelstate</find>
       <find>slidervalchanged</find>
@@ -144,6 +275,20 @@
       <find>tableView.s</find>
       <find>tableView.se</find>
       <find>on_buttonGo_clicked</find>
+      <find>dispatch_cue</find>
+      <find>get_cue_element_by_name</find>
+      <find>set_scribble</find>
+      <find>insert</find>
+      <find>disptext</find>
+      <find>cuelist.find</find>
+      <find>getcuelist</find>
+      <find>previdx</find>
+      <find>previous</find>
+      <find>execute_cue</find>
+      <find>jump</find>
+      <find>setTool</find>
+      <find>selectedcueindex</find>
+      <find>Edit</find>
     </findStrings>
     <replaceStrings>
       <replace>EditPrefs</replace>
@@ -176,16 +321,17 @@
         <option value="$PROJECT_DIR$/CueEngine_ui.py" />
         <option value="$PROJECT_DIR$/../ShowControl/utils/Show.py" />
         <option value="$PROJECT_DIR$/theme_dark/style.css" />
-        <option value="$PROJECT_DIR$/../ShowControl/utils/Cues.py" />
         <option value="$PROJECT_DIR$/pid_lister.py" />
+        <option value="$PROJECT_DIR$/../ShowMixer/MixerMap.py" />
         <option value="$PROJECT_DIR$/../ShowMixer/ShowMixer.py" />
         <option value="$PROJECT_DIR$/CueEngine.py" />
+        <option value="$PROJECT_DIR$/../ShowControl/utils/Cues.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="42" />
-    <option name="y" value="56" />
+  <component name="ProjectFrameBounds" extendedState="1">
+    <option name="x" value="44" />
+    <option name="y" value="113" />
     <option name="width" value="1854" />
     <option name="height" value="967" />
   </component>
@@ -204,6 +350,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -220,7 +367,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -491,7 +637,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="42" y="56" width="1854" height="967" extended-state="0" />
+    <frame x="44" y="113" width="1854" height="967" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17440605" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -502,17 +648,28 @@
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296433" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31755197" sideWeight="0.49352053" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31755197" sideWeight="0.49352053" order="3" side_tool="false" content_ui="tabs" x="1920" y="119" width="1852" height="910" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3716916" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32794458" sideWeight="0.5064795" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3256351" sideWeight="0.4924406" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296433" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17440605" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32794458" sideWeight="0.49352053" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31755197" sideWeight="0.49352053" order="3" side_tool="false" content_ui="tabs" x="1920" y="119" width="1852" height="910" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="UnknownFeatures">
@@ -564,18 +721,13 @@
         </line-breakpoint>
         <line-breakpoint suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/CueEngine.py</url>
-          <line>556</line>
+          <line>580</line>
           <option name="timeStamp" value="160" />
         </line-breakpoint>
         <line-breakpoint suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/CueEngine.py</url>
-          <line>1050</line>
+          <line>1075</line>
           <option name="timeStamp" value="192" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/../ShowControl/utils/Cues.py</url>
-          <line>399</line>
-          <option name="timeStamp" value="209" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/pid_lister.py</url>
@@ -584,54 +736,69 @@
         </line-breakpoint>
         <line-breakpoint suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/../ShowMixer/ShowMixer.py</url>
-          <line>1073</line>
+          <line>1079</line>
           <option name="timeStamp" value="227" />
         </line-breakpoint>
         <line-breakpoint suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/../ShowMixer/ShowMixer.py</url>
-          <line>1060</line>
+          <line>1066</line>
           <option name="timeStamp" value="228" />
         </line-breakpoint>
         <line-breakpoint suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/../ShowMixer/ShowMixer.py</url>
-          <line>1084</line>
+          <line>1090</line>
           <option name="timeStamp" value="229" />
         </line-breakpoint>
         <line-breakpoint suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/../ShowMixer/ShowMixer.py</url>
-          <line>841</line>
+          <line>843</line>
           <option name="timeStamp" value="230" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/../ShowMixer/ShowMixer.py</url>
-          <line>823</line>
+          <line>825</line>
           <option name="timeStamp" value="231" />
         </line-breakpoint>
         <line-breakpoint suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/CueEngine.py</url>
-          <line>356</line>
+          <line>359</line>
           <option name="timeStamp" value="234" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/../ShowMixer/ShowMixer.py</url>
+          <line>1065</line>
+          <option name="timeStamp" value="236" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/CueEngine.py</url>
+          <line>482</line>
+          <option name="timeStamp" value="238" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/CueEngine.py</url>
+          <line>151</line>
+          <option name="timeStamp" value="239" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/CueEngine.py</url>
+          <line>398</line>
+          <option name="timeStamp" value="262" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="235" />
+      <option name="time" value="263" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
         <watch expression="self.MxrApp_pid" language="Python" />
+        <watch expression="cue_list" language="Python" />
+        <watch expression="working_cue_list" language="Python" />
       </configuration>
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/CueEngine_ui.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="79" column="59" lean-forward="false" selection-start-line="79" selection-start-column="59" selection-end-line="79" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/CueEngine.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -856,7 +1023,7 @@
         <state relative-caret-position="495">
           <caret line="56" column="28" lean-forward="false" selection-start-line="56" selection-start-column="28" selection-end-line="56" selection-end-column="28" />
           <folding>
-            <element signature="e#43#78#0" expanded="true" />
+            <element signature="e#43#78#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -891,7 +1058,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="578">
           <caret line="34" column="26" lean-forward="false" selection-start-line="34" selection-start-column="26" selection-end-line="34" selection-end-column="26" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -913,17 +1079,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CueEngine_ui.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2669">
-          <caret line="160" column="0" lean-forward="false" selection-start-line="159" selection-start-column="0" selection-end-line="160" selection-end-column="0" />
-          <folding>
-            <marker date="1503410030180" expanded="true" signature="310:9215" ph="..." />
-            <marker date="1503410030180" expanded="true" signature="7550:9215" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_imps/_pydev_execfile.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
@@ -933,38 +1088,193 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/../ShowMixer/MixerMap.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1462">
-          <caret line="86" column="0" lean-forward="false" selection-start-line="86" selection-start-column="0" selection-end-line="86" selection-end-column="0" />
+        <state relative-caret-position="816">
+          <caret line="50" column="0" lean-forward="false" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
+          <folding>
+            <marker date="1503613132693" expanded="true" signature="197:2677" ph="..." />
+            <marker date="1503613132693" expanded="true" signature="197:2951" ph="..." />
+            <marker date="1503613132693" expanded="true" signature="266:1009" ph="..." />
+            <marker date="1503613132693" expanded="true" signature="1043:1527" ph="..." />
+            <marker date="1503613132693" expanded="true" signature="1103:1512" ph="..." />
+            <marker date="1503613132693" expanded="true" signature="1139:1512" ph="..." />
+            <marker date="1503613132693" expanded="true" signature="1561:1768" ph="..." />
+            <marker date="1503613132693" expanded="true" signature="1621:1748" ph="..." />
+            <marker date="1503613132693" expanded="true" signature="1808:2010" ph="..." />
+            <marker date="1503613132693" expanded="true" signature="2053:2399" ph="..." />
+            <marker date="1503613132693" expanded="true" signature="2108:2239" ph="..." />
+            <marker date="1503613132693" expanded="true" signature="2275:2369" ph="..." />
+            <marker date="1503613132693" expanded="true" signature="2431:2677" ph="..." />
+            <marker date="1503613132693" expanded="true" signature="2727:2951" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CueEngine_ui.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2720">
+          <caret line="160" column="0" lean-forward="false" selection-start-line="159" selection-start-column="0" selection-end-line="160" selection-end-column="0" />
+          <folding>
+            <marker date="1503410030180" expanded="true" signature="7550:9215" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python3.5/dist-packages/pythonosc/osc_message.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1326">
+          <caret line="80" column="0" lean-forward="false" selection-start-line="80" selection-start-column="0" selection-end-line="80" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../ShowMixer/ShowMixer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="117">
-          <caret line="841" column="0" lean-forward="false" selection-start-line="841" selection-start-column="0" selection-end-line="841" selection-end-column="0" />
+        <state relative-caret-position="24429">
+          <caret line="1469" column="0" lean-forward="false" selection-start-line="1469" selection-start-column="0" selection-end-line="1469" selection-end-column="0" />
           <folding>
-            <marker date="1503427774493" expanded="true" signature="45433:47741" ph="..." />
-            <marker date="1503427774493" expanded="true" signature="62068:62557" ph="..." />
+            <marker date="1503613351299" expanded="true" signature="6232:72065" ph="..." />
+            <marker date="1503613351299" expanded="true" signature="44729:45388" ph="..." />
+            <marker date="1503613351299" expanded="true" signature="65477:65495" ph="..." />
+            <marker date="1503613351299" expanded="true" signature="65532:65952" ph="..." />
+            <marker date="1503613351299" expanded="true" signature="65636:65880" ph="..." />
+            <marker date="1503613351299" expanded="true" signature="65717:65809" ph="..." />
+            <marker date="1503613351299" expanded="true" signature="65991:66256" ph="..." />
+            <marker date="1503613351299" expanded="true" signature="66291:66915" ph="..." />
+            <marker date="1503613351299" expanded="true" signature="66340:66743" ph="..." />
+            <marker date="1503613351299" expanded="true" signature="66426:66480" ph="..." />
+            <marker date="1503613351299" expanded="true" signature="66524:66743" ph="..." />
+            <marker date="1503613351299" expanded="true" signature="66816:66874" ph="..." />
+            <marker date="1503613351299" expanded="true" signature="66943:67243" ph="..." />
+            <marker date="1503613351299" expanded="true" signature="67043:67222" ph="..." />
+            <marker date="1503613351299" expanded="true" signature="67274:67520" ph="..." />
+            <marker date="1503613351299" expanded="true" signature="67588:67647" ph="..." />
+            <marker date="1503613351299" expanded="true" signature="67690:67777" ph="..." />
+            <marker date="1503613351299" expanded="true" signature="67821:67964" ph="..." />
+            <marker date="1503613351299" expanded="true" signature="68000:68242" ph="..." />
+            <marker date="1503613351299" expanded="true" signature="68281:68490" ph="..." />
+            <marker date="1503613351299" expanded="true" signature="68523:68631" ph="'''...'''" />
+            <marker date="1503613351299" expanded="true" signature="68667:68754" ph="..." />
+            <marker date="1503613351299" expanded="true" signature="68795:70022" ph="..." />
+            <marker date="1503613351299" expanded="true" signature="69071:69212" ph="..." />
+            <marker date="1503613351299" expanded="true" signature="69111:69212" ph="..." />
+            <marker date="1503613351299" expanded="true" signature="69250:69348" ph="..." />
+            <marker date="1503613351299" expanded="true" signature="69389:69495" ph="..." />
+            <marker date="1503613351299" expanded="true" signature="69543:69682" ph="..." />
+            <marker date="1503613351299" expanded="true" signature="69581:69682" ph="..." />
+            <marker date="1503613351299" expanded="true" signature="69731:69918" ph="..." />
+            <marker date="1503613351299" expanded="true" signature="69769:69918" ph="..." />
+            <marker date="1503613351299" expanded="true" signature="69959:70022" ph="..." />
+            <marker date="1503613351299" expanded="true" signature="70059:70187" ph="..." />
+            <marker date="1503613351299" expanded="true" signature="70221:70945" ph="..." />
+            <marker date="1503613351299" expanded="true" signature="70975:71032" ph="..." />
+            <marker date="1503613351299" expanded="true" signature="71038:71156" ph="'''...'''" />
+            <marker date="1503613351299" expanded="true" signature="71192:71279" ph="..." />
+            <marker date="1503613351299" expanded="true" signature="71364:71566" ph="..." />
+            <marker date="1503613351299" expanded="true" signature="71418:71470" ph="..." />
+            <marker date="1503613351299" expanded="true" signature="71514:71566" ph="..." />
+            <marker date="1503613351299" expanded="true" signature="71673:71727" ph="..." />
+            <marker date="1503613351299" expanded="true" signature="71834:71890" ph="..." />
+            <marker date="1503613351299" expanded="true" signature="72001:72065" ph="..." />
+            <marker date="1503613351299" expanded="true" signature="72101:75273" ph="..." />
+            <marker date="1503613351299" expanded="true" signature="72138:72185" ph="..." />
+            <marker date="1503613351299" expanded="true" signature="72225:72971" ph="..." />
+            <marker date="1503613351299" expanded="true" signature="72272:72915" ph="..." />
+            <marker date="1503613351299" expanded="true" signature="73007:73883" ph="..." />
+            <marker date="1503613351299" expanded="true" signature="73125:73831" ph="..." />
+            <marker date="1503613351299" expanded="true" signature="73244:73683" ph="..." />
+            <marker date="1503613351299" expanded="true" signature="73332:73683" ph="..." />
+            <marker date="1503613351299" expanded="true" signature="73916:75273" ph="..." />
+            <marker date="1503613351299" expanded="true" signature="73979:75273" ph="..." />
+            <marker date="1503613351299" expanded="true" signature="75323:77462" ph="..." />
+            <marker date="1503613351299" expanded="true" signature="75380:75666" ph="..." />
+            <marker date="1503613351299" expanded="true" signature="75389:75498" ph="&quot;&quot;&quot;...&quot;&quot;&quot;" />
+            <marker date="1503613351299" expanded="true" signature="75699:75734" ph="..." />
+            <marker date="1503613351299" expanded="true" signature="75770:76324" ph="..." />
+            <marker date="1503613351299" expanded="true" signature="75806:76307" ph="..." />
+            <marker date="1503613351299" expanded="true" signature="75820:76212" ph="..." />
+            <marker date="1503613351299" expanded="true" signature="76358:77146" ph="..." />
+            <marker date="1503613351299" expanded="true" signature="76465:76988" ph="..." />
+            <marker date="1503613351299" expanded="true" signature="77190:77239" ph="..." />
+            <marker date="1503613351299" expanded="true" signature="77290:77462" ph="..." />
+            <marker date="1503613351299" expanded="true" signature="77854:78150" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../ShowControl/utils/Cues.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3001">
-          <caret line="324" column="0" lean-forward="false" selection-start-line="324" selection-start-column="0" selection-end-line="324" selection-end-column="0" />
+        <state relative-caret-position="2261">
+          <caret line="138" column="36" lean-forward="false" selection-start-line="138" selection-start-column="36" selection-end-line="138" selection-end-column="36" />
           <folding>
             <element signature="e#92#102#0" expanded="true" />
-            <marker date="1503156262536" expanded="true" signature="3708:9685" ph="..." />
+            <marker date="1503597429568" expanded="true" signature="374:799" ph="..." />
+            <marker date="1503597429568" expanded="true" signature="3719:3902" ph="..." />
+            <marker date="1503597429568" expanded="true" signature="3924:16391" ph="..." />
+            <marker date="1503597429568" expanded="true" signature="3929:4009" ph="&quot;&quot;&quot;...&quot;&quot;&quot;" />
+            <marker date="1503597429568" expanded="true" signature="4046:4969" ph="..." />
+            <marker date="1503597429568" expanded="true" signature="4055:4546" ph="&quot;&quot;&quot;...&quot;&quot;&quot;" />
+            <marker date="1503597429568" expanded="true" signature="4633:4969" ph="..." />
+            <marker date="1503597429568" expanded="true" signature="5009:5421" ph="..." />
+            <marker date="1503597429568" expanded="true" signature="5475:6650" ph="..." />
+            <marker date="1503597429568" expanded="true" signature="5484:5796" ph="&quot;&quot;&quot;...&quot;&quot;&quot;" />
+            <marker date="1503597429568" expanded="true" signature="5844:5951" ph="..." />
+            <marker date="1503597429568" expanded="true" signature="5991:6121" ph="..." />
+            <marker date="1503597429568" expanded="true" signature="6221:6396" ph="..." />
+            <marker date="1503597429568" expanded="true" signature="6523:6625" ph="..." />
+            <marker date="1503597429568" expanded="true" signature="6714:8580" ph="..." />
+            <marker date="1503597429568" expanded="true" signature="6723:7035" ph="&quot;&quot;&quot;...&quot;&quot;&quot;" />
+            <marker date="1503597429568" expanded="true" signature="7158:7333" ph="..." />
+            <marker date="1503597429568" expanded="true" signature="7428:8296" ph="..." />
+            <marker date="1503597429568" expanded="true" signature="7489:7889" ph="..." />
+            <marker date="1503597429568" expanded="true" signature="8107:8296" ph="..." />
+            <marker date="1503597429568" expanded="true" signature="8178:8296" ph="..." />
+            <marker date="1503597429568" expanded="true" signature="8310:8555" ph="..." />
+            <marker date="1503597429568" expanded="true" signature="8437:8555" ph="..." />
+            <marker date="1503597429568" expanded="true" signature="8621:9372" ph="..." />
+            <marker date="1503597429568" expanded="true" signature="8973:9239" ph="..." />
+            <marker date="1503597429568" expanded="true" signature="9048:9209" ph="..." />
+            <marker date="1503597429568" expanded="true" signature="9255:9372" ph="..." />
+            <marker date="1503597429568" expanded="true" signature="9409:9928" ph="..." />
+            <marker date="1503597429568" expanded="true" signature="9509:9827" ph="..." />
+            <marker date="1503597429568" expanded="true" signature="9587:9781" ph="..." />
+            <marker date="1503597429568" expanded="true" signature="9934:10394" ph="..." />
+            <marker date="1503597429568" expanded="true" signature="10457:10834" ph="..." />
+            <marker date="1503597429568" expanded="true" signature="10557:10715" ph="..." />
+            <marker date="1503597429568" expanded="true" signature="10902:11446" ph="..." />
+            <marker date="1503597429568" expanded="true" signature="11047:11293" ph="..." />
+            <marker date="1503597429568" expanded="true" signature="11190:11293" ph="..." />
+            <marker date="1503597429568" expanded="true" signature="11485:12001" ph="..." />
+            <marker date="1503597429568" expanded="true" signature="11690:11807" ph="..." />
+            <marker date="1503597429568" expanded="true" signature="12050:13044" ph="..." />
+            <marker date="1503597429568" expanded="true" signature="12059:12204" ph="..." />
+            <marker date="1503597429568" expanded="true" signature="12267:12522" ph="..." />
+            <marker date="1503597429568" expanded="true" signature="12531:12588" ph="..." />
+            <marker date="1503597429568" expanded="true" signature="12788:12905" ph="..." />
+            <marker date="1503597429568" expanded="true" signature="13080:13853" ph="..." />
+            <marker date="1503597429568" expanded="true" signature="13561:13776" ph="..." />
+            <marker date="1503597429568" expanded="true" signature="13890:14226" ph="..." />
+            <marker date="1503597429568" expanded="true" signature="14270:14444" ph="..." />
+            <marker date="1503597429568" expanded="true" signature="14484:14653" ph="..." />
+            <marker date="1503597429568" expanded="true" signature="14701:14942" ph="..." />
+            <marker date="1503597429568" expanded="true" signature="15015:15179" ph="..." />
+            <marker date="1503597429568" expanded="true" signature="15235:16391" ph="..." />
+            <marker date="1503597429568" expanded="true" signature="15244:15579" ph="&quot;&quot;&quot;...&quot;&quot;&quot;" />
+            <marker date="1503597429568" expanded="true" signature="15606:15769" ph="..." />
+            <marker date="1503597429568" expanded="true" signature="15806:16354" ph="..." />
+            <marker date="1503597429568" expanded="true" signature="15974:16141" ph="..." />
+            <marker date="1503597429568" expanded="true" signature="16234:16354" ph="..." />
+            <marker date="1503597429568" expanded="true" signature="16964:17070" ph="..." />
+            <marker date="1503597429568" expanded="true" signature="17201:17575" ph="..." />
+            <marker date="1503597429568" expanded="true" signature="17293:17575" ph="..." />
+            <marker date="1503597429568" expanded="true" signature="17589:18191" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/CueEngine.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="66">
-          <caret line="348" column="88" lean-forward="false" selection-start-line="348" selection-start-column="88" selection-end-line="348" selection-end-column="88" />
+        <state relative-caret-position="47">
+          <caret line="372" column="0" lean-forward="false" selection-start-line="372" selection-start-column="0" selection-end-line="372" selection-end-column="0" />
           <folding />
         </state>
       </provider>

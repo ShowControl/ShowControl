@@ -102,7 +102,6 @@ class cueTypeDispatcher():
 class EditCue(QDialog, Ui_dlgEditCue):
     def __init__(self, index, parent=None):
         QDialog.__init__(self, parent)
-        #super(object, self).__init__(self)
         self.editidx = index
         self.setupUi(self)
         self.chgdict = {}
@@ -259,8 +258,11 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         self.update()
 
         self.goButton.clicked.connect(self.on_buttonGo_clicked)
+        self.goButton.setToolTip('Execute highlighted cue.')
         self.prevButton.clicked.connect(self.on_buttonPrev_clicked)
+        self.prevButton.setToolTip('Execute condition before before highlighted cue.')
         self.jumpButton.clicked.connect(self.on_buttonJump_clicked)
+        self.jumpButton.setToolTip('Execute the selected cue.')
         self.tableView.doubleClicked.connect(self.on_table_dblclick)
         self.tableView.clicked.connect(self.on_table_click)
         self.tableView.setContextMenuPolicy(Qt.ActionsContextMenu)
@@ -368,35 +370,58 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         tblvw.selectRow(The_Show.cues.currentcueindex)
 
     def on_buttonPrev_clicked(self):
-        print('Prev')
-        if The_Show.cues.currentcueindex > 0:
-            previdx = The_Show.cues.currentcueindex
-            The_Show.cues.currentcueindex -= 1
-            print('Old index: ' + str(previdx) + '   New: ' + str(The_Show.cues.currentcueindex))
+        logging.info('In on_buttonPrev_clicked')
+        if The_Show.cues.currentcueindex >= 2:
+            before_target_index = The_Show.cues.currentcueindex - 2  # execute the cue before the target cue
+            target_index = The_Show.cues.currentcueindex - 1
+            #The_Show.cues.currentcueindex -= 1  # target cue becomes current
             #The_Show.cues.setcurrentcuestate(The_Show.cues.currentcueindex)
         else:
-            The_Show.cues.currentcueindex = 0
+            before_target_index = 0
+            target_index = 0
+            #The_Show.cues.currentcueindex = 0
+        logging.info('Cue before target: ' + str(before_target_index) + '   Target cue: ' + str(target_index))
+
+        if before_target_index == 0 and target_index == 0:
+            The_Show.cues.currentcueindex = target_index
+            self.dispatch_cue()
+        else:  # temporarily set currentcueindex to before target and execute that cue
+            The_Show.cues.currentcueindex = before_target_index
+            self.dispatch_cue()
+            The_Show.cues.currentcueindex = target_index
         tblvw = self.findChild(QtWidgets.QTableView)
         tblvw.selectRow(The_Show.cues.currentcueindex)
-        self.dispatch_cue()
 
     def on_buttonJump_clicked(self):
         """Execute the highlighted cue"""
-        print('Jump')
-        The_Show.cues.previouscueindex = The_Show.cues.currentcueindex
-        The_Show.cues.currentcueindex = The_Show.cues.selectedcueindex
+        logging.info('In on_buttonJump_clicked.')
+        #The_Show.cues.previouscueindex = The_Show.cues.currentcueindex  #todo previouscue index should be depricated
+        if The_Show.cues.selectedcueindex is not None:
+            The_Show.cues.currentcueindex = The_Show.cues.selectedcueindex
+            The_Show.cues.selectedcueindex = None
+        else:
+            tblvw = self.findChild(QtWidgets.QTableView)
+            index = tblvw.selectedIndexes()[0]
+            The_Show.cues.currentcueindex = index.row()
         self.dispatch_cue()
+        The_Show.cues.currentcueindex += 1
+        self.tableView.selectRow(The_Show.cues.currentcueindex)
+
 
     def dispatch_cue(self):
         mutemap_msg = osc_message_builder.OscMessageBuilder(address='/cue/#')
         mutemap_msg.add_arg(The_Show.cues.currentcueindex)
         mutemap_msg = mutemap_msg.build()
+
+        # MuteMap messages get sent as long as the mixer sender thread has been started
         try:
             self.mxr_sndrthread.queue_msg(mutemap_msg, self.MuteMapAppDev)
         except AttributeError as e:
             logging.error(e)
             self.NotifyNoSlaveApp('MuteMap')
 
+        # dispatch all types in the type list.
+        # Note: this makes ShoeMixer appear to not change when types doesn't include mixer
         for type in The_Show.cues.getcuetype(The_Show.cues.currentcueindex):
             self.dispatch[type]()
 
@@ -489,11 +514,10 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
     def cue_insert(self):
         self.notify_slaves_edit_start()
         tblvw = self.findChild(QtWidgets.QTableView)
-        # index[0].row() will be where the user clicked
         index = tblvw.selectedIndexes()
         cueindex = int(self.tabledata[index[0].row()][0])
         self.editcuedlg = EditCue(cueindex)
-        self.editcuedlg.setWindowTitle(_translate("dlgEditCue", "Edit Cue"))
+        self.editcuedlg.setWindowTitle(_translate("dlgEditCue", "Insert Cue"))
         self.editcuedlg.setROcueelements(['Cue_Number', 'Mutes', 'Levels'])
         thiscue = The_Show.cues.getcuelist(cueindex)
         self.editcuedlg.fillfields(cueindex, thiscue)
@@ -619,16 +643,17 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         self.tableView.resizeColumnsToContents()
 
     def get_table_data(self):
-        qs = The_Show.cues.cuelist.findall('Cue')
-        self.tabledata =[]
-        for q in qs:
-            dirty_list = q.find('CueType').text.split(',')
-            type_list = [s.strip() for s in dirty_list]
+        self.tabledata = []
+        for index in range(0, The_Show.cues.cuecount):
+            cuenum = '{0:03}'.format(index)
+            q = The_Show.cues.cuelist.find("Cue[@num='"+cuenum+"']")
+            type_list = q.find('CueType').text.split(',')
             for type in cue_types:
-                 if type in type_list and self.CueTypeVisible[type]:
-                     self.append_table_data(q)
-                     break
-        # print(self.tabledata)
+                if type in type_list and self.CueTypeVisible[type]:
+                    self.append_table_data(q)
+                    break
+        #print(self.tabledata)
+        return
 
     def append_table_data(self, q):
         tmp_list = ['{0:03}'.format(int(q.attrib['num']))]

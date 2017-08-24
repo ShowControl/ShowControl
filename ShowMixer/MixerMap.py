@@ -34,6 +34,8 @@ class MixerCharMap():
             map = self.maproot.find("./mixermap[@count='" + str(key) + "']")
             self.map_list.append(map.get('uuid'))
         print(self.map_list)
+        self.mapcount = len(self.map_list)  # this is not the count= in the mixermap element,
+                                            # but the count of mixermaps in the xml file
         maps = None
 
     def update_state(self,uuid):

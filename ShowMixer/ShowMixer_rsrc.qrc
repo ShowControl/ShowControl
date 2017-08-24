@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="Res">
+    <file>MixerApp.png</file>
     <file>DnChevron.png</file>
     <file>UpChevron.png</file>
     <file>close_base.png</file>

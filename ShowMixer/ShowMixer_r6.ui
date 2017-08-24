@@ -19,6 +19,10 @@
   <property name="windowTitle">
    <string>Show Mixer</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="ShowMixer_rsrc.qrc">
+    <normaloff>:/Res/MixerApp.png</normaloff>:/Res/MixerApp.png</iconset>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>

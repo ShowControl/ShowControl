@@ -31,7 +31,8 @@ cue_subelements = [ 'Id',
                     'On_Stage',
                     'Note_1',
                     'Note_2',
-                    'Note_3']
+                    'Note_3',
+                    'map']
 
 cue_fields = ['Cue_Number',     # Cue_Number
               'Id',             # Id
@@ -48,7 +49,8 @@ cue_fields = ['Cue_Number',     # Cue_Number
               'On_Stage',       # On_Sta
               'Note_1',         # Note_1
               'Note_2',         # Note_2
-              'Note_3']         # Note_3
+              'Note_3',         # Note_3
+              'map']            # mute map number
 
 cue_edit_sizes =  [	'60,20',		    # Cue_Number
                     '60,20',            # Id
@@ -65,7 +67,8 @@ cue_edit_sizes =  [	'60,20',		    # Cue_Number
                     '16000000,20',      # On_Stage
                     '16000000,20',      # Note_1
                     '16000000,20',      # Note_2
-                    '16000000,20']      # Note_3
+                    '16000000,20',      # Note_3
+                    '60,20']            # mute map number
 
 cue_subelements_tooltips = ['Cue number',											# Cue_Number
                             'Unique id for this cue',								# Id
@@ -82,7 +85,8 @@ cue_subelements_tooltips = ['Cue number',											# Cue_Number
                             'Specifies characters who are on stage',				# On_Stage
                             'Enter notes about this cue',							# Note_1
                             'Enter notes about this cue',							# Note_2
-                            'Enter notes about this cue']							# Note_3
+                            'Enter notes about this cue',							# Note_3
+                            'Enter mute map number']							    # mute map number
 
 header = [  'Cue Number',
             'Act',
@@ -131,6 +135,7 @@ class CueList():
         self.currentcueindex = 0
         self.previouscueindex = 0
         self.previewcueindex = 0
+        self.selectedcueindex = None
         cues = self.cuelist.findall('Cue')
         self.cuecount = len(cues)
 
