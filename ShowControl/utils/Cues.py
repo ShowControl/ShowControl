@@ -396,15 +396,17 @@ if __name__ == "__main__":
         Level_val = cues.get_cue_levels(index)
         pass
     somecuelist = cues.getcuelist(149)
-    mixermap_element = cues.get_cue_element_by_name(56,'mixermap')
-    if mixermap_element:
-        input_maps = mixermap_element.findall('input')
-        for input_map in input_maps:
-            mixerid = input_map.get('mixerid')
-            mixerchan = input_map.get('chan')
-            actor = input_map.get('actor')
-            char = input_map.get('char')
-            print('Mixer id: {}, chan: {}, actor: {}, char: {}'.format(mixerid, mixerchan, actor, char))
+    from_element = cues.get_cue_element_by_name(4, 'Mutes').text.split(',')
+    to_element = cues.get_cue_element_by_name(56,'Mutes').text.split(',')
+    delta_mutes = [mute for mute in to_element if mute not in from_element]
+    # if mixermap_element:
+    #     input_maps = mixermap_element.findall('input')
+    #     for input_map in input_maps:
+    #         mixerid = input_map.get('mixerid')
+    #         mixerchan = input_map.get('chan')
+    #         actor = input_map.get('actor')
+    #         char = input_map.get('char')
+    #         print('Mixer id: {}, chan: {}, actor: {}, char: {}'.format(mixerid, mixerchan, actor, char))
     pass
     # cues.addnewcue({'Scene':'1','Title':'A new Cue'})
     # ET.dump(cues.cuelist)

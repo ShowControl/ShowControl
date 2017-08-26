@@ -26,22 +26,36 @@ def translate(value, leftMin, leftMax, rightMin, rightMax):
     # Convert the 0-1 range into a value in the right range.
     return ceil(rightMin + (valueScaled * rightSpan))
 
-def inttodb(value, linMin, linMax, dbMin, dbMax):
-    linSpan = linMax - linMin
-    dbSpan = dbMax - dbMin
+# def inttodb(value, linMin, linMax, dbMin, dbMax):
+#     linSpan = linMax - linMin
+#     dbSpan = dbMax - dbMin
+#
+#     linRatio = float(value - linMin) /float(linSpan)
+#
+#     b = log(abs(float(dbMax)/float(dbMin)), 10) / float(dbSpan)
+#
+#     dbVal = dbMax/exp(b * linMax)
+#
+# ''' 0.5 = 512
+#     0.25 = 255
+#     0.0625 = 64
+# '''
+#
+# def int_to_db_X32( value ):
+#     if value >= 512:
+#         d = ((value/1024) * 40.0) - 30.0
+#     elif value >= 256:
+#         d = ((value/1024) * 80.0) - 50.0
+#     elif value >= 64:
+#         d = ((value/1024) * 160.0) - 70.0
+#     elif value > 0:
+#         d = ((value/1024) * 480.0) - 90.0
+#     elif value == 0:
+#         d = -90
+#     return d
 
-    linRatio = float(value - linMin) /float(linSpan)
 
-    b = log(abs(float(dbMax)/float(dbMin)), 10) / float(dbSpan)
-
-    dbVal = dbMax/exp(b * linMax)
-
-''' 0.5 = 512
-    0.25 = 255
-    0.0625 = 64
-'''
-
-def int_to_db_X32( value ):
+def int_to_db( value ):
     if value >= 512:
         d = ((value/1024) * 40.0) - 30.0
     elif value >= 256:
@@ -51,17 +65,29 @@ def int_to_db_X32( value ):
     elif value > 0:
         d = ((value/1024) * 480.0) - 90.0
     elif value == 0:
-        d = -90
-    return d
+        d = -90.0
+    return int(d)  # return int so the db value steps in increments of 1db
+
+def db_to_int( db ):
+    db_f = float( db )
+    if db < -60:
+        value = (db + 90) / 480
+    elif db < -30:
+        value = (db + 70) / 160
+    elif db < -10:
+        value = (db + 50) / 80
+    elif db <= 10:
+        value = (db + 30) / 40
+    return int(value * 1024)
 
 
 if __name__ == "__main__":
-    print(int_to_db_X32(1))
-    for y in range(0, 1024, 100):
-        x = int_to_db_X32(y)
-        print(x)
-    for y in range(0, 1024, 100):
-        x = translate(y, 0, 1023, 0, 127)
-        print(x)
-    for y in range(-10, 10):
-        print('{0:>0.2f}'.format(y))
+    print(int_to_db(1))
+    for y in range(0, 1024, 1):
+        x = int_to_db(y)
+        print(y, x)
+    # for y in range(0, 1024, 100):
+    #     x = translate(y, 0, 1023, 0, 127)
+    #     print(x)
+    # for y in range(-10, 10):
+    #     print('{0:>0.2f}'.format(y))

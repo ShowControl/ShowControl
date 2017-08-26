@@ -352,6 +352,7 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         self.actionPreferences.triggered.connect(self.editpreferences)
         self.pref_dlg=ShowPreferences()
         self.slider_entered = ''
+        self.slider_keypress = False
         self.sldr_actions_list = []
         self.sldr_action_names = ['Set Min', 'Set 0db', 'Propagate level']
         for action_name in self.sldr_action_names:
@@ -486,6 +487,7 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         sldr = self.window().findChild(QtWidgets.QSlider, name=self.slider_entered)
         print('Set slider to min. Current value: {}'.format(sldr.value()))
         self.slider_set(self.slider_entered, 0)
+        self.updatecuelevelstate()
 
     def slider_action_set_0db(self, sldr_name):
         self.CER_send_edit_start()
@@ -494,6 +496,7 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         sldr = self.window().findChild(QtWidgets.QSlider, name=self.slider_entered)
         print('Set slider to 0db Current value: {}'.format(sldr.value()))
         self.slider_set(self.slider_entered, val)
+        self.updatecuelevelstate()
 
     def slider_action_propagate_level(self, sldr_name):
         self.CER_send_edit_start()
@@ -720,7 +723,8 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
                 sldr.setRange(0,1024)
                 # sldr.setTickPosition(3)
                 # sldr.setTickInterval(10)
-                sldr.setSingleStep(100)
+                sldr.setSingleStep(26) # with 0-1024, 1db step is 26(int)
+                sldr.setPageStep(260)  # 20x for page
                 sldr.setContentsMargins(10, 0, 10, 0)
                 self.tabstripgridlist[idx].addWidget(sldr, 3, chn, 1, 1)
                 # Add label for this channel level
@@ -839,14 +843,14 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
 
     def slidervalchanged(self, val):
         sending_slider = self.sender()
+        print('In slidervalchanged, sending_slider name: {0}'.format(sending_slider.objectName()))
         print('SliderDown is : {}'.format(sending_slider.isSliderDown()))
-        if sending_slider.isSliderDown():
+        if sending_slider.isSliderDown() or self.slider_keypress:
             self.cuehaschanged = True
             CE_msg = osc_message_builder.OscMessageBuilder(address='/cue/editstarted')
             CE_msg.add_arg(True)
             CE_msg = CE_msg.build()
             self.CEResponsethread.queue_msg(CE_msg, self.CueAppDev)
-        print('In slidervalchanged, sending_slider name: {0}'.format(sending_slider.objectName()))
         sldrname = sending_slider.objectName()
         mxrid = int(sldrname[1])
         stripGUIindx = int(sldrname[-2:len(sldrname)])
@@ -860,7 +864,11 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
                 Set(The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['channum'], val)
             if msg is not None:
                 self.mixer_sender_threads[mxrid].queue_msg(msg, The_Show.mixers[mxrid])
+        if sending_slider.isSliderDown() or self.slider_keypress:
+            print('In slidervalchanged, sending_slider name: {0}, updating level state'.format(sending_slider.objectName()))
             self.updatecuelevelstate()
+        if self.slider_keypress: self.slider_keypress = False  # todo not sure setting flag in MySlider is good...
+                                                               # for now it works
 
     def slider_set(self, sldrname, val):
         self.cuehaschanged = True
@@ -908,7 +916,7 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
                 levels += 'M{0}{1}:{2},'.format(mxrid, The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['name'].lower(), sldr.value())
                 # print('M{0}sldr{1:02}:{2:3}'.format(mxrid, stripGUIindx, sldr.value()))
         levels = levels[:-1]
-        print(levels)
+        print('In updatecuelevelstate, Levels: {}'.format(levels))
         The_Show.cues.setcueelement(The_Show.cues.currentcueindex, levels, 'Levels')
         pass
 
@@ -931,7 +939,7 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
 
                 mutes += 'M{0}{1}:{2},'.format(mxrid, The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['name'].lower(), '{0}'.format(mute_val))
         mutes = mutes[:-1]
-        print(mutes)
+        print('In updatecuemutestate, mutes: {}'.format(mutes))
         The_Show.cues.setcueelement(The_Show.cues.currentcueindex, mutes, 'Mutes')
         pass
 
@@ -942,7 +950,7 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
 
     def execute_cue(self, num):
         print('In execute_cue, cue number:{}'.format(num))
-        The_Show.cues.previouscueindex = The_Show.cues.currentcueindex # todo - mac previouscueindex no longer used
+        The_Show.cues.previouscueindex = The_Show.cues.currentcueindex
         The_Show.cues.currentcueindex = num
         tblvw = self.findChild(QtWidgets.QTableView)
         tblvw.selectRow(The_Show.cues.currentcueindex)
@@ -998,7 +1006,13 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
                 pass
 
     def execute_levels(self):
-        levels = The_Show.cues.get_cue_levels(The_Show.cues.currentcueindex)
+        if The_Show.cues.currentcueindex == 0:
+            levels = The_Show.cues.get_cue_levels(The_Show.cues.currentcueindex)
+        else:
+            from_element = The_Show.cues.get_cue_element_by_name(The_Show.cues.previouscueindex, 'Levels').text.split(',')
+            to_element = The_Show.cues.get_cue_element_by_name(The_Show.cues.currentcueindex, 'Levels').text.split(',')
+            levels = {level.split(':')[0] : int(level.split(':')[1]) for level in to_element if level not in from_element}
+
         if levels != None:
             for key, value in levels.items():
                 # find the channel name in the mxrconsole list
@@ -1007,7 +1021,7 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
                 nbrs = re.findall(r'\d+',key)
                 mxrid = int(nbrs[0])
                 chname = key[re.search('\d', key).end():]
-                print(chname)
+                #print(chname)
                 for cons_idx in range(The_Show.mixers[mxrid].mxrconsole.__len__()):
                     if The_Show.mixers[mxrid].mxrconsole[cons_idx]['name'].lower() == chname.lower():
                         # print('found in stp {0}'.format(cons_idx))
@@ -1544,18 +1558,24 @@ class MySlider(QtWidgets.QSlider):
         QtWidgets.QSlider.mouseReleaseEvent(self, m_ev)
 
     def keyPressEvent(self, k_ev):
-        print('In keyPressEvent')
+        print('In keyReleaseEvent for slider {}'.format(self.objectName()))
         if k_ev.key() in  [Qt.Key_Up, Qt.Key_Down, Qt.Key_PageDown, Qt.Key_PageUp]:
-            print('Found the key!')
-            levels = ''
-            for mxrid in range(The_Show.mixers.__len__()):
-                for stripGUIindx in range(The_Show.mixers[mxrid].mxrconsole.__len__()):
-                    sldr = self.window().findChild(QtWidgets.QSlider, name='M{0}sldr{1:02}'.format(mxrid, stripGUIindx))
-                    levels += 'M{0}{1}:{2},'.format(mxrid, The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['name'].lower(), sldr.value())
-                    print('M{0}sldr{1:02}:{2:3}'.format(mxrid, stripGUIindx, sldr.value()))
-            levels = levels[:-1]
-            print(levels)
-            The_Show.cues.setcueelement(The_Show.cues.currentcueindex, levels, 'Levels')
+            self.window().slider_keypress = True
+            # levels = ''
+            # for mxrid in range(The_Show.mixers.__len__()):
+            #     for stripGUIindx in range(The_Show.mixers[mxrid].mxrconsole.__len__()):
+            #         sldr = self.window().findChild(QtWidgets.QSlider, name='M{0}sldr{1:02}'.format(mxrid, stripGUIindx))
+            #         levels += 'M{0}{1}:{2},'.format(mxrid, The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['name'].lower(), sldr.value())
+            #         #print('M{0}sldr{1:02}:{2:3}'.format(mxrid, stripGUIindx, sldr.value()))
+            # levels = levels[:-1]
+            # print('In keyPressEvent, levels: {}'.format(levels))
+            # The_Show.cues.setcueelement(The_Show.cues.currentcueindex, levels, 'Levels')
+        QtWidgets.QSlider.keyPressEvent(self, k_ev)
+
+    def keyReleaseEvent(self, k_ev):
+        print('In keyPressEvent for slider {}'.format(self.objectName()))
+        if k_ev.key() in  [Qt.Key_Up, Qt.Key_Down, Qt.Key_PageDown, Qt.Key_PageUp]:
+            pass
         QtWidgets.QSlider.keyPressEvent(self, k_ev)
 
     def enterEvent(self, m_ev):

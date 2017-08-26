@@ -6,18 +6,13 @@
       <change type="DELETED" beforePath="$PROJECT_DIR$/../MixerMaker/ShowMixer.log" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/../MuteMap/ShowMixer.log" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../CueEngine/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../CueEngine/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../CueEngine/CueEngine.py" afterPath="$PROJECT_DIR$/../CueEngine/CueEngine.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../MixerMaker/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../MixerMaker/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../MuteMap/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../MuteMap/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/utils/CommHandlers.py" afterPath="$PROJECT_DIR$/utils/CommHandlers.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/utils/Cues.py" afterPath="$PROJECT_DIR$/utils/Cues.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ShowMixer/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../ShowMixer/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ShowMixer/MixerMap.py" afterPath="$PROJECT_DIR$/../ShowMixer/MixerMap.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ShowMixer/LogScale.py" afterPath="$PROJECT_DIR$/../ShowMixer/LogScale.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ShowMixer/ShowMixer.py" afterPath="$PROJECT_DIR$/../ShowMixer/ShowMixer.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ShowMixer/ShowMixer_r6.ui" afterPath="$PROJECT_DIR$/../ShowMixer/ShowMixer_r6.ui" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ShowMixer/ShowMixer_rsrc.qrc" afterPath="$PROJECT_DIR$/../ShowMixer/ShowMixer_rsrc.qrc" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ShowMixer/ShowMixer_rsrc_rc.py" afterPath="$PROJECT_DIR$/../ShowMixer/ShowMixer_rsrc_rc.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ShowMixer/ui_ShowMixer.py" afterPath="$PROJECT_DIR$/../ShowMixer/ui_ShowMixer.py" />
     </list>
     <ignored path="ShowControl.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -36,11 +31,24 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Cues.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Cues.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/utils/Cues.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="119" column="16" lean-forward="false" selection-start-line="119" selection-start-column="13" selection-end-line="119" selection-end-column="16" />
+            <state relative-caret-position="6868">
+              <caret line="411" column="0" lean-forward="false" selection-start-line="411" selection-start-column="0" selection-end-line="411" selection-end-column="0" />
+              <folding>
+                <marker date="1503750734393" expanded="true" signature="17649:17750" ph="..." />
+                <marker date="1503750734393" expanded="true" signature="17764:18366" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="_pydev_execfile.py" pinned="false" current-in-tab="false">
+        <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_imps/_pydev_execfile.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="289">
+              <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -83,11 +91,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CommHandlers.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="CommHandlers.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/utils/CommHandlers.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2737">
-              <caret line="161" column="0" lean-forward="false" selection-start-line="161" selection-start-column="0" selection-end-line="161" selection-end-column="0" />
+            <state relative-caret-position="304">
+              <caret line="82" column="29" lean-forward="false" selection-start-line="82" selection-start-column="29" selection-end-line="82" selection-end-column="29" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
@@ -98,7 +106,7 @@
       <file leaf-file-name="ShowConf.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/utils/ShowConf.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3519">
+            <state relative-caret-position="3451">
               <caret line="207" column="0" lean-forward="false" selection-start-line="207" selection-start-column="0" selection-end-line="207" selection-end-column="0" />
               <folding>
                 <element signature="e#134#143#0" expanded="true" />
@@ -154,14 +162,14 @@
         <option value="$PROJECT_DIR$/utils/SCLog.py" />
         <option value="$PROJECT_DIR$/utils/ShowControlConfig.py" />
         <option value="$PROJECT_DIR$/utils/ShowConf.log" />
-        <option value="$PROJECT_DIR$/utils/CommHandlers.py" />
         <option value="$PROJECT_DIR$/utils/Show.py" />
         <option value="$PROJECT_DIR$/utils/ShowConf.py" />
         <option value="$PROJECT_DIR$/utils/Cues.py" />
+        <option value="$PROJECT_DIR$/utils/CommHandlers.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
+  <component name="ProjectFrameBounds">
     <option name="x" value="48" />
     <option name="y" value="44" />
     <option name="width" value="1821" />
@@ -185,9 +193,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="ProjectPane" />
       <pane id="Scope" />
       <pane id="Scratches" />
-      <pane id="ProjectPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -227,6 +235,23 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="ShowControl" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/utils/Cues.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+    </configuration>
+    <configuration name="ElementTree" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="/usr/lib/python3.5/xml/etree" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="ShowControl" />
+      <option name="SCRIPT_NAME" value="/usr/lib/python3.5/xml/etree/ElementTree.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -397,37 +422,20 @@
       <option name="USE_PATTERN" value="false" />
       <method />
     </configuration>
-    <configuration name="configuration" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/utils" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="ShowControl" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/utils/configuration.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-    </configuration>
     <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Python.Cues" />
       <item index="1" class="java.lang.String" itemvalue="Python.ShowControlConfig" />
-      <item index="2" class="java.lang.String" itemvalue="Python.configuration" />
-      <item index="3" class="java.lang.String" itemvalue="Python.ShowConf" />
-      <item index="4" class="java.lang.String" itemvalue="Python.TreeToDict" />
+      <item index="2" class="java.lang.String" itemvalue="Python.ShowConf" />
+      <item index="3" class="java.lang.String" itemvalue="Python.TreeToDict" />
+      <item index="4" class="java.lang.String" itemvalue="Python.ElementTree" />
     </list>
     <recent_temporary>
       <list size="5">
         <item index="0" class="java.lang.String" itemvalue="Python.Cues" />
-        <item index="1" class="java.lang.String" itemvalue="Python.ShowConf" />
-        <item index="2" class="java.lang.String" itemvalue="Python.ShowControlConfig" />
-        <item index="3" class="java.lang.String" itemvalue="Python.TreeToDict" />
-        <item index="4" class="java.lang.String" itemvalue="Python.configuration" />
+        <item index="1" class="java.lang.String" itemvalue="Python.ElementTree" />
+        <item index="2" class="java.lang.String" itemvalue="Python.ShowConf" />
+        <item index="3" class="java.lang.String" itemvalue="Python.ShowControlConfig" />
+        <item index="4" class="java.lang.String" itemvalue="Python.TreeToDict" />
       </list>
     </recent_temporary>
   </component>
@@ -470,7 +478,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="48" y="44" width="1821" height="1007" extended-state="1" />
+    <frame x="48" y="44" width="1821" height="1007" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25728422" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -620,11 +628,16 @@
           <line>168</line>
           <option name="timeStamp" value="124" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/utils/Cues.py</url>
+          <line>411</line>
+          <option name="timeStamp" value="132" />
+        </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="132" />
+      <option name="time" value="133" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -916,20 +929,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file:///usr/lib/python3.5/xml/etree/ElementTree.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="178">
-          <caret line="608" column="29" lean-forward="false" selection-start-line="608" selection-start-column="29" selection-end-line="608" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_imps/_pydev_execfile.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/utils/TreeToDict.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
@@ -980,7 +979,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/utils/ShowConf.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3519">
+        <state relative-caret-position="3451">
           <caret line="207" column="0" lean-forward="false" selection-start-line="207" selection-start-column="0" selection-end-line="207" selection-end-column="0" />
           <folding>
             <element signature="e#134#143#0" expanded="true" />
@@ -988,21 +987,39 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/utils/CommHandlers.py">
+    <entry file="file:///usr/lib/python3.5/xml/etree/ElementTree.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2737">
-          <caret line="161" column="0" lean-forward="false" selection-start-line="161" selection-start-column="0" selection-end-line="161" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="135">
+          <caret line="99" column="0" lean-forward="false" selection-start-line="99" selection-start-column="0" selection-end-line="99" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_imps/_pydev_execfile.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/utils/Cues.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="119" column="16" lean-forward="false" selection-start-line="119" selection-start-column="13" selection-end-line="119" selection-end-column="16" />
-          <folding />
+        <state relative-caret-position="6868">
+          <caret line="411" column="0" lean-forward="false" selection-start-line="411" selection-start-column="0" selection-end-line="411" selection-end-column="0" />
+          <folding>
+            <marker date="1503750734393" expanded="true" signature="17649:17750" ph="..." />
+            <marker date="1503750734393" expanded="true" signature="17764:18366" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/CommHandlers.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="82" column="29" lean-forward="false" selection-start-line="82" selection-start-column="29" selection-end-line="82" selection-end-column="29" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

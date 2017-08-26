@@ -78,9 +78,9 @@ class sender(QThread):
                     packet =  self.sndrqueue.get()
                     msg = packet[0].dgram
                     self.socket.sendto(msg, packet[1])
-                    self.msleep(10)
+                    self.msleep(5)
             else:
-                self.msleep(200)
+                self.msleep(100)
 
     '''called from widget.stopthread to flag thread to close'''
     def setstopflag(self):

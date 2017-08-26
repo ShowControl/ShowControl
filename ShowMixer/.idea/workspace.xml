@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/ShowMixer.py" line="1031" />
-    <bookmark url="file://$PROJECT_DIR$/ShowMixer.py" line="1065" />
-    <bookmark url="file://$PROJECT_DIR$/ShowMixer.py" line="1299" />
+    <bookmark url="file://$PROJECT_DIR$/ShowMixer.py" line="1057" />
+    <bookmark url="file://$PROJECT_DIR$/ShowMixer.py" line="1091" />
+    <bookmark url="file://$PROJECT_DIR$/ShowMixer.py" line="1325" />
+    <bookmark url="file://$PROJECT_DIR$/ShowMixer.py" line="730" />
+    <bookmark url="file://$PROJECT_DIR$/ShowMixer.py" line="847" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="abfe075f-0c42-4a77-bd66-15c5b772e7d4" name="Default" comment="" />
@@ -36,7 +38,8 @@
                 <element signature="e#4055#4969#0" expanded="false" />
                 <element signature="e#4055#4546#1" expanded="false" />
                 <element signature="e#4633#4682#0" expanded="false" />
-                <marker date="1503597429568" expanded="true" signature="374:799" ph="..." />
+                <marker date="1503750734393" expanded="true" signature="17649:17750" ph="..." />
+                <marker date="1503750734393" expanded="true" signature="17764:18366" ph="..." />
               </folding>
             </state>
           </provider>
@@ -59,19 +62,6 @@
               <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
               <folding>
                 <marker date="1503613132693" expanded="true" signature="197:2677" ph="..." />
-                <marker date="1503613132693" expanded="true" signature="197:2951" ph="..." />
-                <marker date="1503613132693" expanded="true" signature="266:1009" ph="..." />
-                <marker date="1503613132693" expanded="true" signature="1043:1527" ph="..." />
-                <marker date="1503613132693" expanded="true" signature="1103:1512" ph="..." />
-                <marker date="1503613132693" expanded="true" signature="1139:1512" ph="..." />
-                <marker date="1503613132693" expanded="true" signature="1561:1768" ph="..." />
-                <marker date="1503613132693" expanded="true" signature="1621:1748" ph="..." />
-                <marker date="1503613132693" expanded="true" signature="1808:2010" ph="..." />
-                <marker date="1503613132693" expanded="true" signature="2053:2399" ph="..." />
-                <marker date="1503613132693" expanded="true" signature="2108:2239" ph="..." />
-                <marker date="1503613132693" expanded="true" signature="2275:2369" ph="..." />
-                <marker date="1503613132693" expanded="true" signature="2431:2677" ph="..." />
-                <marker date="1503613132693" expanded="true" signature="2727:2951" ph="..." />
               </folding>
             </state>
           </provider>
@@ -100,8 +90,8 @@
       <file leaf-file-name="ShowMixer.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ShowMixer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="506">
-              <caret line="1063" column="0" lean-forward="false" selection-start-line="1063" selection-start-column="0" selection-end-line="1063" selection-end-column="0" />
+            <state relative-caret-position="286">
+              <caret line="870" column="81" lean-forward="false" selection-start-line="870" selection-start-column="81" selection-end-line="870" selection-end-column="81" />
               <folding>
                 <element signature="e#43#58#0" expanded="true" />
               </folding>
@@ -109,14 +99,22 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="LogScale.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/LogScale.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1564">
+              <caret line="92" column="23" lean-forward="true" selection-start-line="92" selection-start-column="23" selection-end-line="92" selection-end-column="23" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="ui_ShowMixer.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ui_ShowMixer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1377">
-              <caret line="81" column="40" lean-forward="false" selection-start-line="81" selection-start-column="40" selection-end-line="81" selection-end-column="40" />
-              <folding>
-                <marker date="1503581520469" expanded="true" signature="9150:10071" ph="..." />
-              </folding>
+            <state relative-caret-position="1428">
+              <caret line="84" column="40" lean-forward="false" selection-start-line="84" selection-start-column="40" selection-end-line="84" selection-end-column="40" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -142,12 +140,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>QToolT</find>
-      <find>self.external</find>
-      <find>cmd_rcvrtestfunc</find>
-      <find>externalclose</find>
-      <find>setCurrentIndex</find>
-      <find>sldr_action_click</find>
       <find>on_buttonMute_clicked</find>
       <find>updatecuemutestate</find>
       <find>propage</find>
@@ -172,6 +164,12 @@
       <find>execute_Mixer</find>
       <find>get_table_data</find>
       <find>execute_cue_uuid</find>
+      <find>db_to_int</find>
+      <find>isSliderDown</find>
+      <find>.connect</find>
+      <find>keyReleaseEvent</find>
+      <find>slidervalchanged</find>
+      <find>updatecuelevelstate</find>
     </findStrings>
     <replaceStrings>
       <replace>control_type</replace>
@@ -200,7 +198,6 @@
         <option value="$PROJECT_DIR$/ScrollTabs-2.py" />
         <option value="$PROJECT_DIR$/../ShowControl/utils/CommHandlers.py" />
         <option value="$PROJECT_DIR$/journal.txt" />
-        <option value="$PROJECT_DIR$/LogScale.py" />
         <option value="$PROJECT_DIR$/MixerControl.py" />
         <option value="$PROJECT_DIR$/rewritefiles.py" />
         <option value="$PROJECT_DIR$/../ShowControl/utils/configuration.py" />
@@ -218,6 +215,7 @@
         <option value="$PROJECT_DIR$/ui_ShowMixer.py" />
         <option value="$PROJECT_DIR$/../ShowControl/utils/Cues.py" />
         <option value="$PROJECT_DIR$/MixerMap.py" />
+        <option value="$PROJECT_DIR$/LogScale.py" />
         <option value="$PROJECT_DIR$/ShowMixer.py" />
       </list>
     </option>
@@ -274,8 +272,8 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
       <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -351,6 +349,23 @@
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
     </configuration>
+    <configuration name="LogScale" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="ShowMixer" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/LogScale.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+    </configuration>
     <configuration name="MixerMap" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -388,23 +403,6 @@
       <RunnerSettings RunnerId="PythonRunner" />
       <ConfigurationWrapper RunnerId="PyDebugRunner" />
       <ConfigurationWrapper RunnerId="PythonRunner" />
-    </configuration>
-    <configuration name="TestXMLtoDICT" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="ShowMixer" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../../MuteMap/TestXMLtoDict.py/TestXMLtoDICT.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
     </configuration>
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -541,18 +539,18 @@
     <list size="6">
       <item index="0" class="java.lang.String" itemvalue="Python.ShowMixer" />
       <item index="1" class="java.lang.String" itemvalue="Python.Cues" />
-      <item index="2" class="java.lang.String" itemvalue="Python.TestXMLtoDICT" />
-      <item index="3" class="java.lang.String" itemvalue="Python.CommHandlers" />
-      <item index="4" class="java.lang.String" itemvalue="Python.ui_ShowMixer" />
-      <item index="5" class="java.lang.String" itemvalue="Python.MixerMap" />
+      <item index="2" class="java.lang.String" itemvalue="Python.CommHandlers" />
+      <item index="3" class="java.lang.String" itemvalue="Python.ui_ShowMixer" />
+      <item index="4" class="java.lang.String" itemvalue="Python.MixerMap" />
+      <item index="5" class="java.lang.String" itemvalue="Python.LogScale" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.MixerMap" />
-        <item index="1" class="java.lang.String" itemvalue="Python.Cues" />
-        <item index="2" class="java.lang.String" itemvalue="Python.ui_ShowMixer" />
-        <item index="3" class="java.lang.String" itemvalue="Python.CommHandlers" />
-        <item index="4" class="java.lang.String" itemvalue="Python.TestXMLtoDICT" />
+        <item index="0" class="java.lang.String" itemvalue="Python.LogScale" />
+        <item index="1" class="java.lang.String" itemvalue="Python.MixerMap" />
+        <item index="2" class="java.lang.String" itemvalue="Python.Cues" />
+        <item index="3" class="java.lang.String" itemvalue="Python.ui_ShowMixer" />
+        <item index="4" class="java.lang.String" itemvalue="Python.CommHandlers" />
       </list>
     </recent_temporary>
   </component>
@@ -629,12 +627,12 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/ShowMixer.py</url>
-          <line>1588</line>
+          <line>1626</line>
           <option name="timeStamp" value="515" />
         </line-breakpoint>
         <line-breakpoint suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/ShowMixer.py</url>
-          <line>1231</line>
+          <line>1257</line>
           <option name="timeStamp" value="526" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -644,28 +642,43 @@
         </line-breakpoint>
         <line-breakpoint suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/ShowMixer.py</url>
-          <line>1143</line>
+          <line>1169</line>
           <option name="timeStamp" value="534" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/ShowMixer.py</url>
-          <line>526</line>
+          <line>532</line>
           <option name="timeStamp" value="560" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/ShowMixer.py</url>
-          <line>1571</line>
+          <line>1609</line>
           <option name="timeStamp" value="571" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/ShowMixer.py</url>
-          <line>606</line>
+          <line>612</line>
           <option name="timeStamp" value="573" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/ShowMixer.py</url>
-          <line>1065</line>
+          <line>1091</line>
           <option name="timeStamp" value="584" />
+        </line-breakpoint>
+        <line-breakpoint suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/ShowMixer.py</url>
+          <line>873</line>
+          <option name="timeStamp" value="590" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/ShowMixer.py</url>
+          <line>1579</line>
+          <option name="timeStamp" value="593" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/ShowMixer.py</url>
+          <line>850</line>
+          <option name="timeStamp" value="594" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
@@ -680,7 +693,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="588" />
+      <option name="time" value="595" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
@@ -716,13 +729,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="181">
           <caret line="928" column="0" lean-forward="false" selection-start-line="928" selection-start-column="0" selection-end-line="928" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/LogScale.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="900">
-          <caret line="60" column="28" lean-forward="false" selection-start-line="60" selection-start-column="28" selection-end-line="60" selection-end-column="28" />
         </state>
       </provider>
     </entry>
@@ -958,11 +964,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ui_ShowMixer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1377">
-          <caret line="81" column="40" lean-forward="false" selection-start-line="81" selection-start-column="40" selection-end-line="81" selection-end-column="40" />
-          <folding>
-            <marker date="1503581520469" expanded="true" signature="9150:10071" ph="..." />
-          </folding>
+        <state relative-caret-position="1428">
+          <caret line="84" column="40" lean-forward="false" selection-start-line="84" selection-start-column="40" selection-end-line="84" selection-end-column="40" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1001,7 +1005,8 @@
             <element signature="e#4055#4969#0" expanded="false" />
             <element signature="e#4055#4546#1" expanded="false" />
             <element signature="e#4633#4682#0" expanded="false" />
-            <marker date="1503597429568" expanded="true" signature="374:799" ph="..." />
+            <marker date="1503750734393" expanded="true" signature="17649:17750" ph="..." />
+            <marker date="1503750734393" expanded="true" signature="17764:18366" ph="..." />
           </folding>
         </state>
       </provider>
@@ -1012,27 +1017,22 @@
           <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
           <folding>
             <marker date="1503613132693" expanded="true" signature="197:2677" ph="..." />
-            <marker date="1503613132693" expanded="true" signature="197:2951" ph="..." />
-            <marker date="1503613132693" expanded="true" signature="266:1009" ph="..." />
-            <marker date="1503613132693" expanded="true" signature="1043:1527" ph="..." />
-            <marker date="1503613132693" expanded="true" signature="1103:1512" ph="..." />
-            <marker date="1503613132693" expanded="true" signature="1139:1512" ph="..." />
-            <marker date="1503613132693" expanded="true" signature="1561:1768" ph="..." />
-            <marker date="1503613132693" expanded="true" signature="1621:1748" ph="..." />
-            <marker date="1503613132693" expanded="true" signature="1808:2010" ph="..." />
-            <marker date="1503613132693" expanded="true" signature="2053:2399" ph="..." />
-            <marker date="1503613132693" expanded="true" signature="2108:2239" ph="..." />
-            <marker date="1503613132693" expanded="true" signature="2275:2369" ph="..." />
-            <marker date="1503613132693" expanded="true" signature="2431:2677" ph="..." />
-            <marker date="1503613132693" expanded="true" signature="2727:2951" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LogScale.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1564">
+          <caret line="92" column="23" lean-forward="true" selection-start-line="92" selection-start-column="23" selection-end-line="92" selection-end-column="23" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ShowMixer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="506">
-          <caret line="1063" column="0" lean-forward="false" selection-start-line="1063" selection-start-column="0" selection-end-line="1063" selection-end-column="0" />
+        <state relative-caret-position="286">
+          <caret line="870" column="81" lean-forward="false" selection-start-line="870" selection-start-column="81" selection-end-line="870" selection-end-column="81" />
           <folding>
             <element signature="e#43#58#0" expanded="true" />
           </folding>
