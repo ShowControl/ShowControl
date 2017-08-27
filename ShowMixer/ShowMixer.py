@@ -967,7 +967,13 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
 
     def execute_mutes(self):
         #mute_changes = The_Show.cues.get_cue_mute_state_delta(The_Show.cues.currentcueindex)
-        mute_changes = The_Show.cues.get_cue_mute_state_by_index(The_Show.cues.currentcueindex)
+        #mute_changes = The_Show.cues.get_cue_mute_state_by_index(The_Show.cues.currentcueindex)
+        if The_Show.cues.currentcueindex == 0:
+            mute_changes = The_Show.cues.get_cue_mute_state_by_index(The_Show.cues.currentcueindex)
+        else:
+            from_element = The_Show.cues.get_cue_element_by_name(The_Show.cues.previouscueindex, 'Mutes').text.split(',')
+            to_element = The_Show.cues.get_cue_element_by_name(The_Show.cues.currentcueindex, 'Mutes').text.split(',')
+            mute_changes = {ch_mute.split(':')[0]: int(ch_mute.split(':')[1]) for ch_mute in to_element if ch_mute not in from_element}
         # iterate through mute changes, if any
         if mute_changes != None:
             for key, value in mute_changes.items():
