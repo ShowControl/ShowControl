@@ -186,7 +186,7 @@ class ControlFactory:
             osc_address = self.cmdstr.replace('#', '{0:02}'.format(cnum))
             msg = osc_message_builder.OscMessageBuilder(address=osc_address)
             # tmpstr = scrbltxt[:5]
-            msg.add_arg(scrbltxt[:5])
+            msg.add_arg(scrbltxt[:7])
             msg = msg.build()
             return msg
 

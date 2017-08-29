@@ -489,6 +489,7 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
     def cue_add(self):
         self.notify_slaves_edit_start()
         tblvw = self.findChild(QtWidgets.QTableView)
+        lastcueviewed = The_Show.cues.currentcueindex
         oldlastcue = The_Show.cues.getcuelist(The_Show.cues.cuecount-1)  # get the last cues data
         cueindex = The_Show.cues.cuecount
         self.editcuedlg = EditCue(cueindex)
@@ -505,10 +506,12 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
             The_Show.cues.savecuelist(False, cfg.cfgdict['configuration']['project']['folder'] + '/' + The_Show.show_conf.settings['cues']['href1'])
             # display the new state of the cuefile
             The_Show.cues.setup_cues(cfg.cfgdict['configuration']['project']['folder'] + '/' + The_Show.show_conf.settings['cues']['href1'])
-        The_Show.cues.currentcueindex = cueindex
+            The_Show.cues.currentcueindex = cueindex
+        else:
+            The_Show.cues.currentcueindex = lastcueviewed
         self.disptext()
         tblvw.selectRow(The_Show.cues.currentcueindex)
-        tblvw.scrollToBottom()
+        if self.editcuedlg.changeflag: tblvw.scrollToBottom()
         self.notify_slaves_edit_complete()
 
     def cue_insert(self):
@@ -782,6 +785,8 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
                 #self.MxrAppProc = subprocess.Popen(['python3', '/home/mac/SharedData/PycharmProjs/ShowControl/ShowMixer/ShowMixer.py'])
                 self.MxrAppProc = subprocess.Popen(
                     ['python3', parentdir + '/ShowMixer/ShowMixer.py'])
+                logging.info('Starting ShowMixer')
+                logging.info(parentdir + '/ShowMixer/ShowMixer.py')
                 if self.MxrAppProc is not None:
                     self.MxrApp_pid = self.MxrAppProc.pid
                     logging.info('ShowMixer launch success, pid: {}'.format(self.MxrApp_pid))
@@ -872,6 +877,11 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
                      The_Show.show_conf.equipment['program']['LISP']['args'],
                      cfg.cfgdict['configuration']['project']['folder'] + '/'
                      + The_Show.show_conf.equipment['program']['LISP']['setup']])
+                logging.info('Starting LISP')
+                logging.info(The_Show.show_conf.equipment['program']['LISP']['app'])
+                logging.info(The_Show.show_conf.equipment['program']['LISP']['args'])
+                logging.info(cfg.cfgdict['configuration']['project']['folder'] + '/'
+                     + The_Show.show_conf.equipment['program']['LISP']['setup'])
                 if self.LISPAppProc is not None:
                     self.LISPApp_pid = self.LISPAppProc.pid
                     logging.info('LISP launch success, pid: {}'.format(self.LISPApp_pid))

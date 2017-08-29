@@ -62,6 +62,18 @@ class MixerCharMap():
         mixermapinputs = mapelement.findall("./input")
         return mixermapinputs
 
+    def getmixermapbus(self, uuid):
+        #maproot = self.maptree.getroot()
+        mapelement = self.maproot.find("./mixermap[@uuid='" + uuid + "']")
+        mixermapbuses = mapelement.findall("./bus")
+        return mixermapbuses
+
+    def getmixermapaux(self, uuid):
+        #maproot = self.maptree.getroot()
+        mapelement = self.maproot.find("./mixermap[@uuid='" + uuid + "']")
+        mixermapauxes = mapelement.findall("./aux")
+        return mixermapauxes
+
     def getmixermapcharcount(self, uuid):
         #maproot = self.maptree.getroot()
         try:

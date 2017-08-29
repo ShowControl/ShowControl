@@ -717,6 +717,7 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
                 sldr.valueChanged.connect(self.slidervalchanged)
                 sldr.sliderReleased.connect(self.sldrmovedone)
                 sldr.sliderPressed.connect(self.slder_pressed)
+                sldr.kpsig.connect(self.slder_kybd_sig_handler)
                 sldr.setObjectName('M{0}sldr{1:02}'.format(idx, chn))
                 # print(sldr.objectName())
                 sldr.setMinimumSize(self.ChanStrip_MinWidth,200)
@@ -754,6 +755,9 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
             self.scrollArea[idx].setWidget(self.scrollAreaWidgetContents[idx])
             self.tablistvertlayout[idx].addWidget(self.scrollArea[idx])
 
+    def slder_kybd_sig_handler(self):
+        print('In slder_sig_handler')
+        self.slider_keypress = True
 
     def changelayout(self):
         self.tablist = []
@@ -843,7 +847,7 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
 
     def slidervalchanged(self, val):
         sending_slider = self.sender()
-        print('In slidervalchanged, sending_slider name: {0}'.format(sending_slider.objectName()))
+        print('Enter slidervalchanged, sending_slider name: {0}'.format(sending_slider.objectName()))
         print('SliderDown is : {}'.format(sending_slider.isSliderDown()))
         if sending_slider.isSliderDown() or self.slider_keypress:
             self.cuehaschanged = True
@@ -867,8 +871,9 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         if sending_slider.isSliderDown() or self.slider_keypress:
             print('In slidervalchanged, sending_slider name: {0}, updating level state'.format(sending_slider.objectName()))
             self.updatecuelevelstate()
-        if self.slider_keypress: self.slider_keypress = False  # todo not sure setting flag in MySlider is good...
-                                                               # for now it works
+        if self.slider_keypress: self.slider_keypress = False  # clear the keypress flag
+        print('Exit slidervalchanged, sending_slider name: {0}'.format(sending_slider.objectName()))
+
 
     def slider_set(self, sldrname, val):
         self.cuehaschanged = True
@@ -1317,6 +1322,39 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
             charlbl = self.findChild(QtWidgets.QLabel, name='M{0}chscr{1:02}'.format(mxrid,cnum-1))
             charlbl.setText(char.attrib['char'][:7])
 
+        buses = The_Show.chrchnmap.getmixermapbus(uuid)
+        for bus in buses:
+            cnum = int(bus.attrib['chan'])
+            mxrid = int(bus.attrib['mixerid'])
+            #find the index of the bus to get the .Set object
+            for control_index, mxcons in enumerate(The_Show.mixers[mxrid].mxrconsole):
+                if mxcons['name'] == 'Bus{:02}'.format(cnum):
+                    break
+            msg = The_Show.mixers[mxrid].mxrstrips[The_Show.mixers[mxrid].
+                mxrconsole[control_index]['type']]['scribble']. \
+                Set(cnum, bus.attrib['char'])
+            if msg is not None: self.mixer_sender_threads[mxrid].queue_msg(msg, The_Show.mixers[mxrid])
+            actorlbl = self.findChild(QtWidgets.QLabel, name='M{0}scr{1:02}'.format(mxrid, control_index))
+            actorlbl.setText(bus.attrib['actor'][:7])
+            charlbl = self.findChild(QtWidgets.QLabel, name='M{0}chscr{1:02}'.format(mxrid, control_index))
+            charlbl.setText(bus.attrib['char'][:7])
+
+            auxes = The_Show.chrchnmap.getmixermapaux(uuid)
+            for aux in auxes:
+                cnum = int(aux.attrib['chan'])
+                mxrid = int(aux.attrib['mixerid'])
+                # find the index of the bus to get the .Set object
+                for control_index, mxcons in enumerate(The_Show.mixers[mxrid].mxrconsole):
+                    if mxcons['name'] == 'Aux{:02}'.format(cnum):
+                        break
+                msg = The_Show.mixers[mxrid].mxrstrips[The_Show.mixers[mxrid].
+                    mxrconsole[control_index]['type']]['scribble']. \
+                    Set(cnum, aux.attrib['char'])
+                if msg is not None: self.mixer_sender_threads[mxrid].queue_msg(msg, The_Show.mixers[mxrid])
+                actorlbl = self.findChild(QtWidgets.QLabel, name='M{0}scr{1:02}'.format(mxrid, control_index))
+                actorlbl.setText(aux.attrib['actor'][:7])
+                charlbl = self.findChild(QtWidgets.QLabel, name='M{0}chscr{1:02}'.format(mxrid, control_index))
+                charlbl.setText(aux.attrib['char'][:7])
             pass
 
     def set_scribble_bycount(self, count=0):
@@ -1401,7 +1439,7 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
             elif reply == QMessageBox.Save:
                 # todo - mac this is hardwired to project cue file
                 The_Show.cues.savecuelist(True, cfg.cfgdict['configuration']['project']['folder'] + '/' + The_Show.show_conf.settings['cues']['href1'])
-
+                self.CER_send_edit_complete()
         reply = self.confirmQuit()
         if reply == QMessageBox.Yes:
             self.stopthreads()
@@ -1497,7 +1535,7 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         The_Show.reloadShow(cfg.cfgdict)
         self.setWindowTitle(The_Show.show_conf.settings['title'])
         self.initmutes()
-        self.initlevels()
+        #self.initlevels()
         self.disptext()
         self.setfirstcue()
         firstuuid = The_Show.cues.getcurrentcueuuid(The_Show.cues.currentcueindex)
@@ -1506,7 +1544,7 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         self.tableView.selectRow(The_Show.cues.currentcueindex)
         self.display_cue_mutes()
         self.display_cue_levels()
-
+        self.execute_cue(The_Show.cues.currentcueindex)
         self.ExternalEditStarted = False
         self.ExternalEditComplete = False
 
@@ -1547,6 +1585,8 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         print('command receiver thread done')
 
 class MySlider(QtWidgets.QSlider):
+    kpsig = pyqtSignal()
+
     def __init__(self, parent=None):
         super(MySlider, self).__init__(parent)
 
@@ -1564,9 +1604,10 @@ class MySlider(QtWidgets.QSlider):
         QtWidgets.QSlider.mouseReleaseEvent(self, m_ev)
 
     def keyPressEvent(self, k_ev):
-        print('In keyReleaseEvent for slider {}'.format(self.objectName()))
+        print('In keyPressEvent for slider {}'.format(self.objectName()))
         if k_ev.key() in  [Qt.Key_Up, Qt.Key_Down, Qt.Key_PageDown, Qt.Key_PageUp]:
-            self.window().slider_keypress = True
+            #self.window().slider_keypress = True
+            self.kpsig.emit()
             # levels = ''
             # for mxrid in range(The_Show.mixers.__len__()):
             #     for stripGUIindx in range(The_Show.mixers[mxrid].mxrconsole.__len__()):
@@ -1579,7 +1620,7 @@ class MySlider(QtWidgets.QSlider):
         QtWidgets.QSlider.keyPressEvent(self, k_ev)
 
     def keyReleaseEvent(self, k_ev):
-        print('In keyPressEvent for slider {}'.format(self.objectName()))
+        print('In keyReleaseEvent for slider {}'.format(self.objectName()))
         if k_ev.key() in  [Qt.Key_Up, Qt.Key_Down, Qt.Key_PageDown, Qt.Key_PageUp]:
             pass
         QtWidgets.QSlider.keyPressEvent(self, k_ev)
