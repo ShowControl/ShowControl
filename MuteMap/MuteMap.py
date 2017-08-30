@@ -12,7 +12,6 @@ import logging
 import time
 import psutil
 
-logging.basicConfig(filename='ShowMixer.log', filemode='w', level=logging.DEBUG)
 
 from PyQt5 import Qt, QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QColor, QBrush
@@ -44,7 +43,7 @@ sys.path.insert(0,showmixerdir)
 print('sys.path: {}'.format(sys.path))
 
 from Show import Show
-from ShowControlConfig import configuration, CFG_DIR, CFG_PATH
+from ShowControlConfig import configuration, CFG_DIR, CFG_PATH, LOG_DIR
 import CommHandlers
 from Cues import cue_types, cue_subelements, cue_edit_sizes, cue_subelements_tooltips, header, cue_fields
 
@@ -71,6 +70,20 @@ def has_handle(fpath):
             pass
 
     return False
+
+def int_to_db( value ):
+    if value >= 512:
+        d = ((value/1024) * 40.0) - 30.0
+    elif value >= 256:
+        d = ((value/1024) * 80.0) - 50.0
+    elif value >= 64:
+        d = ((value/1024) * 160.0) - 70.0
+    elif value > 0:
+        d = ((value/1024) * 480.0) - 90.0
+    elif value == 0:
+        d = -90.0
+    return int(d)  # return int so the db value steps in increments of 1db
+
 
 class CommAddresses:
     def __init__(self, IP, PORT):
@@ -168,8 +181,11 @@ class MuteMapDlg(QtWidgets.QDialog, MuteMap_ui.Ui_Dialog):
         self.tableheader_vert = []
         self.tableView.doubleClicked.connect(self.on_table_dblclick)
         self.tableView.clicked.connect(self.on_table_click)
+        self.tabledata = []
         self.get_table_data()
-        self.tablemodel = MyTableModel(self.tabledata, self.tableheader_horz, self.tableheader_vert, self)
+        self.leveldata = []
+        self.get_level_data()
+        self.tablemodel = MyTableModel(self.tabledata, self.leveldata, self.tableheader_horz, self.tableheader_vert, self)
         self.tableView.setModel(self.tablemodel)
         self.tableView.setSelectionMode(QAbstractItemView.SingleSelection)
         self.tableView.setSelectionBehavior(QAbstractItemView.SelectItems)
@@ -222,6 +238,18 @@ class MuteMapDlg(QtWidgets.QDialog, MuteMap_ui.Ui_Dialog):
         self.tabledata.append(row_list)
         self.tableheader_vert.append(tmp_list)
 
+    def get_level_data(self):
+        qs = The_Show.cues.cuelist.findall('Cue')
+        self.leveldata =[]
+        for q in qs:
+            self.append_level_data(q)
+        return
+
+    def append_level_data(self, q):
+        row_levels = q.find('./Levels').text.split(',')
+        levels = [level.split(':')[0] + ':' + str(int_to_db(int(level.split(':')[1]))) for level in row_levels]
+        self.leveldata.append(levels)
+
     def sort_controls(self, control_list=[]):
         chlist = []
         auxlist = []
@@ -244,19 +272,19 @@ class MuteMapDlg(QtWidgets.QDialog, MuteMap_ui.Ui_Dialog):
         return sorted_controls
 
     def on_table_dblclick(self):
-        print('Table double click')
+        #print('Table double click')
         return
 
     def on_table_click(self, modelidx):
         print('Table click row: {}, col:{}'.format(modelidx.row(), modelidx.column()))
-        if modelidx.column() == 0:
-            self.tableView.setCurrentIndex(modelidx)
-            return
-        curval = self.tablemodel.arraydata[modelidx.row()][modelidx.column()]
-        if curval[-1] == '0':
-            self.tablemodel.setData(modelidx, curval[:-1] + '1', Qt.EditRole)
-        elif curval[-1] == '1':
-            self.tablemodel.setData(modelidx, curval[:-1] + '0', Qt.EditRole)
+        # if modelidx.column() == 0:
+        #     self.tableView.setCurrentIndex(modelidx)
+        #     return
+        # curval = self.tablemodel.arraydata[modelidx.row()][modelidx.column()]
+        # if curval[-1] == '0':
+        #     self.tablemodel.setData(modelidx, curval[:-1] + '1', Qt.EditRole)
+        # elif curval[-1] == '1':
+        #     self.tablemodel.setData(modelidx, curval[:-1] + '0', Qt.EditRole)
         return
 
     def get_header_horz(self):
@@ -338,7 +366,7 @@ class MuteMapDlg(QtWidgets.QDialog, MuteMap_ui.Ui_Dialog):
 
 
 class MyTableModel(QtCore.QAbstractTableModel):
-    def __init__(self, datain, headerdata_horz, headerdata_vert, parent=None):
+    def __init__(self, datain, leveldata, headerdata_horz, headerdata_vert, parent=None):
         """
         Args:
             datain: a list of lists\n
@@ -346,6 +374,7 @@ class MyTableModel(QtCore.QAbstractTableModel):
         """
         QtCore.QAbstractTableModel.__init__(self, parent)
         self.arraydata = datain
+        self.leveldata = leveldata
         self.headerdata_horz = headerdata_horz
         self.headerdata_vert = headerdata_vert
 
@@ -368,7 +397,8 @@ class MyTableModel(QtCore.QAbstractTableModel):
 
     def data(self, index, role):  # Return data from the model
         if not index.isValid():
-            print('Invalid index in MyModel>data')
+            #print('Invalid index in MyModel>data')
+            logging.info('Invalid index in MyModel>data')
             retval = QtCore.QVariant()
         elif role == QtCore.Qt.BackgroundRole:
             #print('row: {}, col:{}'.format(index.row(),index.column()))
@@ -386,8 +416,8 @@ class MyTableModel(QtCore.QAbstractTableModel):
             # pm_s = pm.scaled(64,64)
             # retval = pm_s #QtGui.QPixmap('/home/mac/SharedData/PycharmProjs/MuteMap/Mute_dark.png')
         elif role == QtCore.Qt.DisplayRole:
-            #retval = QtCore.QVariant()
-            retval = QtCore.QVariant(self.arraydata[index.row()][index.column()])
+            # retval = QtCore.QVariant(self.arraydata[index.row()][index.column()])
+            retval = QtCore.QVariant(self.leveldata[index.row()][index.column()])
         else:
             retval = QtCore.QVariant()
 
@@ -451,8 +481,10 @@ class MyTableModel(QtCore.QAbstractTableModel):
 
 
 if __name__ == "__main__":
-    logger_main = logging.getLogger(__name__)
-    logger_main.info('Begin')
+    logging.basicConfig(level=logging.INFO,
+                        filename= LOG_DIR + '/MuteMap.log', filemode='w',
+                        format='%(name)s %(levelname)s %(message)s')
+    logging.info('Begin')
     cfg = configuration()
     The_Show = ShowMxr()
     The_Show.displayShow()

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/../ShowMixer/ShowMixer.py" line="1536" />
+    <bookmark url="file://$PROJECT_DIR$/../ShowMixer/ShowMixer.py" line="1569" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8474eff5-676b-4712-9539-a7c9c675c28b" name="Default" comment="" />
@@ -50,29 +50,41 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="850">
               <caret line="50" column="0" lean-forward="false" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
-              <folding>
-                <marker date="1504033261043" expanded="true" signature="197:3147" ph="..." />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CueEngine.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="CueEngine.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/CueEngine.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="182">
-              <caret line="501" column="50" lean-forward="true" selection-start-line="501" selection-start-column="50" selection-end-line="501" selection-end-column="50" />
+            <state relative-caret-position="200">
+              <caret line="836" column="29" lean-forward="true" selection-start-line="825" selection-start-column="8" selection-end-line="825" selection-end-column="20" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ShowMixer.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="CueEngine_ui.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CueEngine_ui.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="400">
+              <caret line="133" column="0" lean-forward="false" selection-start-line="132" selection-start-column="0" selection-end-line="133" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ShowMixer.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../ShowMixer/ShowMixer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="457">
-              <caret line="1442" column="0" lean-forward="false" selection-start-line="1442" selection-start-column="0" selection-end-line="1442" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="24888">
+              <caret line="1475" column="0" lean-forward="false" selection-start-line="1475" selection-start-column="0" selection-end-line="1475" selection-end-column="0" />
+              <folding>
+                <marker date="1504095853408" expanded="true" signature="82028:83536" ph="..." />
+                <marker date="1504095853408" expanded="true" signature="82290:82586" ph="..." />
+                <marker date="1504095853408" expanded="true" signature="83143:83481" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -88,8 +100,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>tableView.s</find>
-      <find>tableView.se</find>
       <find>on_buttonGo_clicked</find>
       <find>dispatch_cue</find>
       <find>get_cue_element_by_name</find>
@@ -118,6 +128,8 @@
       <find>addChanStrip</find>
       <find>Add</find>
       <find>AddAction</find>
+      <find>MuteMap</find>
+      <find>show_MuteMap</find>
     </findStrings>
     <replaceStrings>
       <replace>EditPrefs</replace>
@@ -153,12 +165,12 @@
         <option value="$PROJECT_DIR$/pid_lister.py" />
         <option value="$PROJECT_DIR$/../ShowMixer/MixerMap.py" />
         <option value="$PROJECT_DIR$/../ShowControl/utils/Cues.py" />
-        <option value="$PROJECT_DIR$/CueEngine.py" />
         <option value="$PROJECT_DIR$/../ShowMixer/ShowMixer.py" />
+        <option value="$PROJECT_DIR$/CueEngine.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
+  <component name="ProjectFrameBounds">
     <option name="x" value="1945" />
     <option name="y" value="41" />
     <option name="width" value="1854" />
@@ -179,6 +191,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -195,15 +209,13 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="recentsLimit" value="5" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../JackMIDITest" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../MuteMap" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -466,7 +478,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1945" y="41" width="1854" height="967" extended-state="1" />
+    <frame x="1945" y="41" width="1854" height="967" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17440605" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -539,12 +551,12 @@
         </line-breakpoint>
         <line-breakpoint suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/CueEngine.py</url>
-          <line>586</line>
+          <line>590</line>
           <option name="timeStamp" value="160" />
         </line-breakpoint>
         <line-breakpoint suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/CueEngine.py</url>
-          <line>1088</line>
+          <line>1092</line>
           <option name="timeStamp" value="192" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -569,7 +581,7 @@
         </line-breakpoint>
         <line-breakpoint suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/CueEngine.py</url>
-          <line>359</line>
+          <line>363</line>
           <option name="timeStamp" value="234" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -579,12 +591,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/CueEngine.py</url>
-          <line>482</line>
+          <line>486</line>
           <option name="timeStamp" value="238" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/CueEngine.py</url>
-          <line>398</line>
+          <line>402</line>
           <option name="timeStamp" value="262" />
         </line-breakpoint>
         <line-breakpoint suspend="THREAD" type="python-line">
@@ -599,17 +611,17 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/CueEngine.py</url>
-          <line>516</line>
+          <line>520</line>
           <option name="timeStamp" value="269" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/../ShowMixer/ShowMixer.py</url>
-          <line>1532</line>
+          <line>1565</line>
           <option name="timeStamp" value="271" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/../ShowMixer/ShowMixer.py</url>
-          <line>1441</line>
+          <line>1474</line>
           <option name="timeStamp" value="272" />
         </line-breakpoint>
       </breakpoints>
@@ -904,9 +916,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="850">
           <caret line="50" column="0" lean-forward="false" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
-          <folding>
-            <marker date="1504033261043" expanded="true" signature="197:3147" ph="..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -914,13 +924,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1326">
           <caret line="80" column="0" lean-forward="false" selection-start-line="80" selection-start-column="0" selection-end-line="80" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CueEngine_ui.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="111">
-          <caret line="137" column="49" lean-forward="true" selection-start-line="159" selection-start-column="0" selection-end-line="160" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -942,18 +945,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CueEngine.py">
+    <entry file="file://$PROJECT_DIR$/../ShowMixer/ShowMixer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="501" column="50" lean-forward="true" selection-start-line="501" selection-start-column="50" selection-end-line="501" selection-end-column="50" />
+        <state relative-caret-position="24888">
+          <caret line="1475" column="0" lean-forward="false" selection-start-line="1475" selection-start-column="0" selection-end-line="1475" selection-end-column="0" />
+          <folding>
+            <marker date="1504095853408" expanded="true" signature="82028:83536" ph="..." />
+            <marker date="1504095853408" expanded="true" signature="82290:82586" ph="..." />
+            <marker date="1504095853408" expanded="true" signature="83143:83481" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CueEngine_ui.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="400">
+          <caret line="133" column="0" lean-forward="false" selection-start-line="132" selection-start-column="0" selection-end-line="133" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../ShowMixer/ShowMixer.py">
+    <entry file="file://$PROJECT_DIR$/CueEngine.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="457">
-          <caret line="1442" column="0" lean-forward="false" selection-start-line="1442" selection-start-column="0" selection-end-line="1442" selection-end-column="0" />
+        <state relative-caret-position="200">
+          <caret line="836" column="29" lean-forward="true" selection-start-line="825" selection-start-column="8" selection-end-line="825" selection-end-column="20" />
           <folding />
         </state>
       </provider>

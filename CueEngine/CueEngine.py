@@ -41,7 +41,7 @@ sys.path.insert(0,syblingdir)
 print(sys.path)
 
 from Show import Show
-from ShowControlConfig import configuration, CFG_DIR, CFG_PATH
+from ShowControlConfig import configuration, CFG_DIR, CFG_PATH, LOG_DIR
 import CommHandlers
 from Cues import cue_types, cue_subelements, cue_edit_sizes, cue_subelements_tooltips, header, cue_fields
 
@@ -232,6 +232,10 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
         self.action_MuteMap = QtWidgets.QAction(self)
         self.action_MuteMap.setCheckable(True)
         self.action_MuteMap.setText('Show MuteMap')
+        self.action_MuteMap.setToolTip('Launch the MuteMap application')
+        icon9 = QtGui.QIcon()
+        icon9.addPixmap(QtGui.QPixmap(":/Res/MuteMap_base.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.action_MuteMap.setIcon(icon9)
         self.action_MuteMap.triggered.connect(self.show_MuteMap)
         self.menu_Application.addAction(self.action_MuteMap)
         self.LED_ext_cue_change = LED()
@@ -1134,7 +1138,7 @@ class MyTableModel(QtCore.QAbstractTableModel):
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO,
-                        filename='/home/mac/Shows/Fiddler/CueEngine.log', filemode='w',
+                        filename= LOG_DIR + '/CueEngine.log', filemode='w',
                         format='%(name)s %(levelname)s %(message)s')
     logging.info('Begin')
     cfg = configuration()

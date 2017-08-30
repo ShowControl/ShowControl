@@ -32,6 +32,7 @@ HOME = os.path.expanduser("~")
 
 CFG_DIR = HOME + '/.config/ShowControl'
 CFG_PATH = CFG_DIR + '/ShowControl_config.xml'
+LOG_DIR = HOME + '/.log/ShowControl'
 
 class configuration():
     def __init__(self):

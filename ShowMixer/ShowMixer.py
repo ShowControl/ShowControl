@@ -48,7 +48,7 @@ print(sys.path)
 # from SCLog import SCLog
 from Show import Show
 #import configuration as cfg
-from ShowControlConfig import configuration, CFG_DIR, CFG_PATH
+from ShowControlConfig import configuration, CFG_DIR, CFG_PATH, LOG_DIR
 import CommHandlers
 from Cues import cue_types, cue_subelements, cue_edit_sizes, cue_subelements_tooltips, header, cue_fields
 
@@ -1712,7 +1712,7 @@ class MyTableModel(QtCore.QAbstractTableModel):
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO,
-                        filename='/home/mac/Shows/Fiddler/ShowMixer.log', filemode='w',
+                        filename= LOG_DIR + '/ShowMixer.log', filemode='w',
                         format='%(name)s %(levelname)s %(message)s')
     logging.info('Begin')
     cfg = configuration()

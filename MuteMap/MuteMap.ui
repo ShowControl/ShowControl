@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="MuteMap_rsrc.qrc">
+    <normaloff>:/icons/MuteMap_base.png</normaloff>:/icons/MuteMap_base.png</iconset>
+  </property>
   <layout class="QGridLayout" name="gridLayout_2">
    <item row="0" column="0">
     <layout class="QGridLayout" name="gridLayout">
@@ -23,6 +27,8 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="MuteMap_rsrc.qrc"/>
+ </resources>
  <connections/>
 </ui>
