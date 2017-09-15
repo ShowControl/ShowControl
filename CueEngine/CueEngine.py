@@ -40,13 +40,15 @@ print(parentdir)
 sys.path.insert(0,syblingdir)
 print(sys.path)
 
-from Show import Show
-from ShowControlConfig import configuration, CFG_DIR, CFG_PATH, LOG_DIR
-import CommHandlers
-from Cues import cue_types, cue_subelements, cue_edit_sizes, cue_subelements_tooltips, header, cue_fields
 
-import CueEngine_ui
-from CueEdit_alt_ui import Ui_dlgEditCue
+from ShowControl.utils.ShowControlConfig import configuration, CFG_DIR, CFG_PATH, LOG_DIR
+from ShowControl.utils.Show import Show
+#from ShowControlConfig import configuration, CFG_DIR, CFG_PATH, LOG_DIR
+from ShowControl.utils import CommHandlers
+from ShowControl.utils.Cues import cue_types, cue_subelements, cue_edit_sizes, cue_subelements_tooltips, header, cue_fields
+
+from CueEngine.CueEngine_ui import Ui_MainWindow
+from CueEngine.CueEdit_alt_ui import Ui_dlgEditCue
 
 from pythonosc import osc_message
 from pythonosc import osc_message_builder
@@ -63,9 +65,14 @@ class CommAddresses:
 INMSG_IP = "127.0.0.1"
 INMSG_PORT = 5006
 
-import styles
+from CueEngine import styles
 
 #cfgdict = cfg.toDict()
+
+cfg = configuration()
+The_Show = Show(cfg.cfgdict)
+The_Show.displayShow()
+
 
 class cueTypeDispatcher():
     def __init__(self):
@@ -193,7 +200,7 @@ class LED(QLabel):
         self.update()
 
 
-class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
+class CueDlg(QtWidgets.QMainWindow, Ui_MainWindow):
 
     CueFileUpdate_sig = pyqtSignal()
     def __init__(self, cuelistfile, parent=None):
@@ -786,11 +793,12 @@ class CueDlg(QtWidgets.QMainWindow, CueEngine_ui.Ui_MainWindow):
             if self.MxrApp_pid is None:
                 logging.info('ShowMixer not found, attempting to launch')
                 print('ShowMixer not found, attempting to launch')
-                #self.MxrAppProc = subprocess.Popen(['python3', '/home/mac/SharedData/PycharmProjs/ShowControl/ShowMixer/ShowMixer.py'])
+                # self.MxrAppProc = subprocess.Popen(
+                #     ['python3', parentdir + '/ShowMixer/ShowMixer.py'])
                 self.MxrAppProc = subprocess.Popen(
-                    ['python3', parentdir + '/ShowMixer/ShowMixer.py'])
+                    ['python3', parentdir + '/show-mixer.py'])
                 logging.info('Starting ShowMixer')
-                logging.info(parentdir + '/ShowMixer/ShowMixer.py')
+                logging.info(parentdir + '/show-mixer.py')
                 if self.MxrAppProc is not None:
                     self.MxrApp_pid = self.MxrAppProc.pid
                     logging.info('ShowMixer launch success, pid: {}'.format(self.MxrApp_pid))
