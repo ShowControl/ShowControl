@@ -571,7 +571,7 @@ class CueDlg(QtWidgets.QMainWindow, Ui_MainWindow):
         The_Show.cues.currentcueindex = cueindex
         self.disptext()
         tblvw.selectRow(The_Show.cues.currentcueindex)
-        self.notify_slaves_edit_complete()
+        self.notify_slaves_edit_complete(self.editcuedlg.changeflag)
 
     def cue_delete(self):
         print('In cue delete')
@@ -1012,9 +1012,10 @@ class CueDlg(QtWidgets.QMainWindow, Ui_MainWindow):
             if slave.objectName() != 'LISP':
                 slave.queue_msg(msg, self.CommAddress_dict[slave.objectName()])
 
-    def notify_slaves_edit_complete(self):
+    def notify_slaves_edit_complete(self, Changed=True):
         msg = osc_message_builder.OscMessageBuilder(address='/cue/editcomplete')
-        msg.add_arg(True)
+        msg.add_arg(True)  # Add True to indicate edit complete
+        msg.add_arg(Changed)  # Add arg to indicate whetehr the user canceled the edit
         msg = msg.build()
         for slave in self.sender_threads:
             # quick fix to handle LISP doesn't care if cue is edited todo mac fix this

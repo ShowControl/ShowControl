@@ -199,9 +199,9 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     #CSD_log = logging.getLogger(__name__)
     #CSD_log.debug('ChanStripMainWindow')
     ChanStrip_MinWidth = 50
-    CueFileUpdate_sig = pyqtSignal()
+    CueFileUpdate_sig = pyqtSignal(int)
 
-    def __init__(self, parent=None):
+    def __init__(self, cuelistfile, parent=None):
         super(ChanStripMainWindow, self).__init__(parent)
         logging.info('In ChanStripMainWindow init.')
         #self.logger.info('In ChanStripMainWindow init.')
@@ -962,14 +962,14 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         print('In execute_cue_uuid, cue index={}'.format(cueidx))
         self.execute_cue(int(cueidx))
 
-    def execute_cue(self, num):
+    def execute_cue(self, num, hard=False):
         print('In execute_cue, cue number:{}'.format(num))
         The_Show.cues.previouscueindex = The_Show.cues.currentcueindex
         The_Show.cues.currentcueindex = num
         tblvw = self.findChild(QtWidgets.QTableView)
         tblvw.selectRow(The_Show.cues.currentcueindex)
-        self.execute_mutes()
-        self.execute_levels()
+        self.execute_mutes(hard)
+        self.execute_levels(hard)
         self.execute_MixerMap()
         # move table focus to next cue
         # ***changed this: now mutes/sliders show state of highlighted cue
@@ -979,10 +979,10 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.update()
         return
 
-    def execute_mutes(self):
+    def execute_mutes(self, hard=False):
         #mute_changes = The_Show.cues.get_cue_mute_state_delta(The_Show.cues.currentcueindex)
         #mute_changes = The_Show.cues.get_cue_mute_state_by_index(The_Show.cues.currentcueindex)
-        if The_Show.cues.currentcueindex == 0:
+        if The_Show.cues.currentcueindex == 0 or hard:
             mute_changes = The_Show.cues.get_cue_mute_state_by_index(The_Show.cues.currentcueindex)
         else:
             from_element = The_Show.cues.get_cue_element_by_name(The_Show.cues.previouscueindex, 'Mutes').text.split(',')
@@ -1025,8 +1025,8 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                 if msg is not None: self.mixer_sender_threads[mxrid].queue_msg(msg, The_Show.mixers[mxrid])
                 pass
 
-    def execute_levels(self):
-        if The_Show.cues.currentcueindex == 0:
+    def execute_levels(self, hard=False):
+        if The_Show.cues.currentcueindex == 0 or hard:
             levels = The_Show.cues.get_cue_levels(The_Show.cues.currentcueindex)
         else:
             from_element = The_Show.cues.get_cue_element_by_name(The_Show.cues.previouscueindex, 'Levels').text.split(',')
@@ -1544,22 +1544,24 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def NotifyEditInProgress(self):
         QMessageBox.information(self,'Cue Modification','Cue modification blocked, external edit in progress.', QMessageBox.Ok)
 
-    def ExternalCueUpdate(self):
+    def ExternalCueUpdate(self, changed=True):  # Always default to changed
         self.statusBar().showMessage('External Cue Update')
-        index_before_update = The_Show.cues.currentcueindex
-        The_Show.reloadShow(cfg.cfgdict)
-        self.setWindowTitle(The_Show.show_conf.settings['title'])
-        self.initmutes()
-        #self.initlevels()
-        self.disptext()
-        self.setfirstcue()
-        firstuuid = The_Show.cues.getcurrentcueuuid(The_Show.cues.currentcueindex)
-        self.set_scribble(firstuuid)
-        The_Show.cues.currentcueindex = index_before_update
-        self.tableView.selectRow(The_Show.cues.currentcueindex)
-        self.display_cue_mutes()
-        self.display_cue_levels()
-        self.execute_cue(The_Show.cues.currentcueindex)
+        logging.info('External Cue Update, changed flag: {}')
+        if changed:
+            index_before_update = The_Show.cues.currentcueindex
+            The_Show.reloadShow(cfg.cfgdict)
+            self.setWindowTitle(The_Show.show_conf.settings['title'])
+            #self.initmutes()
+            #self.initlevels()
+            self.disptext()
+            self.setfirstcue()
+            firstuuid = The_Show.cues.getcurrentcueuuid(The_Show.cues.currentcueindex)
+            self.set_scribble(firstuuid)
+            The_Show.cues.currentcueindex = index_before_update
+            self.tableView.selectRow(The_Show.cues.currentcueindex)
+            self.display_cue_mutes()
+            self.display_cue_levels()
+            self.execute_cue(The_Show.cues.currentcueindex, hard=True)
         self.ExternalEditStarted = False
         self.ExternalEditComplete = False
 
