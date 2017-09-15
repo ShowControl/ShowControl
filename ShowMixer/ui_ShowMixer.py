@@ -170,4 +170,4 @@ class Ui_MainWindow(object):
         self.actionUpdate_Cue.setText(_translate("MainWindow", "Update Cue"))
         self.actionUpdate_Cue.setToolTip(_translate("MainWindow", "Update cue table"))
 
-import ShowMixer_rsrc_rc
+#import ShowMixer_rsrc_rc

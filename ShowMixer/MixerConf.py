@@ -17,7 +17,7 @@ except ImportError:
 
 #from SCLog import SCLog
 
-from MixerControl import ControlFactory, supported_protocols, supported_controls
+from ShowMixer.MixerControl import ControlFactory, supported_protocols, supported_controls
 
 
 class MixerConf():

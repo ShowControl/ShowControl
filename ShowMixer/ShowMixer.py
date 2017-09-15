@@ -52,14 +52,16 @@ from ShowControlConfig import configuration, CFG_DIR, CFG_PATH, LOG_DIR
 import CommHandlers
 from Cues import cue_types, cue_subelements, cue_edit_sizes, cue_subelements_tooltips, header, cue_fields
 
-from MixerConf import MixerConf
-from MixerMap import MixerCharMap
+from ShowMixer.MixerConf import MixerConf
+from ShowMixer.MixerMap import MixerCharMap
 
-import ui_ShowMixer
-from ui_preferences import Ui_Preferences
+from ShowMixer.ui_ShowMixer import Ui_MainWindow
+from ShowMixer.ui_preferences import Ui_Preferences
 
 
-import styles
+from ShowMixer import styles
+from ShowMixer import ShowMixer_rsrc_rc
+cfg = configuration()
 
 parser = argparse.ArgumentParser()
 # parser.add_argument("--ip", default="192.168.53.40", help="The ip of the OSC server")
@@ -130,6 +132,9 @@ def db_to_int( db ):
         value = (db + 30) / 40
     return int(value * 1024)
 
+cfg = configuration()
+
+
 class ShowPreferences(QDialog, Ui_Preferences):
     def __init__(self, parent=None):
         QDialog.__init__(self, parent)
@@ -186,13 +191,17 @@ class ShowMxr(Show):
 
         self.chrchnmap = MixerCharMap(self.show_confpath + self.show_conf.settings['project']['mixermap'])
 
-class ChanStripMainWindow(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
+The_Show = ShowMxr()
+The_Show.displayShow()
+
+
+class ChanStripMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     #CSD_log = logging.getLogger(__name__)
     #CSD_log.debug('ChanStripMainWindow')
     ChanStrip_MinWidth = 50
     CueFileUpdate_sig = pyqtSignal()
 
-    def __init__(self, cuelistfile, parent=None):
+    def __init__(self, parent=None):
         super(ChanStripMainWindow, self).__init__(parent)
         logging.info('In ChanStripMainWindow init.')
         #self.logger.info('In ChanStripMainWindow init.')
@@ -1164,6 +1173,12 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, ui_ShowMixer.Ui_MainWindow):
         tblvw = self.findChild(QtWidgets.QTableView)
         tblvw.selectRow(The_Show.cues.currentcueindex)
         # self.execute_cue(The_Show.cues.currentcueindex)
+
+    def getcurrentcueuuid(self):
+        """ THis is a kludge to get things working"""
+        uuid = The_Show.cues.getcurrentcueuuid(The_Show.cues.currentcueindex)
+        return uuid
+
 
     def scroll_cue_list(self):
         source_name = self.sender().objectName()
