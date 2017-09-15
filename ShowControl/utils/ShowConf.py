@@ -21,7 +21,7 @@ print(parentdir)
 sys.path.insert(0,syblingdir)
 print(sys.path)
 
-from ShowControlConfig import configuration, CFG_DIR, CFG_PATH
+#(not needed with hyerarchial import) from ShowControlConfig import configuration, CFG_DIR, CFG_PATH
 #cfg = configuration()
 
 try:

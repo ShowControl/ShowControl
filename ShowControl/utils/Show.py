@@ -1,6 +1,6 @@
 import logging
-from ShowConf import ShowConf
-from Cues import CueList
+from ShowControl.utils.ShowConf import ShowConf
+from ShowControl.utils.Cues import CueList
 
 class Show():
     '''

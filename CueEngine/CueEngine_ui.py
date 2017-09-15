@@ -194,4 +194,4 @@ class Ui_MainWindow(object):
         self.action_Mixer_Cues.setText(_translate("MainWindow", "Mixer Cues"))
         self.action_Mixer_Cues.setToolTip(_translate("MainWindow", "Show/hide mixer cues"))
 
-import CueEngine_rsrc_rc
+#import CueEngine_rsrc_rc
