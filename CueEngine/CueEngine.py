@@ -160,7 +160,6 @@ class EditCue(QDialog, Ui_dlgEditCue):
         working_cue_list.insert(0, '{0:03}'.format(cueindex))
         for i in range(cue_fields.__len__()):
             if cue_fields[i] == 'Cue_Type':
-                print('In Cue_Type')
                 action_list = self.toolmenu.actions()
                 for anum in range(action_list.__len__()):
                     action_list[anum].setChecked(False)
@@ -354,7 +353,8 @@ class CueDlg(QtWidgets.QMainWindow, Ui_MainWindow):
         try:
             self.rcvr_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         except socket.error:
-            print('Failed to create message receiver socket')
+            #print('Failed to create message receiver socket')
+            logging.info('CueDlg.__init__: Failed to create message receiver socket')
         # self.rcvr_sock.bind((INMSG_IP, INMSG_PORT))
         self.rcvr_sock.bind((self.CueAppDev.IP, self.CueAppDev.PORT))
         self.rcvrthread = CommHandlers.cmd_receiver(self.rcvr_sock)
@@ -367,7 +367,6 @@ class CueDlg(QtWidgets.QMainWindow, Ui_MainWindow):
 
     def on_buttonGo_clicked(self):
         """Execute the currently highlighted cue (current)"""
-        print('Go')
         tblvw = self.findChild(QtWidgets.QTableView)
         selections = tblvw.selectedIndexes()  # selections is a list that contains an entry for each column in the row
         tblrow = selections[0].row()  # the row is the index to the tabledata for the cue
@@ -574,7 +573,6 @@ class CueDlg(QtWidgets.QMainWindow, Ui_MainWindow):
         self.notify_slaves_edit_complete(self.editcuedlg.changeflag)
 
     def cue_delete(self):
-        print('In cue delete')
         self.notify_slaves_edit_start()
         tblvw = self.findChild(QtWidgets.QTableView)
         # index[0].row() will be where the user clicked
@@ -666,7 +664,6 @@ class CueDlg(QtWidgets.QMainWindow, Ui_MainWindow):
                 if type in type_list and self.CueTypeVisible[type]:
                     self.append_table_data(q)
                     break
-        #print(self.tabledata)
         return
 
     def append_table_data(self, q):
@@ -692,7 +689,7 @@ class CueDlg(QtWidgets.QMainWindow, Ui_MainWindow):
         #fname = QtWidgets.QFileDialog.getOpenFileName(self, 'Open file', '/home')
         fdlg.close()
 
-        print(fname[0])
+        logging.info('openShow: file name: {}'.format(fname[0]))
         newprojectfolder, newprojfile = os.path.split(fname[0])
         cfg.cfgdict['configuration']['project']['folder'] = newprojectfolder
         cfg.cfgdict['configuration']['project']['file'] = newprojfile
@@ -727,18 +724,18 @@ class CueDlg(QtWidgets.QMainWindow, Ui_MainWindow):
         if sender_action.isChecked():
 
             for process in psutil.process_iter():
-                print(process.pid)
+                #print(process.pid)
                 try:
                     if 'run_sound_effects_player.sh' in process.cmdline()[1]:
                         self.SFXApp_pid = process.pid
-                        print('SFX player pid:{}'.format(self.SFXp_pid))
+                        #print('SFX player pid:{}'.format(self.SFXp_pid))
                         logging.info('SFX player pid:{}'.format(self.SFX_pid))
                         break
                 except IndexError:
                     self.SFX_pid = None
             if self.SFXApp_pid is None:
                 logging.info('SFX player not found, attempting to launch')
-                print("Launch SFX player.")
+                #print("Launch SFX player.")
                 # self.SFXAppProc = subprocess.Popen(['python3', '/home/mac/SharedData/PycharmProjs/ShowControl/ShowMixer/ShowMixer.py'])
                 SFX_shell = cfg.cfgdict['configuration']['project']['folder'] + '/' + 'run_sound_effects_player.sh'
                 self.SFXAppProc = subprocess.Popen([SFX_shell])
@@ -763,7 +760,8 @@ class CueDlg(QtWidgets.QMainWindow, Ui_MainWindow):
             try:
                 self.SFX_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
             except socket.error:
-                print('Failed to create SFX socket')
+                #print('Failed to create SFX socket')
+                logging.info('ShowSFXApp: Failed to create SFX socket')
                 sys.exit()
             self.SFX_sndrthread = CommHandlers.sender(self.SFX_sock)
             self.SFX_sndrthread.setObjectName('SFXApp')
@@ -781,18 +779,18 @@ class CueDlg(QtWidgets.QMainWindow, Ui_MainWindow):
         if sender_action.isChecked():
 
             for process in psutil.process_iter():
-                print(process.pid)
+                #print(process.pid)
                 try:
                     if 'ShowMixer.py' in process.cmdline()[1]:
                         self.MxrApp_pid = process.pid
-                        print('ShowMixer pid:{}'.format(self.MxrApp_pid))
+                        #print('ShowMixer pid:{}'.format(self.MxrApp_pid))
                         logging.info('ShowMixer pid:{}'.format(self.MxrApp_pid))
                         break
                 except IndexError:
                     self.MxrApp_pid = None
             if self.MxrApp_pid is None:
                 logging.info('ShowMixer not found, attempting to launch')
-                print('ShowMixer not found, attempting to launch')
+                #print('ShowMixer not found, attempting to launch')
                 # self.MxrAppProc = subprocess.Popen(
                 #     ['python3', parentdir + '/ShowMixer/ShowMixer.py'])
                 self.MxrAppProc = subprocess.Popen(
@@ -820,8 +818,8 @@ class CueDlg(QtWidgets.QMainWindow, Ui_MainWindow):
             try:
                 self.mxr_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
             except socket.error:
-                print('Failed to create mixer socket')
-                logging.info('Failed to create mixer socket')
+                #print('Failed to create mixer socket')
+                logging.info('ShowMxrApp: Failed to create mixer socket')
                 sys.exit()
             self.mxr_sndrthread = CommHandlers.sender(self.mxr_sock)
             self.mxr_sndrthread.setObjectName('ShowMixer')
@@ -836,18 +834,18 @@ class CueDlg(QtWidgets.QMainWindow, Ui_MainWindow):
         if sender_action.isChecked():
 
             for process in psutil.process_iter():
-                print(process.pid)
+                #print(process.pid)
                 try:
                     if 'MuteMap.py' in process.cmdline()[1]:
                         self.MxrApp_pid = process.pid
-                        print('MuteMap pid:{}'.format(self.MuteMapApp_pid))
+                        #print('MuteMap pid:{}'.format(self.MuteMapApp_pid))
                         logging.info('MuteMAp pid:{}'.format(self.MuteMapApp_pid))
                         break
                 except IndexError:
                     self.MuteMapApp_pid = None
             if self.MuteMapApp_pid is None:
                 logging.info('MuteMap not found, attempting to launch')
-                print('MuteMap not found, attempting to launch')
+                #print('MuteMap not found, attempting to launch')
                 self.MuteMapAppProc = subprocess.Popen(
                     ['python3', parentdir + '/MuteMap/MuteMap.py'])
                 if self.MuteMapAppProc is not None:
@@ -871,18 +869,18 @@ class CueDlg(QtWidgets.QMainWindow, Ui_MainWindow):
         if sender_action.isChecked():
 
             for process in psutil.process_iter():
-                print(process.pid)
+                #print(process.pid)
                 try:
                     if 'linux-show-player' in process.cmdline()[1]:
                         self.LISPApp_pid = process.pid
-                        print('LISP pid:{}'.format(self.LISPApp_pid))
+                        #print('LISP pid:{}'.format(self.LISPApp_pid))
                         logging.info('LISP pid:{}'.format(self.LISPApp_pid))
                         break
                 except IndexError:
                     self.LISPApp_pid = None
             if self.LISPApp_pid is None:
                 logging.info('LISP not found, attempting to launch')
-                print('LISP not found, attempting to launch')
+                #print('LISP not found, attempting to launch')
                 #The_Show.show_conf.equipment['program']['LISP']['app']
                 self.LISPAppProc = subprocess.Popen(
                     ['python3', The_Show.show_conf.equipment['program']['LISP']['app'],
@@ -905,7 +903,7 @@ class CueDlg(QtWidgets.QMainWindow, Ui_MainWindow):
                 if self.LISPAppProc is not None:
                     self.LISPAppProc.terminate()
             except:
-                print('LISP process not running, could not close.')
+                #print('LISP process not running, could not close.')
                 logging.info('LISP process not running, could not close.')
 
         if self.LISP_sndrthread is None:
@@ -922,7 +920,7 @@ class CueDlg(QtWidgets.QMainWindow, Ui_MainWindow):
             if index:
                 self.selidx = index
                 if isinstance(self.portlist[self.selidx], str):
-                    print('ALSA port {} selected, client name: {}'.format(self.selidx, client))
+                    #print('ALSA port {} selected, client name: {}'.format(self.selidx, client))
                     logging.info(('ALSA port {} selected, client name: {}'.format(self.selidx, client)))
                     self.LISP_sndrthread = CommHandlers.AMIDIsender()
                     self.LISP_sndrthread.setObjectName('LISP')
@@ -935,7 +933,7 @@ class CueDlg(QtWidgets.QMainWindow, Ui_MainWindow):
                     self.LISP_sndrthread.start()  # start the thread
                 self.sender_threads.append(self.LISP_sndrthread)
             else:
-                print('RtMidi port not found')
+                #print('RtMidi port not found')
                 logging.error('RtMidi port not found!')
 
     # # saved for running LISP
@@ -1039,25 +1037,24 @@ class CueDlg(QtWidgets.QMainWindow, Ui_MainWindow):
 
     def snd_sndrtestfunc(self, sigstr):
         """..."""
-        print(sigstr)
+        logging.info('snd_sndrtestfunc: sigstr: {}'.format(sigstr))
         self.statusBar().showMessage(sigstr)
 
     '''called when builtin signal 'finished' is emitted by worker thread'''
     def sndrthreaddone(self):
         """..."""
-        print('sender thread done')
+        logging.info('sndrthreaddone: sender thread done')
 
     def snd_sndrthreaddone(self):
         """..."""
-        print('sender thread done')
+        logging.info('snd_sndrthreaddone: sender thread done')
 
     '''receiver functions
         - gets called when the signal called 'signal' is emitted from thread called 'thread' '''
     def rcvrmessage(self, sigstr):
         """..."""
-        print('rcvrmessage')
         msg = osc_message.OscMessage(sigstr)
-        print(msg.address)
+        logging.info('rcvrmessage: msg.address: {}'.format(msg.address))
         self.statusBar().showMessage('Address: {0}, Message: {1}'.format(msg.address, '{}'.format(msg.params)))
         if msg.address == '/cue/editstarted':
             if msg.params[0] == True:
@@ -1083,7 +1080,7 @@ class CueDlg(QtWidgets.QMainWindow, Ui_MainWindow):
     '''called when builtin signal 'finished' is emitted by worker thread'''
     def rcvrthreaddone(self):
         """..."""
-        print('receiver thread done')
+        logging.info('rcvrthreaddone: receiver thread done')
 
 
 class MyTableModel(QtCore.QAbstractTableModel):
