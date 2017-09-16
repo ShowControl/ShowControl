@@ -52,7 +52,7 @@ class ShowConf:
         self.settings = {}
         self.equipment = {}
         showconf_file = self.cfgdict['configuration']['project']['folder'] + '/' + self.cfgdict['configuration']['project']['file']
-        self.logger.info(showconf_file)
+        self.logger.debug(showconf_file)
         tree = ET.parse(showconf_file)
         self.doc = tree.getroot()
         # print(doc)
