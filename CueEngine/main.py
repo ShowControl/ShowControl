@@ -21,29 +21,22 @@ from PyQt5.QtGui import QColor, QBrush, QPalette, QPainter, QPen, QPixmap
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 
+from ShowControl.utils import styles
+from ShowControl.utils.ShowControlConfig import LOG_DIR
+# from ShowControl.utils.Show import Show
+# from ShowControl.utils.ShowConf import ShowConf
+# from ShowControl.utils.Cues import CueList
+# from ShowControl.utils.Cues import cue_types, cue_subelements, cue_edit_sizes, cue_subelements_tooltips, header, cue_fields
+# import ShowControl.utils.CommHandlers
+#
 
-from ShowControl.utils.ShowControlConfig import configuration, CFG_DIR, CFG_PATH, LOG_DIR
-from ShowControl.utils.Show import Show
-from ShowControl.utils.ShowConf import ShowConf
-from ShowControl.utils.Cues import CueList
-from ShowControl.utils.Cues import cue_types, cue_subelements, cue_edit_sizes, cue_subelements_tooltips, header, cue_fields
-import ShowControl.utils.CommHandlers
-
-from CueEngine import styles
 from CueEngine.CueEngine import CueDlg
-import CueEngine.CueEngine_rsrc_rc
-import CueEngine.CueEngine_ui
-from CueEngine import CueEngine
+#import CueEngine.CueEngine_rsrc_rc
+#import CueEngine.CueEngine_ui
+# from CueEngine import CueEngine
 
 def main():
-    logging.basicConfig(level=logging.INFO,
-                        filename= LOG_DIR + '/CueEngine.log', filemode='w',
-                        format='%(name)s %(levelname)s %(message)s')
-    logging.info('Begin')
-    # cfg = configuration()
-    # The_Show = Show(cfg.cfgdict)
-    # The_Show.displayShow()
-
+    logging.info('Message from main')
     app = QtWidgets.QApplication(sys.argv)
 #     app.setStyleSheet(""" QPushButton {color: blue;
 #                          background-color: yellow;
@@ -51,7 +44,7 @@ def main():
 #                          selection-background-color: green;}""")
     #app.setStyleSheet("QPushButton {pressed-color: red }")
     app.setStyleSheet(styles.QLiSPTheme_Dark)
-    ui = CueDlg(path.abspath(path.join(path.dirname(__file__))) + '/Scrooge Moves.xml')
+    ui = CueDlg()
     ui.resize(900,800)
     ui.disptext()
     ui.setfirstcue(1)  # slaves should execute cue 0 as the initialization
@@ -61,7 +54,6 @@ def main():
     args = parser.parse_args()
 
     ui.show()
-    logging.info('Shutdown')
 
     sys.exit(app.exec_())
 

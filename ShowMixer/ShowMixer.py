@@ -201,7 +201,7 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     ChanStrip_MinWidth = 50
     CueFileUpdate_sig = pyqtSignal(int)
 
-    def __init__(self, cuelistfile, parent=None):
+    def __init__(self, parent=None):
         super(ChanStripMainWindow, self).__init__(parent)
         logging.info('In ChanStripMainWindow init.')
         #self.logger.info('In ChanStripMainWindow init.')
@@ -1535,7 +1535,7 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         elif msg.address == '/cue/editcomplete':
             if msg.params[0] == True:
                 self.ExternalEditComplete = True
-                self.CueFileUpdate_sig.emit()
+                self.CueFileUpdate_sig.emit(msg.params[1])
                 self.LED_ext_cue_change.toggle(False)
         elif msg.address == '/cue/quit':
             self.externalclose = True

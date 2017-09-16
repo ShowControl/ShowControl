@@ -3,6 +3,7 @@ import queue
 from time import sleep
 import re
 import threading
+import logging
 
 from PyQt5.QtCore import *
 
@@ -16,6 +17,8 @@ class receiver(QThread):
     rcvrsignal = pyqtSignal(str, name='rcvrsignaled')  # define a custom signal called 'rcvrsignal' whose name is 'rcvrsignaled'
     #def __init__(self, sck, mixer_ip, mixer_port):
     def __init__(self, sck, mixer_ip, mixer_port):
+        self.logger = logging.getLogger('CommHandlers_receiver')
+        self.logger.info('In receiver.init')
         QThread.__init__(self)
         self.mixer_ip = mixer_ip
         self.mixer_port = mixer_port
@@ -101,6 +104,8 @@ class cmd_receiver(QThread):
     def __init__(self, sck):
         """..."""
         QThread.__init__(self)
+        self.logger = logging.getLogger('CommHandlers_cmd_receiver')
+        self.logger.info('In cmd_receiver.init')
         self.threadshouldstop = False
         self.rcvsndqueue = queue.Queue()
         self.sck = sck

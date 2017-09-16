@@ -10,8 +10,11 @@ class Show():
         '''
         Constructor
         '''
-        logging.info('In Show.py')
+        self.logger = logging.getLogger('Show')
+        self.logger.info('In Show.init')
+        self.logger.debug('debug in Show.init')
         self.cfgdict = cfgdict
+        self.logger.debug('cfgdict: {}'.format(cfgdict))
         self.show_confpath = self.cfgdict['configuration']['project']['folder'] + '/'
         self.show_conf = ShowConf(self.cfgdict)
         # todo mac - hardwired to look only at href1
@@ -33,6 +36,8 @@ class Show():
             :param sho_configpath: path to new ShowConf.xml
             :return:
         '''
+        self.logger.info('In Show.loadNewShow')
+
         # -------------------begin: Old stuff
         # print(cfgdict)
         # self.show_confpath, showfile = path.split(newpath)
@@ -49,11 +54,13 @@ class Show():
         # self.displayShow()
         # -------------------end: Old stuff
         self.cfgdict = cfgdict
+        self.logger.debug('cfgdict: {}'.format(cfgdict))
         self.show_confpath = self.cfgdict['configuration']['project']['folder'] + '/'
         self.show_conf = ShowConf(self.cfgdict)
         self.cues = CueList(self.show_confpath + self.show_conf.settings['project']['cues'])
         self.cues.currentcueindex = 0
         self.cues.previouscueindex = 0
+
         self.displayShow()
 
 

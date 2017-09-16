@@ -46,16 +46,20 @@ class ShowConf:
     @author: mac
     '''
     def __init__(self, cfgdict):
-        logging.info('In ShowConf init.')
+        self.logger = logging.getLogger('ShowConf')
+        self.logger.info('In ShowConf init.')
         self.cfgdict = cfgdict
         self.settings = {}
         self.equipment = {}
         showconf_file = self.cfgdict['configuration']['project']['folder'] + '/' + self.cfgdict['configuration']['project']['file']
+        self.logger.info(showconf_file)
         tree = ET.parse(showconf_file)
         self.doc = tree.getroot()
         # print(doc)
         self.projecttodict()
+        self.logger.info('settings dictionary: {}'.format(self.settings))
         self.equiptodict()
+        self.logger.info('equipment dictionary: {}'.format(self.equipment))
         # #Get mixer chan to actor/char map file name
         # mxrmap = self.doc.find('mixermap')
         # attribs = mxrmap.attrib

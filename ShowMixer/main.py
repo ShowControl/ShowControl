@@ -21,24 +21,22 @@ from PyQt5.QtGui import QColor, QBrush, QPalette, QPainter, QPen, QPixmap
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 
+from ShowControl.utils import styles
+# from ShowControl.utils.ShowControlConfig import configuration, CFG_DIR, CFG_PATH, LOG_DIR
+# from ShowControl.utils.Show import Show
+# from ShowControl.utils.ShowConf import ShowConf
+# from ShowControl.utils.Cues import CueList
+# from ShowControl.utils.Cues import cue_types, cue_subelements, cue_edit_sizes, cue_subelements_tooltips, header, cue_fields
+# import ShowControl.utils.CommHandlers
 
-from ShowControl.utils.ShowControlConfig import configuration, CFG_DIR, CFG_PATH, LOG_DIR
-from ShowControl.utils.Show import Show
-from ShowControl.utils.ShowConf import ShowConf
-from ShowControl.utils.Cues import CueList
-from ShowControl.utils.Cues import cue_types, cue_subelements, cue_edit_sizes, cue_subelements_tooltips, header, cue_fields
-import ShowControl.utils.CommHandlers
-
-from ShowMixer import styles
+#from ShowMixer import styles
 from ShowMixer.ShowMixer import ChanStripMainWindow
 from ShowMixer.ShowMixer import ShowMxr
 
-
-
 def main():
-    logging.basicConfig(level=logging.INFO,
-                        filename=LOG_DIR + '/ShowMixer.log', filemode='w',
-                        format='%(name)s %(levelname)s %(message)s')
+    # logging.basicConfig(level=logging.INFO,
+    #                     filename=LOG_DIR + '/ShowMixer.log', filemode='w',
+    #                     format='%(name)s %(levelname)s %(message)s')
     logging.info('Begin')
     app = QtWidgets.QApplication(sys.argv)
     app.setStyleSheet(styles.QLiSPTheme_Dark)
@@ -55,7 +53,6 @@ def main():
     ui.set_scribble(firstuuid)
     ui.execute_cue_uuid(firstuuid)
     ui.show()
-    logging.info('Shutdown')
     sys.exit(app.exec_())
 
 if __name__ == "__main__":

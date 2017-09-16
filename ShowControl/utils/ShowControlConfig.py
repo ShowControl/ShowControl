@@ -36,12 +36,17 @@ LOG_DIR = HOME + '/.log/ShowControl'
 
 class configuration():
     def __init__(self):
+        self.logger = logging.getLogger('Show')
+        self.logger.info('In configuration.init')
+        self.logger.info('message from configuration')
         self.settings = {}
         tree = ET.parse(CFG_PATH)
         self.doc = tree.getroot()
-        logging.info(ET.tostring(self.doc))
-        print('Root tag: {0}'.format(self.doc.tag))
-        print('{0} attribs: {1}'.format(self.doc.tag, self.doc.attrib))
+        self.logger.debug(ET.tostring(self.doc))
+        #print('Root tag: {0}'.format(self.doc.tag))
+        #print('{0} attribs: {1}'.format(self.doc.tag, self.doc.attrib))
+        self.logger.debug('Root tag: {0}'.format(self.doc.tag))
+        self.logger.debug('{0} attribs: {1}'.format(self.doc.tag, self.doc.attrib))
         self.cfgdict = self.toDict()
         return
 
@@ -140,6 +145,7 @@ class configuration():
         in the file specified by filename"""
         newdoctree = ET.ElementTree(newconfig)
         if filename == '':
+            self.logger.debug('Configuration not saved, no filename provided!')
             msgBox = QtWidgets.QMessageBox()
             msgBox.setText('Configuration not saved, no filename provided!')
             msgBox.exec_()
@@ -150,8 +156,10 @@ class configuration():
             while path.isfile(oldroot + '-{0}'.format(rev) + extension):
                 rev += 1
             newdoctree.write(oldroot + '-{0}'.format(rev) + extension)
+            self.logger.debug('Configuration written to: ' + oldroot + '-{0}'.format(rev) + extension)
         else:
             newdoctree.write(filename)
+            self.logging.debug('Configuration written to: ' + filename)
 
         return
 

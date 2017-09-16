@@ -3,20 +3,20 @@
   <component name="ChangeListManager">
     <list id="fd382f95-2c49-4489-aeda-508b5e741027" name="soundplayer" comment="Trying to get player ignored on my system" />
     <list default="true" id="95f4ee2b-56f1-467f-bb66-46001cf99115" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../TestShow" afterPath="$PROJECT_DIR$/../TestShow" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../CueEngine/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../CueEngine/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../CueEngine/CueEngine.py" afterPath="$PROJECT_DIR$/../CueEngine/CueEngine.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../CueEngine/CueEngine_rsrc.qrc" afterPath="$PROJECT_DIR$/../CueEngine/CueEngine_rsrc.qrc" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../CueEngine/CueEngine_rsrc_rc.py" afterPath="$PROJECT_DIR$/../CueEngine/CueEngine_rsrc_rc.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../MixerMaker/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../MixerMaker/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../CueEngine/main.py" afterPath="$PROJECT_DIR$/../CueEngine/main.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../MuteMap/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../MuteMap/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../MuteMap/MuteMap.py" afterPath="$PROJECT_DIR$/../MuteMap/MuteMap.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../MuteMap/MuteMap.ui" afterPath="$PROJECT_DIR$/../MuteMap/MuteMap.ui" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../MuteMap/MuteMap_ui.py" afterPath="$PROJECT_DIR$/../MuteMap/MuteMap_ui.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/utils/CommHandlers.py" afterPath="$PROJECT_DIR$/utils/CommHandlers.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/utils/Show.py" afterPath="$PROJECT_DIR$/utils/Show.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/utils/ShowConf.py" afterPath="$PROJECT_DIR$/utils/ShowConf.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/utils/ShowControlConfig.py" afterPath="$PROJECT_DIR$/utils/ShowControlConfig.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ShowMixer/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../ShowMixer/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ShowMixer/ShowMixer.py" afterPath="$PROJECT_DIR$/../ShowMixer/ShowMixer.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ShowMixer/main.py" afterPath="$PROJECT_DIR$/../ShowMixer/main.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../cue-engine.py" afterPath="$PROJECT_DIR$/../cue-engine.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../show-mixer.py" afterPath="$PROJECT_DIR$/../show-mixer.py" />
     </list>
     <ignored path="ShowControl.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -35,10 +35,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Cues.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Cues.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/utils/Cues.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="781">
+            <state relative-caret-position="6902">
               <caret line="411" column="0" lean-forward="false" selection-start-line="411" selection-start-column="0" selection-end-line="411" selection-end-column="0" />
               <folding>
                 <marker date="1503750734393" expanded="true" signature="17649:17750" ph="..." />
@@ -60,8 +60,8 @@
       <file leaf-file-name="Show.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/utils/Show.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="918">
-              <caret line="54" column="13" lean-forward="false" selection-start-line="54" selection-start-column="13" selection-end-line="54" selection-end-column="13" />
+            <state relative-caret-position="238">
+              <caret line="14" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
               </folding>
@@ -72,31 +72,10 @@
       <file leaf-file-name="ShowControlConfig.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/utils/ShowControlConfig.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="578">
-              <caret line="34" column="0" lean-forward="false" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+            <state relative-caret-position="492">
+              <caret line="161" column="70" lean-forward="false" selection-start-line="161" selection-start-column="70" selection-end-line="161" selection-end-column="70" />
               <folding>
                 <element signature="e#134#143#0" expanded="true" />
-                <marker date="1504095785036" expanded="true" signature="795:5835" ph="..." />
-                <marker date="1504095785036" expanded="true" signature="819:1134" ph="..." />
-                <marker date="1504095785036" expanded="true" signature="1157:4068" ph="..." />
-                <marker date="1504095785036" expanded="true" signature="1458:1551" ph="..." />
-                <marker date="1504095785036" expanded="true" signature="1896:1973" ph="..." />
-                <marker date="1504095785036" expanded="true" signature="2140:2209" ph="..." />
-                <marker date="1504095785036" expanded="true" signature="2519:2596" ph="..." />
-                <marker date="1504095785036" expanded="true" signature="2762:2831" ph="..." />
-                <marker date="1504095785036" expanded="true" signature="3147:3252" ph="..." />
-                <marker date="1504095785036" expanded="true" signature="3445:4010" ph="..." />
-                <marker date="1504095785036" expanded="true" signature="4099:4806" ph="..." />
-                <marker date="1504095785036" expanded="true" signature="4176:4784" ph="..." />
-                <marker date="1504095785036" expanded="true" signature="4324:4447" ph="..." />
-                <marker date="1504095785036" expanded="true" signature="4465:4784" ph="..." />
-                <marker date="1504095785036" expanded="true" signature="4549:4784" ph="..." />
-                <marker date="1504095785036" expanded="true" signature="4868:5744" ph="..." />
-                <marker date="1504095785036" expanded="true" signature="4877:5170" ph="&quot;&quot;&quot;...&quot;&quot;&quot;" />
-                <marker date="1504095785036" expanded="true" signature="5244:5412" ph="..." />
-                <marker date="1504095785036" expanded="true" signature="5449:5675" ph="..." />
-                <marker date="1504095785036" expanded="true" signature="5767:5835" ph="..." />
-                <marker date="1504095785036" expanded="true" signature="6141:6216" ph="..." />
               </folding>
             </state>
           </provider>
@@ -118,8 +97,8 @@
       <file leaf-file-name="CommHandlers.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/utils/CommHandlers.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1394">
-              <caret line="82" column="29" lean-forward="false" selection-start-line="82" selection-start-column="29" selection-end-line="82" selection-end-column="29" />
+            <state relative-caret-position="493">
+              <caret line="107" column="46" lean-forward="false" selection-start-line="107" selection-start-column="46" selection-end-line="107" selection-end-column="46" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
@@ -127,11 +106,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ShowConf.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ShowConf.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/utils/ShowConf.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3451">
-              <caret line="207" column="0" lean-forward="false" selection-start-line="207" selection-start-column="0" selection-end-line="207" selection-end-column="0" />
+            <state relative-caret-position="629">
+              <caret line="61" column="19" lean-forward="false" selection-start-line="61" selection-start-column="19" selection-end-line="61" selection-end-column="19" />
               <folding>
                 <element signature="e#134#143#0" expanded="true" />
               </folding>
@@ -186,14 +165,14 @@
         <option value="$PROJECT_DIR$/utils/SCLog.py" />
         <option value="$PROJECT_DIR$/utils/ShowConf.log" />
         <option value="$PROJECT_DIR$/utils/Show.py" />
-        <option value="$PROJECT_DIR$/utils/ShowConf.py" />
         <option value="$PROJECT_DIR$/utils/Cues.py" />
-        <option value="$PROJECT_DIR$/utils/CommHandlers.py" />
         <option value="$PROJECT_DIR$/utils/ShowControlConfig.py" />
+        <option value="$PROJECT_DIR$/utils/CommHandlers.py" />
+        <option value="$PROJECT_DIR$/utils/ShowConf.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
+  <component name="ProjectFrameBounds">
     <option name="x" value="48" />
     <option name="y" value="44" />
     <option name="width" value="1821" />
@@ -217,9 +196,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="ProjectPane" />
       <pane id="Scratches" />
       <pane id="Scope" />
+      <pane id="ProjectPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -502,8 +481,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="48" y="44" width="1821" height="1007" extended-state="1" />
-    <editor active="true" />
+    <frame x="48" y="44" width="1821" height="1007" extended-state="0" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25728422" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32891566" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -588,12 +566,12 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/utils/Show.py</url>
-          <line>46</line>
+          <line>51</line>
           <option name="timeStamp" value="44" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/utils/Show.py</url>
-          <line>34</line>
+          <line>37</line>
           <option name="timeStamp" value="60" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -644,12 +622,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/utils/CommHandlers.py</url>
-          <line>34</line>
+          <line>37</line>
           <option name="timeStamp" value="119" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/utils/ShowControlConfig.py</url>
-          <line>170</line>
+          <line>178</line>
           <option name="timeStamp" value="124" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -657,11 +635,16 @@
           <line>411</line>
           <option name="timeStamp" value="132" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/utils/Cues.py</url>
+          <line>117</line>
+          <option name="timeStamp" value="133" />
+        </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="133" />
+      <option name="time" value="134" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -981,16 +964,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/utils/Show.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="918">
-          <caret line="54" column="13" lean-forward="false" selection-start-line="54" selection-start-column="13" selection-end-line="54" selection-end-column="13" />
-          <folding>
-            <element signature="e#0#14#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/lib/python3.5/xml/etree/ElementTree.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
@@ -1006,10 +979,40 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/utils/Cues.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6902">
+          <caret line="411" column="0" lean-forward="false" selection-start-line="411" selection-start-column="0" selection-end-line="411" selection-end-column="0" />
+          <folding>
+            <marker date="1503750734393" expanded="true" signature="17649:17750" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/Show.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/ShowControlConfig.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="492">
+          <caret line="161" column="70" lean-forward="false" selection-start-line="161" selection-start-column="70" selection-end-line="161" selection-end-column="70" />
+          <folding>
+            <element signature="e#134#143#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/utils/CommHandlers.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1394">
-          <caret line="82" column="29" lean-forward="false" selection-start-line="82" selection-start-column="29" selection-end-line="82" selection-end-column="29" />
+        <state relative-caret-position="493">
+          <caret line="107" column="46" lean-forward="false" selection-start-line="107" selection-start-column="46" selection-end-line="107" selection-end-column="46" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>
@@ -1018,51 +1021,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/utils/ShowConf.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3451">
-          <caret line="207" column="0" lean-forward="false" selection-start-line="207" selection-start-column="0" selection-end-line="207" selection-end-column="0" />
+        <state relative-caret-position="629">
+          <caret line="61" column="19" lean-forward="false" selection-start-line="61" selection-start-column="19" selection-end-line="61" selection-end-column="19" />
           <folding>
             <element signature="e#134#143#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/utils/ShowControlConfig.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="578">
-          <caret line="34" column="0" lean-forward="false" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
-          <folding>
-            <element signature="e#134#143#0" expanded="true" />
-            <marker date="1504095785036" expanded="true" signature="795:5835" ph="..." />
-            <marker date="1504095785036" expanded="true" signature="819:1134" ph="..." />
-            <marker date="1504095785036" expanded="true" signature="1157:4068" ph="..." />
-            <marker date="1504095785036" expanded="true" signature="1458:1551" ph="..." />
-            <marker date="1504095785036" expanded="true" signature="1896:1973" ph="..." />
-            <marker date="1504095785036" expanded="true" signature="2140:2209" ph="..." />
-            <marker date="1504095785036" expanded="true" signature="2519:2596" ph="..." />
-            <marker date="1504095785036" expanded="true" signature="2762:2831" ph="..." />
-            <marker date="1504095785036" expanded="true" signature="3147:3252" ph="..." />
-            <marker date="1504095785036" expanded="true" signature="3445:4010" ph="..." />
-            <marker date="1504095785036" expanded="true" signature="4099:4806" ph="..." />
-            <marker date="1504095785036" expanded="true" signature="4176:4784" ph="..." />
-            <marker date="1504095785036" expanded="true" signature="4324:4447" ph="..." />
-            <marker date="1504095785036" expanded="true" signature="4465:4784" ph="..." />
-            <marker date="1504095785036" expanded="true" signature="4549:4784" ph="..." />
-            <marker date="1504095785036" expanded="true" signature="4868:5744" ph="..." />
-            <marker date="1504095785036" expanded="true" signature="4877:5170" ph="&quot;&quot;&quot;...&quot;&quot;&quot;" />
-            <marker date="1504095785036" expanded="true" signature="5244:5412" ph="..." />
-            <marker date="1504095785036" expanded="true" signature="5449:5675" ph="..." />
-            <marker date="1504095785036" expanded="true" signature="5767:5835" ph="..." />
-            <marker date="1504095785036" expanded="true" signature="6141:6216" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/utils/Cues.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="781">
-          <caret line="411" column="0" lean-forward="false" selection-start-line="411" selection-start-column="0" selection-end-line="411" selection-end-column="0" />
-          <folding>
-            <marker date="1503750734393" expanded="true" signature="17649:17750" ph="..." />
           </folding>
         </state>
       </provider>

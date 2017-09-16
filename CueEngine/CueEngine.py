@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 __author__ = 'mac'
+__appmod__ = 'CueEngine'
 
 import os, sys, inspect, subprocess
 import types
@@ -23,7 +24,8 @@ import xml.etree.ElementTree as ET
 from os import path
 
 import logging
-
+LOG_NAME = 'CE_logger'
+module_logger = logging.getLogger('CE_logger')
 _translate = QtCore.QCoreApplication.translate
 
 from rtmidi.midiconstants import CONTROL_CHANGE, NOTE_ON
@@ -33,6 +35,7 @@ RtMidiIn_client_re = re.compile('.*RtMidi input')
 
 currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 print(currentdir)
+module_logger.info('test if module_logger is instantiated')
 syblingdir =  os.path.dirname(currentdir) + '/ShowControl/utils'
 print(syblingdir)
 parentdir = os.path.dirname(currentdir)
@@ -47,8 +50,10 @@ from ShowControl.utils.Show import Show
 from ShowControl.utils import CommHandlers
 from ShowControl.utils.Cues import cue_types, cue_subelements, cue_edit_sizes, cue_subelements_tooltips, header, cue_fields
 
+
 from CueEngine.CueEngine_ui import Ui_MainWindow
 from CueEngine.CueEdit_alt_ui import Ui_dlgEditCue
+import CueEngine.CueEngine_rsrc_rc
 
 from pythonosc import osc_message
 from pythonosc import osc_message_builder
@@ -202,7 +207,7 @@ class LED(QLabel):
 class CueDlg(QtWidgets.QMainWindow, Ui_MainWindow):
 
     CueFileUpdate_sig = pyqtSignal()
-    def __init__(self, cuelistfile, parent=None):
+    def __init__(self, parent=None):
         super(CueDlg, self).__init__(parent)
         QtGui.QIcon.setThemeSearchPaths(styles.QLiSPIconsThemePaths)
         QtGui.QIcon.setThemeName(styles.QLiSPIconsThemeName)
@@ -390,7 +395,7 @@ class CueDlg(QtWidgets.QMainWindow, Ui_MainWindow):
             before_target_index = 0
             target_index = 0
             #The_Show.cues.currentcueindex = 0
-        logging.info('Cue before target: ' + str(before_target_index) + '   Target cue: ' + str(target_index))
+            logging.info('Cue before target: ' + str(before_target_index) + '   Target cue: ' + str(target_index))
 
         if before_target_index == 0 and target_index == 0:
             The_Show.cues.currentcueindex = target_index
