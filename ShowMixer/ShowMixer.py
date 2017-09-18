@@ -43,7 +43,7 @@ print(parentdir)
 sys.path.insert(0,syblingdir)
 print(sys.path)
 
-
+from ShowControl.utils import styles
 # import ShowControl/utils
 # from SCLog import SCLog
 from Show import Show
@@ -59,7 +59,6 @@ from ShowMixer.ui_ShowMixer import Ui_MainWindow
 from ShowMixer.ui_preferences import Ui_Preferences
 
 
-from ShowMixer import styles
 from ShowMixer import ShowMixer_rsrc_rc
 cfg = configuration()
 

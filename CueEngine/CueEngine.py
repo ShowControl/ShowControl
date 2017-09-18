@@ -49,7 +49,7 @@ from ShowControl.utils.Show import Show
 #from ShowControlConfig import configuration, CFG_DIR, CFG_PATH, LOG_DIR
 from ShowControl.utils import CommHandlers
 from ShowControl.utils.Cues import cue_types, cue_subelements, cue_edit_sizes, cue_subelements_tooltips, header, cue_fields
-
+from ShowControl.utils import styles
 
 from CueEngine.CueEngine_ui import Ui_MainWindow
 from CueEngine.CueEdit_alt_ui import Ui_dlgEditCue
@@ -65,19 +65,13 @@ class CommAddresses:
         self.IP = IP
         self.PORT = PORT
 
-# CUE_IP = "127.0.0.1"
-# CUE_PORT = 5005
-INMSG_IP = "127.0.0.1"
-INMSG_PORT = 5006
 
-from CueEngine import styles
-
-#cfgdict = cfg.toDict()
+# INMSG_IP = "127.0.0.1"
+# INMSG_PORT = 5006
 
 cfg = configuration()
 The_Show = Show(cfg.cfgdict)
 The_Show.displayShow()
-
 
 class cueTypeDispatcher():
     def __init__(self):
