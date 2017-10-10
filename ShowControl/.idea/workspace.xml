@@ -2,15 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list id="fd382f95-2c49-4489-aeda-508b5e741027" name="soundplayer" comment="Trying to get player ignored on my system" />
-    <list default="true" id="95f4ee2b-56f1-467f-bb66-46001cf99115" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../.idea/ShowControl.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../.idea/modules.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../.idea/vcs.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../CharMap/CharMap.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../CharMap/__init__.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../CharMap/main.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../char-map.py" />
-    </list>
+    <list default="true" id="95f4ee2b-56f1-467f-bb66-46001cf99115" name="Default" comment="" />
     <ignored path="ShowControl.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -190,8 +182,8 @@
     </navigator>
     <panes>
       <pane id="Scratches" />
-      <pane id="ProjectPane" />
       <pane id="Scope" />
+      <pane id="ProjectPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
