@@ -97,6 +97,12 @@ class ShowConf:
         except AttributeError:
             self.settings['mixermap'] = None
 
+        # find charmap file
+        try:
+            self.settings['charmap'] = self.doc.find('.project/charmap').get('href')
+        except AttributeError:
+            self.settings['charmap'] = None
+
         # find cue files
         cues_elements = self.doc.findall('./project/cues')
         cues_dict = {}

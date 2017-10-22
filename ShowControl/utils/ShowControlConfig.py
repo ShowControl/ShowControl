@@ -9,6 +9,7 @@ contains information defining the show
 import os
 import sys
 import inspect
+import shutil
 from os import path
 import logging
 
@@ -132,7 +133,13 @@ class configuration():
                 for child in children:
                     print('child: {0}, childval: {1}'.format(child, children[child]))
                     secondlevel = ET.SubElement(firstlevelel, child)
-                    secondlevel.text = children[child]
+                    child_item = children[child]
+                    if type(child_item) is dict:
+                        for item in child_item:
+                            thirdlevel = ET.SubElement(secondlevel, item)
+                            thirdlevel.text = child_item[item]
+                    else:
+                        secondlevel.text = children[child]
                     pass
         return newdoc
 
@@ -155,11 +162,15 @@ class configuration():
             oldroot, extension = path.splitext(filename)
             while path.isfile(oldroot + '-{0}'.format(rev) + extension):
                 rev += 1
-            newdoctree.write(oldroot + '-{0}'.format(rev) + extension)
+            shutil.copyfile(filename, oldroot + '-{0}'.format(rev) + extension)
+
+            # newdoctree.write(oldroot + '-{0}'.format(rev) + extension)
             self.logger.debug('Configuration written to: ' + oldroot + '-{0}'.format(rev) + extension)
-        else:
-            newdoctree.write(filename)
-            self.logging.debug('Configuration written to: ' + filename)
+        # else:
+        #     newdoctree.write(filename)
+        #     self.logging.debug('Configuration written to: ' + filename)
+        newdoctree.write(filename, xml_declaration=True)
+        self.logger.debug('Configuration written to: ' + filename)
 
         return
 

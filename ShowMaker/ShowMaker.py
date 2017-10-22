@@ -40,6 +40,7 @@ print(sys.path)
 
 from ShowControl.utils.ShowControlConfig import configuration, CFG_DIR, CFG_PATH
 from ShowControl.utils.Show import Show
+from ShowControl.utils.Char import Char
 from ShowControl.utils.Cues import cue_types, cue_subelements, cue_edit_sizes, cue_subelements_tooltips, header, cue_fields
 from ShowControl.utils import styles
 from ShowMixer.MixerConf import MixerConf
@@ -53,16 +54,18 @@ parser = argparse.ArgumentParser()
 # args = parser.parse_args()
 #
 
-cfg = configuration()
+
 module_logger.info('module log from ShowMaker.py')
-The_Show = Show(cfg.cfgdict)
 
 class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
 
     def __init__(self, parent=None):
         super(ShowMakerWin, self).__init__(parent)
         logging.info('in ShowMakerWin.__init__')
-
+        self.cfg = None
+        self.load_cfg()
+        self.The_Show = None
+        self.load_show()
         self.setupUi(self)
         self.tablist = []
         self.tablistvertlayout = []
@@ -78,13 +81,10 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
         # create a tableview for the cast tab
         tableView = QtWidgets.QTableView(self.tablist[idx])
         tableView.setObjectName("table_cast")
-        self.chrchnmap = MixerCharMap(The_Show.show_confpath + The_Show.show_conf.settings['mixermap'])
+        self.chrchnmap = MixerCharMap(self.The_Show.show_confpath + self.The_Show.show_conf.settings['mixermap'])
+        self.char = None
         self.cast_data = []
         self.cast_header = []
-        # self.init_cast_data()
-        # self.castmodel = CastTableModel(self.cast_data, self.cast_header, self)
-        # tableView.setModel(self.castmodel)
-        # tableView.resizeColumnsToContents()
         self.verticalLayout.addWidget(tableView)
         self.gridLayout_3.addLayout(self.verticalLayout, 0, 0, 1, 1)
         self.tabWidget.insertTab(idx, self.tablist[idx], 'Characters/Cast')
@@ -99,17 +99,28 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
         # create a tableview for the Stage State
         tableView = TableView(self.tablist[idx])
         tableView.setObjectName("table_stage")
+        # the following two lines turn the text in the horizontal header vertical
+        # but, the paint routine doesnt handle the newline
+        # so until I get around to fixing that I commented them out
+        # headerView = MyHeaderView()
+        # tableView.setHorizontalHeader(headerView)
         self.stagestat_data = []
         self.stagestat_header = []
         self.verticalLayout_4.addWidget(tableView)
         self.gridLayout_4.addLayout(self.verticalLayout_4, 0, 0, 1, 1)
         self.tabWidget.insertTab(idx, self.tablist[idx], 'Stage State')
         self.load_project()
-        self.lineEdit_projectpath.setText(cfg.cfgdict['configuration']['project']['folder'])
-        self.lineEdit_projectname.setText(The_Show.show_conf.settings['title'])
-        self.lineEdit_projectcuefile.setText(The_Show.show_conf.settings['cues']['href1'])
+        self.pushButtonselectfolder.clicked.connect(self.select_new_path_clicked)
+
         self.action_Exit.triggered.connect(self.close)
         self.action_OpenShow.triggered.connect(self.openProjectFolder)
+        self.action_NewShow.triggered.connect(self.new_project)
+
+    def load_cfg(self):
+        self.cfg = configuration()
+
+    def load_show(self):
+        self.The_Show = Show(self.cfg.cfgdict)
 
     def load_project(self):
         self.init_cast_data()
@@ -122,48 +133,55 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
         stage_table = self.tablist[1].findChild(QtWidgets.QTableView, name='table_stage')
         stage_table.setModel(stagemodel)
         stage_table.resizeColumnsToContents()
+        self.lineEdit_projectname.setText(self.The_Show.show_conf.settings['title'])
+        self.lineEdit_projectcuefile.setText(self.The_Show.show_conf.settings['cues']['href1'])
+        self.lineEdit_projectpath.setText(self.cfg.cfgdict['configuration']['project']['folder'])
         return
 
     def init_cast_data(self):
         self.cast_header = ['Character', 'Actor', 'Understudy']
-        input_element_list = self.chrchnmap.getmixermapinputs('f40e83e1-f69f-4fd7-bd22-5baae2d1fd07')
-        for in_el in input_element_list:
+        self.char = Char()
+        self.char.setup_cast(self.The_Show.show_confpath + self.The_Show.show_conf.settings['charmap'])
+        self.char.chars_to_list_of_tuples()
+        for chrnam in self.char.char_list:
             try:
-                char = in_el.get('char')
+                char = chrnam[1]
                 print(char)
             except:
                 print('no char')
             try:
-                actor = in_el.get('actor')
+                actor = chrnam[2]
             except:
                 print('no actor')
             self.cast_data.append([char,actor])
+
         return
 
     def init_stagestat_data(self):
         self.stagestat_header = ['Page', 'Act', 'Scene', 'Line']
-        input_element_list = self.chrchnmap.getmixermapinputs('f40e83e1-f69f-4fd7-bd22-5baae2d1fd07')
-
-        for in_el in input_element_list:
+        for chrnam in self.char.char_list:
             try:
-                char = in_el.get('char')
+                char = chrnam[1]
+                print(char)
             except:
                 print('no char')
             try:
-                actor = in_el.get('actor')
+                actor = chrnam[2]
             except:
                 print('no actor')
             self.stagestat_header.extend([char + '\n' + actor])
-            # for each character/actor add a column to the header
-        # for now phony first 7 columns
+        self.stagestat_data = []
         for row in range(0, 6):
             cols = list(range(1, 5))
-            for in_el in input_element_list:
+            for chrnam in self.char.char_list:
                 stage_stat = StageState(StageState.OffStage)
                 cols.extend([stage_stat])
             self.stagestat_data.append(cols)
+
         return
 
+    def select_new_path_clicked(self):
+        print('New path')
 
     def closeEvent(self, event):
         """..."""
@@ -198,6 +216,9 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
         fdlg = QtWidgets.QFileDialog()
         # fname = fdlg.getOpenFileName(self, 'Open file', '/home')
         fdlg.setFilter(QDir.Hidden | QDir.Dirs | QDir.Files)
+        fdlg.setFileMode(QFileDialog.ExistingFile)
+        fdlg.setNameFilters(["Project files (*.xml)"])
+        fdlg.setDirectory(self.The_Show.show_confpath)
         if (fdlg.exec()):
             fileNames = fdlg.selectedFiles()
         #fname = QtWidgets.QFileDialog.getOpenFileName(self, 'Open file', '/home')
@@ -205,7 +226,37 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
         if len(fileNames) != 0:
             logging.info('Files selected in openProjectFolder: {}'.format(fileNames))
             self.conffile = fileNames[0]
+            openproj = os.path.split(self.conffile)
+            self.cfg.cfgdict['configuration']['project']['folder'] = openproj[0]
+            self.cfg.cfgdict['configuration']['project']['file'] = openproj[1]
+            newcfg_doc = self.cfg.updateFromDict()
+            self.cfg.write(newcfg_doc, True, CFG_PATH)
+            self.load_cfg()
+            self.load_show()
+            self.chrchnmap = None
+            self.cast_data = []
+            #self.chrchnmap = MixerCharMap(self.The_Show.show_confpath + self.The_Show.show_conf.settings['mixermap'])
+            self.load_project()
         print('File>Open: {0}'.format(fileNames))
+
+    def new_project(self):
+        fdlg = QtWidgets.QFileDialog()
+        fdlg.setFilter(QDir.Hidden | QDir.Dirs)
+        shows_folder = os.path.dirname(os.path.dirname(self.The_Show.show_confpath))
+        fdlg.setDirectory(shows_folder)
+        if (fdlg.exec()):
+            fileNames = fdlg.selectedFiles()
+            if fileNames:
+                if not os.path.exists(fileNames[0]):
+                    os.makedirs(fileNames[0])
+                project_name = os.path.basename(os.path.normpath(fileNames[0]))
+                self.cfg.cfgdict['configuration']['project']['folder'] = project_name
+                self.cfg.cfgdict['configuration']['project']['file'] = project_name + '_project.xml'
+                newcfg_doc = self.cfg.updateFromDict()
+                self.cfg.write(newcfg_doc, True, CFG_PATH)
+                self.load_cfg()
+
+        return
 
 class CastTableModel(QtCore.QAbstractTableModel):
     """
@@ -222,7 +273,7 @@ class CastTableModel(QtCore.QAbstractTableModel):
         self.headerdata_horz = headerdata_horz
 
     def rowCount(self, parent=QtCore.QModelIndex()):
-        print('arrayData len: {}'.format(len(self.arraydata)))
+        # print('arrayData len: {}'.format(len(self.arraydata)))
         return len(self.arraydata)
 
     def columnCount(self, parent=QtCore.QModelIndex()):
@@ -330,13 +381,14 @@ class StageTableModel(QtCore.QAbstractTableModel):
         # else:
         #     return QtCore.Qt.ItemIsEnabled
 
-    def headerData(self, sect, orientation, role):
+    def headerData(self, sect, orientation, role=QtCore.Qt.DisplayRole):
         """"""
         '''For horizontal headers, the section number corresponds to the column number.
         Similarly, for vertical headers, the section number corresponds to the row number.'''
         if orientation == QtCore.Qt.Horizontal and role == QtCore.Qt.DisplayRole:
             if sect < len(self.headerdata_horz):
-                return QtCore.QVariant(self.headerdata_horz[sect])
+                # return QtCore.QVariant(self.headerdata_horz[sect])
+                return self.headerdata_horz[sect]
             else:
                 return QtCore.QVariant('')
         elif orientation == QtCore.Qt.Vertical and role == QtCore.Qt.DisplayRole:
@@ -433,6 +485,33 @@ class StageState(object):
         painter.drawPolygon(self.starPolygon, QtCore.Qt.WindingFill)
         painter.restore()
 
+class MyHeaderView(QtWidgets.QHeaderView):
+
+    def __init__(self, parent=None):
+        super().__init__(Qt.Horizontal, parent)
+        self._font = QtGui.QFont("helvetica", 15)
+        self._metrics = QtGui.QFontMetrics(self._font)
+        self._descent = self._metrics.descent()
+        self._margin = 10
+
+    def paintSection(self, painter, rect, index):
+        # if index < 1: return
+        data = self._get_data(index)
+        painter.rotate(-90)
+        painter.setFont(self._font)
+        painter.drawText(- rect.height() + self._margin,
+                         rect.left() + (rect.width() + self._descent) / 2, data)
+
+    def sizeHint(self):
+        return QtCore.QSize(0, self._get_text_width() + 2 * self._margin)
+
+    def _get_text_width(self):
+        return max([self._metrics.width(self._get_data(i))
+                    for i in range(0, self.model().columnCount())])
+
+    def _get_data(self, index):
+        return self.model().headerData(index, self.orientation())
+
 class SelectDelegate(QtWidgets.QStyledItemDelegate):
     def paint(self, painter, option, index):
         starRating = index.data()
@@ -482,8 +561,6 @@ class SelectDelegate(QtWidgets.QStyledItemDelegate):
         else:
             super(SelectDelegate, self).setModelData(editor, model, index)
 
-
-# The_Show.displayShow()
 
 if __name__ == "__main__":
     logger_main = logging.getLogger(__name__)
