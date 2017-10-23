@@ -4,6 +4,7 @@ __author__ = 'mac'
 import argparse
 import inspect
 import os
+import shutil
 import time
 import math
 import socket
@@ -41,12 +42,15 @@ print(sys.path)
 from ShowControl.utils.ShowControlConfig import configuration, CFG_DIR, CFG_PATH
 from ShowControl.utils.Show import Show
 from ShowControl.utils.Char import Char
+from ShowControl.utils.ProjectXML import ProjectXML
 from ShowControl.utils.Cues import cue_types, cue_subelements, cue_edit_sizes, cue_subelements_tooltips, header, cue_fields
+from ShowControl.utils.Cues import CuesXML
 from ShowControl.utils import styles
 from ShowMixer.MixerConf import MixerConf
 from ShowMixer.MixerMap import MixerCharMap
 
 import ShowMaker_ui
+import NewProject_dlg_ui
 
 parser = argparse.ArgumentParser()
 # parser.add_argument("--ip", default="192.168.53.40", help="The ip of the OSC server")
@@ -56,6 +60,19 @@ parser = argparse.ArgumentParser()
 
 
 module_logger.info('module log from ShowMaker.py')
+
+class NewProject_dlg(QtWidgets.QDialog, NewProject_dlg_ui.Ui_NewProject):
+    def __init__(self, parent=None):
+        QDialog.__init__(self, parent)
+        self.setupUi(self)
+
+    def accept(self):
+        super(NewProject_dlg, self).done(99)
+        pass
+
+    def reject(self):
+        super(NewProject_dlg, self).reject()
+
 
 class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
 
@@ -240,21 +257,66 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
         print('File>Open: {0}'.format(fileNames))
 
     def new_project(self):
-        fdlg = QtWidgets.QFileDialog()
-        fdlg.setFilter(QDir.Hidden | QDir.Dirs)
         shows_folder = os.path.dirname(os.path.dirname(self.The_Show.show_confpath))
-        fdlg.setDirectory(shows_folder)
-        if (fdlg.exec()):
-            fileNames = fdlg.selectedFiles()
-            if fileNames:
-                if not os.path.exists(fileNames[0]):
-                    os.makedirs(fileNames[0])
-                project_name = os.path.basename(os.path.normpath(fileNames[0]))
-                self.cfg.cfgdict['configuration']['project']['folder'] = project_name
+
+        new_proj_dlg = NewProject_dlg()
+        new_proj_dlg.lineEdit_HomeFolder.setText(shows_folder)
+        retval = new_proj_dlg.exec()
+        if retval:  # if retval then new project was defined
+            project_name = new_proj_dlg.lineEdit_ProjectName.text()
+            project_title = new_proj_dlg.lineEdit_ProjectTitle.text()
+            project_venue = new_proj_dlg.lineEdit_ProjectVenue.text()
+            if project_name == '' or project_title == '':
+                QMessageBox.information(self.parent(), 'Invalid Project', 'Please fill all fields.',
+                                        QMessageBox.Ok)
+            else:  # build new project with specified info
+                # no white space in project name
+
+                project_folder = os.path.join(shows_folder, project_name)
+                if not os.path.exists(project_folder):
+                    os.makedirs(project_folder)
+                self.cfg.cfgdict['configuration']['project']['folder'] = os.path.join(shows_folder, project_name)
                 self.cfg.cfgdict['configuration']['project']['file'] = project_name + '_project.xml'
                 newcfg_doc = self.cfg.updateFromDict()
                 self.cfg.write(newcfg_doc, True, CFG_PATH)
                 self.load_cfg()
+                # new project fle
+                prjxml = ProjectXML()
+                prjxml_doc = prjxml.toXMLdoc(project_title, project_name, project_venue)
+                project_xml_path = os.path.join(project_folder, self.cfg.cfgdict['configuration']['project']['file'])
+                prjxml.write(prjxml_doc, False, project_xml_path)
+                prjxml = None
+                # copy venue and template files
+                venue_folder = os.path.join(shows_folder, 'Venue')
+                shutil.copy(os.path.join(venue_folder, 'Venue_equipment.xml'),
+                            os.path.join(project_folder, project_venue + '_equipment.xml'))
+                shutil.copy(os.path.join(venue_folder, 'Venue_equipment.xml'),
+                            os.path.join(project_folder, project_name + '_equipment.xml'))
+                # new cue file
+                cuesxml = CuesXML()
+                cues_doc = cuesxml.toXMLdoc()
+                cuesxml.write(cues_doc, False, os.path.join(project_folder, project_name + '_cues.xml'))
+                # new char file
+                chrxml = Char()
+                chrxml.new_char_list(shows_folder, project_name)
+                self.chrchnmap = None
+                self.cast_data = []
+                self.load_show()
+                self.load_project()
+        # fdlg = QtWidgets.QFileDialog()
+        # fdlg.setFilter(QDir.Hidden | QDir.Dirs)
+        # fdlg.setDirectory(shows_folder)
+        # if (fdlg.exec()):
+        #     fileNames = fdlg.selectedFiles()
+        #     if fileNames:
+        #         if not os.path.exists(fileNames[0]):
+        #             os.makedirs(fileNames[0])
+        #         project_name = os.path.basename(os.path.normpath(fileNames[0]))
+        #         self.cfg.cfgdict['configuration']['project']['folder'] = project_name
+        #         self.cfg.cfgdict['configuration']['project']['file'] = project_name + '_project.xml'
+        #         newcfg_doc = self.cfg.updateFromDict()
+        #         self.cfg.write(newcfg_doc, True, CFG_PATH)
+        #         self.load_cfg()
 
         return
 

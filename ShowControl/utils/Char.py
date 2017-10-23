@@ -1,6 +1,6 @@
 '''
 Created on Fri Oct 13 11:48:35 EDT 2017
-Cue object that maintains the current cue list
+Char object that maintains the current cue list
 @author: mac
 '''
 

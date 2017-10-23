@@ -23,6 +23,16 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="Cues.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../ShowControl/utils/Cues.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="166">
+              <caret line="213" column="49" lean-forward="false" selection-start-line="213" selection-start-column="40" selection-end-line="213" selection-end-column="49" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="Show.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../ShowControl/utils/Show.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -48,8 +58,8 @@
       <file leaf-file-name="CueEngine.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/CueEngine.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="18632">
-              <caret line="1096" column="30" lean-forward="false" selection-start-line="1096" selection-start-column="29" selection-end-line="1096" selection-end-column="30" />
+            <state relative-caret-position="376">
+              <caret line="659" column="50" lean-forward="false" selection-start-line="659" selection-start-column="50" selection-end-line="659" selection-end-column="50" />
               <folding>
                 <element signature="e#68#103#0" expanded="true" />
               </folding>
@@ -60,8 +70,8 @@
       <file leaf-file-name="cue-engine.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/../cue-engine.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="9" column="26" lean-forward="true" selection-start-line="9" selection-start-column="26" selection-end-line="9" selection-end-column="26" />
+            <state relative-caret-position="119">
+              <caret line="7" column="22" lean-forward="true" selection-start-line="7" selection-start-column="22" selection-end-line="7" selection-end-column="22" />
               <folding>
                 <element signature="e#23#38#0" expanded="true" />
               </folding>
@@ -84,8 +94,8 @@
       <file leaf-file-name="ShowMixer.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../ShowMixer/ShowMixer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="578">
-              <caret line="45" column="0" lean-forward="false" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
+            <state relative-caret-position="112">
+              <caret line="1405" column="43" lean-forward="true" selection-start-line="1405" selection-start-column="43" selection-end-line="1405" selection-end-column="43" />
               <folding />
             </state>
           </provider>
@@ -102,7 +112,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>sldrmove</find>
       <find>updatecuelevelstate</find>
       <find>scrollView</find>
       <find>slidervalchanged</find>
@@ -132,6 +141,7 @@
       <find>MyTable</find>
       <find>emit</find>
       <find>MyT</find>
+      <find>Cue[@num=</find>
     </findStrings>
     <replaceStrings>
       <replace>EditPrefs</replace>
@@ -167,14 +177,14 @@
         <option value="$PROJECT_DIR$/theme_dark/style.css" />
         <option value="$PROJECT_DIR$/pid_lister.py" />
         <option value="$PROJECT_DIR$/../ShowMixer/MixerMap.py" />
-        <option value="$PROJECT_DIR$/../ShowControl/utils/Cues.py" />
         <option value="$PROJECT_DIR$/__init__.py" />
         <option value="$PROJECT_DIR$/../ShowControl/utils/ShowControlConfig.py" />
         <option value="$PROJECT_DIR$/../ShowControl/utils/Show.py" />
         <option value="$PROJECT_DIR$/../cue-engine.py" />
         <option value="$PROJECT_DIR$/main.py" />
-        <option value="$PROJECT_DIR$/../ShowMixer/ShowMixer.py" />
         <option value="$PROJECT_DIR$/CueEngine.py" />
+        <option value="$PROJECT_DIR$/../ShowMixer/ShowMixer.py" />
+        <option value="$PROJECT_DIR$/../ShowControl/utils/Cues.py" />
       </list>
     </option>
   </component>
@@ -199,6 +209,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -210,8 +222,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -825,13 +835,6 @@
     </entry>
     <entry file="file:///usr/local/lib/python3.5/dist-packages/pythonosc/osc_message.py" />
     <entry file="file://$PROJECT_DIR$/theme_dark/style.css" />
-    <entry file="file://$PROJECT_DIR$/../ShowControl/utils/Cues.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6817">
-          <caret line="401" column="0" lean-forward="false" selection-start-line="398" selection-start-column="0" selection-end-line="398" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/CueEngine_ui.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2822">
@@ -901,14 +904,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../ShowMixer/ShowMixer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="578">
-          <caret line="45" column="0" lean-forward="false" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
@@ -921,18 +916,34 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/CueEngine.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18632">
-          <caret line="1096" column="30" lean-forward="false" selection-start-line="1096" selection-start-column="29" selection-end-line="1096" selection-end-column="30" />
+        <state relative-caret-position="376">
+          <caret line="659" column="50" lean-forward="false" selection-start-line="659" selection-start-column="50" selection-end-line="659" selection-end-column="50" />
           <folding>
             <element signature="e#68#103#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/../ShowControl/utils/Cues.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="166">
+          <caret line="213" column="49" lean-forward="false" selection-start-line="213" selection-start-column="40" selection-end-line="213" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../ShowMixer/ShowMixer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="112">
+          <caret line="1405" column="43" lean-forward="true" selection-start-line="1405" selection-start-column="43" selection-end-line="1405" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/../cue-engine.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="26" lean-forward="true" selection-start-line="9" selection-start-column="26" selection-end-line="9" selection-end-column="26" />
+        <state relative-caret-position="119">
+          <caret line="7" column="22" lean-forward="true" selection-start-line="7" selection-start-column="22" selection-end-line="7" selection-end-column="22" />
           <folding>
             <element signature="e#23#38#0" expanded="true" />
           </folding>
