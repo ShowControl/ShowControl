@@ -1404,7 +1404,7 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.tabledata = []
         for index in range(0, The_Show.cues.cuecount):
             cuenum = '{0:03}'.format(index)
-            q = The_Show.cues.cuelist.find(".cues/Cue[@num='"+cuenum+"']")
+            q = The_Show.cues.cuelist.find(".cues/cue[@num='"+cuenum+"']")
             type_list = q.find('CueType').text.split(',')
             for type in cue_types:
                 if type in type_list and self.CueTypeVisible[type]:

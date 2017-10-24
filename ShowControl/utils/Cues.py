@@ -137,8 +137,8 @@ class CueList():
         self.previewcueindex = 0
         self.selectedcueindex = None
         #self.cues_element = self.cuelist_root.find('cues')
-        #self.cuelist.find(".cues/Cue[@num='001']")
-        cues = self.cuelist.findall('.cues/Cue')
+        #self.cuelist.find(".cues/cue[@num='001']")
+        cues = self.cuelist.findall('.cues/cue')
         self.cuecount = len(cues)
 
     def get_cue_mute_state_by_index(self, cueindex):
@@ -154,8 +154,8 @@ class CueList():
         elif cueindex >= self.cuecount:
             logging.info('cueindex received: {}, setting to last cue.'.format(cueindex))
             cueindex = self.cuecount - 1
-        #thiscue = self.cuelist.find("./Cue[@num='" + '{0:03}'.format(cueindex) + "']")
-        thiscue = self.cuelist.find(".cues/Cue[@num='" + '{0:03}'.format(cueindex) + "']")
+        #thiscue = self.cuelist.find("./cue[@num='" + '{0:03}'.format(cueindex) + "']")
+        thiscue = self.cuelist.find(".cues/cue[@num='" + '{0:03}'.format(cueindex) + "']")
         try:
             dirty_current_mutes = thiscue.find('Mutes').text
             current_mutes = dirty_current_mutes.strip()
@@ -175,7 +175,7 @@ class CueList():
         the initial cue."""
         mutestate = {}
         #thiscue = self.cuelist.find("./Cue[@num='" + '{0:03}'.format(cueindex) + "']")
-        thiscue = self.cuelist.find(".cues/Cue[@num='" + '{0:03}'.format(cueindex) + "']")
+        thiscue = self.cuelist.find(".cues/cue[@num='" + '{0:03}'.format(cueindex) + "']")
         try:
             dirty_current_mutes = thiscue.find('Mutes').text
             current_mutes = dirty_current_mutes.strip()
@@ -186,8 +186,8 @@ class CueList():
             prevcue_index = cueindex
             while True:
                 prevcue_index -= 1
-                #prevcue = self.cuelist.find("./Cue[@num='" + '{0:03}'.format(prevcue_index) + "']")
-                prevcue = self.cuelist.find(".cues/Cue[@num='" + '{0:03}'.format(prevcue_index) + "']")
+                #prevcue = self.cuelist.find("./cue[@num='" + '{0:03}'.format(prevcue_index) + "']")
+                prevcue = self.cuelist.find(".cues/cue[@num='" + '{0:03}'.format(prevcue_index) + "']")
                 dirty_prevcue_types = prevcue.find('CueType').text
                 prevcue_types = dirty_prevcue_types.strip()
                 prevcue_types_list = prevcue_types.split(',')
@@ -211,8 +211,8 @@ class CueList():
         """Get the Level element of the cue specified by cueindex
         return a dictionary of all channel levels"""
         levelstate = {}  # todo-mac maybe should return only deltas as is done in get_cue_mute_state???
-        #thiscue = self.cuelist.find("./Cue[@num='"+'{0:03}'.format(cueindex)+"']")
-        thiscue = self.cuelist.find(".cues/Cue[@num='" + '{0:03}'.format(cueindex) + "']")
+        #thiscue = self.cuelist.find("./cue[@num='"+'{0:03}'.format(cueindex)+"']")
+        thiscue = self.cuelist.find(".cues/cue[@num='" + '{0:03}'.format(cueindex) + "']")
         #print(ET.dump(thiscue))
         try:
             levels = thiscue.find('Levels')
@@ -226,8 +226,8 @@ class CueList():
             logging.error('CueList.get_cue_levels: Levels element not found')
 
     def getcuetype(self, cueindex):
-        #thiscue = self.cuelist.find("./Cue[@num='" + '{0:03}'.format(cueindex) + "']")
-        thiscue = self.cuelist.find(".cues/Cue[@num='" + '{0:03}'.format(cueindex) + "']")
+        #thiscue = self.cuelist.find("./cue[@num='" + '{0:03}'.format(cueindex) + "']")
+        thiscue = self.cuelist.find(".cues/cue[@num='" + '{0:03}'.format(cueindex) + "']")
         try:
             cuetype = thiscue.find('CueType')
             if cuetype != None:
@@ -241,8 +241,8 @@ class CueList():
             print('Cue type for index ' + '{0:03}'.format(cueindex) + ' not found!')
 
     def get_cue_element_by_name(self, cueindex, element_name):
-        #thiscue = self.cuelist.find("./Cue[@num='" + '{0:03}'.format(cueindex) + "']")
-        thiscue = self.cuelist.find(".cues/Cue[@num='" + '{0:03}'.format(cueindex) + "']")
+        #thiscue = self.cuelist.find("./cue[@num='" + '{0:03}'.format(cueindex) + "']")
+        thiscue = self.cuelist.find(".cues/cue[@num='" + '{0:03}'.format(cueindex) + "']")
         try:
             element = thiscue.find(element_name)
             if element != None:
@@ -254,8 +254,8 @@ class CueList():
 
     def setcueelement(self, cueindex, element_text, element_name):
         # find the cue specified by cueindex
-        #thiscue = self.cuelist.find("./Cue[@num='" + '{0:03}'.format(cueindex) + "']")
-        thiscue = self.cuelist.find(".cues/Cue[@num='" + '{0:03}'.format(cueindex) + "']")
+        #thiscue = self.cuelist.find("./cue[@num='" + '{0:03}'.format(cueindex) + "']")
+        thiscue = self.cuelist.find(".cues/cue[@num='" + '{0:03}'.format(cueindex) + "']")
         try:
             cuetype = thiscue.find(element_name)
             if cuetype != None:
@@ -285,7 +285,7 @@ class CueList():
         # create an empty place by incrementing the cue num for this and each subsequent cue
         for anidx in reversed(range(cueindex, self.cuecount)):
             cuenum = '{0:03}'.format(anidx)
-            thiscue = self.cuelist.find(".cues/Cue[@num='"+cuenum+"']")
+            thiscue = self.cuelist.find(".cues/cue[@num='"+cuenum+"']")
             thisidx = thiscue.get('num')
             thiscue.set('num', '{0:03}'.format(int(thisidx) + 1))
             print(thiscue.get('num'))
@@ -306,7 +306,7 @@ class CueList():
         and re-index the list'''
         # find the cue
         cuenum = '{0:03}'.format(cueindex)
-        thiscue = self.cuelist.find(".cues/Cue[@num='" + cuenum + "']")
+        thiscue = self.cuelist.find(".cues/cue[@num='" + cuenum + "']")
         # delete the cue from the tree
         self.cuelist_root.remove(thiscue)
         cues = self.cuelist.findall('Cue')
@@ -314,7 +314,7 @@ class CueList():
         print('cuecount: {}'.format(self.cuecount))
         for anidx in range(cueindex + 1, self.cuecount + 1):
             cuenum = '{0:03}'.format(anidx)
-            thiscue = self.cuelist.find(".cues/Cue[@num='"+cuenum+"']")
+            thiscue = self.cuelist.find(".cues/cue[@num='"+cuenum+"']")
             thisidx = thiscue.get('num')
             thiscue.set('num', '{0:03}'.format(int(anidx) - 1))
         cues = self.cuelist.findall('Cue')
@@ -322,7 +322,7 @@ class CueList():
 
     def getcuelist(self, cueindex):
         cuenum = '{0:03}'.format(cueindex)
-        thiscue = self.cuelist.find(".cues/Cue[@num='"+cuenum+"']")
+        thiscue = self.cuelist.find(".cues/cue[@num='"+cuenum+"']")
         cuecontents_list = []  # [thiscue.attrib['num']]
         for i in range(cue_subelements.__len__()):
             cuecontents_list.append(thiscue.find(cue_subelements[i].replace('_','')).text)
@@ -330,26 +330,26 @@ class CueList():
 
     def getcurrentcueuuid(self, cueindex):
         cuenum = '{0:03}'.format(cueindex)
-        thiscue = self.cuelist.find(".cues/Cue[@num='"+cuenum+"']")
+        thiscue = self.cuelist.find(".cues/cue[@num='"+cuenum+"']")
         currentuuid = thiscue.get('uuid')
         return currentuuid
 
     def getcueindexbyuuid(self, uuid):
         #cuenum = '{0:03}'.format(cueindex)
-        thiscue = self.cuelist.find(".cues/Cue[@uuid='"+ uuid +"']")
+        thiscue = self.cuelist.find(".cues/cue[@uuid='"+ uuid +"']")
         cueindex = thiscue.get('num')
         return cueindex
 
     def updatecue(self, cueindex, newcuelist):
         cuenum = '{0:03}'.format(cueindex)
-        cuetomod = self.cuelist.find(".cues/Cue[@num='"+cuenum+"']")
+        cuetomod = self.cuelist.find(".cues/cue[@num='"+cuenum+"']")
 
         for i in range(cue_subelements.__len__()):
             cuetomod.find(cue_subelements[i].replace('_','')).text = newcuelist[i]
 
     def updatecueelement(self, cueindex, elementname, newelementvalue):
         cuenum = '{0:03}'.format(cueindex)
-        cuetomod = self.cuelist.find(".cues/Cue[@num='"+cuenum+"']")
+        cuetomod = self.cuelist.find(".cues/cue[@num='"+cuenum+"']")
         cuetomod.find(elementname).text = newelementvalue
 
     def savecuelist(self, revision=True, filename=''):
@@ -446,7 +446,7 @@ if __name__ == "__main__":
     cues = CueList('/home/mac/Shows/Fiddler/Fiddler_cuesx.xml')
     cues.getcuetype(0)
     ET.dump(cues.cuelist)
-    somecue = cues.cuelist.find(".cues/Cue[@num='000']")
+    somecue = cues.cuelist.find(".cues/cue[@num='000']")
     cue_elements = cues.cuelist.findall("./Cue")
     for index, cue in enumerate(cue_elements):
         Levels_element = cue.find('./Levels')

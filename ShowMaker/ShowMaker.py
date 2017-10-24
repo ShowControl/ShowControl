@@ -175,6 +175,20 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
         return
 
     def init_stagestat_data(self):
+        # each row will be a cue, so from *_cues.xml
+        # will use num to get:
+        # cue_uuid, cue_page, cue_act, cue_scene, cue_line for each cue
+
+        # each row will have a column for each char/actor from char_list
+        #use char_list to get char and actor
+        # char_uuid = chrnam[0]
+        # char_name = chrnam[1]
+        # char_actor = chrnam[2]
+
+        # the state of each char/actor will be from the cues in *_cuechar.xml
+        # use cue_uuid to find cue in *_cuechar.xml
+        # for each char in char_list get mute and onstage to determine StageState()
+
         self.stagestat_header = ['Page', 'Act', 'Scene', 'Line']
         for chrnam in self.char.char_list:
             try:
@@ -303,21 +317,6 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
                 self.cast_data = []
                 self.load_show()
                 self.load_project()
-        # fdlg = QtWidgets.QFileDialog()
-        # fdlg.setFilter(QDir.Hidden | QDir.Dirs)
-        # fdlg.setDirectory(shows_folder)
-        # if (fdlg.exec()):
-        #     fileNames = fdlg.selectedFiles()
-        #     if fileNames:
-        #         if not os.path.exists(fileNames[0]):
-        #             os.makedirs(fileNames[0])
-        #         project_name = os.path.basename(os.path.normpath(fileNames[0]))
-        #         self.cfg.cfgdict['configuration']['project']['folder'] = project_name
-        #         self.cfg.cfgdict['configuration']['project']['file'] = project_name + '_project.xml'
-        #         newcfg_doc = self.cfg.updateFromDict()
-        #         self.cfg.write(newcfg_doc, True, CFG_PATH)
-        #         self.load_cfg()
-
         return
 
 class CastTableModel(QtCore.QAbstractTableModel):
