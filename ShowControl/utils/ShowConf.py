@@ -111,6 +111,14 @@ class ShowConf:
             cues_files['href{0}'.format(i)] = cues_element.get('href')
         cues_dict['equipment'] = cues_files
         self.settings['cues'] = cues_files
+
+        # find cuechar file
+        try:
+            self.settings['cuechar'] = self.doc.find('.project/cuechar').get('href')
+        except AttributeError:
+            self.settings['cuechar'] = None
+
+
         return
 
 

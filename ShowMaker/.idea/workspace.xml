@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BookmarkManager">
+    <bookmark url="file://$PROJECT_DIR$/ShowMaker.py" line="211" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="7f8912d9-8011-4df2-b351-6feaf0c9da56" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -24,8 +27,8 @@
       <file leaf-file-name="show-maker.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../show-maker.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="14" lean-forward="false" selection-start-line="2" selection-start-column="14" selection-end-line="2" selection-end-column="14" />
+            <state relative-caret-position="68">
+              <caret line="4" column="36" lean-forward="true" selection-start-line="4" selection-start-column="36" selection-end-line="4" selection-end-column="36" />
               <folding>
                 <element signature="e#23#38#0" expanded="true" />
               </folding>
@@ -36,12 +39,11 @@
       <file leaf-file-name="ShowMaker.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ShowMaker.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="190" column="0" lean-forward="false" selection-start-line="190" selection-start-column="0" selection-end-line="190" selection-end-column="0" />
+            <state relative-caret-position="532">
+              <caret line="647" column="25" lean-forward="false" selection-start-line="647" selection-start-column="25" selection-end-line="647" selection-end-column="25" />
               <folding>
                 <element signature="e#43#58#0" expanded="true" />
-                <element signature="e#19915#20178#0" expanded="false" />
-                <element signature="e#20210#22594#0" expanded="false" />
+                <element signature="e#21840#22103#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -55,6 +57,18 @@
               <folding>
                 <marker date="1508767094809" expanded="true" signature="309:2552" ph="..." />
                 <marker date="1508767094809" expanded="true" signature="4226:4229" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Show.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../ShowControl/utils/Show.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="299">
+              <caret line="35" column="0" lean-forward="false" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#14#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -128,6 +142,7 @@
         <option value="/usr/lib/python3.5/xml/etree/ElementTree.py" />
         <option value="$PROJECT_DIR$/../ShowControl/utils/ShowControlConfig.py" />
         <option value="$PROJECT_DIR$/../ShowControl/utils/Cues.py" />
+        <option value="$PROJECT_DIR$/../ShowControl/utils/Show.py" />
         <option value="$PROJECT_DIR$/ShowMaker.py" />
       </list>
     </option>
@@ -153,7 +168,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -165,12 +180,12 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../ShowMixer" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../ShowControl/utils/Show.py" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -352,6 +367,7 @@
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290993" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290993" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -366,7 +382,6 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290993" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -378,24 +393,24 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/ShowMaker.py</url>
-          <line>319</line>
-          <option name="timeStamp" value="38" />
+          <line>237</line>
+          <option name="timeStamp" value="50" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/ShowMaker.py</url>
-          <line>317</line>
-          <option name="timeStamp" value="42" />
+          <line>211</line>
+          <option name="timeStamp" value="55" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/ShowMaker.py</url>
-          <line>313</line>
-          <option name="timeStamp" value="46" />
+          <line>207</line>
+          <option name="timeStamp" value="57" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="49" />
+      <option name="time" value="58" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
@@ -456,8 +471,7 @@
           <caret line="226" column="0" lean-forward="false" selection-start-line="226" selection-start-column="0" selection-end-line="226" selection-end-column="0" />
           <folding>
             <element signature="e#43#58#0" expanded="true" />
-            <element signature="e#19915#20178#0" expanded="false" />
-            <element signature="e#20210#22594#0" expanded="false" />
+            <element signature="e#21840#22103#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -519,8 +533,7 @@
           <caret line="113" column="80" lean-forward="false" selection-start-line="113" selection-start-column="80" selection-end-line="113" selection-end-column="80" />
           <folding>
             <element signature="e#43#58#0" expanded="true" />
-            <element signature="e#19915#20178#0" expanded="false" />
-            <element signature="e#20210#22594#0" expanded="false" />
+            <element signature="e#21840#22103#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -575,8 +588,7 @@
           <caret line="163" column="43" lean-forward="false" selection-start-line="163" selection-start-column="43" selection-end-line="163" selection-end-column="43" />
           <folding>
             <element signature="e#43#58#0" expanded="true" />
-            <element signature="e#19915#20178#0" expanded="false" />
-            <element signature="e#20210#22594#0" expanded="false" />
+            <element signature="e#21840#22103#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -631,8 +643,7 @@
           <caret line="78" column="40" lean-forward="false" selection-start-line="78" selection-start-column="40" selection-end-line="78" selection-end-column="40" />
           <folding>
             <element signature="e#43#58#0" expanded="true" />
-            <element signature="e#19915#20178#0" expanded="false" />
-            <element signature="e#20210#22594#0" expanded="false" />
+            <element signature="e#21840#22103#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -677,8 +688,7 @@
           <caret line="104" column="25" lean-forward="false" selection-start-line="104" selection-start-column="25" selection-end-line="104" selection-end-column="25" />
           <folding>
             <element signature="e#43#58#0" expanded="true" />
-            <element signature="e#19915#20178#0" expanded="false" />
-            <element signature="e#20210#22594#0" expanded="false" />
+            <element signature="e#21840#22103#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -716,8 +726,7 @@
           <caret line="104" column="25" lean-forward="true" selection-start-line="104" selection-start-column="25" selection-end-line="104" selection-end-column="25" />
           <folding>
             <element signature="e#43#58#0" expanded="true" />
-            <element signature="e#19915#20178#0" expanded="false" />
-            <element signature="e#20210#22594#0" expanded="false" />
+            <element signature="e#21840#22103#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -797,16 +806,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../ShowControl/utils/Show.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="265">
-          <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#14#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../ShowControl/utils/ShowConf.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="155">
@@ -836,7 +835,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="155">
           <caret line="584" column="0" lean-forward="false" selection-start-line="584" selection-start-column="0" selection-end-line="584" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -848,10 +846,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/../ShowControl/utils/Show.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="299">
+          <caret line="35" column="0" lean-forward="false" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/../show-maker.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="14" lean-forward="false" selection-start-line="2" selection-start-column="14" selection-end-line="2" selection-end-column="14" />
+        <state relative-caret-position="68">
+          <caret line="4" column="36" lean-forward="true" selection-start-line="4" selection-start-column="36" selection-end-line="4" selection-end-column="36" />
           <folding>
             <element signature="e#23#38#0" expanded="true" />
           </folding>
@@ -860,12 +868,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ShowMaker.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="190" column="0" lean-forward="false" selection-start-line="190" selection-start-column="0" selection-end-line="190" selection-end-column="0" />
+        <state relative-caret-position="532">
+          <caret line="647" column="25" lean-forward="false" selection-start-line="647" selection-start-column="25" selection-end-line="647" selection-end-column="25" />
           <folding>
             <element signature="e#43#58#0" expanded="true" />
-            <element signature="e#19915#20178#0" expanded="false" />
-            <element signature="e#20210#22594#0" expanded="false" />
+            <element signature="e#21840#22103#0" expanded="false" />
           </folding>
         </state>
       </provider>

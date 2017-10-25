@@ -175,20 +175,7 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
         return
 
     def init_stagestat_data(self):
-        # each row will be a cue, so from *_cues.xml
-        # will use num to get:
-        # cue_uuid, cue_page, cue_act, cue_scene, cue_line for each cue
-
-        # each row will have a column for each char/actor from char_list
-        #use char_list to get char and actor
-        # char_uuid = chrnam[0]
-        # char_name = chrnam[1]
-        # char_actor = chrnam[2]
-
-        # the state of each char/actor will be from the cues in *_cuechar.xml
-        # use cue_uuid to find cue in *_cuechar.xml
-        # for each char in char_list get mute and onstage to determine StageState()
-
+        # this sets up th header data, one column for every character
         self.stagestat_header = ['Page', 'Act', 'Scene', 'Line']
         for chrnam in self.char.char_list:
             try:
@@ -201,13 +188,60 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
             except:
                 print('no actor')
             self.stagestat_header.extend([char + '\n' + actor])
+        # TODO -mac need to load cuechar, probably into The_Show...
+        # each row will be a cue, so from *_cues.xml
+        # will use num to get:
+        # cue_uuid, cue_page, cue_act, cue_scene, cue_line for each cue
+        allcues = self.The_Show.cues.cuelist.findall(".cues/cue")
         self.stagestat_data = []
-        for row in range(0, 6):
-            cols = list(range(1, 5))
-            for chrnam in self.char.char_list:
-                stage_stat = StageState(StageState.OffStage)
-                cols.extend([stage_stat])
-            self.stagestat_data.append(cols)
+        for q in allcues:
+            cue_uuid = q.get('uuid')
+            cue_num = q.get('num')
+            print('q num: {}, uuid: {}'.format(cue_num, cue_uuid))
+            # fill in first columns
+            cols = []
+            cols.extend([q.find(".Page").text])
+            cols.extend([q.find(".Act").text])
+            cols.extend([q.find(".Scene").text])
+            cols.extend([q.find(".Id").text])
+            # cols = list(range(1, 5))  # offset columns by header colmumns
+            try:
+                # get the character states for this cue
+                cuechar_element = self.The_Show.cuechar.cuecharlist.find(".cues/cue[@uuid='"+ cue_uuid +"']")
+                if cuechar_element is None: raise AttributeError
+                for chr in self.char.char_list:
+                    chr_state = cuechar_element.find(".char[@uuid='"+ chr[0] +"']")
+                    stage_state = StageState.OffStage
+                    onstage_state = chr_state.find('.onstage').text
+                    if onstage_state == '1':
+                        stage_state += StageState.OnStage
+                    mute_state = chr_state.find('.mute').text
+                    if mute_state == '1':
+                        stage_state += StageState.MicOn
+                    col_state = StageState(stage_state)
+                    cols.extend([col_state])
+                self.stagestat_data.append(cols)
+            except AttributeError:
+                logging.info("cue uuid: {} not found in cuechar xml")
+
+            #self.The_Show.
+        # each row will have a column for each char/actor from char_list
+        #use char_list to get char and actor
+        # char_uuid = chrnam[0]
+        # char_name = chrnam[1]
+        # char_actor = chrnam[2]
+
+        # the state of each char/actor will be from the cues in *_cuechar.xml
+        # use cue_uuid to find cue in *_cuechar.xml
+        # for each char in char_list get mute and onstage to determine StageState()
+
+        # self.stagestat_data = []
+        # for row in range(0, 6):
+        #     cols = list(range(1, 5))
+        #     for chrnam in self.char.char_list:
+        #         stage_stat = StageState(StageState.OffStage)
+        #         cols.extend([stage_stat])
+        #     self.stagestat_data.append(cols)
 
         return
 
@@ -410,12 +444,14 @@ class StageTableModel(QtCore.QAbstractTableModel):
             if isinstance(table_item, StageState):
                 return table_item
             else:
-                return "{0:02d}".format(int(self.arraydata[index.row()][index.column()]))
+                #return "{0:02d}".format(int(self.arraydata[index.row()][index.column()]))
+                return self.arraydata[index.row()][index.column()]
         elif role == QtCore.Qt.EditRole:
             if isinstance(table_item, StageState):
                 return table_item
             else:
-                return "{0:02d}".format(int(self.arraydata[index.row()][index.column()]))
+                # return "{0:02d}".format(int(self.arraydata[index.row()][index.column()]))
+                return self.arraydata[index.row()][index.column()]
         else:
             return QVariant()
 

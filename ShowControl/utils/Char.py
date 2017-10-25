@@ -20,7 +20,7 @@ except ImportError:
 
 class Char():
     """
-    CueList object contains information defining the cues for a show
+    Char object contains character/actor list for a project
     """
     def __init__(self):
         """"""

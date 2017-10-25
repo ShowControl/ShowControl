@@ -1,6 +1,7 @@
 import logging
 from ShowControl.utils.ShowConf import ShowConf
 from ShowControl.utils.Cues import CueList
+from ShowControl.utils.CueChar import CueChar
 
 class Show():
     '''
@@ -30,6 +31,9 @@ class Show():
         self.cues.currentcueindex = 0
         self.cues.previouscueindex = 0
 #        self.cues.setcurrentcuestate(self.cues.currentcueindex)
+        cuechar_file = self.show_conf.settings['cuechar']
+        self.cuechar = CueChar(self.show_confpath + cuechar_file)
+        return
 
     def loadNewShow(self, cfgdict):
         '''
