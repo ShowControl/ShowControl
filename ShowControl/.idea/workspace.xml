@@ -3,12 +3,8 @@
   <component name="ChangeListManager">
     <list id="fd382f95-2c49-4489-aeda-508b5e741027" name="soundplayer" comment="Trying to get player ignored on my system" />
     <list default="true" id="95f4ee2b-56f1-467f-bb66-46001cf99115" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/utils/CueChar.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/utils/Update_cuesxmlfile.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../CueEngine/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../CueEngine/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/utils/Char.py" afterPath="$PROJECT_DIR$/utils/Char.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/utils/Show.py" afterPath="$PROJECT_DIR$/utils/Show.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/utils/ShowConf.py" afterPath="$PROJECT_DIR$/utils/ShowConf.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ShowMaker/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../ShowMaker/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ShowMaker/ShowMaker.py" afterPath="$PROJECT_DIR$/../ShowMaker/ShowMaker.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ShowMixer/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../ShowMixer/.idea/workspace.xml" />
@@ -33,7 +29,7 @@
       <file leaf-file-name="Cues.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/utils/Cues.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="273">
+            <state relative-caret-position="5746">
               <caret line="338" column="67" lean-forward="false" selection-start-line="338" selection-start-column="36" selection-end-line="338" selection-end-column="67" />
               <folding>
                 <element signature="e#92#102#0" expanded="true" />
@@ -46,8 +42,8 @@
       <file leaf-file-name="Build_cuecharXML.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/utils/Build_cuecharXML.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="815">
-              <caret line="88" column="91" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="88" selection-end-column="91" />
+            <state relative-caret-position="1411">
+              <caret line="88" column="91" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="88" selection-end-column="91" />
               <folding>
                 <element signature="e#92#102#0" expanded="true" />
               </folding>
@@ -131,7 +127,7 @@
       <file leaf-file-name="ShowConf.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/utils/ShowConf.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="594">
+            <state relative-caret-position="1802">
               <caret line="110" column="54" lean-forward="false" selection-start-line="110" selection-start-column="54" selection-end-line="110" selection-end-column="54" />
               <folding>
                 <element signature="e#134#143#0" expanded="true" />
@@ -1087,7 +1083,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/utils/ShowConf.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="594">
+        <state relative-caret-position="1802">
           <caret line="110" column="54" lean-forward="false" selection-start-line="110" selection-start-column="54" selection-end-line="110" selection-end-column="54" />
           <folding>
             <element signature="e#134#143#0" expanded="true" />
@@ -1107,7 +1103,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/utils/Cues.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
+        <state relative-caret-position="5746">
           <caret line="338" column="67" lean-forward="false" selection-start-line="338" selection-start-column="36" selection-end-line="338" selection-end-column="67" />
           <folding>
             <element signature="e#92#102#0" expanded="true" />
@@ -1118,8 +1114,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/utils/Build_cuecharXML.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="815">
-          <caret line="88" column="91" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="88" selection-end-column="91" />
+        <state relative-caret-position="1411">
+          <caret line="88" column="91" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="88" selection-end-column="91" />
           <folding>
             <element signature="e#92#102#0" expanded="true" />
           </folding>
@@ -1130,7 +1126,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="143">
           <caret line="874" column="0" lean-forward="false" selection-start-line="874" selection-start-column="0" selection-end-line="874" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>

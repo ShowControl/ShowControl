@@ -98,6 +98,25 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
         # create a tableview for the cast tab
         tableView = QtWidgets.QTableView(self.tablist[idx])
         tableView.setObjectName("table_cast")
+        # set up actions for table right click context menu
+        tableView.setContextMenuPolicy(Qt.ActionsContextMenu)
+
+        # set up right click actions for tableView
+        self.action_list = ['Insert', 'Add', 'Delete']  # actions that can be triggered by right click on table
+        # add "Insert" action to the tableView
+        self.insertAction = QAction("Insert", None)
+        self.insertAction.triggered.connect(self.on_cast_table_rightclick)
+        tableView.addAction(self.insertAction)
+        # add "Add" action to the tableView
+        self.AddAction = QAction("Add", None)
+        self.AddAction.triggered.connect(self.on_cast_table_rightclick)
+        tableView.addAction(self.AddAction)
+        # add "Delete" action to the tableView
+        self.DeleteAction = QAction("Delete", None)
+        self.DeleteAction.triggered.connect(self.on_cast_table_rightclick)
+        tableView.addAction(self.DeleteAction)
+
+
         self.chrchnmap = MixerCharMap(self.The_Show.show_confpath + self.The_Show.show_conf.settings['mixermap'])
         self.char = None
         self.cast_data = []
@@ -144,6 +163,7 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
         castmodel = CastTableModel(self.cast_data, self.cast_header, self)
         cast_table = self.tablist[0].findChild(QtWidgets.QTableView, name='table_cast')
         cast_table.setModel(castmodel)
+        cast_table.hideColumn(0)  # hide uuid column
         cast_table.resizeColumnsToContents()
         self.init_stagestat_data()
         stagemodel = StageTableModel(self.stagestat_data, self.stagestat_header, self)
@@ -156,7 +176,7 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
         return
 
     def init_cast_data(self):
-        self.cast_header = ['Character', 'Actor', 'Understudy']
+        self.cast_header = ['uuid', 'Character', 'Actor', 'Understudy']
         self.char = Char()
         self.char.setup_cast(self.The_Show.show_confpath + self.The_Show.show_conf.settings['charmap'])
         self.char.chars_to_list_of_tuples()
@@ -170,7 +190,7 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
                 actor = chrnam[2]
             except:
                 print('no actor')
-            self.cast_data.append([char,actor])
+            self.cast_data.append([chrnam[0], char, actor])
 
         return
 
@@ -353,6 +373,36 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
                 self.load_project()
         return
 
+    # cast table Add, Insert, Delete handlers
+    def on_cast_table_rightclick(self):
+        sender_text = self.sender().text()
+        if sender_text == 'Insert':
+            self.cast_table_insert()
+        elif sender_text == 'Add':
+            self.cast_table_add()
+        elif sender_text == 'Delete':
+            self.cast_table_delete()
+
+        return
+
+    def cast_table_add(self):
+        print('In cast_table_add')
+        cast_table = self.tablist[0].findChild(QtWidgets.QTableView, name='table_cast')
+        cast_model = cast_table.model()
+        cast_model.insertRows(cast_model.rowCount(), 1)
+        cast_model.layoutChanged.emit()
+
+        return
+
+    def cast_table_insert(self):
+        print('In cast_table_insert')
+        return
+
+    def cast_table_delete(self):
+        print('In cast_table_delete')
+        return
+
+
 class CastTableModel(QtCore.QAbstractTableModel):
     """
     A simple 5x4 table model to demonstrate the delegates
@@ -411,6 +461,22 @@ class CastTableModel(QtCore.QAbstractTableModel):
             #     return QtCore.QVariant('')
 
         return QtCore.QVariant()
+
+    def insertRows(self, row, count):
+        targetindex = self.createIndex(row, 0)
+        self.beginInsertRows(targetindex, self.rowCount(),self.rowCount()+1)
+        # copy last row data, except add a new StageState for all StageState columns
+
+        newrow = self.arraydata[self.rowCount()-1][:]  # slice [:] clones the row
+        for colcnt, junk in enumerate(newrow):
+            if isinstance(newrow[colcnt], StageState):
+                oldstagestate = newrow[colcnt].talentstate
+                newrow[colcnt] = None
+                newrow[colcnt] = StageState(oldstagestate)  # replace copy of StageState from old row, retaining previous state
+        self.arraydata.append(newrow)
+        self.endInsertRows()
+        return True
+
 
 class StageTableModel(QtCore.QAbstractTableModel):
     """
@@ -627,7 +693,7 @@ class SelectDelegate(QtWidgets.QStyledItemDelegate):
     def createEditor(self, parent, option, index):
         selectedcolumn = index.column()
         # if selectedcolumn == 0 or selectedcolumn == 1:
-        if selectedcolumn in list(range(0,4)):
+        if selectedcolumn in list(range(0,1)):
             editor = QtWidgets.QSpinBox(parent)
             return editor
         elif selectedcolumn > 3:
