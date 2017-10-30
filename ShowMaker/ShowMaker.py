@@ -11,6 +11,7 @@ import socket
 import sys
 import re
 from os import path
+import uuid
 import logging
 module_logger = logging.getLogger('ShowMaker_logger')
 
@@ -75,7 +76,8 @@ class NewProject_dlg(QtWidgets.QDialog, NewProject_dlg_ui.Ui_NewProject):
 
 
 class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
-
+    cast_table_changed_sig = pyqtSignal()
+    stage_table_changed_sig = pyqtSignal()
     def __init__(self, parent=None):
         super(ShowMakerWin, self).__init__(parent)
         logging.info('in ShowMakerWin.__init__')
@@ -83,6 +85,8 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
         self.load_cfg()
         self.The_Show = None
         self.load_show()
+        self.stagestate_changed = False
+        self.caststate_changed = False
         self.setupUi(self)
         self.tablist = []
         self.tablistvertlayout = []
@@ -96,11 +100,17 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
         self.verticalLayout = QtWidgets.QVBoxLayout()
         self.verticalLayout.setObjectName("verticalLayout")
         # create a tableview for the cast tab
+        #tableView = CastTableView(self.tablist[idx])
         tableView = QtWidgets.QTableView(self.tablist[idx])
         tableView.setObjectName("table_cast")
+        # tableView.setMinimumWidth(200)
+        tableView.clicked.connect(self.on_table_click)
+        tableView.doubleClicked.connect(self.on_table_dblclick)
+        self.cast_table_changed_sig.connect(self.cast_list_changed_signal_handler)
         # set up actions for table right click context menu
         tableView.setContextMenuPolicy(Qt.ActionsContextMenu)
-
+        # tableView.setSelectionBehavior(QAbstractItemView.SelectItems)
+        # tableView.setSelectionMode(QAbstractItemView.SingleSelection)
         # set up right click actions for tableView
         self.action_list = ['Insert', 'Add', 'Delete']  # actions that can be triggered by right click on table
         # add "Insert" action to the tableView
@@ -133,8 +143,9 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
         self.verticalLayout_4 = QtWidgets.QVBoxLayout()
         self.verticalLayout_4.setObjectName("verticalLayout_4")
         # create a tableview for the Stage State
-        tableView = TableView(self.tablist[idx])
+        tableView = StageTableView(self.tablist[idx])
         tableView.setObjectName("table_stage")
+        tableView.horizontalHeader().setMinimumSectionSize(100)
         # the following two lines turn the text in the horizontal header vertical
         # but, the paint routine doesnt handle the newline
         # so until I get around to fixing that I commented them out
@@ -165,6 +176,7 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
         cast_table.setModel(castmodel)
         cast_table.hideColumn(0)  # hide uuid column
         cast_table.resizeColumnsToContents()
+        cast_table.selectRow(1)
         self.init_stagestat_data()
         stagemodel = StageTableModel(self.stagestat_data, self.stagestat_header, self)
         stage_table = self.tablist[1].findChild(QtWidgets.QTableView, name='table_stage')
@@ -208,6 +220,7 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
             except:
                 print('no actor')
             self.stagestat_header.extend([char + '\n' + actor])
+        print('In init_stagestat_data, length: {}'.format(len(self.stagestat_header)))
         # TODO -mac need to load cuechar, probably into The_Show...
         # each row will be a cue, so from *_cues.xml
         # will use num to get:
@@ -244,43 +257,39 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
             except AttributeError:
                 logging.info("cue uuid: {} not found in cuechar xml")
 
-            #self.The_Show.
-        # each row will have a column for each char/actor from char_list
-        #use char_list to get char and actor
-        # char_uuid = chrnam[0]
-        # char_name = chrnam[1]
-        # char_actor = chrnam[2]
-
-        # the state of each char/actor will be from the cues in *_cuechar.xml
-        # use cue_uuid to find cue in *_cuechar.xml
-        # for each char in char_list get mute and onstage to determine StageState()
-
-        # self.stagestat_data = []
-        # for row in range(0, 6):
-        #     cols = list(range(1, 5))
-        #     for chrnam in self.char.char_list:
-        #         stage_stat = StageState(StageState.OffStage)
-        #         cols.extend([stage_stat])
-        #     self.stagestat_data.append(cols)
-
         return
+
+    def on_table_click(self, index):
+        print('In on_table_click.')
+        cast_table = self.tablist[0].findChild(QtWidgets.QTableView, name='table_cast')
+        cast_table.selectRow(index.row())
+        return
+
+    def on_table_dblclick(self, index):
+        print('In on_table_dblclick.')
+        cast_table = self.tablist[0].findChild(QtWidgets.QTableView, name='table_cast')
+        cast_table.selectRow(index.row())
 
     def select_new_path_clicked(self):
         print('New path')
 
     def closeEvent(self, event):
         """..."""
-        # if self.mixers_modified:
-        #     reply = QMessageBox.question(self, 'Save Changes', 'Save changes to mixers?',
-        #                                  QMessageBox.Yes | QMessageBox.No | QMessageBox.Cancel,
-        #                                  QMessageBox.Cancel)
-        #     if reply == QMessageBox.Yes:
-        #         self.mixers.savemixers(False, 'TestMixerSave.xml')
-        #         self.mixers_modified = False
-        #     elif reply == QMessageBox.No:
-        #         pass
-        #     elif reply == QMessageBox.Cancel:
-        #         pass
+        if self.caststate_changed:
+            reply = QMessageBox.question(self, 'Save Changes', 'Save changes to cast?',
+                                         QMessageBox.Yes | QMessageBox.No | QMessageBox.Cancel,
+                                         QMessageBox.Cancel)
+            if reply == QMessageBox.Yes:
+                print('In closeEvent cast changed query.')
+                self.save_cast_list()
+                self.caststate_changed = False
+                self.save_cuechar()
+                self.stagestate_changed = False
+            elif reply == QMessageBox.No:
+                pass
+            elif reply == QMessageBox.Cancel:
+                event.ignore()
+                return
 
         reply = self.confirmQuit()
         if reply == QMessageBox.Yes:
@@ -296,6 +305,22 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
                                      QMessageBox.No, QMessageBox.Yes)
         return reply
 
+    def save_cast_list(self):
+        # move model data to list of tuples
+        self.char.char_list = []
+        for uuid, chrnam, actor in self.cast_data:
+            self.char.char_list.append((uuid, chrnam, actor))
+        # move new list of tuples to xml doc
+        newchar_doc = self.char.chars_toxmldoc()
+        # save new xml file
+        self.char.write(newchar_doc, True, self.The_Show.show_confpath + self.The_Show.show_conf.settings['charmap'])
+
+    def save_cuechar(self):
+        new_doc = self.The_Show.cuechar.cuecharlist.getroot()
+        self.The_Show.cuechar.write(new_doc,
+                                    True,
+                                    self.The_Show.show_confpath + self.The_Show.show_conf.settings['cuechar'])
+
     def openProjectFolder(self):
         fileNames = []
         fdlg = QtWidgets.QFileDialog()
@@ -304,7 +329,7 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
         fdlg.setFileMode(QFileDialog.ExistingFile)
         fdlg.setNameFilters(["Project files (*.xml)"])
         fdlg.setDirectory(self.The_Show.show_confpath)
-        if (fdlg.exec()):
+        if fdlg.exec():
             fileNames = fdlg.selectedFiles()
         #fname = QtWidgets.QFileDialog.getOpenFileName(self, 'Open file', '/home')
         fdlg.close()
@@ -374,6 +399,11 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
         return
 
     # cast table Add, Insert, Delete handlers
+    def cast_list_changed_signal_handler(self):
+        """this signal is emitted when the cast table (i.e.data) has changed"""
+        print('In cast_list_changed_signal_handler.')
+        return
+
     def on_cast_table_rightclick(self):
         sender_text = self.sender().text()
         if sender_text == 'Insert':
@@ -388,18 +418,64 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
     def cast_table_add(self):
         print('In cast_table_add')
         cast_table = self.tablist[0].findChild(QtWidgets.QTableView, name='table_cast')
+        new_char = ('{}'.format(uuid.uuid4()), 'New Char', 'New Actor')
+        self.cast_data.append(new_char)  # new char to cast list
+        self.char.char_list.append(new_char)  # new char to char object list of tuples
         cast_model = cast_table.model()
-        cast_model.insertRows(cast_model.rowCount(), 1)
         cast_model.layoutChanged.emit()
-
-        return
+        cast_table.scrollToBottom()
+        self.The_Show.cuechar.add_new_char(new_char[0])  # new char to cuechar
+        self.init_stagestat_data()
+        stage_table = self.tablist[1].findChild(QtWidgets.QTableView, name='table_stage')
+        stage_table.model().headerdata_horz = self.stagestat_header
+        stage_table.model().arraydata = self.stagestat_data
+        stage_table.model().layoutChanged.emit()
+        self.caststate_changed = True
+        self.stagestate_changed = True
 
     def cast_table_insert(self):
         print('In cast_table_insert')
+        cast_table = self.tablist[0].findChild(QtWidgets.QTableView, name='table_cast')
+        indexes = cast_table.selectedIndexes()
+        row = indexes[0].row()
+        new_char = ('{}'.format(uuid.uuid4()), 'New Char', 'New Actor')
+        print('In cast_table_insert before insert, length: {}'.format(len(self.cast_data)))
+        self.cast_data.insert(row, new_char)  # new char to cast list
+        self.char.char_list.insert(row, new_char)  # new char to char object list of tuples
+        print('In cast_table_insert after insert, length: {}'.format(len(self.cast_data)))
+        self.The_Show.cuechar.add_new_char(new_char[0])  # new char to cuechar
+        self.init_stagestat_data()
+        stage_table = self.tablist[1].findChild(QtWidgets.QTableView, name='table_stage')
+        stage_table.model().headerdata_horz = self.stagestat_header
+        stage_table.model().arraydata = self.stagestat_data
+        self.caststate_changed = True
+        self.stagestate_changed = True
         return
 
     def cast_table_delete(self):
         print('In cast_table_delete')
+        cast_table = self.tablist[0].findChild(QtWidgets.QTableView, name='table_cast')
+        indexes = cast_table.selectedIndexes()
+        try:
+            row = indexes[0].row()
+            deleted_item = self.cast_data.pop(row)  # use pop so we have the item that was removed
+                                                    #todo -mac save pop'd item for later undo???
+            deleted_item_1 = self.char.char_list.pop(row)
+            self.The_Show.cuechar.delete_char(deleted_item[0])
+            cast_model = cast_table.model()
+            cast_model.layoutChanged.emit()
+            cast_model.dataChanged.emit(indexes[0], indexes[0])
+            self.init_stagestat_data()
+            stage_table = self.tablist[1].findChild(QtWidgets.QTableView, name='table_stage')
+            stage_table.model().headerdata_horz = self.stagestat_header
+            stage_table.model().arraydata = self.stagestat_data
+            stage_table.model().layoutChanged.emit()
+            stage_table.resizeColumnsToContents()
+            self.caststate_changed = True
+            self.stagestate_changed = True
+        except IndexError:
+            QMessageBox.information(self.parent(), 'Invalid Index', 'Nothing selected!', QMessageBox.Ok)
+
         return
 
 
@@ -427,18 +503,24 @@ class CastTableModel(QtCore.QAbstractTableModel):
     def data(self, index, role=QtCore.Qt.DisplayRole):
         # print('Role:({})'.format(role))
         if not index.isValid(): return None
+        if role == QtCore.Qt.EditRole:
+            return self.arraydata[index.row()][index.column()]
         if not role == QtCore.Qt.DisplayRole: return None
+
         return self.arraydata[index.row()][index.column()]
 
     def setData(self, index, value, role=QtCore.Qt.DisplayRole):
-        if not index.isValid(): return None
+        if not index.isValid(): return False
         if role == QtCore.Qt.EditRole:
             self.arraydata[index.row()][index.column()] = value
+            self.dataChanged.emit(index, index)
+            self.parent().cast_table_changed_sig.emit()
         print("setData", index.row(), index.column(), value)
+        return True
 
     def flags(self, index):
         """changed to this to allow all columns to be editable"""
-        return QtCore.Qt.ItemIsEditable | QtCore.Qt.ItemIsEnabled
+        return QtCore.Qt.ItemIsEditable | QtCore.Qt.ItemIsEnabled | QtCore.Qt.ItemIsSelectable
         # if (index.column() == 0):
         #     return QtCore.Qt.ItemIsEditable | QtCore.Qt.ItemIsEnabled
         # else:
@@ -468,15 +550,25 @@ class CastTableModel(QtCore.QAbstractTableModel):
         # copy last row data, except add a new StageState for all StageState columns
 
         newrow = self.arraydata[self.rowCount()-1][:]  # slice [:] clones the row
-        for colcnt, junk in enumerate(newrow):
-            if isinstance(newrow[colcnt], StageState):
-                oldstagestate = newrow[colcnt].talentstate
-                newrow[colcnt] = None
-                newrow[colcnt] = StageState(oldstagestate)  # replace copy of StageState from old row, retaining previous state
+        # new uuid for this character
+        newrow[0] = '{}'.format(uuid.uuid4())
         self.arraydata.append(newrow)
         self.endInsertRows()
         return True
 
+
+class CastTableView(QtWidgets.QTableView):
+    """
+    A simple table to demonstrate the QComboBox delegate.
+    """
+
+    def __init__(self, *args, **kwargs):
+        QtWidgets.QTableView.__init__(self, *args, **kwargs)
+
+    # def dataChanged(self, fromIndex, toIndex, roles):
+    #
+    #     print('In CastTableView dataChanged')
+    #     self.cast
 
 class StageTableModel(QtCore.QAbstractTableModel):
     """
@@ -532,6 +624,7 @@ class StageTableModel(QtCore.QAbstractTableModel):
                 index.data().talentstate = value
             else:
                 self.arraydata[index.row()][index.column()] = str(value)
+            self.dataChanged.emit(index, index)
             return True
         else:
             return False
@@ -578,7 +671,7 @@ class StageTableModel(QtCore.QAbstractTableModel):
         self.endInsertRows()
         return True
 
-class TableView(QtWidgets.QTableView):
+class StageTableView(QtWidgets.QTableView):
     """
     A simple table to demonstrate the QComboBox delegate.
     """
@@ -588,6 +681,9 @@ class TableView(QtWidgets.QTableView):
 
         # Set the delegate for columns
         self.setItemDelegate(SelectDelegate(self))
+
+    def dataChanged(self, fromIndex, toIndex, roles):
+        print('In StageTableView dataChanged')
 
 class StageState(object):
     # enum EditMode
