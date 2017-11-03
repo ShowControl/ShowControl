@@ -76,7 +76,7 @@ class NewProject_dlg(QtWidgets.QDialog, NewProject_dlg_ui.Ui_NewProject):
 
 
 class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
-    cast_table_changed_sig = pyqtSignal()
+    cast_table_changed_sig = pyqtSignal(int)
     stage_table_changed_sig = pyqtSignal()
     def __init__(self, parent=None):
         super(ShowMakerWin, self).__init__(parent)
@@ -269,6 +269,7 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
         print('In on_table_dblclick.')
         cast_table = self.tablist[0].findChild(QtWidgets.QTableView, name='table_cast')
         cast_table.selectRow(index.row())
+        return
 
     def select_new_path_clicked(self):
         print('New path')
@@ -399,9 +400,17 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
         return
 
     # cast table Add, Insert, Delete handlers
-    def cast_list_changed_signal_handler(self):
+    def cast_list_changed_signal_handler(self, char_list_row):
         """this signal is emitted when the cast table (i.e.data) has changed"""
         print('In cast_list_changed_signal_handler.')
+        self.char.char_list[char_list_row] = self.cast_data[char_list_row]
+        self.init_stagestat_data()
+        stage_table = self.tablist[1].findChild(QtWidgets.QTableView, name='table_stage')
+        stage_table.model().headerdata_horz = self.stagestat_header
+        stage_table.model().arraydata = self.stagestat_data
+        stage_table.model().layoutChanged.emit()
+        stage_table.resizeColumnsToContents()
+        self.caststate_changed = True
         return
 
     def on_cast_table_rightclick(self):
@@ -418,7 +427,7 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
     def cast_table_add(self):
         print('In cast_table_add')
         cast_table = self.tablist[0].findChild(QtWidgets.QTableView, name='table_cast')
-        new_char = ('{}'.format(uuid.uuid4()), 'New Char', 'New Actor')
+        new_char = ['{}'.format(uuid.uuid4()), 'New Char', 'New Actor']
         self.cast_data.append(new_char)  # new char to cast list
         self.char.char_list.append(new_char)  # new char to char object list of tuples
         cast_model = cast_table.model()
@@ -436,11 +445,15 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
     def cast_table_insert(self):
         print('In cast_table_insert')
         cast_table = self.tablist[0].findChild(QtWidgets.QTableView, name='table_cast')
+        cast_model = cast_table.model()
         indexes = cast_table.selectedIndexes()
         row = indexes[0].row()
-        new_char = ('{}'.format(uuid.uuid4()), 'New Char', 'New Actor')
-        print('In cast_table_insert before insert, length: {}'.format(len(self.cast_data)))
-        self.cast_data.insert(row, new_char)  # new char to cast list
+        # print('In cast_table_insert before insert, length: {}'.format(len(self.cast_data)))
+        cast_model.insertRows(row, 1)
+        cast_model.layoutChanged.emit()
+        cast_table.resizeColumnsToContents()
+        cast_table.selectRow(row)
+        new_char = tuple(cast_model.arraydata[row])
         self.char.char_list.insert(row, new_char)  # new char to char object list of tuples
         print('In cast_table_insert after insert, length: {}'.format(len(self.cast_data)))
         self.The_Show.cuechar.add_new_char(new_char[0])  # new char to cuechar
@@ -448,6 +461,8 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
         stage_table = self.tablist[1].findChild(QtWidgets.QTableView, name='table_stage')
         stage_table.model().headerdata_horz = self.stagestat_header
         stage_table.model().arraydata = self.stagestat_data
+        stage_table.model().layoutChanged.emit()
+        stage_table.resizeColumnsToContents()
         self.caststate_changed = True
         self.stagestate_changed = True
         return
@@ -458,19 +473,28 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
         indexes = cast_table.selectedIndexes()
         try:
             row = indexes[0].row()
-            deleted_item = self.cast_data.pop(row)  # use pop so we have the item that was removed
+            cast_model = cast_table.model()
+            old_row_count = len(cast_model.arraydata)
+            deleted_item = self.cast_data[row]
+            #deleted_item = self.cast_data.pop(row)  # use pop so we have the item that was removed
                                                     #todo -mac save pop'd item for later undo???
             deleted_item_1 = self.char.char_list.pop(row)
             self.The_Show.cuechar.delete_char(deleted_item[0])
-            cast_model = cast_table.model()
+
+            cast_model.removeRows(indexes[0].row(), indexes[0].row())
+            new_row_count = len(cast_model.arraydata)
+            cast_table.rowCountChanged(old_row_count, new_row_count)
+            print('Olde row count: {}, New row count: {}'.format(old_row_count, new_row_count))
             cast_model.layoutChanged.emit()
-            cast_model.dataChanged.emit(indexes[0], indexes[0])
+            cast_table.resizeColumnsToContents()
+            cast_table.selectRow(row - 1)
             self.init_stagestat_data()
             stage_table = self.tablist[1].findChild(QtWidgets.QTableView, name='table_stage')
             stage_table.model().headerdata_horz = self.stagestat_header
             stage_table.model().arraydata = self.stagestat_data
             stage_table.model().layoutChanged.emit()
             stage_table.resizeColumnsToContents()
+            #stage_table.selectRow()
             self.caststate_changed = True
             self.stagestate_changed = True
         except IndexError:
@@ -514,8 +538,8 @@ class CastTableModel(QtCore.QAbstractTableModel):
         if role == QtCore.Qt.EditRole:
             self.arraydata[index.row()][index.column()] = value
             self.dataChanged.emit(index, index)
-            self.parent().cast_table_changed_sig.emit()
-        print("setData", index.row(), index.column(), value)
+            self.parent().cast_table_changed_sig.emit(index.row())
+        print("setData", index.row(), index.column(), value, role)
         return True
 
     def flags(self, index):
@@ -545,17 +569,20 @@ class CastTableModel(QtCore.QAbstractTableModel):
         return QtCore.QVariant()
 
     def insertRows(self, row, count):
-        targetindex = self.createIndex(row, 0)
-        self.beginInsertRows(targetindex, self.rowCount(),self.rowCount()+1)
-        # copy last row data, except add a new StageState for all StageState columns
-
-        newrow = self.arraydata[self.rowCount()-1][:]  # slice [:] clones the row
+        self.beginInsertRows(QModelIndex(), row, row)
+        newrow = self.arraydata[row][:]  # slice [:] clones the row
         # new uuid for this character
         newrow[0] = '{}'.format(uuid.uuid4())
-        self.arraydata.append(newrow)
+        self.arraydata.insert(row, newrow)
         self.endInsertRows()
         return True
 
+    def removeRows(self, row, count):
+        targetindex =self.createIndex(row, 0)
+        self.beginRemoveRows(QModelIndex(), row, row)
+        popped_item = self.arraydata.pop(row)
+        self.endRemoveRows()
+        return True
 
 class CastTableView(QtWidgets.QTableView):
     """
@@ -631,7 +658,7 @@ class StageTableModel(QtCore.QAbstractTableModel):
 
     def flags(self, index):
         """changed to this to allow all columns to be editable"""
-        return QtCore.Qt.ItemIsEditable | QtCore.Qt.ItemIsEnabled
+        return QtCore.Qt.ItemIsEditable | QtCore.Qt.ItemIsEnabled | QtCore.Qt.ItemIsSelectable
         # if (index.column() == 0):
         #     return QtCore.Qt.ItemIsEditable | QtCore.Qt.ItemIsEnabled
         # else:
