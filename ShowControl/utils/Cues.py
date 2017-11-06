@@ -446,16 +446,32 @@ if __name__ == "__main__":
     cues = CueList('/home/mac/Shows/Fiddler/Fiddler_cuesx.xml')
     cues.getcuetype(0)
     ET.dump(cues.cuelist)
-    somecue = cues.cuelist.find(".cues/cue[@num='000']")
-    cue_elements = cues.cuelist.findall("./Cue")
-    for index, cue in enumerate(cue_elements):
-        Levels_element = cue.find('./Levels')
-        Level_val = cues.get_cue_levels(index)
-        pass
-    somecuelist = cues.getcuelist(149)
-    from_element = cues.get_cue_element_by_name(4, 'Mutes').text.split(',')
-    to_element = cues.get_cue_element_by_name(56,'Mutes').text.split(',')
-    delta_mutes = [mute for mute in to_element if mute not in from_element]
+    allcues = cues.cuelist.findall(".cues/cue")
+    showcontrol = ET.Element('showcontrol')
+    sortedcues = ET.SubElement(showcontrol, 'cues')
+    ET.SubElement(sortedcues, 'version').text = '1.0'
+    for count, cue in enumerate(allcues):
+        cuenum = cue.get("num")
+        print('count: {}, num: {} {}'.format(count, cuenum, count == int(cuenum)))
+        if count == int(cuenum):
+            # save it in new doc
+            sortedcues.append(cue)
+        else: # find the cue element for this count and save it in the new doc
+            nextcue = cues.cuelist.find(".cues/cue[@num='" + '{0:03}'.format(count) + "']")
+            sortedcues.append(nextcue)
+    ET.dump(showcontrol)
+    cuesxml = CuesXML()
+    cuesxml.write(showcontrol, False, '/home/mac/Shows/Fiddler/sorted_Fiddler_cuesx.xml')
+    # somecue = cues.cuelist.find(".cues/cue[@num='000']")
+    # cue_elements = cues.cuelist.findall("./Cue")
+    # for index, cue in enumerate(cue_elements):
+    #     Levels_element = cue.find('./Levels')
+    #     Level_val = cues.get_cue_levels(index)
+    #     pass
+    # somecuelist = cues.getcuelist(149)
+    # from_element = cues.get_cue_element_by_name(4, 'Mutes').text.split(',')
+    # to_element = cues.get_cue_element_by_name(56,'Mutes').text.split(',')
+    # delta_mutes = [mute for mute in to_element if mute not in from_element]
     # if mixermap_element:
     #     input_maps = mixermap_element.findall('input')
     #     for input_map in input_maps:

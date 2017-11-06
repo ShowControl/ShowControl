@@ -77,10 +77,12 @@ class NewProject_dlg(QtWidgets.QDialog, NewProject_dlg_ui.Ui_NewProject):
 
 class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
     cast_table_changed_sig = pyqtSignal(int)
-    stage_table_changed_sig = pyqtSignal()
+    stage_table_changed_sig = pyqtSignal(int)
     def __init__(self, parent=None):
         super(ShowMakerWin, self).__init__(parent)
         logging.info('in ShowMakerWin.__init__')
+        self.setWindowTitle('MuteMap - {}'.format('Show Maker'))
+
         self.cfg = None
         self.load_cfg()
         self.The_Show = None
@@ -88,6 +90,9 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
         self.stagestate_changed = False
         self.caststate_changed = False
         self.setupUi(self)
+        screen = QtWidgets.QDesktopWidget().screenGeometry()
+        self.setGeometry(screen.x() + int(0.05 * screen.width()), screen.y(), screen.width() * 0.98, screen.height() * 0.9)
+        #self.move(40, 50)
         self.tablist = []
         self.tablistvertlayout = []
         # add the cast tab
@@ -145,7 +150,26 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
         # create a tableview for the Stage State
         tableView = StageTableView(self.tablist[idx])
         tableView.setObjectName("table_stage")
+        tableView.doubleClicked.connect(self.on_stage_table_dblclick)
+        self.stage_table_changed_sig.connect(self.stage_list_changed_signal_handler)
         tableView.horizontalHeader().setMinimumSectionSize(100)
+        tableView.setContextMenuPolicy(Qt.ActionsContextMenu)
+
+        # set up right click actions for tableView
+        self.stage_action_list = ['Insert', 'Add', 'Delete']  # actions that can be triggered by right click on table
+        # add "Insert" action to the tableView
+        self.stage_insertAction = QAction("Insert", None)
+        self.stage_insertAction.triggered.connect(self.on_stage_table_rightclick)
+        tableView.addAction(self.stage_insertAction)
+        # add "Add" action to the tableView
+        self.stage_AddAction = QAction("Add", None)
+        self.stage_AddAction.triggered.connect(self.on_stage_table_rightclick)
+        tableView.addAction(self.stage_AddAction)
+        # add "Delete" action to the tableView
+        self.stage_DeleteAction = QAction("Delete", None)
+        self.stage_DeleteAction.triggered.connect(self.on_stage_table_rightclick)
+        tableView.addAction(self.stage_DeleteAction)
+
         # the following two lines turn the text in the horizontal header vertical
         # but, the paint routine doesnt handle the newline
         # so until I get around to fixing that I commented them out
@@ -181,6 +205,7 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
         stagemodel = StageTableModel(self.stagestat_data, self.stagestat_header, self)
         stage_table = self.tablist[1].findChild(QtWidgets.QTableView, name='table_stage')
         stage_table.setModel(stagemodel)
+        stage_table.hideColumn(0)  # hide uuid column
         stage_table.resizeColumnsToContents()
         self.lineEdit_projectname.setText(self.The_Show.show_conf.settings['title'])
         self.lineEdit_projectcuefile.setText(self.The_Show.show_conf.settings['cues']['href1'])
@@ -208,7 +233,7 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
 
     def init_stagestat_data(self):
         # this sets up th header data, one column for every character
-        self.stagestat_header = ['Page', 'Act', 'Scene', 'Line']
+        self.stagestat_header = ['uuid', 'Page', 'Act', 'Scene', 'Line']
         for chrnam in self.char.char_list:
             try:
                 char = chrnam[1]
@@ -233,6 +258,7 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
             print('q num: {}, uuid: {}'.format(cue_num, cue_uuid))
             # fill in first columns
             cols = []
+            cols.extend([cue_uuid])
             cols.extend([q.find(".Page").text])
             cols.extend([q.find(".Act").text])
             cols.extend([q.find(".Scene").text])
@@ -271,13 +297,17 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
         cast_table.selectRow(index.row())
         return
 
+    def on_stage_table_dblclick(self):
+        print('In on_stage_table_dblclick')
+        return
+
     def select_new_path_clicked(self):
         print('New path')
 
     def closeEvent(self, event):
         """..."""
-        if self.caststate_changed:
-            reply = QMessageBox.question(self, 'Save Changes', 'Save changes to cast?',
+        if self.caststate_changed or self.stagestate_changed:
+            reply = QMessageBox.question(self, 'Save Changes', 'Save changes to project?',
                                          QMessageBox.Yes | QMessageBox.No | QMessageBox.Cancel,
                                          QMessageBox.Cancel)
             if reply == QMessageBox.Yes:
@@ -286,6 +316,7 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
                 self.caststate_changed = False
                 self.save_cuechar()
                 self.stagestate_changed = False
+                self.save_cues()
             elif reply == QMessageBox.No:
                 pass
             elif reply == QMessageBox.Cancel:
@@ -321,6 +352,10 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
         self.The_Show.cuechar.write(new_doc,
                                     True,
                                     self.The_Show.show_confpath + self.The_Show.show_conf.settings['cuechar'])
+
+    def save_cues(self):
+        #for cue self.stagestat_data
+        return
 
     def openProjectFolder(self):
         fileNames = []
@@ -502,6 +537,61 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
 
         return
 
+    def stage_list_changed_signal_handler(self, stage_list_row):
+        self.stagestate_changed = True
+
+    def on_stage_table_rightclick(self):
+        sender_text = self.sender().text()
+        if sender_text == 'Insert':
+            self.stage_table_insert()
+        elif sender_text == 'Add':
+            self.stage_table_add()
+        elif sender_text == 'Delete':
+            self.stage_table_delete()
+        return
+
+    def stage_table_insert(self):
+        print('In stage table insert')
+        stage_table = self.tablist[1].findChild(QtWidgets.QTableView, name='table_stage')
+        indexes = stage_table.selectedIndexes()
+        row = indexes[0].row()
+        stage_model = stage_table.model()
+        stage_model.insertRows(row, 1)
+        stage_table.model().layoutChanged.emit()
+        stage_table.resizeColumnsToContents()
+        stage_table.selectRow(row)
+        self.stagestate_changed = True
+        return
+
+    def stage_table_add(self):
+        print('In stage table add')
+        stage_table = self.tablist[1].findChild(QtWidgets.QTableView, name='table_stage')
+        indexes = stage_table.selectedIndexes()
+        row = indexes[0].row()
+        stage_model = stage_table.model()
+        if stage_model.rowCount() == 0:
+            row = 0
+        else:
+            row = stage_model.rowCount() - 1
+        stage_model.insertRows(row, 1)
+        stage_table.model().layoutChanged.emit()
+        stage_table.resizeColumnsToContents()
+        stage_table.scrollToBottom()
+        self.stagestate_changed = True
+        return
+
+    def stage_table_delete(self):
+        print('In stage table delete')
+        stage_table = self.tablist[1].findChild(QtWidgets.QTableView, name='table_stage')
+        indexes = stage_table.selectedIndexes()
+        row = indexes[0].row()
+        stage_model = stage_table.model()
+        stage_model.removeRows(row, 1)
+        stage_table.model().layoutChanged.emit()
+        stage_table.resizeColumnsToContents()
+        stage_table.selectRow(row - 1)
+        self.stagestate_changed = True
+        return
 
 class CastTableModel(QtCore.QAbstractTableModel):
     """
@@ -652,6 +742,7 @@ class StageTableModel(QtCore.QAbstractTableModel):
             else:
                 self.arraydata[index.row()][index.column()] = str(value)
             self.dataChanged.emit(index, index)
+            self.parent().stage_table_changed_sig.emit(index.row())
             return True
         else:
             return False
@@ -684,18 +775,25 @@ class StageTableModel(QtCore.QAbstractTableModel):
         return QtCore.QVariant()
 
     def insertRows(self, row, count):
-        targetindex = self.createIndex(row, 0)
-        self.beginInsertRows(targetindex, self.rowCount(),self.rowCount()+1)
+        self.beginInsertRows(QModelIndex(), self.rowCount(), self.rowCount())
         # copy last row data, except add a new StageState for all StageState columns
-
-        newrow = self.arraydata[self.rowCount()-1][:]  # slice [:] clones the row
+        newrow = self.arraydata[row][:]  # slice [:] clones the row
+        # new cue gets a new uuid
+        newrow[0] = '{}'.format(uuid.uuid4())
         for colcnt, junk in enumerate(newrow):
             if isinstance(newrow[colcnt], StageState):
                 oldstagestate = newrow[colcnt].talentstate
                 newrow[colcnt] = None
                 newrow[colcnt] = StageState(oldstagestate)  # replace copy of StageState from old row, retaining previous state
-        self.arraydata.append(newrow)
+
+        self.arraydata.insert(row, newrow)
         self.endInsertRows()
+        return True
+
+    def removeRows(self, row, count):
+        self.beginRemoveRows(QModelIndex(), row, row)
+        popped_item = self.arraydata.pop(row)
+        self.endRemoveRows()
         return True
 
 class StageTableView(QtWidgets.QTableView):
@@ -711,6 +809,7 @@ class StageTableView(QtWidgets.QTableView):
 
     def dataChanged(self, fromIndex, toIndex, roles):
         print('In StageTableView dataChanged')
+
 
 class StageState(object):
     # enum EditMode

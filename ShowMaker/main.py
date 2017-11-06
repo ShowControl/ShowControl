@@ -15,7 +15,7 @@ def main():
     app = QtWidgets.QApplication(sys.argv)
     app.setStyleSheet(styles.QLiSPTheme_Dark)
     ui = ShowMakerWin()
-    ui.resize(900,800)
+    #ui.resize(900,800)
 
     ui.show()
 
