@@ -51,7 +51,7 @@ class CueChar():
             ET.SubElement(new_char_ele, 'level').text = '0'
             ET.SubElement(new_char_ele, 'eq', attrib={'uuid': 'eq uuid'})
             ET.SubElement(new_char_ele, 'routing', attrib={'uuid': 'routing uuid'})
-            print('In add_new_char, char count after: {}'.format(len(chars)))
+            # print('In add_new_char, char count after: {}'.format(len(chars)))
 
     def delete_char(self, uuid):
         print("CueChar delete_char, uuid: {}".format(uuid))
@@ -60,6 +60,23 @@ class CueChar():
             delete_candidate = cue.find(".char[@uuid='" + uuid + "']")
             cue.remove( delete_candidate )
 
+    def add_cue(self, cue_uuid, char_list):
+        print('CueChar add_cue, uuid: {}'.format(cue_uuid))
+        cues_element = self.cuecharlist.find('.cues')
+        new_cue = ET.SubElement(cues_element, 'cue', {'uuid': cue_uuid})
+        for char in char_list:
+            new_char_ele = ET.SubElement(new_cue, 'char', {'uuid':char[0]})
+            ET.SubElement(new_char_ele, 'mute').text = '1'
+            ET.SubElement(new_char_ele, 'onstage').text = '0'
+            ET.SubElement(new_char_ele, 'level').text = '0'
+            ET.SubElement(new_char_ele, 'eq', attrib={'uuid': 'eq uuid'})
+            ET.SubElement(new_char_ele, 'routing', attrib={'uuid': 'routing uuid'})
+
+    def delete_cue(self, cue_uuid):
+        print('CueChar delete_cue, uuid: {}'.format(cue_uuid))
+        cues_element = self.cuecharlist.find('.cues')
+        cue_element = cues_element.find(".cue[@uuid='" + cue_uuid + "']")
+        cues_element.remove(cue_element)
 
     def write(self, newchars,  revision=True, filename=''):
         """save a new characters file.

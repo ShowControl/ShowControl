@@ -29,7 +29,8 @@
             <state relative-caret-position="3536">
               <caret line="213" column="49" lean-forward="false" selection-start-line="213" selection-start-column="40" selection-end-line="213" selection-end-column="49" />
               <folding>
-                <marker date="1509988090565" expanded="true" signature="20575:20687" ph="..." />
+                <marker date="1510074404913" expanded="true" signature="12360:13484" ph="..." />
+                <marker date="1510074404913" expanded="true" signature="21059:21171" ph="..." />
               </folding>
             </state>
           </provider>
@@ -63,8 +64,8 @@
       <file leaf-file-name="CueEngine.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/CueEngine.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5668">
-              <caret line="648" column="8" lean-forward="false" selection-start-line="648" selection-start-column="8" selection-end-line="648" selection-end-column="8" />
+            <state relative-caret-position="174">
+              <caret line="155" column="0" lean-forward="true" selection-start-line="153" selection-start-column="0" selection-end-line="155" selection-end-column="0" />
               <folding>
                 <element signature="e#828#908#0" expanded="false" />
                 <element signature="e#2047#2125#0" expanded="false" />
@@ -78,22 +79,12 @@
                 <element signature="e#2838#2921#0" expanded="false" />
                 <element signature="e#2953#3163#0" expanded="false" />
                 <element signature="e#3197#3201#0" expanded="false" />
-                <element signature="e#4368#5119#0" expanded="false" />
-                <element signature="e#4535#5081#0" expanded="false" />
                 <element signature="e#4583#4995#0" expanded="false" />
                 <element signature="e#4696#4949#0" expanded="false" />
                 <element signature="e#4751#4949#0" expanded="false" />
-                <element signature="e#5151#5212#0" expanded="false" />
-                <element signature="e#5247#5266#0" expanded="false" />
-                <element signature="e#5322#6115#0" expanded="false" />
-                <element signature="e#5513#6115#0" expanded="false" />
-                <element signature="e#5561#6030#0" expanded="false" />
                 <element signature="e#5831#6030#0" expanded="false" />
                 <element signature="e#5897#6030#0" expanded="false" />
                 <element signature="e#5962#6030#0" expanded="false" />
-                <element signature="e#6166#6394#0" expanded="false" />
-                <element signature="e#6216#6394#0" expanded="false" />
-                <element signature="e#6261#6394#0" expanded="false" />
                 <element signature="e#6419#6987#0" expanded="false" />
                 <element signature="e#6460#6533#0" expanded="false" />
                 <element signature="e#6575#6795#0" expanded="false" />
@@ -122,10 +113,6 @@
                 <element signature="e#20769#20773#0" expanded="false" />
                 <element signature="e#20942#20988#0" expanded="false" />
                 <element signature="e#21097#21164#0" expanded="false" />
-                <element signature="e#21738#23333#0" expanded="false" />
-                <element signature="e#22464#23077#0" expanded="false" />
-                <element signature="e#22561#22620#0" expanded="false" />
-                <element signature="e#23941#24505#0" expanded="false" />
                 <element signature="e#24048#24107#0" expanded="false" />
                 <element signature="e#25280#25851#0" expanded="false" />
                 <element signature="e#25387#25446#0" expanded="false" />
@@ -142,11 +129,21 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="CueEdit_alt_ui.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CueEdit_alt_ui.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="221">
+              <caret line="28" column="53" lean-forward="true" selection-start-line="28" selection-start-column="53" selection-end-line="28" selection-end-column="53" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="cue-engine.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../cue-engine.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="85">
-              <caret line="6" column="22" lean-forward="true" selection-start-line="6" selection-start-column="22" selection-end-line="6" selection-end-column="22" />
+              <caret line="6" column="22" lean-forward="false" selection-start-line="6" selection-start-column="22" selection-end-line="6" selection-end-column="22" />
               <folding>
                 <element signature="e#23#38#0" expanded="true" />
               </folding>
@@ -187,9 +184,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>CE_logger</find>
-      <find>styles</find>
-      <find>table</find>
       <find>tableV</find>
       <find>AddAction</find>
       <find>MyTableModel</find>
@@ -217,6 +211,9 @@
       <find>select</find>
       <find>on_table_rightclick</find>
       <find>disptext</find>
+      <find>EditCue</find>
+      <find>_translate</find>
+      <find>edt_list</find>
     </findStrings>
     <replaceStrings>
       <replace>EditPrefs</replace>
@@ -284,6 +281,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -295,8 +294,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -571,6 +568,7 @@
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17450027" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3716916" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32794458" sideWeight="0.5064795" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32794458" sideWeight="0.49352053" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3256351" sideWeight="0.4924406" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296433" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
@@ -585,7 +583,6 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32794458" sideWeight="0.49352053" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -743,22 +740,12 @@
             <element signature="e#2838#2921#0" expanded="false" />
             <element signature="e#2953#3163#0" expanded="false" />
             <element signature="e#3197#3201#0" expanded="false" />
-            <element signature="e#4368#5119#0" expanded="false" />
-            <element signature="e#4535#5081#0" expanded="false" />
             <element signature="e#4583#4995#0" expanded="false" />
             <element signature="e#4696#4949#0" expanded="false" />
             <element signature="e#4751#4949#0" expanded="false" />
-            <element signature="e#5151#5212#0" expanded="false" />
-            <element signature="e#5247#5266#0" expanded="false" />
-            <element signature="e#5322#6115#0" expanded="false" />
-            <element signature="e#5513#6115#0" expanded="false" />
-            <element signature="e#5561#6030#0" expanded="false" />
             <element signature="e#5831#6030#0" expanded="false" />
             <element signature="e#5897#6030#0" expanded="false" />
             <element signature="e#5962#6030#0" expanded="false" />
-            <element signature="e#6166#6394#0" expanded="false" />
-            <element signature="e#6216#6394#0" expanded="false" />
-            <element signature="e#6261#6394#0" expanded="false" />
             <element signature="e#6419#6987#0" expanded="false" />
             <element signature="e#6460#6533#0" expanded="false" />
             <element signature="e#6575#6795#0" expanded="false" />
@@ -787,10 +774,6 @@
             <element signature="e#20769#20773#0" expanded="false" />
             <element signature="e#20942#20988#0" expanded="false" />
             <element signature="e#21097#21164#0" expanded="false" />
-            <element signature="e#21738#23333#0" expanded="false" />
-            <element signature="e#22464#23077#0" expanded="false" />
-            <element signature="e#22561#22620#0" expanded="false" />
-            <element signature="e#23941#24505#0" expanded="false" />
             <element signature="e#24048#24107#0" expanded="false" />
             <element signature="e#25280#25851#0" expanded="false" />
             <element signature="e#25387#25446#0" expanded="false" />
@@ -951,13 +934,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CueEdit_alt_ui.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="578">
-          <caret line="34" column="26" lean-forward="false" selection-start-line="34" selection-start-column="26" selection-end-line="34" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pid_lister.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
@@ -1064,7 +1040,8 @@
         <state relative-caret-position="3536">
           <caret line="213" column="49" lean-forward="false" selection-start-line="213" selection-start-column="40" selection-end-line="213" selection-end-column="49" />
           <folding>
-            <marker date="1509988090565" expanded="true" signature="20575:20687" ph="..." />
+            <marker date="1510074404913" expanded="true" signature="12360:13484" ph="..." />
+            <marker date="1510074404913" expanded="true" signature="21059:21171" ph="..." />
           </folding>
         </state>
       </provider>
@@ -1087,17 +1064,25 @@
     <entry file="file://$PROJECT_DIR$/../cue-engine.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
-          <caret line="6" column="22" lean-forward="true" selection-start-line="6" selection-start-column="22" selection-end-line="6" selection-end-column="22" />
+          <caret line="6" column="22" lean-forward="false" selection-start-line="6" selection-start-column="22" selection-end-line="6" selection-end-column="22" />
           <folding>
             <element signature="e#23#38#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/CueEdit_alt_ui.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="28" column="53" lean-forward="true" selection-start-line="28" selection-start-column="53" selection-end-line="28" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/CueEngine.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5668">
-          <caret line="648" column="8" lean-forward="false" selection-start-line="648" selection-start-column="8" selection-end-line="648" selection-end-column="8" />
+        <state relative-caret-position="174">
+          <caret line="155" column="0" lean-forward="true" selection-start-line="153" selection-start-column="0" selection-end-line="155" selection-end-column="0" />
           <folding>
             <element signature="e#828#908#0" expanded="false" />
             <element signature="e#2047#2125#0" expanded="false" />
@@ -1111,22 +1096,12 @@
             <element signature="e#2838#2921#0" expanded="false" />
             <element signature="e#2953#3163#0" expanded="false" />
             <element signature="e#3197#3201#0" expanded="false" />
-            <element signature="e#4368#5119#0" expanded="false" />
-            <element signature="e#4535#5081#0" expanded="false" />
             <element signature="e#4583#4995#0" expanded="false" />
             <element signature="e#4696#4949#0" expanded="false" />
             <element signature="e#4751#4949#0" expanded="false" />
-            <element signature="e#5151#5212#0" expanded="false" />
-            <element signature="e#5247#5266#0" expanded="false" />
-            <element signature="e#5322#6115#0" expanded="false" />
-            <element signature="e#5513#6115#0" expanded="false" />
-            <element signature="e#5561#6030#0" expanded="false" />
             <element signature="e#5831#6030#0" expanded="false" />
             <element signature="e#5897#6030#0" expanded="false" />
             <element signature="e#5962#6030#0" expanded="false" />
-            <element signature="e#6166#6394#0" expanded="false" />
-            <element signature="e#6216#6394#0" expanded="false" />
-            <element signature="e#6261#6394#0" expanded="false" />
             <element signature="e#6419#6987#0" expanded="false" />
             <element signature="e#6460#6533#0" expanded="false" />
             <element signature="e#6575#6795#0" expanded="false" />
@@ -1155,10 +1130,6 @@
             <element signature="e#20769#20773#0" expanded="false" />
             <element signature="e#20942#20988#0" expanded="false" />
             <element signature="e#21097#21164#0" expanded="false" />
-            <element signature="e#21738#23333#0" expanded="false" />
-            <element signature="e#22464#23077#0" expanded="false" />
-            <element signature="e#22561#22620#0" expanded="false" />
-            <element signature="e#23941#24505#0" expanded="false" />
             <element signature="e#24048#24107#0" expanded="false" />
             <element signature="e#25280#25851#0" expanded="false" />
             <element signature="e#25387#25446#0" expanded="false" />
