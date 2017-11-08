@@ -268,17 +268,23 @@ class CueList():
         self.cuelist.write('update.xml')
 
     def addnewcue(self, cue_data=[]):
-        show = self.cuelist.getroot()
-        newcue = ET.Element('cue',attrib={'uuid':'{0}'.format(uuid.uuid4()), 'num':'{0:03}'.format(self.cuecount)})
+        cues_element = self.cuelist.find(".cues")
+        cues = cues_element.findall(".cue")
+        cue_count = len(cues)
+        newcue = ET.Element('cue',attrib={'uuid':'{0}'.format(uuid.uuid4()), 'num':'{0:03}'.format(cue_count)})
+
+        #newcue = ET.Element('cue',attrib={'uuid':'{0}'.format(uuid.uuid4()), 'num':'{0:03}'.format(self.cuecount)})
         for i in range(cue_subelements.__len__()):
             newele = ET.SubElement(newcue, cue_subelements[i].replace('_',''))
             newele.text = cue_data[i]
-        show.insert(self.cuecount, newcue)
+        cues_element.append(newcue)
 
-        ET.dump(show)
-        cues = self.cuelist.findall('cue')
+        # ET.dump(cues_element)
+        cues = self.cuelist.findall('.cues/cue')
         self.cuecount = len(cues)
         # self.cuelist.write('addelementtest.xml')
+
+        return [newcue.get('uuid'), newcue.get('num')]
 
     def insertcue(self, cueindex, cue_data=[]):
         # cueidx is the index that we're inserting above, so
@@ -301,7 +307,7 @@ class CueList():
         cues_element.insert(cueindex + 1, newcue)
         # show.insert(cueindex, newcue)
         # ET.dump(show)
-        cues = self.cuelist.findall('cue')
+        cues = self.cuelist.findall('.cues/cue')
         self.cuecount = len(cues)
         return
 

@@ -35,6 +35,7 @@ class ProjectXML():
         ET.SubElement(project, 'equipment', attrib={'href':name + '_equipment.xml'})
         ET.SubElement(project, 'mixermap', attrib={'href':'MixerMap.xml'})
         ET.SubElement(project, 'charmap', attrib={'href':name + '_char.xml'})
+        ET.SubElement(project, 'cuechar', attrib={'href':name + '_cuechar.xml'})
         ET.SubElement(project, 'cues', attrib={'href':venue + '_cues.xml'})
         ET.SubElement(project, 'cues', attrib={'href':name + '_cues.xml'})
         return showcontrol

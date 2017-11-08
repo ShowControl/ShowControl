@@ -227,7 +227,7 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
         tableView.setContextMenuPolicy(Qt.ActionsContextMenu)
 
         # set up right click actions for tableView
-        self.stage_action_list = ['Insert', 'Add', 'Delete']  # actions that can be triggered by right click on table
+        self.stage_action_list = ['Insert', 'Add', 'Delete', 'View/Edit Cue']  # actions that can be triggered by right click on table
         # add "Insert" action to the tableView
         self.stage_insertAction = QAction("Insert", None)
         self.stage_insertAction.triggered.connect(self.on_stage_table_rightclick)
@@ -240,6 +240,10 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
         self.stage_DeleteAction = QAction("Delete", None)
         self.stage_DeleteAction.triggered.connect(self.on_stage_table_rightclick)
         tableView.addAction(self.stage_DeleteAction)
+        # add "Edit/View Cue" action to the tableView
+        self.stage_EditCueAction = QAction("Edit/View Cue", None)
+        self.stage_EditCueAction.triggered.connect(self.on_stage_table_rightclick)
+        tableView.addAction(self.stage_EditCueAction)
 
         # the following two lines turn the text in the horizontal header vertical
         # but, the paint routine doesnt handle the newline
@@ -441,6 +445,7 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
         print('File>Open: {0}'.format(fileNames))
 
     def new_project(self):
+        # get the pat to the projects/shows folder
         shows_folder = os.path.dirname(os.path.dirname(self.The_Show.show_confpath))
 
         new_proj_dlg = NewProject_dlg()
@@ -623,6 +628,8 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
             self.stage_table_add()
         elif sender_text == 'Delete':
             self.stage_table_delete()
+        elif sender_text == 'Edit/View Cue':
+            self.stage_table_editcue()
         return
 
     # stage table Add, Insert, Delete handlers
@@ -631,23 +638,31 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
         '''Inserting into the stage table requires adding a cue.
         Normally the cue would have been added elsewhere.
         But to handle it for now launch a dialog to enter cue details'''
+
+        # get stage table and find the selected row
         stage_table = self.tablist[ShowMakerWin.stage_table_enum].findChild(QtWidgets.QTableView, name='table_stage')
         indexes = stage_table.selectedIndexes()
         row = indexes[0].row()
+
+        # get the uuid of the selected row/cue and get it's details
         cue_uuid = stage_table.model().arraydata[row][0]
         cue_xml = self.The_Show.cues.cuelist.find(".cues/cue[@uuid='" + cue_uuid + "']")
         cue_list = self.The_Show.cues.getcuelistbyuuid(cue_uuid)
+
+        # Show to user for editing
         edit_dlg = EditCue_dlg()
         edit_dlg.setWindowTitle(_translate("dlgEditCue", "Insert Cue"))
         edit_dlg.setROcueelements(['Cue_Number', 'Mutes', 'Levels'])
         edit_dlg.fillfields(row, cue_list)
         edit_dlg.exec_()
+        # insert new cue into the cue list
         if edit_dlg.changeflag:
             chg_list = edit_dlg.getchange()
-            self.The_Show.cues.insertcue(row, chg_list)
+            self.The_Show.cues.insertcue(row, chg_list)  # insert with changes
         else:
-            self.The_Show.cues.insertcue(row, cue_list)
+            self.The_Show.cues.insertcue(row, cue_list)  # insert no changes
 
+        # Insert the new row into the stage table
         stage_model = stage_table.model()
         stage_model.insertRows(row, 1)
         '''At this point the table model and the cues.cue_list uuid for this cue
@@ -664,15 +679,53 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
 
     def stage_table_add(self):
         print('In stage table add')
+        '''Adding to the stage table requires adding a cue.
+        Normally the cue would have been added elsewhere.
+        But to handle it for now launch a dialog to enter cue details'''
+
+        # get stage table and find the selected row
         stage_table = self.tablist[ShowMakerWin.stage_table_enum].findChild(QtWidgets.QTableView, name='table_stage')
-        indexes = stage_table.selectedIndexes()
-        row = indexes[0].row()
         stage_model = stage_table.model()
+        # Adding to end of table, so get the last index
         if stage_model.rowCount() == 0:
-            row = 0
+            cue_num = 0  # if rowcount == 0, then the table is empty
         else:
-            row = stage_model.rowCount() - 1
-        stage_model.insertRows(row, 1)
+            cue_num = stage_model.rowCount() - 1
+
+        # get the uuid of the selected row/cue and get it's details
+        cue_uuid = stage_table.model().arraydata[cue_num][0]
+        cue_xml = self.The_Show.cues.cuelist.find(".cues/cue[@uuid='" + cue_uuid + "']")
+        cue_list = self.The_Show.cues.getcuelistbyuuid(cue_uuid)
+
+        # Show to user for editing
+        edit_dlg = EditCue_dlg()
+        edit_dlg.setWindowTitle(_translate("dlgEditCue", "Insert Cue"))
+        edit_dlg.setROcueelements(['Cue_Number', 'Mutes', 'Levels'])
+        edit_dlg.fillfields(cue_num, cue_list)
+        edit_dlg.exec_()
+        # insert new cue into the cue list
+        if edit_dlg.changeflag:
+            chg_list = edit_dlg.getchange()
+            new_cue_uuid, new_cue_num = self.The_Show.cues.addnewcue(chg_list)  # add with changes
+        else:
+            new_cue_uuid, new_cue_num = self.The_Show.cues.addnewcue(cue_list)  # add no changes
+
+        print('stage_model.rowCount(): {}'.format(stage_model.rowCount()))
+        print('cue_num: {}'.format(cue_num))
+        print('cue_uuid: {}'.format(cue_uuid))
+        print('cue_xml num: {}'.format(cue_xml.get('num')))
+        print('new_cue_num: {}'.format(new_cue_num))
+        print('new_cue_uuid: {}'.format(new_cue_uuid))
+        #print(': {}'.format())
+
+        # Add the new row to the stage table
+        stage_model.insertRows(stage_model.rowCount(), 1)
+        '''At this point the table model and the cues.cue_list uuid for this cue
+        don't match, reconcile here'''
+        #new_cue_uuid = self.The_Show.cues.getcurrentcueuuid(row)
+        stage_model.arraydata[int(new_cue_num)][0] = new_cue_uuid
+        # add new cue to cuechar
+        self.The_Show.cuechar.add_cue(new_cue_uuid, self.cast_data)
         stage_table.model().layoutChanged.emit()
         stage_table.resizeColumnsToContents()
         stage_table.scrollToBottom()
@@ -694,6 +747,22 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
         self.stagestate_changed = True
         return
 
+    def stage_table_editcue(self):
+        stage_table = self.tablist[ShowMakerWin.stage_table_enum].findChild(QtWidgets.QTableView, name='table_stage')
+        indexes = stage_table.selectedIndexes()
+        row = indexes[0].row()
+        cue_uuid = stage_table.model().arraydata[row][0]
+        cue_list = self.The_Show.cues.getcuelistbyuuid(cue_uuid)
+        edit_dlg = EditCue_dlg()
+        edit_dlg.setWindowTitle(_translate("dlgEditCue", "Edit/View Cue"))
+        edit_dlg.setROcueelements(['Cue_Number', 'Mutes', 'Levels'])
+        edit_dlg.fillfields(row, cue_list)
+        edit_dlg.exec_()
+        if edit_dlg.changeflag:
+            chg_list = edit_dlg.getchange()
+            self.The_Show.cues.updatecue(row, chg_list)
+            self.stagestate_changed = True
+        return
 
 class CastTableModel(QtCore.QAbstractTableModel):
     """
@@ -880,8 +949,12 @@ class StageTableModel(QtCore.QAbstractTableModel):
 
     def insertRows(self, row, count):
         self.beginInsertRows(QModelIndex(), self.rowCount(), self.rowCount())
-        # copy last row data, except add a new StageState for all StageState columns
-        newrow = self.arraydata[row][:]  # slice [:] clones the row
+        if row == self.rowCount():
+            # copy last row data, except add a new StageState for all StageState columns
+            newrow = self.arraydata[row - 1][:]  # slice [:] clones the row
+        else:
+            # copy row
+            newrow = self.arraydata[row][:]  # slice [:] clones the row
         # new cue gets a new uuid
         newrow[0] = '{}'.format(uuid.uuid4())
         for colcnt, junk in enumerate(newrow):
@@ -889,8 +962,10 @@ class StageTableModel(QtCore.QAbstractTableModel):
                 oldstagestate = newrow[colcnt].talentstate
                 newrow[colcnt] = None
                 newrow[colcnt] = StageState(oldstagestate)  # replace copy of StageState from old row, retaining previous state
-
-        self.arraydata.insert(row, newrow)
+        if row == self.rowCount():
+            self.arraydata.append(newrow)
+        else:
+            self.arraydata.insert(row, newrow)
         self.endInsertRows()
         return True
 
