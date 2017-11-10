@@ -22,17 +22,22 @@ class CueChar():
     """
     CueChar object contains the character state for each cue of a project
     """
-    def __init__(self, cuecharfilename):
+    def __init__(self, cuecharfilename, first_cue_uuid=None, char_list=None):
         """"""
         logging.info('In CueChar init')
+        if not path.isfile(cuecharfilename):
+            # build new cuechar file
+            self.cuecharlist = ET.Element('showcontrol')
+            project = ET.SubElement(self.cuecharlist, 'cues')
+            ET.SubElement(project, 'version').text = '1.0'
+            self.add_cue(first_cue_uuid, char_list)
+            self.write(self.cuecharlist, False, cuecharfilename)
         self.setup_cuechar(cuecharfilename)
 
     def setup_cuechar(self, filename):
         logging.info('In CueList setup_cues')
         self.cuecharlist = ET.parse(filename)
         self.cuecharlist_root = self.cuecharlist.getroot()
-        #self.cues_element = self.cuelist_root.find('cues')
-        #self.cuelist.find(".cues/cue[@num='001']")
         cues = self.cuecharlist.findall('.cues/cue')
         self.cuecharcount = len(cues)
 

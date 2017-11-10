@@ -330,6 +330,26 @@ class CueList():
         cues = self.cuelist.findall('cue')
         self.cuecount = len(cues)
 
+    def delete_cue_by_uuid(self, cueuuid):
+        '''Delete the cue specified by index
+        and re-index the list'''
+        # find the cue
+        cues_element = self.cuelist.find(".cues")
+        thiscue = cues_element.find(".cue[@uuid='" + cueuuid + "']")
+        cueindex = int(thiscue.get('num'))
+        # delete the cue from the tree
+        cues_element.remove(thiscue)
+        cues = cues_element.findall('cue')
+        self.cuecount = len(cues)
+        print('cuecount: {}'.format(self.cuecount))
+        for anidx in range(cueindex + 1, self.cuecount + 1):
+            cuenum = '{0:03}'.format(anidx)
+            thiscue = self.cuelist.find(".cues/cue[@num='"+cuenum+"']")
+            thisidx = thiscue.get('num')
+            thiscue.set('num', '{0:03}'.format(int(anidx) - 1))
+        cues = self.cuelist.findall('.cues/cue')
+        self.cuecount = len(cues)
+
     def getcuelist(self, cueindex):
         cuenum = '{0:03}'.format(cueindex)
         thiscue = self.cuelist.find(".cues/cue[@num='"+cuenum+"']")

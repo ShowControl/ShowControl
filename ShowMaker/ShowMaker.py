@@ -43,6 +43,7 @@ print(sys.path)
 from ShowControl.utils.ShowControlConfig import configuration, CFG_DIR, CFG_PATH
 from ShowControl.utils.Show import Show
 from ShowControl.utils.Char import Char
+from ShowControl.utils.CueChar import CueChar
 from ShowControl.utils.ProjectXML import ProjectXML
 from ShowControl.utils.Cues import cue_types, cue_subelements, cue_edit_sizes, cue_subelements_tooltips, header, cue_fields
 from ShowControl.utils.Cues import CuesXML
@@ -280,7 +281,7 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
         stagemodel = StageTableModel(self.stagestat_data, self.stagestat_header, self)
         stage_table = self.tablist[1].findChild(QtWidgets.QTableView, name='table_stage')
         stage_table.setModel(stagemodel)
-        stage_table.hideColumn(0)  # hide uuid column
+        #stage_table.hideColumn(0)  # hide uuid column
         stage_table.resizeColumnsToContents()
         self.lineEdit_projectname.setText(self.The_Show.show_conf.settings['title'])
         self.lineEdit_projectcuefile.setText(self.The_Show.show_conf.settings['cues']['href1'])
@@ -445,7 +446,7 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
         print('File>Open: {0}'.format(fileNames))
 
     def new_project(self):
-        # get the pat to the projects/shows folder
+        # get the path to the projects/shows folder
         shows_folder = os.path.dirname(os.path.dirname(self.The_Show.show_confpath))
 
         new_proj_dlg = NewProject_dlg()
@@ -459,8 +460,7 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
                 QMessageBox.information(self.parent(), 'Invalid Project', 'Please fill all fields.',
                                         QMessageBox.Ok)
             else:  # build new project with specified info
-                # no white space in project name
-
+                # TODO mac no white space in project name
                 project_folder = os.path.join(shows_folder, project_name)
                 if not os.path.exists(project_folder):
                     os.makedirs(project_folder)
@@ -469,29 +469,68 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
                 newcfg_doc = self.cfg.updateFromDict()
                 self.cfg.write(newcfg_doc, True, CFG_PATH)
                 self.load_cfg()
+                self.lineEdit_projectname.setText(self.The_Show.show_conf.settings['title'])
+                self.lineEdit_projectcuefile.setText(self.The_Show.show_conf.settings['cues']['href1'])
+                self.lineEdit_projectpath.setText(self.cfg.cfgdict['configuration']['project']['folder'])
+
                 # new project fle
                 prjxml = ProjectXML()
                 prjxml_doc = prjxml.toXMLdoc(project_title, project_name, project_venue)
                 project_xml_path = os.path.join(project_folder, self.cfg.cfgdict['configuration']['project']['file'])
                 prjxml.write(prjxml_doc, False, project_xml_path)
                 prjxml = None
-                # copy venue and template files
-                venue_folder = os.path.join(shows_folder, 'Venue')
-                shutil.copy(os.path.join(venue_folder, 'Venue_equipment.xml'),
-                            os.path.join(project_folder, project_venue + '_equipment.xml'))
-                shutil.copy(os.path.join(venue_folder, 'Venue_equipment.xml'),
-                            os.path.join(project_folder, project_name + '_equipment.xml'))
-                # new cue file
+                # create empty project files
+
+                # cue file with one dummy cue
                 cuesxml = CuesXML()
                 cues_doc = cuesxml.toXMLdoc()
+                # we get away with this because at this point there is only one cue element
+                first_cue_uuid = cues_doc.find(".cues/cue").get('uuid')
                 cuesxml.write(cues_doc, False, os.path.join(project_folder, project_name + '_cues.xml'))
-                # new char file
+                # char file with one empty char
                 chrxml = Char()
-                chrxml.new_char_list(shows_folder, project_name)
+                first_char_uuid = chrxml.new_char_list(shows_folder, project_name)
+                chrxml.setup_cast(os.path.join(project_folder, '{}_char.xml'.format(project_name)))
+                chrxml.chars_to_list_of_tuples()
                 self.chrchnmap = None
                 self.cast_data = []
+                # new cuechar file
+                cuechar = CueChar(os.path.join(project_folder, project_name + '_cuechar.xml'),
+                                  first_cue_uuid,
+                                  chrxml.char_list)
+                # copy template files
+                template_folder = os.path.join(shows_folder, 'Template')
+                shutil.copy(os.path.join(template_folder, 'Venue_equipment.xml'),
+                            os.path.join(project_folder, project_venue + '_equipment.xml'))
+                shutil.copy(os.path.join(template_folder, 'Project_equipment.xml'),
+                            os.path.join(project_folder, project_name + '_equipment.xml'))
+
                 self.load_show()
                 self.load_project()
+                # self.char.setup_cast(self.The_Show.show_confpath + self.The_Show.show_conf.settings['charmap'])
+                # self.char.chars_to_list_of_tuples()
+                # for chrnam in self.char.char_list:
+                #     try:
+                #         char = chrnam[1]
+                #         print(char)
+                #     except:
+                #         print('no char')
+                #     try:
+                #         actor = chrnam[2]
+                #     except:
+                #         print('no actor')
+                #     self.cast_data.append([chrnam[0], char, actor])
+                #
+                # cast_table = self.tablist[self.cast_table_enum].findChild(QtWidgets.QTableView, name='table_cast')
+                # cast_table.model().arraydata = []
+                # cast_table.model().arraydata = self.cast_data
+                # cast_table.model().layoutChanged.emit()
+                # stage_table = self.tablist[self.stage_table_enum].findChild(QtWidgets.QTableView, name='table_stage')
+                # #stage_table.model().arraydata = []
+                # #stage_table.model().layoutChanged.emit()
+                self.caststate_changed = True
+                self.stagestate_changed = True
+
         return
 
     # cast table management
@@ -513,7 +552,7 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
         print('In cast_list_changed_signal_handler.')
         self.char.char_list[char_list_row] = self.cast_data[char_list_row]
         self.init_stagestat_data()
-        stage_table = self.tablist[ShowMakerWin.cast_table_enum].findChild(QtWidgets.QTableView, name='table_stage')
+        stage_table = self.tablist[ShowMakerWin.stage_table_enum].findChild(QtWidgets.QTableView, name='table_stage')
         stage_table.model().headerdata_horz = self.stagestat_header
         stage_table.model().arraydata = self.stagestat_data
         stage_table.model().layoutChanged.emit()
@@ -543,7 +582,7 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
         cast_table.scrollToBottom()
         self.The_Show.cuechar.add_new_char(new_char[0])  # new char to cuechar
         self.init_stagestat_data()
-        stage_table = self.tablist[ShowMakerWin.cast_table_enum].findChild(QtWidgets.QTableView, name='table_stage')
+        stage_table = self.tablist[ShowMakerWin.stage_table_enum].findChild(QtWidgets.QTableView, name='table_stage')
         stage_table.model().headerdata_horz = self.stagestat_header
         stage_table.model().arraydata = self.stagestat_data
         stage_table.model().layoutChanged.emit()
@@ -729,6 +768,7 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
         stage_table.model().layoutChanged.emit()
         stage_table.resizeColumnsToContents()
         stage_table.scrollToBottom()
+        stage_table.selectRow(int(new_cue_num))
         self.stagestate_changed = True
         return
 
@@ -740,6 +780,7 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
         stage_model = stage_table.model()
         cue_uuid = stage_model.arraydata[row][0]
         self.The_Show.cuechar.delete_cue(cue_uuid)
+        self.The_Show.cues.delete_cue_by_uuid(cue_uuid)
         stage_model.removeRows(row, 1)
         stage_table.model().layoutChanged.emit()
         stage_table.resizeColumnsToContents()

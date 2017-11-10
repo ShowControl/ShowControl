@@ -30,6 +30,19 @@ class Char():
     def setup_cast(self, charfilename):
         """Load the specified xml file """
         logging.info('In Chars setup_cast')
+        if not path.isfile(charfilename):
+            of = open(charfilename, mode='w')
+            of.write('<?xml version="1.0" encoding="UTF-8"?>\n')
+            of.write('<show_control>\n')
+            of.write('    <version>1.0</version >\n')
+            of.write('    <chars>\n')
+            of.write('      <char uuid="{}">\n'.format(uuid.uuid4()))
+            of.write('       <name>""</name>\n')
+            of.write('       <actor>""</actor>\n')
+            of.write('      </char>\n')
+            of.write('    </chars>\n')
+            of.write('</show_control>\n')
+            of.close()
         self.char_element_tree = ET.parse(charfilename)
         self.charlist_root = self.char_element_tree.getroot()
         self.chars_element = self.charlist_root.find('chars')
@@ -113,19 +126,21 @@ class Char():
     def new_char_list(self, folder, name):
         """create an empty character list xml file"""
         # build file name
+        char_uuid = '{}'.format(uuid.uuid4())
         cf = os.path.join(folder, name, '{}_char.xml'.format(name))
         of = open(cf,mode='w')
         of.write('<?xml version="1.0" encoding="UTF-8"?>\n')
         of.write('<show_control>\n')
         of.write('    <version>1.0</version >\n')
         of.write('    <chars>\n')
-        of.write('      <char uuid="{}">\n'.format(uuid.uuid4()))
-        of.write('       <name>"First char"</name>\n')
-        of.write('       <actor>"Played by"</actor>\n')
+        of.write('      <char uuid="' + char_uuid + '">\n')
+        of.write('       <name>""</name>\n')
+        of.write('       <actor>""</actor>\n')
         of.write('      </char>\n')
         of.write('    </chars>\n')
         of.write('</show_control>\n')
         of.close()
+        return char_uuid
 
 
 if __name__ == "__main__":
