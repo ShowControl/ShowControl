@@ -2,6 +2,14 @@
 Created on Nov 2, 2014
 Cue object that maintains the current cue list
 @author: mac
+
+Updated on Fri Nov 10 09:20:06 EST 2017
+@author: mac
+This update is a new attempt to smooth out handling of xml
+class CueList() is now the character manipulation class
+class cueXML() is early cue file creator saved for reference, **NOT FOR GENERAL USE**
+class CreateCue() handles creating empty char file when creating a new project
+
 '''
 
 import sys
@@ -472,6 +480,65 @@ class CuesXML():
 
         return
 
+class CreateCue():
+    """
+    Builder for cues xml file
+    """
+    def __init__(self, cuesfilename):
+        """"""
+        logging.info('In CreateCue init')
+        self.first_uuid = '{}'.format(uuid.uuid4())
+        showcontrol = ET.Element('showcontrol')
+        cues = ET.SubElement(showcontrol, 'cues')
+        ET.SubElement(cues, 'version').text = '1.0'
+        cue = ET.SubElement(cues, 'cue', attrib={'uuid':self.first_uuid, 'num':'{0:03}'.format(0)})
+        ET.SubElement(cue, 'Id').text = '0'
+        ET.SubElement(cue, 'Act').text = '0'
+        ET.SubElement(cue, 'Scene').text = 'Pre Show'
+        ET.SubElement(cue, 'Page').text = '0'
+        ET.SubElement(cue, 'Title').text = 'Initial State'
+        ET.SubElement(cue, 'CueCall').text = 'Program Start'
+        ET.SubElement(cue, 'CueType').text = 'Stage,Mixer,Sound'
+        ET.SubElement(cue, 'Mutes').text = ''
+        ET.SubElement(cue, 'Entrances').text = ''
+        ET.SubElement(cue, 'Exits').text = ''
+        ET.SubElement(cue, 'Levels').text = ''
+        ET.SubElement(cue, 'OnStage').text = ''
+        ET.SubElement(cue, 'Note1').text = ''
+        ET.SubElement(cue, 'Note2').text = ''
+        ET.SubElement(cue, 'Note3').text = ''
+        ET.SubElement(cue, 'map').text = '0'
+        self.write(showcontrol, False, cuesfilename)
+        return
+
+    def get_first_uuid(self):
+        return self.first_uuid
+
+    def write(self, newxml,  revision=True, filename=''):
+        """save a new characters file.
+        If revision is true, save with a revision number
+        i.e. this essentially makes a backup of the config file,
+        typically call with revision=True before an add or insert
+        If revision=False, save
+        in the file specified by filename"""
+        newdoctree = ET.ElementTree(newxml)
+        if filename == '':
+            logging.debug('Configuration not saved, no filename provided!')
+            msgBox = QtWidgets.QMessageBox()
+            msgBox.setText('Configuration not saved, no filename provided!')
+            msgBox.exec_()
+            return
+        rev = 1
+        if revision:
+            oldroot, extension = path.splitext(filename)
+            while path.isfile(oldroot + '-{0}'.format(rev) + extension):
+                rev += 1
+            shutil.copyfile(filename, oldroot + '-{0}'.format(rev) + extension)
+            logging.debug('Configuration written to: ' + oldroot + '-{0}'.format(rev) + extension)
+        newdoctree.write(filename, xml_declaration=True)
+        logging.debug('Configuration written to: ' + filename)
+
+        return
 
 if __name__ == "__main__":
     #/home/mac/SharedData/PycharmProjs/ShowControl/ShowControl/utils/

@@ -2,6 +2,13 @@
 Created on Fri Oct 13 11:48:35 EDT 2017
 Char object that maintains the current cue list
 @author: mac
+
+Updated on Fri Nov 10 09:20:06 EST 2017
+@author: mac
+This update is a new attempt to smooth out handling of xml
+class Char() is now the character manipulation class
+class CreateChar() handles creating empty char file when creating a new project
+
 '''
 
 import sys
@@ -30,31 +37,12 @@ class Char():
     def setup_cast(self, charfilename):
         """Load the specified xml file """
         logging.info('In Chars setup_cast')
-        if not path.isfile(charfilename):
-            of = open(charfilename, mode='w')
-            of.write('<?xml version="1.0" encoding="UTF-8"?>\n')
-            of.write('<show_control>\n')
-            of.write('    <version>1.0</version >\n')
-            of.write('    <chars>\n')
-            of.write('      <char uuid="{}">\n'.format(uuid.uuid4()))
-            of.write('       <name>""</name>\n')
-            of.write('       <actor>""</actor>\n')
-            of.write('      </char>\n')
-            of.write('    </chars>\n')
-            of.write('</show_control>\n')
-            of.close()
         self.char_element_tree = ET.parse(charfilename)
         self.charlist_root = self.char_element_tree.getroot()
         self.chars_element = self.charlist_root.find('chars')
         self.char_element_list = self.chars_element.findall('char')
         self.charcount = len(self.char_element_list)
         return
-
-    # def chars_toDict(self):
-    #     logging.info('In Chars cast_toDict')
-    #     for char in self.char_element_list:
-    #         self.char_dict[char.get('uuid')] = (char.find('name').text,char.find('actor').text)
-    #     return
 
     def chars_to_list_of_tuples(self):
         """Create a list of tuples from the character xml element list
@@ -96,12 +84,7 @@ class Char():
             while path.isfile(oldroot + '-{0}'.format(rev) + extension):
                 rev += 1
             shutil.copyfile(filename, oldroot + '-{0}'.format(rev) + extension)
-
-            # newdoctree.write(oldroot + '-{0}'.format(rev) + extension)
             logging.debug('Configuration written to: ' + oldroot + '-{0}'.format(rev) + extension)
-        # else:
-        #     newdoctree.write(filename)
-        #     self.logging.debug('Configuration written to: ' + filename)
         newdoctree.write(filename, xml_declaration=True)
         logging.debug('Configuration written to: ' + filename)
 
@@ -134,14 +117,61 @@ class Char():
         of.write('    <version>1.0</version >\n')
         of.write('    <chars>\n')
         of.write('      <char uuid="' + char_uuid + '">\n')
-        of.write('       <name>""</name>\n')
-        of.write('       <actor>""</actor>\n')
+        of.write('       <name>"Char name"</name>\n')
+        of.write('       <actor>"Played by"</actor>\n')
         of.write('      </char>\n')
         of.write('    </chars>\n')
         of.write('</show_control>\n')
         of.close()
         return char_uuid
 
+
+class CreateChar():
+    """
+    Char object contains character/actor list for a project
+    """
+    def __init__(self, charfilename):
+        """"""
+        logging.info('In CreateChar init')
+        first_uuid = '{}'.format(uuid.uuid4())
+        showcontrol = ET.Element('showcontrol')
+        chars_element = ET.SubElement(showcontrol, 'chars')
+        ET.SubElement(chars_element, 'version').text = '1.0'
+        char_element = ET.SubElement(chars_element, 'char', {'uuid':first_uuid})
+        ET.SubElement(char_element, 'name').text = 'Char name'
+        ET.SubElement(char_element, 'actor').text = 'Played by'
+        self.write(showcontrol, False, charfilename)
+        self.firstchar_list = [(first_uuid, 'Char name', 'Played by')]
+        return
+
+    def get_firstchar(self):
+        return self.firstchar_list
+
+    def write(self, newchars,  revision=True, filename=''):
+        """save a new characters file.
+        If revision is true, save with a revision number
+        i.e. this essentially makes a backup of the config file,
+        typically call with revision=True before an add or insert
+        If revision=False, save
+        in the file specified by filename"""
+        newdoctree = ET.ElementTree(newchars)
+        if filename == '':
+            logging.debug('Configuration not saved, no filename provided!')
+            msgBox = QtWidgets.QMessageBox()
+            msgBox.setText('Configuration not saved, no filename provided!')
+            msgBox.exec_()
+            return
+        rev = 1
+        if revision:
+            oldroot, extension = path.splitext(filename)
+            while path.isfile(oldroot + '-{0}'.format(rev) + extension):
+                rev += 1
+            shutil.copyfile(filename, oldroot + '-{0}'.format(rev) + extension)
+            logging.debug('Configuration written to: ' + oldroot + '-{0}'.format(rev) + extension)
+        newdoctree.write(filename, xml_declaration=True)
+        logging.debug('Configuration written to: ' + filename)
+
+        return
 
 if __name__ == "__main__":
     HOME = os.path.expanduser("~")
