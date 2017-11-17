@@ -36,14 +36,20 @@ class CueChar():
 
     def setup_cuechar(self, filename):
         logging.info('In CueList setup_cues')
+        # cuecharlist contains all elements *under* <showcontrol>
         self.cuecharlist = ET.parse(filename)
-        self.cuecharlist_root = self.cuecharlist.getroot()
+        # getroot() return <showcontrol> and elements under it
+        #self.cuecharlist_root = self.cuecharlist.getroot()
         cues = self.cuecharlist.findall('.cues/cue')
         self.cuecharcount = len(cues)
 
     def get_cue_by_uuid(self, uuid):
-        cue = self.cuecharlist_root.find(".cues/cue[@uuid='" + uuid + "']")
-        return
+        """return the <cue> element for this uuid
+        the <cue> element contains an element for each character
+        each character element contains info for this cue
+        for example, the mute status or slider level, etc."""
+        cue = self.cuecharlist.find(".cues/cue[@uuid='" + uuid + "']")
+        return cue
 
     def add_new_char(self, new_char_uuid):
         cues = self.cuecharlist.findall('.cues/cue')
@@ -169,3 +175,20 @@ class CreateCueChar():
         logging.debug('Configuration written to: ' + filename)
 
         return
+
+if __name__ == "__main__":
+    HOME = os.path.expanduser("~")
+
+    CFG_DIR = HOME + '/.config/ShowControl'
+    CFG_PATH = CFG_DIR + '/ShowControl_config.xml'
+    LOG_DIR = HOME + '/.log/ShowControl'
+    SHOWS = '/home/mac/SharedData/ShowSetups/Shows'
+    TEST_DIR = '/home/mac/SharedData/ShowSetups/Shows/Fiddler/'
+    TEST_PATH = TEST_DIR + 'FiddlerChar_cuechar.xml'
+    logging.basicConfig(level="INFO",
+                        filename=LOG_DIR + '/CueChar.log', filemode='w',
+                        format='%(name)s %(levelname)s %(message)s')
+    logging.info("In CueChar.__main__")
+    cuechar_object = CueChar(TEST_PATH)
+    cue = cuechar_object.get_cue_by_uuid('f40e83e1-f69f-4fd7-bd22-5baae2d1fd07')
+    pass

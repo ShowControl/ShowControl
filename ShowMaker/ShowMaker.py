@@ -425,6 +425,10 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
         fdlg.setFileMode(QFileDialog.ExistingFile)
         fdlg.setNameFilters(["Project files (*.xml)"])
         fdlg.setDirectory(self.The_Show.show_confpath)
+        proxymodel = FileFilterProxyModel(fdlg)
+        proxymodel.setFilterRegExp(QRegExp("_project", Qt.CaseInsensitive, QRegExp.FixedString))
+        fdlg.setProxyModel(proxymodel)
+
         if fdlg.exec():
             fileNames = fdlg.selectedFiles()
         #fname = QtWidgets.QFileDialog.getOpenFileName(self, 'Open file', '/home')
@@ -1146,6 +1150,23 @@ class SelectDelegate(QtWidgets.QStyledItemDelegate):
             model.setData(index, editor.value(), Qt.EditRole)
         else:
             super(SelectDelegate, self).setModelData(editor, model, index)
+
+class FileFilterProxyModel(QtCore.QSortFilterProxyModel):
+    def __init__(self, parent=None):
+        super(FileFilterProxyModel, self).__init__(parent)
+
+    def filterAcceptsRow(self, source_row, srcidx):
+        model = self.sourceModel()
+        index0 = model.index(source_row, 0, srcidx)
+        index2 = model.index(source_row, 2, srcidx)
+        str0_filenamerole = model.data(index0, QFileSystemModel.FileNameRole)
+        str2_displayrole = model.data(index2, Qt.DisplayRole)
+        indexofstring = self.filterRegExp().indexIn(str0_filenamerole)
+        if (indexofstring >= 0 and str2_displayrole == 'xml File')\
+                or (str2_displayrole in ('Folder', 'Drive')):
+            return True
+        else:
+            return False
 
 
 if __name__ == "__main__":

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/ShowMixer.py" line="1472" />
+    <bookmark url="file://$PROJECT_DIR$/ShowMixer.py" line="1481" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="abfe075f-0c42-4a77-bd66-15c5b772e7d4" name="Default" comment="" />
@@ -25,16 +25,9 @@
       <file leaf-file-name="Cues.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../ShowControl/utils/Cues.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5253">
-              <caret line="348" column="0" lean-forward="false" selection-start-line="348" selection-start-column="0" selection-end-line="348" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#90#1" expanded="false" />
-                <element signature="e#3718#3903#0" expanded="false" />
-                <element signature="e#3929#4009#1" expanded="false" />
-                <element signature="e#4055#4969#0" expanded="false" />
-                <element signature="e#4055#4546#1" expanded="false" />
-                <element signature="e#4633#4682#0" expanded="false" />
-              </folding>
+            <state relative-caret-position="274">
+              <caret line="377" column="0" lean-forward="false" selection-start-line="377" selection-start-column="0" selection-end-line="377" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -82,8 +75,8 @@
       <file leaf-file-name="ShowMixer.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ShowMixer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="8744">
-              <caret line="702" column="18" lean-forward="true" selection-start-line="702" selection-start-column="18" selection-end-line="702" selection-end-column="18" />
+            <state relative-caret-position="291">
+              <caret line="990" column="60" lean-forward="false" selection-start-line="990" selection-start-column="60" selection-end-line="990" selection-end-column="60" />
               <folding>
                 <element signature="e#43#58#0" expanded="true" />
               </folding>
@@ -94,8 +87,8 @@
       <file leaf-file-name="show-mixer.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../show-mixer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="6" column="22" lean-forward="false" selection-start-line="6" selection-start-column="22" selection-end-line="6" selection-end-column="22" />
+            <state relative-caret-position="170">
+              <caret line="10" column="0" lean-forward="true" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
               <folding>
                 <element signature="e#23#38#0" expanded="true" />
               </folding>
@@ -106,8 +99,8 @@
       <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+            <state relative-caret-position="340">
+              <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -124,7 +117,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>current_uuid</find>
       <find>slider</find>
       <find>scroll</find>
       <find>model</find>
@@ -154,6 +146,7 @@
       <find>The_Show</find>
       <find>open</find>
       <find>MixerConf</find>
+      <find>delta</find>
     </findStrings>
     <replaceStrings>
       <replace>control_type</replace>
@@ -199,16 +192,16 @@
         <option value="$PROJECT_DIR$/LogScale.py" />
         <option value="$PROJECT_DIR$/MixerMap.py" />
         <option value="$PROJECT_DIR$/MixerControl.py" />
-        <option value="$PROJECT_DIR$/ShowMixer.py" />
         <option value="$PROJECT_DIR$/main.py" />
         <option value="$PROJECT_DIR$/../show-mixer.py" />
         <option value="$PROJECT_DIR$/../ShowControl/utils/ShowControlConfig.py" />
+        <option value="$PROJECT_DIR$/ShowMixer.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="2003" />
-    <option name="y" value="60" />
+    <option name="x" value="61" />
+    <option name="y" value="36" />
     <option name="width" value="1804" />
     <option name="height" value="944" />
   </component>
@@ -227,7 +220,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -254,7 +247,7 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -562,7 +555,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="2003" y="60" width="1804" height="944" extended-state="0" />
+    <frame x="61" y="36" width="1804" height="944" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14261931" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -613,7 +606,7 @@
         </line-breakpoint>
         <line-breakpoint suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/ShowMixer.py</url>
-          <line>1179</line>
+          <line>1188</line>
           <option name="timeStamp" value="534" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -628,7 +621,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/ShowMixer.py</url>
-          <line>1101</line>
+          <line>1110</line>
           <option name="timeStamp" value="584" />
         </line-breakpoint>
         <line-breakpoint suspend="THREAD" type="python-line">
@@ -644,8 +637,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/ShowMixer.py</url>
-          <line>178</line>
-          <option name="timeStamp" value="605" />
+          <line>1765</line>
+          <option name="timeStamp" value="607" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/ShowMixer.py</url>
+          <line>992</line>
+          <option name="timeStamp" value="611" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
@@ -660,7 +658,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="606" />
+      <option name="time" value="612" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
@@ -895,21 +893,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../ShowControl/utils/Cues.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5253">
-          <caret line="348" column="0" lean-forward="false" selection-start-line="348" selection-start-column="0" selection-end-line="348" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#90#1" expanded="false" />
-            <element signature="e#3718#3903#0" expanded="false" />
-            <element signature="e#3929#4009#1" expanded="false" />
-            <element signature="e#4055#4969#0" expanded="false" />
-            <element signature="e#4055#4546#1" expanded="false" />
-            <element signature="e#4633#4682#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ui_ShowMixer.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-827">
@@ -948,28 +931,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/lib/python3.5/posixpath.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="148">
           <caret line="356" column="0" lean-forward="false" selection-start-line="356" selection-start-column="0" selection-end-line="356" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../show-mixer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="6" column="22" lean-forward="false" selection-start-line="6" selection-start-column="22" selection-end-line="6" selection-end-column="22" />
-          <folding>
-            <element signature="e#23#38#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -981,10 +946,36 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/../ShowControl/utils/Cues.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="274">
+          <caret line="377" column="0" lean-forward="false" selection-start-line="377" selection-start-column="0" selection-end-line="377" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../show-mixer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="0" lean-forward="true" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding>
+            <element signature="e#23#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/ShowMixer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8744">
-          <caret line="702" column="18" lean-forward="true" selection-start-line="702" selection-start-column="18" selection-end-line="702" selection-end-column="18" />
+        <state relative-caret-position="291">
+          <caret line="990" column="60" lean-forward="false" selection-start-line="990" selection-start-column="60" selection-end-line="990" selection-end-column="60" />
           <folding>
             <element signature="e#43#58#0" expanded="true" />
           </folding>

@@ -981,6 +981,15 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def execute_mutes(self, hard=False):
         #mute_changes = The_Show.cues.get_cue_mute_state_delta(The_Show.cues.currentcueindex)
         #mute_changes = The_Show.cues.get_cue_mute_state_by_index(The_Show.cues.currentcueindex)
+        # begin test cuechar
+        #get the uuid of the current index
+        cur_uuid = The_Show.cues.getcurrentcueuuid(The_Show.cues.currentcueindex)
+        cuechar_cue = The_Show.cuechar.get_cue_by_uuid(cur_uuid)
+        for count, char in enumerate(cuechar_cue):
+            char_uuid = char.get('uuid')
+            char_mute = char.find(".mute").text
+            print('{}. Chr uuid: {}, mute:{}'.format(count, char_uuid, char_mute))
+        # end test cuechar
         if The_Show.cues.currentcueindex == 0 or hard:
             mute_changes = The_Show.cues.get_cue_mute_state_by_index(The_Show.cues.currentcueindex)
         else:
