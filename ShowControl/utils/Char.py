@@ -168,7 +168,7 @@ class CreateChar():
                 rev += 1
             shutil.copyfile(filename, oldroot + '-{0}'.format(rev) + extension)
             logging.debug('Configuration written to: ' + oldroot + '-{0}'.format(rev) + extension)
-        newdoctree.write(filename, xml_declaration=True)
+        newdoctree.write(filename, encoding="UTF-8", xml_declaration=True)
         logging.debug('Configuration written to: ' + filename)
 
         return

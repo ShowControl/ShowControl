@@ -171,7 +171,7 @@ class CreateCueChar():
         # else:
         #     newdoctree.write(filename)
         #     self.logging.debug('Configuration written to: ' + filename)
-        newdoctree.write(filename, xml_declaration=True)
+        newdoctree.write(filename, encoding="UTF-8", xml_declaration=True)
         logging.debug('Configuration written to: ' + filename)
 
         return
