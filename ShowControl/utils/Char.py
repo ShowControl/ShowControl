@@ -20,10 +20,14 @@ import uuid
 from PyQt5 import Qt, QtCore, QtGui, QtWidgets
 import logging
 
+import xml.dom.minidom as md
 try:
     from lxml import ET
+    print("running with lxml.etree")
 except ImportError:
     import xml.etree.ElementTree as ET
+
+pretty_print = lambda f: '\n'.join([line for line in md.parse(open(f)).toprettyxml(indent=' '*2).split('\n') if line.strip()])
 
 class Char():
     """
@@ -49,7 +53,7 @@ class Char():
         where each list element is a tuple (uuid, charname, actor)"""
         logging.info('In Chars cast_toDict')
         for char in self.char_element_list:
-            self.char_list.append((char.get('uuid').strip('"'), char.find('name').text.strip('"'),char.find('actor').text.strip('"')))
+            self.char_list.append((char.get('uuid').strip('"'), char.find('name').text.strip('"'),char.find('actor_uuid').text.strip('"')))
         return
 
     def chars_toxmldoc(self):
@@ -85,7 +89,12 @@ class Char():
                 rev += 1
             shutil.copyfile(filename, oldroot + '-{0}'.format(rev) + extension)
             logging.debug('Configuration written to: ' + oldroot + '-{0}'.format(rev) + extension)
-        newdoctree.write(filename, xml_declaration=True)
+        filename_up = oldroot + '_up' + extension  # up >>> uglyprint
+        newdoctree.write(filename_up, encoding="UTF-8", xml_declaration=True)
+        of = open(filename, 'w')
+        of.write(pretty_print(filename_up))
+        of.close()
+
         logging.debug('Configuration written to: ' + filename)
 
         return
@@ -168,7 +177,12 @@ class CreateChar():
                 rev += 1
             shutil.copyfile(filename, oldroot + '-{0}'.format(rev) + extension)
             logging.debug('Configuration written to: ' + oldroot + '-{0}'.format(rev) + extension)
-        newdoctree.write(filename, encoding="UTF-8", xml_declaration=True)
+        filename_up = oldroot + '_up' + extension  # up >>> uglyprint
+        newdoctree.write(filename_up, encoding="UTF-8", xml_declaration=True)
+        of = open(filename, 'w')
+        of.write(pretty_print(filename_up))
+        of.close()
+
         logging.debug('Configuration written to: ' + filename)
 
         return

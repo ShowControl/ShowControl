@@ -43,7 +43,7 @@ print(sys.path)
 from ShowControl.utils.ShowControlConfig import configuration, CFG_DIR, CFG_PATH
 from ShowControl.utils.Show import Show
 from ShowControl.utils.Char import Char
-from ShowControl.utils.Char import CreateChar
+from ShowControl.utils.Actor import Actor
 from ShowControl.utils.CueChar import CueChar
 from ShowControl.utils.CueChar import CreateCueChar
 from ShowControl.utils.ProjectXML import ProjectXML
@@ -294,6 +294,10 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
         self.char = Char()
         self.char.setup_cast(self.The_Show.show_confpath + self.The_Show.show_conf.settings['charmap'])
         self.char.chars_to_list_of_tuples()
+        self.actor = Actor()
+        self.actor.setup_cast(self.The_Show.show_confpath + self.The_Show.show_conf.settings['actormap'])
+        self.actor.actors_to_list_of_tuples()
+        #[(index, thing) for index, thing in enumerate(self.actor.actor_list) if thing[0] =='07940948-687f-4f37-bd9d-fc81e8dcf286']
         for chrnam in self.char.char_list:
             try:
                 char = chrnam[1]

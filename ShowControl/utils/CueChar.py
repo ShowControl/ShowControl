@@ -20,10 +20,14 @@ import uuid
 from PyQt5 import Qt, QtCore, QtGui, QtWidgets
 import logging
 
+import xml.dom.minidom as md
 try:
     from lxml import ET
+    print("running with lxml.etree")
 except ImportError:
     import xml.etree.ElementTree as ET
+
+pretty_print = lambda f: '\n'.join([line for line in md.parse(open(f)).toprettyxml(indent=' '*2).split('\n') if line.strip()])
 
 class CueChar():
     """
@@ -115,7 +119,12 @@ class CueChar():
         # else:
         #     newdoctree.write(filename)
         #     self.logging.debug('Configuration written to: ' + filename)
-        newdoctree.write(filename, xml_declaration=True)
+        filename_up = oldroot + '_up' + extension  # up >>> uglyprint
+        newdoctree.write(filename_up, encoding="UTF-8", xml_declaration=True)
+        of = open(filename, 'w')
+        of.write(pretty_print(filename_up))
+        of.close()
+
         logging.debug('Configuration written to: ' + filename)
 
         return
@@ -168,10 +177,12 @@ class CreateCueChar():
 
             # newdoctree.write(oldroot + '-{0}'.format(rev) + extension)
             logging.debug('Configuration written to: ' + oldroot + '-{0}'.format(rev) + extension)
-        # else:
-        #     newdoctree.write(filename)
-        #     self.logging.debug('Configuration written to: ' + filename)
-        newdoctree.write(filename, encoding="UTF-8", xml_declaration=True)
+        filename_up = oldroot + '_up' + extension  # up >>> uglyprint
+        newdoctree.write(filename_up, encoding="UTF-8", xml_declaration=True)
+        of = open(filename, 'w')
+        of.write(pretty_print(filename_up))
+        of.close()
+
         logging.debug('Configuration written to: ' + filename)
 
         return

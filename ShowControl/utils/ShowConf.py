@@ -103,6 +103,12 @@ class ShowConf:
         except AttributeError:
             self.settings['charmap'] = None
 
+        # find actormap file
+        try:
+            self.settings['actormap'] = self.doc.find('.project/actormap').get('href')
+        except AttributeError:
+            self.settings['actormap'] = None
+
         # find cue files
         cues_elements = self.doc.findall('./project/cues')
         cues_dict = {}

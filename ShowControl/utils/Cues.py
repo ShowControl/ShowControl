@@ -18,10 +18,14 @@ import shutil
 import uuid
 from PyQt5 import Qt, QtCore, QtGui, QtWidgets
 import logging
+import xml.dom.minidom as md
 try:
     from lxml import ET
+    print("running with lxml.etree")
 except ImportError:
     import xml.etree.ElementTree as ET
+
+pretty_print = lambda f: '\n'.join([line for line in md.parse(open(f)).toprettyxml(indent=' '*2).split('\n') if line.strip()])
 
 cue_types = ['Stage', 'Mixer','Sound','SFX', 'Light']
 
@@ -535,7 +539,12 @@ class CreateCue():
                 rev += 1
             shutil.copyfile(filename, oldroot + '-{0}'.format(rev) + extension)
             logging.debug('Configuration written to: ' + oldroot + '-{0}'.format(rev) + extension)
-        newdoctree.write(filename, encoding="UTF-8", xml_declaration=True)
+        filename_up = oldroot + '_up' + extension  # up >>> uglyprint
+        newdoctree.write(filename_up, encoding="UTF-8", xml_declaration=True)
+        of = open(filename, 'w')
+        of.write(pretty_print(filename_up))
+        of.close()
+
         logging.debug('Configuration written to: ' + filename)
 
         return
