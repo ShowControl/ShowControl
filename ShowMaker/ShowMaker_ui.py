@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'ShowMaker-1.ui'
+# Form implementation generated from reading ui file 'ShowMaker-2.ui'
 #
 # Created by: PyQt5 UI code generator 5.5.1
 #
@@ -68,16 +68,16 @@ class Ui_MainWindow_showmaker(object):
         self.action_NewProject.setObjectName("action_NewProject")
         self.action_OpenProject = QtWidgets.QAction(MainWindow_showmaker)
         self.action_OpenProject.setObjectName("action_OpenProject")
-        self.action_SaveShow = QtWidgets.QAction(MainWindow_showmaker)
-        self.action_SaveShow.setObjectName("action_SaveShow")
-        self.action_CloseShow = QtWidgets.QAction(MainWindow_showmaker)
-        self.action_CloseShow.setObjectName("action_CloseShow")
+        self.action_SaveProject = QtWidgets.QAction(MainWindow_showmaker)
+        self.action_SaveProject.setObjectName("action_SaveProject")
+        self.action_CloseProject = QtWidgets.QAction(MainWindow_showmaker)
+        self.action_CloseProject.setObjectName("action_CloseProject")
         self.action_Exit = QtWidgets.QAction(MainWindow_showmaker)
         self.action_Exit.setObjectName("action_Exit")
         self.menu_File.addAction(self.action_NewProject)
         self.menu_File.addAction(self.action_OpenProject)
-        self.menu_File.addAction(self.action_SaveShow)
-        self.menu_File.addAction(self.action_CloseShow)
+        self.menu_File.addAction(self.action_SaveProject)
+        self.menu_File.addAction(self.action_CloseProject)
         self.menu_File.addAction(self.action_Exit)
         self.menubar.addAction(self.menu_File.menuAction())
 
@@ -94,9 +94,9 @@ class Ui_MainWindow_showmaker(object):
         self.label_projectname.setText(_translate("MainWindow_showmaker", "Project Name:"))
         self.label_cuefile.setText(_translate("MainWindow_showmaker", "Cue File:"))
         self.menu_File.setTitle(_translate("MainWindow_showmaker", "&File"))
-        self.action_NewProject.setText(_translate("MainWindow_showmaker", "&New Show"))
-        self.action_OpenProject.setText(_translate("MainWindow_showmaker", "&Open Show"))
-        self.action_SaveShow.setText(_translate("MainWindow_showmaker", "&Save Show"))
-        self.action_CloseShow.setText(_translate("MainWindow_showmaker", "&Close Show"))
+        self.action_NewProject.setText(_translate("MainWindow_showmaker", "&New Project"))
+        self.action_OpenProject.setText(_translate("MainWindow_showmaker", "&Open Project"))
+        self.action_SaveProject.setText(_translate("MainWindow_showmaker", "&Save Project"))
+        self.action_CloseProject.setText(_translate("MainWindow_showmaker", "&Close Project"))
         self.action_Exit.setText(_translate("MainWindow_showmaker", "&Exit"))
 
