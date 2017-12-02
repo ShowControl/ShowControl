@@ -13,10 +13,14 @@ import uuid
 from PyQt5 import Qt, QtCore, QtGui, QtWidgets
 import logging
 
+import xml.dom.minidom as md
 try:
     from lxml import ET
+    print("running with lxml.etree")
 except ImportError:
     import xml.etree.ElementTree as ET
+
+pretty_print = lambda f: '\n'.join([line for line in md.parse(open(f)).toprettyxml(indent=' '*2).split('\n') if line.strip()])
 
 class ProjectXML():
     """
@@ -35,6 +39,7 @@ class ProjectXML():
         ET.SubElement(project, 'equipment', attrib={'href':name + '_equipment.xml'})
         ET.SubElement(project, 'mixermap', attrib={'href':'MixerMap.xml'})
         ET.SubElement(project, 'charmap', attrib={'href':name + '_char.xml'})
+        ET.SubElement(project, 'actormap', attrib={'href': name + '_actor.xml'})
         ET.SubElement(project, 'cuechar', attrib={'href':name + '_cuechar.xml'})
         ET.SubElement(project, 'cues', attrib={'href':venue + '_cues.xml'})
         ET.SubElement(project, 'cues', attrib={'href':name + '_cues.xml'})
@@ -55,13 +60,17 @@ class ProjectXML():
             msgBox.exec_()
             return
         rev = 1
+        oldroot, extension = path.splitext(filename)
         if revision:
-            oldroot, extension = path.splitext(filename)
             while path.isfile(oldroot + '-{0}'.format(rev) + extension):
                 rev += 1
             shutil.copyfile(filename, oldroot + '-{0}'.format(rev) + extension)
             logging.debug('Configuration written to: ' + oldroot + '-{0}'.format(rev) + extension)
-        newdoctree.write(filename, encoding="UTF-8", xml_declaration=True)
+        filename_up = oldroot + '_up' + extension  # up >>> uglyprint
+        newdoctree.write(filename_up, encoding="UTF-8", xml_declaration=True)
+        of = open(filename, 'w')
+        of.write(pretty_print(filename_up))
+        of.close()
         logging.debug('Configuration written to: ' + filename)
 
         return

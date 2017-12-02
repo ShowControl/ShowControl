@@ -43,6 +43,7 @@ print(sys.path)
 from ShowControl.utils.ShowControlConfig import configuration, CFG_DIR, CFG_PATH
 from ShowControl.utils.Show import Show
 from ShowControl.utils.Char import Char
+from ShowControl.utils.Char import CreateChar
 from ShowControl.utils.Actor import Actor
 from ShowControl.utils.CueChar import CueChar
 from ShowControl.utils.CueChar import CreateCueChar
@@ -151,7 +152,9 @@ class EditCue_dlg(QtWidgets.QDialog, CueEdit_ui.Ui_dlgEditCue):
 
 class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
     #enum
-    cast_table_enum, stage_table_enum = range(2)
+    char_table_enum, cast_table_enum, stage_table_enum = range(3)
+    # char_table_enum, stage_table_enum = range(2)
+    char_table_changed_sig = pyqtSignal(int)
     cast_table_changed_sig = pyqtSignal(int)
     stage_table_changed_sig = pyqtSignal(int)
     def __init__(self, parent=None):
@@ -164,6 +167,7 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
         self.The_Show = None
         self.load_show()
         self.stagestate_changed = False
+        self.charstate_changed = False
         self.caststate_changed = False
         self.setupUi(self)
         screen = QtWidgets.QDesktopWidget().screenGeometry()
@@ -171,21 +175,24 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
         #self.move(40, 50)
         self.tablist = []
         self.tablistvertlayout = []
-        # add the cast tab
+        # add the character tab
         self.tablist.append(QtWidgets.QWidget())
-        self.tablist[ShowMakerWin.cast_table_enum].setMinimumSize(QtCore.QSize(0, 400))
-        self.tablist[ShowMakerWin.cast_table_enum].setObjectName("Pg {}".format(ShowMakerWin.cast_table_enum))
-        self.gridLayout_3 = QtWidgets.QGridLayout(self.tablist[ShowMakerWin.cast_table_enum])
+        self.tablist[ShowMakerWin.char_table_enum].setMinimumSize(QtCore.QSize(0, 400))
+        self.tablist[ShowMakerWin.char_table_enum].setObjectName("Pg {}".format(ShowMakerWin.char_table_enum))
+        # add a grid layout to the tab
+        self.gridLayout_3 = QtWidgets.QGridLayout(self.tablist[ShowMakerWin.char_table_enum])
         self.gridLayout_3.setObjectName("gridLayout_3")
+        # create a vertical layout
         self.verticalLayout = QtWidgets.QVBoxLayout()
         self.verticalLayout.setObjectName("verticalLayout")
-        # create a tableview for the cast tab
-        tableView = QtWidgets.QTableView(self.tablist[ShowMakerWin.cast_table_enum])
-        tableView.setObjectName("table_cast")
+        # create a tableview for the char tab
+        tableView = QtWidgets.QTableView(self.tablist[ShowMakerWin.char_table_enum])
+        tableView.setObjectName("table_char")
+        tableView.setItemDelegateForColumn(3, CharTableDelegate(self))
         # tableView.setMinimumWidth(200)
         tableView.clicked.connect(self.on_table_click)
         tableView.doubleClicked.connect(self.on_table_dblclick)
-        self.cast_table_changed_sig.connect(self.cast_list_changed_signal_handler)
+        self.char_table_changed_sig.connect(self.char_list_changed_signal_handler)
         # set up actions for table right click context menu
         tableView.setContextMenuPolicy(Qt.ActionsContextMenu)
         # tableView.setSelectionBehavior(QAbstractItemView.SelectItems)
@@ -194,32 +201,81 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
         self.action_list = ['Insert', 'Add', 'Delete']  # actions that can be triggered by right click on table
         # add "Insert" action to the tableView
         self.insertAction = QAction("Insert", None)
-        self.insertAction.triggered.connect(self.on_cast_table_rightclick)
+        self.insertAction.triggered.connect(self.on_char_table_rightclick)
         tableView.addAction(self.insertAction)
         # add "Add" action to the tableView
         self.AddAction = QAction("Add", None)
-        self.AddAction.triggered.connect(self.on_cast_table_rightclick)
+        self.AddAction.triggered.connect(self.on_char_table_rightclick)
         tableView.addAction(self.AddAction)
         # add "Delete" action to the tableView
         self.DeleteAction = QAction("Delete", None)
-        self.DeleteAction.triggered.connect(self.on_cast_table_rightclick)
+        self.DeleteAction.triggered.connect(self.on_char_table_rightclick)
         tableView.addAction(self.DeleteAction)
 
-
         self.char = None
+        self.char_data = []
+        self.char_header = []
+        # add the tableview to the vertical layout
+        self.verticalLayout.addWidget(tableView)
+        # add the vertical layout to the grid
+        self.gridLayout_3.addLayout(self.verticalLayout, 0, 0, 1, 1)
+        self.tabWidget.insertTab(ShowMakerWin.char_table_enum, self.tablist[ShowMakerWin.char_table_enum], 'Characters')
+
+        # add the cast tab
+        self.cast = None
         self.cast_data = []
         self.cast_header = []
-        self.verticalLayout.addWidget(tableView)
-        self.gridLayout_3.addLayout(self.verticalLayout, 0, 0, 1, 1)
-        self.tabWidget.insertTab(ShowMakerWin.cast_table_enum, self.tablist[ShowMakerWin.cast_table_enum], 'Characters/Cast')
+        self.tablist.append(QtWidgets.QWidget())
+        self.tablist[ShowMakerWin.cast_table_enum].setObjectName("Pg {}".format(ShowMakerWin.cast_table_enum))
+        # create a gridlayout and add to the tab
+        self.gridLayout_4 = QtWidgets.QGridLayout(self.tablist[ShowMakerWin.cast_table_enum])
+        self.gridLayout_4.setObjectName("gridLayout_4")
+        # create a vertivcal layout
+        self.verticalLayout_4 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_4.setObjectName("verticalLayout_4")
+        # create a tableview for the char tab
+        tableView = QtWidgets.QTableView(self.tablist[ShowMakerWin.cast_table_enum])
+        tableView.setObjectName("table_cast")
+        # tableView.setMinimumWidth(200)
+        tableView.clicked.connect(self.on_table_click)
+        tableView.doubleClicked.connect(self.on_table_dblclick)
+        self.cast_table_changed_sig.connect(self.cast_list_changed_signal_handler)
+        # set up actions for table right click context menu
+        tableView.setContextMenuPolicy(Qt.ActionsContextMenu)
+        # add the tableview to the vertical layout
+        self.verticalLayout_4.addWidget(tableView)
+        # add the vertical layout to the grid
+        self.gridLayout_4.addLayout(self.verticalLayout_4, 0, 0, 1, 1)
+        self.tabWidget.insertTab(ShowMakerWin.cast_table_enum, self.tablist[ShowMakerWin.cast_table_enum], 'Cast')
+        # set up actions for table right click context menu
+        tableView.setContextMenuPolicy(Qt.ActionsContextMenu)
+        # tableView.setSelectionBehavior(QAbstractItemView.SelectItems)
+        # tableView.setSelectionMode(QAbstractItemView.SingleSelection)
+        # set up right click actions for tableView
+        self.cast_action_list = ['Insert', 'Add', 'Delete']  # actions that can be triggered by right click on table
+        # add "Insert" action to the tableView
+        self.cast_insertAction = QAction("Insert", None)
+        self.cast_insertAction.triggered.connect(self.on_cast_table_rightclick)
+        tableView.addAction(self.cast_insertAction)
+        # add "Add" action to the tableView
+        self.cast_AddAction = QAction("Add", None)
+        self.cast_AddAction.triggered.connect(self.on_cast_table_rightclick)
+        tableView.addAction(self.cast_AddAction)
+        # add "Delete" action to the tableView
+        self.cast_DeleteAction = QAction("Delete", None)
+        self.cast_DeleteAction.triggered.connect(self.on_cast_table_rightclick)
+        tableView.addAction(self.cast_DeleteAction)
+
+
+
         # add the stage state tab
         self.tablist.append(QtWidgets.QWidget())
         idx = 1
         self.tablist[ShowMakerWin.stage_table_enum].setObjectName("Pg {}".format(ShowMakerWin.stage_table_enum))
-        self.gridLayout_4 = QtWidgets.QGridLayout(self.tablist[ShowMakerWin.stage_table_enum])
-        self.gridLayout_4.setObjectName("gridLayout_4")
-        self.verticalLayout_4 = QtWidgets.QVBoxLayout()
-        self.verticalLayout_4.setObjectName("verticalLayout_4")
+        self.gridLayout_5 = QtWidgets.QGridLayout(self.tablist[ShowMakerWin.stage_table_enum])
+        self.gridLayout_5.setObjectName("gridLayout_5")
+        self.verticalLayout_5 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_5.setObjectName("verticalLayout_5")
         # create a tableview for the Stage State
         tableView = StageTableView(self.tablist[ShowMakerWin.stage_table_enum])
         tableView.setObjectName("table_stage")
@@ -254,8 +310,8 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
         # tableView.setHorizontalHeader(headerView)
         self.stagestat_data = []
         self.stagestat_header = []
-        self.verticalLayout_4.addWidget(tableView)
-        self.gridLayout_4.addLayout(self.verticalLayout_4, 0, 0, 1, 1)
+        self.verticalLayout_5.addWidget(tableView)
+        self.gridLayout_5.addLayout(self.verticalLayout_5, 0, 0, 1, 1)
         self.tabWidget.insertTab(ShowMakerWin.stage_table_enum, self.tablist[ShowMakerWin.stage_table_enum], 'Stage State')
         self.load_project()
         self.pushButtonselectfolder.clicked.connect(self.select_new_path_clicked)
@@ -275,14 +331,23 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
         castmodel = CastTableModel(self.cast_data, self.cast_header, self)
         cast_table = self.tablist[self.cast_table_enum].findChild(QtWidgets.QTableView, name='table_cast')
         cast_table.setModel(castmodel)
-        cast_table.hideColumn(0)  # hide uuid column
         cast_table.resizeColumnsToContents()
-        cast_table.selectRow(0)
+        cast_table.hideColumn(0)
+        self.init_char_data()
+        charmodel = CharTableModel(self.char_data, self.char_header, self)
+        char_table = self.tablist[self.char_table_enum].findChild(QtWidgets.QTableView, name='table_char')
+        char_table.setModel(charmodel)
+        # hide uuid columns
+        for column in [0,2,4]:
+            char_table.hideColumn(column)
+
+        char_table.resizeColumnsToContents()
+        char_table.selectRow(0)
         self.init_stagestat_data()
         stagemodel = StageTableModel(self.stagestat_data, self.stagestat_header, self)
         stage_table = self.tablist[self.stage_table_enum].findChild(QtWidgets.QTableView, name='table_stage')
         stage_table.setModel(stagemodel)
-        #stage_table.hideColumn(0)  # hide uuid column
+        stage_table.hideColumn(0)  # hide uuid column
         stage_table.resizeColumnsToContents()
         self.lineEdit_projectname.setText(self.The_Show.show_conf.settings['title'])
         self.lineEdit_projectcuefile.setText(self.The_Show.show_conf.settings['cues']['href1'])
@@ -290,13 +355,23 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
         return
 
     def init_cast_data(self):
-        self.cast_header = ['uuid', 'Character', 'Actor', 'Understudy']
-        self.char = Char()
-        self.char.setup_cast(self.The_Show.show_confpath + self.The_Show.show_conf.settings['charmap'])
-        self.char.chars_to_list_of_tuples()
+        self.cast_header = ['uuid', 'Actor', 'Understudy uuid', 'Understudy']
         self.actor = Actor()
         self.actor.setup_cast(self.The_Show.show_confpath + self.The_Show.show_conf.settings['actormap'])
         self.actor.actors_to_list_of_tuples()
+        for actor in self.actor.actor_list:
+            actor_uuid = actor[0]
+            actor_name = actor[1]
+            actor_understudy_uuid = actor[2]
+            self.cast_data.append([actor_uuid, actor_name, actor_understudy_uuid])
+        return
+
+    def init_char_data(self):
+        # self.char_header = ['uuid', 'Character', 'Actor uuid', 'Actor', 'Understudy uuid', 'Understudy']
+        self.char_header = ['uuid', 'Character', 'Actor uuid', 'Actor']
+        self.char = Char()
+        self.char.setup_cast(self.The_Show.show_confpath + self.The_Show.show_conf.settings['charmap'])
+        self.char.chars_to_list_of_tuples()
         #[(index, thing) for index, thing in enumerate(self.actor.actor_list) if thing[0] =='07940948-687f-4f37-bd9d-fc81e8dcf286']
         for chrnam in self.char.char_list:
             try:
@@ -305,11 +380,33 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
             except:
                 print('no char')
             try:
-                actor = chrnam[2]
+                actor_uuid = chrnam[2]
+                actor_item = [(actor_index, actor_tuple)
+                              for actor_index, actor_tuple in enumerate(self.actor.actor_list)
+                              if actor_tuple[0] == actor_uuid]
+                # actor_item is a list that has one entry
+                # that entry is a tuple with two elements
+                # first element is the index of the actor
+                # second entry is a tuple with 3 elements: actor uuid, actor name, understudy uuid or none
+                if not actor_item:  # this kind of assumes the lack of any actors is ok, probably a new project
+                    actor_uuid = 'none'
+                    actor_name = 'none'
+                else:
+                    actor_uuid = actor_item[0][1][0]
+                    actor_name = actor_item[0][1][1]  # [0] is the first item in the list,
+                                                      # [1] is the actor item tuple
+                                                      # [1] is the actor name in the actor item tuple
+                # actor_understudy_uuid = actor_item[0][1][2]  # [2] is understudy uuid or none
+                # if actor_understudy_uuid != 'none':  # assume it is a uuid
+                #     understudy_item = [(actor_index, actor_tuple) for actor_index, actor_tuple in
+                #                   enumerate(self.actor.actor_list) if
+                #                   actor_tuple[0] == actor_understudy_uuid]
+                #     understudy_name = understudy_item[0][1][1]
+                # else:
+                #     understudy_name = 'none'
             except:
                 print('no actor')
-            self.cast_data.append([chrnam[0], char, actor])
-
+            self.char_data.append([chrnam[0], char, actor_uuid, actor_name])
         return
 
     def init_stagestat_data(self):
@@ -322,10 +419,35 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
             except:
                 print('no char')
             try:
-                actor = chrnam[2]
+                actor_uuid = chrnam[2]
+                actor_item = [(actor_index, actor_tuple) for actor_index, actor_tuple in enumerate(self.actor.actor_list) if
+                 actor_tuple[0] == actor_uuid]
+                # actor_item is a list that has one entry
+                # that entry is a tuple with two elements
+                # first element is the index of the actor
+                # second entry is a tuple with 3 elements: actor uuid, actor name, understudy uuid or none
+                if not actor_item:
+                    actor_uuid = 'none'
+                    actor_name = 'none'
+                    actor_understudy_uuid = 'none'
+                else:
+                    actor_uuid = actor_item[0][1][0]
+                    actor_name = actor_item[0][1][1]  # [0] is the first item in the list,
+                                                      # [1] is the actor item tuple
+                                                      # [1] is the actor name in the actor item tuple
+                    actor_understudy_uuid = actor_item[0][1][2]  # [2] is understudy uuid or none
+                # todo mac: if actor_understudy is uuid, find understudy name from uuid
+                # the understudy is an element of self.actor.actor_list, i.e. just another actor
+                if actor_understudy_uuid != 'none':  # assume it is a uuid
+                    understudy_item = [(actor_index, actor_tuple) for actor_index, actor_tuple in
+                                  enumerate(self.actor.actor_list) if
+                                  actor_tuple[0] == actor_understudy_uuid]
+                    understudy_name = understudy_item[0][1][1]
+                else:
+                    understudy_name = 'none'
             except:
                 print('no actor')
-            self.stagestat_header.extend([char + '\n' + actor])
+            self.stagestat_header.extend([char + '\n' + actor_name])
         print('In init_stagestat_data, length: {}'.format(len(self.stagestat_header)))
         # TODO -mac need to load cuechar, probably into The_Show...
         # each row will be a cue, so from *_cues.xml
@@ -371,12 +493,14 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
 
     def closeEvent(self, event):
         """..."""
-        if self.caststate_changed or self.stagestate_changed:
+        if self.charstate_changed or self.stagestate_changed or self.caststate_changed:
             reply = QMessageBox.question(self, 'Save Changes', 'Save changes to project?',
                                          QMessageBox.Yes | QMessageBox.No | QMessageBox.Cancel,
                                          QMessageBox.Cancel)
             if reply == QMessageBox.Yes:
                 print('In closeEvent cast changed query.')
+                self.save_char_list()
+                self.charstate_changed = False
                 self.save_cast_list()
                 self.caststate_changed = False
                 self.save_cuechar()
@@ -401,15 +525,25 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
                                      QMessageBox.No, QMessageBox.Yes)
         return reply
 
-    def save_cast_list(self):
+    def save_char_list(self):
+        # fields: 'uuid', 'Character', 'Actor uuid', 'Actor', 'Understudy uuid', 'Understudy'
         # move model data to list of tuples
         self.char.char_list = []
-        for uuid, chrnam, actor in self.cast_data:
-            self.char.char_list.append((uuid, chrnam, actor))
+        for char in self.char_data:
+            self.char.char_list.append((char[0], char[1], char[2]))
         # move new list of tuples to xml doc
         newchar_doc = self.char.chars_toxmldoc()
         # save new xml file
         self.char.write(newchar_doc, True, self.The_Show.show_confpath + self.The_Show.show_conf.settings['charmap'])
+
+    def save_cast_list(self):
+        # fields: 'uuid', 'Actor', 'Understudy uuid', 'Understudy'
+        self.actor.actor_list = []
+        for actor in self.cast_data:
+            self.actor.actor_list.append((actor[0], actor[1], actor[2]))
+        newactor_doc = self.actor.actors_toxmldoc()
+        self.actor.write(newactor_doc, True, self.The_Show.show_confpath + self.The_Show.show_conf.settings['actormap'])
+        return
 
     def save_cuechar(self):
         new_doc = self.The_Show.cuechar.cuecharlist.getroot()
@@ -447,7 +581,7 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
             self.cfg.write(newcfg_doc, True, CFG_PATH)
             self.load_cfg()
             self.load_show()
-            self.cast_data = []
+            self.char_data = []
             self.load_project()
         print('File>Open: {0}'.format(fileNames))
 
@@ -490,6 +624,9 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
                 # cue file with one dummy cue
                 create_cues = CreateCue(os.path.join(project_folder, project_name + '_cues.xml'))
                 first_cue_uuid = create_cues.get_first_uuid()
+                # create a new _actor.xml file
+                newactor = Actor()
+                newactor.create_new_project(shows_folder, project_name)
                 # cuesxml = CuesXML()
                 # cues_doc = cuesxml.toXMLdoc()
                 # # we get away with this because at this point there is only one cue element
@@ -511,10 +648,11 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
                             os.path.join(project_folder, project_name + '_equipment.xml'))
 
                 # load new show
+                self.char_data = []
                 self.cast_data = []
                 self.load_show()
                 self.load_project()
-                #self.caststate_changed = True
+                #self.charstate_changed = True
                 #self.stagestate_changed = True
 
         return
@@ -522,21 +660,35 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
     # cast table management
     def on_table_click(self, index):
         print('In on_table_click.')
-        cast_table = self.tablist[0].findChild(QtWidgets.QTableView, name='table_cast')
-        cast_table.selectRow(index.row())
+        char_table = self.tablist[self.char_table_enum].findChild(QtWidgets.QTableView, name='table_char')
+        char_table.selectRow(index.row())
         return
 
     def on_table_dblclick(self, index):
         print('In on_table_dblclick.')
-        cast_table = self.tablist[0].findChild(QtWidgets.QTableView, name='table_cast')
-        cast_table.selectRow(index.row())
+        char_table = self.tablist[self.char_table_enum].findChild(QtWidgets.QTableView, name='table_char')
+        char_table.selectRow(index.row())
+        return
+
+    # char table Add, Insert, Delete handlers
+    def char_list_changed_signal_handler(self, char_list_row):
+        """this signal is emitted when the cast table (i.e.data) has changed"""
+        print('In char_list_changed_signal_handler.')
+        self.char.char_list[char_list_row] = self.char_data[char_list_row]
+        self.init_stagestat_data()
+        stage_table = self.tablist[ShowMakerWin.stage_table_enum].findChild(QtWidgets.QTableView, name='table_stage')
+        stage_table.model().headerdata_horz = self.stagestat_header
+        stage_table.model().arraydata = self.stagestat_data
+        stage_table.model().layoutChanged.emit()
+        stage_table.resizeColumnsToContents()
+        self.charstate_changed = True
         return
 
     # cast table Add, Insert, Delete handlers
-    def cast_list_changed_signal_handler(self, char_list_row):
-        """this signal is emitted when the cast table (i.e.data) has changed"""
+    def cast_list_changed_signal_handler(self, cast_list_row):
+        """this signal is emitted when the char table (i.e.data) has changed"""
         print('In cast_list_changed_signal_handler.')
-        self.char.char_list[char_list_row] = self.cast_data[char_list_row]
+        self.actor.actor_list[cast_list_row] = self.cast_data[cast_list_row]
         self.init_stagestat_data()
         stage_table = self.tablist[ShowMakerWin.stage_table_enum].findChild(QtWidgets.QTableView, name='table_stage')
         stage_table.model().headerdata_horz = self.stagestat_header
@@ -544,6 +696,96 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
         stage_table.model().layoutChanged.emit()
         stage_table.resizeColumnsToContents()
         self.caststate_changed = True
+        return
+
+
+    def on_char_table_rightclick(self):
+        sender_text = self.sender().text()
+        if sender_text == 'Insert':
+            self.char_table_insert()
+        elif sender_text == 'Add':
+            self.char_table_add()
+        elif sender_text == 'Delete':
+            self.char_table_delete()
+        return
+
+    def char_table_add(self):
+        print('In char_table_add')
+        char_table = self.tablist[ShowMakerWin.char_table_enum].findChild(QtWidgets.QTableView, name='table_char')
+        # uuid, char, actor_uuid, actor_name, actor_understudy_uuid, understudy_name]
+        new_char = ['{}'.format(uuid.uuid4()), 'New Char', 'actor uuid', 'New Actor', 'understudy uuid', 'none']
+        self.char_data.append(new_char)  # new char to cast list
+        self.char.char_list.append(new_char)  # new char to char object list of tuples
+        char_model = char_table.model()
+        char_model.layoutChanged.emit()
+        char_table.scrollToBottom()
+        self.The_Show.cuechar.add_new_char(new_char[0])  # new char to cuechar
+        self.init_stagestat_data()
+        stage_table = self.tablist[ShowMakerWin.stage_table_enum].findChild(QtWidgets.QTableView, name='table_stage')
+        stage_table.model().headerdata_horz = self.stagestat_header
+        stage_table.model().arraydata = self.stagestat_data
+        stage_table.model().layoutChanged.emit()
+        self.charstate_changed = True
+        self.stagestate_changed = True
+
+    def char_table_insert(self):
+        print('In char_table_insert')
+        char_table = self.tablist[ShowMakerWin.char_table_enum].findChild(QtWidgets.QTableView, name='table_char')
+        char_model = char_table.model()
+        indexes = char_table.selectedIndexes()
+        row = indexes[0].row()
+        # print('In char_table_insert before insert, length: {}'.format(len(self.char_data)))
+        char_model.insertRows(row, 1)
+        char_model.layoutChanged.emit()
+        char_table.resizeColumnsToContents()
+        char_table.selectRow(row)
+        new_char = tuple(char_model.arraydata[row])
+        self.char.char_list.insert(row, new_char)  # new char to char object list of tuples
+        #print('In char_table_insert after insert, length: {}'.format(len(self.char_data)))
+        self.The_Show.cuechar.add_new_char(new_char[0])  # new char to cuechar
+        self.init_stagestat_data()
+        stage_table = self.tablist[ShowMakerWin.stage_table_enum].findChild(QtWidgets.QTableView, name='table_stage')
+        stage_table.model().headerdata_horz = self.stagestat_header
+        stage_table.model().arraydata = self.stagestat_data
+        stage_table.model().layoutChanged.emit()
+        stage_table.resizeColumnsToContents()
+        self.charstate_changed = True
+        self.stagestate_changed = True
+        return
+
+    def char_table_delete(self):
+        print('In char_table_delete')
+        char_table = self.tablist[ShowMakerWin.char_table_enum].findChild(QtWidgets.QTableView, name='table_char')
+        indexes = char_table.selectedIndexes()
+        try:
+            row = indexes[0].row()
+            char_model = char_table.model()
+            old_row_count = len(char_model.arraydata)
+            deleted_item = self.char_data[row]
+            #deleted_item = self.char_data.pop(row)  # use pop so we have the item that was removed
+                                                    #todo -mac save pop'd item for later undo???
+            deleted_item_1 = self.char.char_list.pop(row)
+            self.The_Show.cuechar.delete_char(deleted_item[0])
+
+            char_model.removeRows(indexes[0].row(), indexes[0].row())
+            new_row_count = len(char_model.arraydata)
+            char_table.rowCountChanged(old_row_count, new_row_count)
+            print('Olde row count: {}, New row count: {}'.format(old_row_count, new_row_count))
+            char_model.layoutChanged.emit()
+            char_table.resizeColumnsToContents()
+            char_table.selectRow(row - 1)
+            self.init_stagestat_data()
+            stage_table = self.tablist[ShowMakerWin.stage_table_enum].findChild(QtWidgets.QTableView, name='table_stage')
+            stage_table.model().headerdata_horz = self.stagestat_header
+            stage_table.model().arraydata = self.stagestat_data
+            stage_table.model().layoutChanged.emit()
+            stage_table.resizeColumnsToContents()
+            #stage_table.selectRow()
+            self.charstate_changed = True
+            self.stagestate_changed = True
+        except IndexError:
+            QMessageBox.information(self.parent(), 'Invalid Index', 'Nothing selected!', QMessageBox.Ok)
+
         return
 
     def on_cast_table_rightclick(self):
@@ -554,19 +796,18 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
             self.cast_table_add()
         elif sender_text == 'Delete':
             self.cast_table_delete()
-
         return
 
     def cast_table_add(self):
         print('In cast_table_add')
         cast_table = self.tablist[ShowMakerWin.cast_table_enum].findChild(QtWidgets.QTableView, name='table_cast')
-        new_char = ['{}'.format(uuid.uuid4()), 'New Char', 'New Actor']
-        self.cast_data.append(new_char)  # new char to cast list
-        self.char.char_list.append(new_char)  # new char to char object list of tuples
+        new_cast = ['{}'.format(uuid.uuid4()), 'New Actor', 'none']
+        self.cast_data.append(new_cast)  # new char to cast list
+        self.actor.actor_list.append(new_cast)  # new char to char object list of tuples
         cast_model = cast_table.model()
         cast_model.layoutChanged.emit()
         cast_table.scrollToBottom()
-        self.The_Show.cuechar.add_new_char(new_char[0])  # new char to cuechar
+        self.The_Show.cuechar.add_new_char(new_cast[0])  # new char to cuechar
         self.init_stagestat_data()
         stage_table = self.tablist[ShowMakerWin.stage_table_enum].findChild(QtWidgets.QTableView, name='table_stage')
         stage_table.model().headerdata_horz = self.stagestat_header
@@ -581,15 +822,15 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
         cast_model = cast_table.model()
         indexes = cast_table.selectedIndexes()
         row = indexes[0].row()
-        # print('In cast_table_insert before insert, length: {}'.format(len(self.cast_data)))
+        # print('In char_table_insert before insert, length: {}'.format(len(self.char_data)))
         cast_model.insertRows(row, 1)
         cast_model.layoutChanged.emit()
         cast_table.resizeColumnsToContents()
         cast_table.selectRow(row)
-        new_char = tuple(cast_model.arraydata[row])
-        self.char.char_list.insert(row, new_char)  # new char to char object list of tuples
-        #print('In cast_table_insert after insert, length: {}'.format(len(self.cast_data)))
-        self.The_Show.cuechar.add_new_char(new_char[0])  # new char to cuechar
+        new_cast = tuple(cast_model.arraydata[row])
+        self.actor.actor_list.insert(row, new_cast)  # new char to char object list of tuples
+        #print('In char_table_insert after insert, length: {}'.format(len(self.char_data)))
+        self.The_Show.cuechar.add_new_char(new_cast[0])  # new char to cuechar
         self.init_stagestat_data()
         stage_table = self.tablist[ShowMakerWin.stage_table_enum].findChild(QtWidgets.QTableView, name='table_stage')
         stage_table.model().headerdata_horz = self.stagestat_header
@@ -609,7 +850,7 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
             cast_model = cast_table.model()
             old_row_count = len(cast_model.arraydata)
             deleted_item = self.cast_data[row]
-            #deleted_item = self.cast_data.pop(row)  # use pop so we have the item that was removed
+            #deleted_item = self.char_data.pop(row)  # use pop so we have the item that was removed
                                                     #todo -mac save pop'd item for later undo???
             deleted_item_1 = self.char.char_list.pop(row)
             self.The_Show.cuechar.delete_char(deleted_item[0])
@@ -695,7 +936,7 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
         new_cue_uuid = self.The_Show.cues.getcurrentcueuuid(row)
         stage_model.arraydata[row][0] = new_cue_uuid
         # add new cue to cuechar
-        self.The_Show.cuechar.add_cue(new_cue_uuid, self.cast_data)
+        self.The_Show.cuechar.add_cue(new_cue_uuid, self.char_data)
         stage_table.model().layoutChanged.emit()
         stage_table.resizeColumnsToContents()
         stage_table.selectRow(row)
@@ -750,7 +991,7 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
         #new_cue_uuid = self.The_Show.cues.getcurrentcueuuid(row)
         stage_model.arraydata[int(new_cue_num)][0] = new_cue_uuid
         # add new cue to cuechar
-        self.The_Show.cuechar.add_cue(new_cue_uuid, self.cast_data)
+        self.The_Show.cuechar.add_cue(new_cue_uuid, self.char_data)
         stage_table.model().layoutChanged.emit()
         stage_table.resizeColumnsToContents()
         stage_table.scrollToBottom()
@@ -791,10 +1032,93 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
             self.stagestate_changed = True
         return
 
+class CharTableModel(QtCore.QAbstractTableModel):
+    """
+
+    """
+    def __init__(self, datain, headerdata_horz, parent=None):
+        """
+        Args:
+            datain: a list of lists\n
+            headerdata: a list of strings
+        """
+        QtCore.QAbstractTableModel.__init__(self, parent)
+        self.arraydata = datain
+        self.headerdata_horz = headerdata_horz
+
+    def rowCount(self, parent=QtCore.QModelIndex()):
+        # print('arrayData len: {}'.format(len(self.arraydata)))
+        return len(self.arraydata)
+
+    def columnCount(self, parent=QtCore.QModelIndex()):
+        return len(self.arraydata[0])
+
+    def data(self, index, role=QtCore.Qt.DisplayRole):
+        # print('Role:({})'.format(role))
+        if not index.isValid(): return None
+        if role == QtCore.Qt.EditRole:
+            return self.arraydata[index.row()][index.column()]
+        if not role == QtCore.Qt.DisplayRole: return None
+
+        return self.arraydata[index.row()][index.column()]
+
+    def setData(self, index, value, role=QtCore.Qt.DisplayRole):
+        if not index.isValid(): return False
+        if role == QtCore.Qt.EditRole:
+            self.arraydata[index.row()][index.column()] = value
+            self.dataChanged.emit(index, index)
+            self.parent().char_table_changed_sig.emit(index.row())
+        print("setData", index.row(), index.column(), value, role)
+        return True
+
+    def flags(self, index):
+        """changed to this to allow all columns to be editable"""
+        return QtCore.Qt.ItemIsEditable | QtCore.Qt.ItemIsEnabled | QtCore.Qt.ItemIsSelectable
+        # if (index.column() == 0):
+        #     return QtCore.Qt.ItemIsEditable | QtCore.Qt.ItemIsEnabled
+        # else:
+        #     return QtCore.Qt.ItemIsEnabled
+
+    def headerData(self, sect, orientation, role):
+        """"""
+        '''For horizontal headers, the section number corresponds to the column number.
+        Similarly, for vertical headers, the section number corresponds to the row number.'''
+        if orientation == QtCore.Qt.Horizontal and role == QtCore.Qt.DisplayRole:
+            if sect < len(self.headerdata_horz):
+                return QtCore.QVariant(self.headerdata_horz[sect])
+            else:
+                return QtCore.QVariant('')
+        elif orientation == QtCore.Qt.Vertical and role == QtCore.Qt.DisplayRole:
+            return sect  # return the row count
+            # if sect < len(self.headerdata_vert):
+            #     return QtCore.QVariant(self.headerdata_vert[col])
+            # else:
+            #     return QtCore.QVariant('')
+
+        return QtCore.QVariant()
+
+    def insertRows(self, row, count):
+        self.beginInsertRows(QModelIndex(), row, row)
+        newrow = self.arraydata[row][:]  # slice [:] clones the row
+        # new uuid for this character
+        newrow[0] = '{}'.format(uuid.uuid4())
+        self.arraydata.insert(row, newrow)
+        self.endInsertRows()
+        return True
+
+    def removeRows(self, row, count):
+        targetindex =self.createIndex(row, 0)
+        self.beginRemoveRows(QModelIndex(), row, row)
+        popped_item = self.arraydata.pop(row)
+        self.endRemoveRows()
+        return True
+
+
 class CastTableModel(QtCore.QAbstractTableModel):
     """
-    A simple 5x4 table model to demonstrate the delegates
+
     """
+
     def __init__(self, datain, headerdata_horz, parent=None):
         """
         Args:
@@ -866,7 +1190,7 @@ class CastTableModel(QtCore.QAbstractTableModel):
         return True
 
     def removeRows(self, row, count):
-        targetindex =self.createIndex(row, 0)
+        targetindex = self.createIndex(row, 0)
         self.beginRemoveRows(QModelIndex(), row, row)
         popped_item = self.arraydata.pop(row)
         self.endRemoveRows()
@@ -1152,6 +1476,41 @@ class SelectDelegate(QtWidgets.QStyledItemDelegate):
             model.setData(index, state, Qt.EditRole)
         elif isinstance(editor, QSpinBox):
             model.setData(index, editor.value(), Qt.EditRole)
+        else:
+            super(SelectDelegate, self).setModelData(editor, model, index)
+
+class CharTableDelegate(QtWidgets.QStyledItemDelegate):
+
+    def sizeHint(self, option, index):
+        return super(CharTableDelegate, self).sizeHint(option, index)
+
+    def createEditor(self, parent, option, index):
+        editor = QtWidgets.QComboBox(parent)
+        return editor
+
+    def setEditorData(self, editor, index):
+        if isinstance(editor, QComboBox):
+            current_played_by_index = 0
+            try:
+                # populate the combobox with the cast list
+                for actor_index, actor in enumerate(self.parent().findChild(QTableView, name='table_cast').model().arraydata):
+                    if actor[1] == index.data():
+                        current_played_by_index = actor_index
+                    editor.addItem(actor[1])
+                editor.setCurrentIndex( current_played_by_index )
+            except:
+                logging.error('cast table data not found')
+        else:
+            super(CharTableDelegate, self).setEditorData(editor, index)
+
+    def setModelData(self, editor, model, index):
+        if isinstance(editor, QComboBox):
+            actor_index = editor.currentIndex()  # is the index of the name selected
+            actor_item = self.parent().findChild(QTableView, name='table_cast').model().arraydata[actor_index]
+            uuid_index = model.createIndex(index.row(), index.column() -1)
+            model.setData(index, actor_item[1], Qt.EditRole)  # set the played by name
+            model.setData(uuid_index, actor_item[0], Qt.EditRole)
+            print()
         else:
             super(SelectDelegate, self).setModelData(editor, model, index)
 

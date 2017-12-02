@@ -53,7 +53,7 @@ class Char():
         where each list element is a tuple (uuid, charname, actor)"""
         logging.info('In Chars cast_toDict')
         for char in self.char_element_list:
-            self.char_list.append((char.get('uuid').strip('"'), char.find('name').text.strip('"'),char.find('actor_uuid').text.strip('"')))
+            self.char_list.append((char.get('uuid').strip('"'), char.find('name').text.strip('"'),char.find('actor').text.strip('"')))
         return
 
     def chars_toxmldoc(self):
@@ -83,8 +83,8 @@ class Char():
             msgBox.exec_()
             return
         rev = 1
+        oldroot, extension = path.splitext(filename)
         if revision:
-            oldroot, extension = path.splitext(filename)
             while path.isfile(oldroot + '-{0}'.format(rev) + extension):
                 rev += 1
             shutil.copyfile(filename, oldroot + '-{0}'.format(rev) + extension)
@@ -148,9 +148,9 @@ class CreateChar():
         ET.SubElement(chars_element, 'version').text = '1.0'
         char_element = ET.SubElement(chars_element, 'char', {'uuid':first_uuid})
         ET.SubElement(char_element, 'name').text = 'Char name'
-        ET.SubElement(char_element, 'actor').text = 'Played by'
+        ET.SubElement(char_element, 'actor').text = 'none'
         self.write(showcontrol, False, charfilename)
-        self.firstchar_list = [(first_uuid, 'Char name', 'Played by')]
+        self.firstchar_list = [(first_uuid, 'Char name', 'none')]
         return
 
     def get_firstchar(self):
@@ -171,8 +171,8 @@ class CreateChar():
             msgBox.exec_()
             return
         rev = 1
+        oldroot, extension = path.splitext(filename)
         if revision:
-            oldroot, extension = path.splitext(filename)
             while path.isfile(oldroot + '-{0}'.format(rev) + extension):
                 rev += 1
             shutil.copyfile(filename, oldroot + '-{0}'.format(rev) + extension)

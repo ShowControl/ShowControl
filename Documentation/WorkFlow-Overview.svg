@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="57cm" height="40cm" viewBox="-198 145 1129 784" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g>
+    <g>
+      <path style="fill: #c9c9b6" d="M 359.676 822.067 L 396.968,787.269 L 675.409,787.269 L 638.176,822.067 L 359.676,822.067z"/>
+      <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 359.676 822.067 L 396.968,787.269 L 675.409,787.269 L 638.176,822.067 L 359.676,822.067"/>
+      <path style="fill: #b7b79d" d="M 359.676 822.067 L 638.176,822.067 L 638.176,874.382 L 359.676,874.382 L 359.676,822.067z"/>
+      <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 359.676 822.067 L 638.176,822.067 L 638.176,874.382 L 359.676,874.382 L 359.676,822.067"/>
+      <path style="fill: #7a7a5a" d="M 638.176 874.382 L 675.409,837.269 L 675.409,787.269 L 638.176,822.067 L 638.176,874.382z"/>
+      <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 638.176 874.382 L 675.409,837.269 L 675.409,787.269 L 638.176,822.067 L 638.176,874.382"/>
+      <path style="fill: #000000" d="M 368.524 815.535 L 396.968,787.269 L 668.817,787.269 L 640.314,815.535 L 368.524,815.535z"/>
+      <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #000000" d="M 368.524 815.535 L 396.968,787.269 L 668.817,787.269 L 640.314,815.535 L 368.524,815.535"/>
+      <path style="fill: #c9c9b6" d="M 359.676 590.894 L 390.436,562.628 L 668.817,562.628 L 638.176,590.894 L 359.676,590.894z"/>
+      <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 359.676 590.894 L 390.436,562.628 L 668.817,562.628 L 638.176,590.894 L 359.676,590.894"/>
+      <path style="fill: #b7b79d" d="M 359.676 590.894 L 640.255,590.894 L 640.255,811.2 L 359.676,811.2 L 359.676,590.894z"/>
+      <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 359.676 590.894 L 640.195,590.894 L 640.195,811.081 L 359.676,811.081 L 359.676,590.894"/>
+      <path style="fill: #ffffff" d="M 383.963 619.278 L 616.264,619.278 L 616.264,789.407 L 383.963,789.407 L 383.963,619.278z"/>
+      <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 383.963 619.278 L 616.205,619.278 L 616.205,789.288 L 383.963,789.288 L 383.963,619.278"/>
+      <path style="fill: #7a7a5a" d="M 638.176 808.884 L 668.817,778.421 L 668.817,562.628 L 638.176,590.894 L 638.176,808.884z"/>
+      <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 638.176 808.884 L 668.817,778.421 L 668.817,562.628 L 638.176,590.894 L 638.176,808.884"/>
+      <path style="fill: #c9c9b6" d="M 304.985 917.968 L 348.809,863.515 L 651.181,863.515 L 607.416,917.968 L 304.985,917.968z"/>
+      <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 305.282 917.612 L 348.809,863.515 L 651.181,863.515 L 607.416,917.968 L 305.282,917.968"/>
+      <path style="fill: #7a7a5a" d="M 607.416 928.954 L 651.181,883.111 L 651.181,863.515 L 607.416,917.968 L 607.416,928.954z"/>
+      <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 607.595 928.657 L 651.181,883.111 L 651.181,863.515 L 607.416,917.968 L 607.416,928.657"/>
+      <path style="fill: #b7b79d" d="M 304.985 917.968 L 607.416,917.968 L 607.416,928.954 L 304.985,928.954 L 304.985,917.968z"/>
+      <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 305.282 917.968 L 607.416,917.968 L 607.416,928.657"/>
+    </g>
+    <image x="439.738" y="629.193" width="115.213" height="150.769" xlink:href="file:///home/mac/SharedData/PycharmProjs/ShowControl/Documentation/DramaMasks.png"/>
+  </g>
+  <image x="-196.658" y="163.036" width="158" height="109.051" xlink:href="file:///home/mac/SharedData/PycharmProjs/ShowControl/Documentation/large_open_book.png"/>
+  <image x="443.036" y="165.831" width="186.859" height="221.441" xlink:href="file:///home/mac/SharedData/PycharmProjs/ShowControl/Documentation/ebook.png"/>
+  <g>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M -117.658 272.087 C -120.666,356.252 -301.874,614.112 -61.0504,614.621"/>
+    <polygon style="fill: #000000" points="-53.5504,614.637 -63.5609,619.616 -61.0504,614.621 -63.5398,609.616 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-53.5504,614.637 -63.5609,619.616 -61.0504,614.621 -63.5398,609.616 "/>
+  </g>
+  <text font-size="16.9331" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="-196.658" y="163.036">
+    <tspan x="-196.658" y="163.036">Paper scipt</tspan>
+  </text>
+  <g>
+    <rect style="fill: #d8e5e5" x="629.894" y="145.431" width="301.1" height="135.667"/>
+    <text font-size="22.013" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="629.894" y="165.831">
+      <tspan x="629.894" y="165.831">Cues are entered into</tspan>
+      <tspan x="629.894" y="193.348">the electronic script.</tspan>
+      <tspan x="629.894" y="220.865">Icons in the script indicate</tspan>
+      <tspan x="629.894" y="248.381">where the cues takes place</tspan>
+      <tspan x="629.894" y="275.898">and what type of cue it is.</tspan>
+    </text>
+  </g>
+  <g>
+    <g>
+      <rect style="fill: #d8e5e5" x="-51.3143" y="570.458" width="229.307" height="88.367"/>
+      <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="-51.3143" y="570.458" width="229.307" height="88.367"/>
+    </g>
+    <g>
+      <rect style="fill: #d8e5e5" x="-40.1286" y="593.234" width="211.65" height="46.9"/>
+      <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="-40.1286" y="605.134">
+        <tspan x="-40.1286" y="605.134">Alternately, cues can be created</tspan>
+        <tspan x="-40.1286" y="621.134">by the user as the paper script is</tspan>
+        <tspan x="-40.1286" y="637.134">read.</tspan>
+      </text>
+    </g>
+  </g>
+  <g>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 177.992 614.642 C 243.724,614.642 374.006,704.577 430.002,704.577"/>
+    <polygon style="fill: #000000" points="437.502,704.577 427.502,709.577 430.002,704.577 427.502,699.577 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="437.502,704.577 427.502,709.577 430.002,704.577 427.502,699.577 "/>
+  </g>
+  <g>
+    <g>
+      <rect style="fill: #d8e5e5" x="95.2182" y="209.16" width="220.358" height="73.8256"/>
+      <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="95.2182" y="209.16" width="220.358" height="73.8256"/>
+    </g>
+    <g>
+      <rect style="fill: #d8e5e5" x="118.708" y="235.851" width="176" height="30.9"/>
+      <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="118.708" y="247.751">
+        <tspan x="118.708" y="247.751">Paper script is converted to</tspan>
+        <tspan x="118.708" y="263.751">electronic document.</tspan>
+      </text>
+    </g>
+  </g>
+  <g>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M -38.658 217.561 C 5.7889,217.561 50.7713,246.073 85.4822,246.073"/>
+    <polygon style="fill: #000000" points="92.9822,246.073 82.9822,251.073 85.4822,246.073 82.9822,241.073 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="92.9822,246.073 82.9822,251.073 85.4822,246.073 82.9822,241.073 "/>
+  </g>
+  <g>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 318.932 249.429 C 359.04,249.429 399.63,248.31 430.002,248.31"/>
+    <polygon style="fill: #000000" points="437.502,248.31 427.502,253.31 430.002,248.31 427.502,243.31 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="437.502,248.31 427.502,253.31 430.002,248.31 427.502,243.31 "/>
+  </g>
+  <g>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 536.465 387.272 C 539.908,442.742 580.677,390.369 582.967,434.337"/>
+    <polygon style="fill: #000000" points="583.357,441.827 577.844,432.1 582.967,434.337 587.831,431.58 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="583.357,441.827 577.844,432.1 582.967,434.337 587.831,431.58 "/>
+  </g>
+  <g>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 583.474 524.597 C 590.744,602.897 499.156,590.434 497.799,619.467"/>
+    <polygon style="fill: #000000" points="497.448,626.959 492.921,616.737 497.799,619.467 502.91,617.204 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="497.448,626.959 492.921,616.737 497.799,619.467 502.91,617.204 "/>
+  </g>
+  <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="578.44" y="466.431">
+    <tspan x="578.44" y="466.431"></tspan>
+  </text>
+  <g>
+    <g>
+      <rect style="fill: #d8e5e5" x="499.022" y="444.06" width="168.904" height="80.537"/>
+      <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="499.022" y="444.06" width="168.904" height="80.537"/>
+    </g>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="515.8" y="469.228">
+      <tspan x="515.8" y="469.228">Cues are processed to</tspan>
+      <tspan x="515.8" y="485.228">create show control</tspan>
+      <tspan x="515.8" y="501.228">data files.</tspan>
+    </text>
+  </g>
+  <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="733.921" y="191.263">
+    <tspan x="733.921" y="191.263"></tspan>
+  </text>
+</svg>

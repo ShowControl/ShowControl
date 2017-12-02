@@ -24,10 +24,14 @@ print(parentdir)
 sys.path.insert(0,syblingdir)
 print(sys.path)
 
+import xml.dom.minidom as md
 try:
     from lxml import ET
+    print("running with lxml.etree")
 except ImportError:
     import xml.etree.ElementTree as ET
+
+pretty_print = lambda f: '\n'.join([line for line in md.parse(open(f)).toprettyxml(indent=' '*2).split('\n') if line.strip()])
 
 HOME = os.path.expanduser("~")
 
@@ -158,18 +162,17 @@ class configuration():
             msgBox.exec_()
             return
         rev = 1
+        oldroot, extension = path.splitext(filename)
         if revision:
-            oldroot, extension = path.splitext(filename)
             while path.isfile(oldroot + '-{0}'.format(rev) + extension):
                 rev += 1
             shutil.copyfile(filename, oldroot + '-{0}'.format(rev) + extension)
-
-            # newdoctree.write(oldroot + '-{0}'.format(rev) + extension)
-            self.logger.debug('Configuration written to: ' + oldroot + '-{0}'.format(rev) + extension)
-        # else:
-        #     newdoctree.write(filename)
-        #     self.logging.debug('Configuration written to: ' + filename)
-        newdoctree.write(filename, xml_declaration=True)
+            logging.debug('Configuration written to: ' + oldroot + '-{0}'.format(rev) + extension)
+        filename_up = oldroot + '_up' + extension  # up >>> uglyprint
+        newdoctree.write(filename_up, encoding="UTF-8", xml_declaration=True)
+        of = open(filename, 'w')
+        of.write(pretty_print(filename_up))
+        of.close()
         self.logger.debug('Configuration written to: ' + filename)
 
         return

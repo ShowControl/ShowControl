@@ -414,8 +414,8 @@ class CueList():
             msgBox.exec_()
             return
         rev = 1
+        oldroot, extension = path.splitext(filename)
         if revision:
-            oldroot, extension = path.splitext(filename)
             while path.isfile(oldroot + '-{0}'.format(rev) + extension):
                 rev += 1
             # commented this out to make chage below
@@ -473,8 +473,8 @@ class CuesXML():
             msgBox.exec_()
             return
         rev = 1
+        oldroot, extension = path.splitext(filename)
         if revision:
-            oldroot, extension = path.splitext(filename)
             while path.isfile(oldroot + '-{0}'.format(rev) + extension):
                 rev += 1
             shutil.copyfile(filename, oldroot + '-{0}'.format(rev) + extension)
@@ -533,8 +533,8 @@ class CreateCue():
             msgBox.exec_()
             return
         rev = 1
+        oldroot, extension = path.splitext(filename)
         if revision:
-            oldroot, extension = path.splitext(filename)
             while path.isfile(oldroot + '-{0}'.format(rev) + extension):
                 rev += 1
             shutil.copyfile(filename, oldroot + '-{0}'.format(rev) + extension)

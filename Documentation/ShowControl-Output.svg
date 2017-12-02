@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="48cm" height="27cm" viewBox="126 24 949 537" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g>
+    <g>
+      <path style="fill: #c9c9b6" d="M 181.411 338.462 L 218.703,303.664 L 497.144,303.664 L 459.912,338.462 L 181.411,338.462z"/>
+      <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 181.411 338.462 L 218.703,303.664 L 497.144,303.664 L 459.912,338.462 L 181.411,338.462"/>
+      <path style="fill: #b7b79d" d="M 181.411 338.462 L 459.912,338.462 L 459.912,390.777 L 181.411,390.777 L 181.411,338.462z"/>
+      <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 181.411 338.462 L 459.912,338.462 L 459.912,390.777 L 181.411,390.777 L 181.411,338.462"/>
+      <path style="fill: #7a7a5a" d="M 459.912 390.777 L 497.144,353.663 L 497.144,303.664 L 459.912,338.462 L 459.912,390.777z"/>
+      <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 459.912 390.777 L 497.144,353.663 L 497.144,303.664 L 459.912,338.462 L 459.912,390.777"/>
+      <path style="fill: #000000" d="M 190.259 331.93 L 218.703,303.664 L 490.553,303.664 L 462.05,331.93 L 190.259,331.93z"/>
+      <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #000000" d="M 190.259 331.93 L 218.703,303.664 L 490.553,303.664 L 462.05,331.93 L 190.259,331.93"/>
+      <path style="fill: #c9c9b6" d="M 181.411 107.289 L 212.171,79.0228 L 490.553,79.0228 L 459.912,107.289 L 181.411,107.289z"/>
+      <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 181.411 107.289 L 212.171,79.0228 L 490.553,79.0228 L 459.912,107.289 L 181.411,107.289"/>
+      <path style="fill: #b7b79d" d="M 181.411 107.289 L 461.99,107.289 L 461.99,327.595 L 181.411,327.595 L 181.411,107.289z"/>
+      <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 181.411 107.289 L 461.931,107.289 L 461.931,327.476 L 181.411,327.476 L 181.411,107.289"/>
+      <path style="fill: #ffffff" d="M 205.699 135.673 L 438,135.673 L 438,305.802 L 205.699,305.802 L 205.699,135.673z"/>
+      <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 205.699 135.673 L 437.941,135.673 L 437.941,305.683 L 205.699,305.683 L 205.699,135.673"/>
+      <path style="fill: #7a7a5a" d="M 459.912 325.279 L 490.553,294.816 L 490.553,79.0228 L 459.912,107.289 L 459.912,325.279z"/>
+      <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 459.912 325.279 L 490.553,294.816 L 490.553,79.0228 L 459.912,107.289 L 459.912,325.279"/>
+      <path style="fill: #c9c9b6" d="M 126.721 434.363 L 170.545,379.91 L 472.916,379.91 L 429.152,434.363 L 126.721,434.363z"/>
+      <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 127.018 434.007 L 170.545,379.91 L 472.916,379.91 L 429.152,434.363 L 127.018,434.363"/>
+      <path style="fill: #7a7a5a" d="M 429.152 445.349 L 472.916,399.506 L 472.916,379.91 L 429.152,434.363 L 429.152,445.349z"/>
+      <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 429.33 445.052 L 472.916,399.506 L 472.916,379.91 L 429.152,434.363 L 429.152,445.052"/>
+      <path style="fill: #b7b79d" d="M 126.721 434.363 L 429.152,434.363 L 429.152,445.349 L 126.721,445.349 L 126.721,434.363z"/>
+      <path style="fill: none; fill-opacity:0; stroke-width: 0.02; stroke: #494936" d="M 127.018 434.363 L 429.152,434.363 L 429.152,445.052"/>
+    </g>
+    <image x="261.473" y="145.587" width="115.213" height="150.769" xlink:href="file:///home/mac/SharedData/PycharmProjs/ShowControl/Documentation/DramaMasks.png"/>
+  </g>
+  <image x="720" y="70" width="136.364" height="120" xlink:href="file:///home/mac/SharedData/PycharmProjs/ShowControl/Documentation/StageLights.jpg"/>
+  <image x="730" y="220" width="120" height="111.429" xlink:href="file:///home/mac/SharedData/PycharmProjs/ShowControl/Documentation/AudioMixer.jpg"/>
+  <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="630" y="200">
+    <tspan x="630" y="200"></tspan>
+  </text>
+  <image x="740" y="370" width="90" height="90" xlink:href="file:///home/mac/SharedData/PycharmProjs/ShowControl/Documentation/PlayButton.png"/>
+  <image x="730" y="490" width="70" height="70" xlink:href="file:///home/mac/SharedData/PycharmProjs/ShowControl/Documentation/GreenButton.png"/>
+  <g>
+    <rect style="fill: #d8e5e5" x="840" y="368.1" width="235.45" height="78.9"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="840" y="380">
+      <tspan x="840" y="380">Sound and Special Effects</tspan>
+      <tspan x="840" y="396">Applications:</tspan>
+      <tspan x="840" y="412">- ShowControl's Sound Effects Player</tspan>
+      <tspan x="840" y="428">- Linux Show Control (LISP)</tspan>
+      <tspan x="840" y="444">- Cue Player</tspan>
+    </text>
+  </g>
+  <g>
+    <rect style="fill: #d8e5e5" x="810" y="508.1" width="194.5" height="14.9"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="810" y="520">
+      <tspan x="810" y="520">ShowControl's Linux Cue Light</tspan>
+    </text>
+  </g>
+  <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="900" y="550">
+    <tspan x="900" y="550"></tspan>
+  </text>
+  <g>
+    <rect style="fill: #d8e5e5" x="870" y="68.1" width="182.85" height="62.9"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="870" y="80">
+      <tspan x="870" y="80">Lighting control consoles</tspan>
+      <tspan x="870" y="96">and software</tspan>
+      <tspan x="870" y="112">- OSC/MIDI capable consoles</tspan>
+      <tspan x="870" y="128">- CuePlayer Lighting</tspan>
+    </text>
+  </g>
+  <g>
+    <rect style="fill: #d8e5e5" x="860" y="218.1" width="142" height="46.9"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="860" y="230">
+      <tspan x="860" y="230">Mixing consoles</tspan>
+      <tspan x="860" y="246">- Behringer X32 (OSC)</tspan>
+      <tspan x="860" y="262">- Yamaha O1V (MIDI)</tspan>
+    </text>
+  </g>
+  <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="890" y="520">
+    <tspan x="890" y="520"></tspan>
+  </text>
+  <g>
+    <rect style="fill: #d8e5e5" x="200" y="24.25" width="417.5" height="40.9167"/>
+    <text font-size="16.9331" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="200" y="40">
+      <tspan x="200" y="40">Once the cues for the show are defined the show</tspan>
+      <tspan x="200" y="61.1667">can be controlled by ShowControl's CueEngine.</tspan>
+    </text>
+  </g>
+  <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="400" y="0">
+    <tspan x="400" y="0"></tspan>
+  </text>
+  <g>
+    <g>
+      <rect style="fill: #d8e5e5" x="440" y="480" width="120" height="60"/>
+      <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="440" y="480" width="120" height="60"/>
+    </g>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="450" y="500">
+      <tspan x="450" y="500">OSC, MIDI,</tspan>
+      <tspan x="450" y="516">or other control</tspan>
+      <tspan x="450" y="532">protocol</tspan>
+    </text>
+  </g>
+  <g>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 278.026 445.349 C 280,500 380,500 430.396,508.399"/>
+    <polygon style="fill: #000000" points="437.794,509.632 427.108,512.92 430.396,508.399 428.752,503.056 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="437.794,509.632 427.108,512.92 430.396,508.399 428.752,503.056 "/>
+  </g>
+  <g>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 560 510 C 613.12,510 666.88,130 710.264,130"/>
+    <polygon style="fill: #000000" points="717.764,130 707.764,135 710.264,130 707.764,125 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="717.764,130 707.764,135 710.264,130 707.764,125 "/>
+  </g>
+  <g>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 560 510 C 616.44,510 673.56,275.714 720.264,275.714"/>
+    <polygon style="fill: #000000" points="727.764,275.714 717.764,280.714 720.264,275.714 717.764,270.714 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="727.764,275.714 717.764,280.714 720.264,275.714 717.764,270.714 "/>
+  </g>
+  <g>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 560 510 C 619.76,510 680.24,415 730.264,415"/>
+    <polygon style="fill: #000000" points="737.764,415 727.764,420 730.264,415 727.764,410 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="737.764,415 727.764,420 730.264,415 727.764,410 "/>
+  </g>
+  <g>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 560 510 C 616.44,510 673.56,525 720.264,525"/>
+    <polygon style="fill: #000000" points="727.764,525 717.764,530 720.264,525 717.764,520 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="727.764,525 717.764,530 720.264,525 717.764,520 "/>
+  </g>
+</svg>
