@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="22cm" height="20cm" viewBox="320 204 439 383" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <text font-size="16.9331" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="320" y="220">
+    <tspan x="320" y="220">Create a new project</tspan>
+  </text>
+  <text font-size="16.9331" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="320" y="520">
+    <tspan x="320" y="520">Read the script and define cues</tspan>
+  </text>
+  <text font-size="16.9331" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="320" y="280">
+    <tspan x="320" y="280">Create the list of characters</tspan>
+  </text>
+  <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="320" y="280">
+    <tspan x="320" y="280"></tspan>
+  </text>
+  <text font-size="16.9331" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="320" y="340">
+    <tspan x="320" y="340">Create the list of actors</tspan>
+  </text>
+  <text font-size="16.9331" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="320" y="400">
+    <tspan x="320" y="400">Assign actors to characters</tspan>
+  </text>
+  <text font-size="16.9331" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="320" y="460">
+    <tspan x="320" y="460">Assign understudies to actors</tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="420" y1="224" x2="420" y2="250.264"/>
+    <polygon style="fill: #000000" points="420,257.764 415,247.764 420,250.264 425,247.764 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="420,257.764 415,247.764 420,250.264 425,247.764 "/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="420" y1="284" x2="420" y2="310.264"/>
+    <polygon style="fill: #000000" points="420,317.764 415,307.764 420,310.264 425,307.764 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="420,317.764 415,307.764 420,310.264 425,307.764 "/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="420" y1="344" x2="420" y2="370.264"/>
+    <polygon style="fill: #000000" points="420,377.764 415,367.764 420,370.264 425,367.764 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="420,377.764 415,367.764 420,370.264 425,367.764 "/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="420" y1="404" x2="420" y2="430.264"/>
+    <polygon style="fill: #000000" points="420,437.764 415,427.764 420,430.264 425,427.764 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="420,437.764 415,427.764 420,430.264 425,427.764 "/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="420" y1="464" x2="420" y2="490.264"/>
+    <polygon style="fill: #000000" points="420,497.764 415,487.764 420,490.264 425,487.764 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="420,497.764 415,487.764 420,490.264 425,487.764 "/>
+  </g>
+  <text font-size="16.9331" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="460" y="580">
+    <tspan x="460" y="580">For each cue define the cue details</tspan>
+  </text>
+  <g>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 420 530 C 420,550 446.72,580 450.264,580"/>
+    <polygon style="fill: #000000" points="457.764,580 447.764,585 450.264,580 447.764,575 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="457.764,580 447.764,585 450.264,580 447.764,575 "/>
+  </g>
+</svg>

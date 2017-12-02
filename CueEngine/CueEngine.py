@@ -69,10 +69,6 @@ class CommAddresses:
 # INMSG_IP = "127.0.0.1"
 # INMSG_PORT = 5006
 
-cfg = configuration()
-The_Show = Show(cfg.cfgdict)
-The_Show.displayShow()
-
 class cueTypeDispatcher():
     def __init__(self):
         self.dispatch = {'Stage':self.do_stage,
@@ -86,7 +82,7 @@ class cueTypeDispatcher():
 
     def do_mixer(self):
         msg = osc_message_builder.OscMessageBuilder(address='/cue/#')
-        msg.add_arg(The_Show.cues.currentcueindex)
+        msg.add_arg(self.The_Show.cues.currentcueindex)
         msg = msg.build()
         self.mxr_sndrthread.queue_msg(msg, self.CueAppDev)
 
@@ -97,7 +93,7 @@ class cueTypeDispatcher():
 
     def do_SFX(self):
         msg = osc_message_builder.OscMessageBuilder(address='/cue/#')
-        msg.add_arg(The_Show.cues.currentcueindex)
+        msg.add_arg(self.The_Show.cues.currentcueindex)
         msg = msg.build()
         self.mxr_sndrthread.queue_msg(msg, self.CueAppDev)
         pass
@@ -206,34 +202,39 @@ class CueDlg(QtWidgets.QMainWindow, Ui_MainWindow):
         QtGui.QIcon.setThemeSearchPaths(styles.QLiSPIconsThemePaths)
         QtGui.QIcon.setThemeName(styles.QLiSPIconsThemeName)
         self.__index = 0
+        self.cfg = None
+        self.load_cfg()
+        self.The_Show = None
+        self.load_show()
+
         self.externalchangestate = 'None'
         self.CommAddress_dict = {}
-        self.CueAppDev = CommAddresses(The_Show.show_conf.equipment['program']['CueEngine']['IP_address'],
-                                       int(The_Show.show_conf.equipment['program']['CueEngine']['port']))
+        self.CueAppDev = CommAddresses(self.The_Show.show_conf.equipment['program']['CueEngine']['IP_address'],
+                                       int(self.The_Show.show_conf.equipment['program']['CueEngine']['port']))
         self.CommAddress_dict['CueEngine'] = self.CueAppDev
         logging.info('CueEngine receives from IP: {} PORT: {}'.format(self.CueAppDev.IP, self.CueAppDev.PORT))
 
-        self.ShowMixerAppDev = CommAddresses(The_Show.show_conf.equipment['program']['ShowMixer']['IP_address'],
-                                       int(The_Show.show_conf.equipment['program']['ShowMixer']['port']))
+        self.ShowMixerAppDev = CommAddresses(self.The_Show.show_conf.equipment['program']['ShowMixer']['IP_address'],
+                                       int(self.The_Show.show_conf.equipment['program']['ShowMixer']['port']))
         self.CommAddress_dict['ShowMixer'] = self.ShowMixerAppDev
         logging.info('ShowMixer commands will be sent to IP: {} PORT: {}'.format(self.ShowMixerAppDev.IP,
                                                                                  self.ShowMixerAppDev.PORT))
 
-        self.SFXAppDev = CommAddresses(The_Show.show_conf.equipment['program']['sound_effects']['IP_address'],
-                                       int(The_Show.show_conf.equipment['program']['sound_effects']['port']))
+        self.SFXAppDev = CommAddresses(self.The_Show.show_conf.equipment['program']['sound_effects']['IP_address'],
+                                       int(self.The_Show.show_conf.equipment['program']['sound_effects']['port']))
         self.CommAddress_dict['SFXApp'] = self.SFXAppDev
         logging.info('sound_effects_player commands will be sent IP: {} PORT: {}'.format(self.SFXAppDev.IP,
                                                                                          self.SFXAppDev.PORT))
 
-        self.MuteMapAppDev = CommAddresses(The_Show.show_conf.equipment['program']['MuteMap']['IP_address'],
-                                      int(The_Show.show_conf.equipment['program']['MuteMap']['port']))
+        self.MuteMapAppDev = CommAddresses(self.The_Show.show_conf.equipment['program']['MuteMap']['IP_address'],
+                                      int(self.The_Show.show_conf.equipment['program']['MuteMap']['port']))
         self.CommAddress_dict['MuteMap'] = self.MuteMapAppDev
         logging.info('CueEngine response will be sent to IP: {} PORT: {}'.format(self.MuteMapAppDev.IP, self.MuteMapAppDev.PORT))
 
 
 
         self.setupUi(self)
-        self.setWindowTitle('CueEngine - {}'.format(The_Show.show_conf.settings['title']))
+        self.setWindowTitle('CueEngine - {}'.format(self.The_Show.show_conf.settings['title']))
         self.action_MuteMap = QtWidgets.QAction(self)
         self.action_MuteMap.setCheckable(True)
         self.action_MuteMap.setText('Show MuteMap')
@@ -364,6 +365,13 @@ class CueDlg(QtWidgets.QMainWindow, Ui_MainWindow):
         self.comm_threads.append(self.rcvrthread)
         self.receiver_threads.append(self.rcvrthread)
 
+    def load_cfg(self):
+        self.cfg = configuration()
+
+    def load_show(self):
+        self.The_Show = Show(self.cfg.cfgdict)
+
+
     def on_buttonGo_clicked(self):
         """Execute the currently highlighted cue (current)"""
         tblvw = self.findChild(QtWidgets.QTableView)
@@ -372,54 +380,54 @@ class CueDlg(QtWidgets.QMainWindow, Ui_MainWindow):
         #tblrow += 1  # next row
         cuedata = self.tabledata[tblrow]  # data for this row
         cueindex = int(self.tabledata[tblrow][0])
-        The_Show.cues.currentcueindex = cueindex  # new current cue index is the cue we want to execute
+        self.The_Show.cues.currentcueindex = cueindex  # new current cue index is the cue we want to execute
         self.dispatch_cue()  # execute the cue
-        The_Show.cues.previouscueindex = The_Show.cues.currentcueindex  # save this as the previous cue index
-        The_Show.cues.currentcueindex += 1
-        tblvw.selectRow(The_Show.cues.currentcueindex)
+        self.The_Show.cues.previouscueindex = self.The_Show.cues.currentcueindex  # save this as the previous cue index
+        self.The_Show.cues.currentcueindex += 1
+        tblvw.selectRow(self.The_Show.cues.currentcueindex)
 
     def on_buttonPrev_clicked(self):
         logging.info('In on_buttonPrev_clicked')
-        if The_Show.cues.currentcueindex >= 2:
-            before_target_index = The_Show.cues.currentcueindex - 2  # execute the cue before the target cue
-            target_index = The_Show.cues.currentcueindex - 1
-            #The_Show.cues.currentcueindex -= 1  # target cue becomes current
-            #The_Show.cues.setcurrentcuestate(The_Show.cues.currentcueindex)
+        if self.The_Show.cues.currentcueindex >= 2:
+            before_target_index = self.The_Show.cues.currentcueindex - 2  # execute the cue before the target cue
+            target_index = self.The_Show.cues.currentcueindex - 1
+            #self.The_Show.cues.currentcueindex -= 1  # target cue becomes current
+            #self.The_Show.cues.setcurrentcuestate(self.The_Show.cues.currentcueindex)
         else:
             before_target_index = 0
             target_index = 0
-            #The_Show.cues.currentcueindex = 0
+            #self.The_Show.cues.currentcueindex = 0
             logging.info('Cue before target: ' + str(before_target_index) + '   Target cue: ' + str(target_index))
 
         if before_target_index == 0 and target_index == 0:
-            The_Show.cues.currentcueindex = target_index
+            self.The_Show.cues.currentcueindex = target_index
             self.dispatch_cue()
         else:  # temporarily set currentcueindex to before target and execute that cue
-            The_Show.cues.currentcueindex = before_target_index
+            self.The_Show.cues.currentcueindex = before_target_index
             self.dispatch_cue()
-            The_Show.cues.currentcueindex = target_index
+            self.The_Show.cues.currentcueindex = target_index
         tblvw = self.findChild(QtWidgets.QTableView)
-        tblvw.selectRow(The_Show.cues.currentcueindex)
+        tblvw.selectRow(self.The_Show.cues.currentcueindex)
 
     def on_buttonJump_clicked(self):
         """Execute the highlighted cue"""
         logging.info('In on_buttonJump_clicked.')
-        #The_Show.cues.previouscueindex = The_Show.cues.currentcueindex  #todo previouscue index should be depricated
-        if The_Show.cues.selectedcueindex is not None:
-            The_Show.cues.currentcueindex = The_Show.cues.selectedcueindex
-            The_Show.cues.selectedcueindex = None
+        #self.The_Show.cues.previouscueindex = self.The_Show.cues.currentcueindex  #todo previouscue index should be depricated
+        if self.The_Show.cues.selectedcueindex is not None:
+            self.The_Show.cues.currentcueindex = self.The_Show.cues.selectedcueindex
+            self.The_Show.cues.selectedcueindex = None
         else:
             tblvw = self.findChild(QtWidgets.QTableView)
             index = tblvw.selectedIndexes()[0]
-            The_Show.cues.currentcueindex = index.row()
+            self.The_Show.cues.currentcueindex = index.row()
         self.dispatch_cue()
-        The_Show.cues.currentcueindex += 1
-        self.tableView.selectRow(The_Show.cues.currentcueindex)
+        self.The_Show.cues.currentcueindex += 1
+        self.tableView.selectRow(self.The_Show.cues.currentcueindex)
 
 
     def dispatch_cue(self):
         mutemap_msg = osc_message_builder.OscMessageBuilder(address='/cue/#')
-        mutemap_msg.add_arg(The_Show.cues.currentcueindex)
+        mutemap_msg.add_arg(self.The_Show.cues.currentcueindex)
         mutemap_msg = mutemap_msg.build()
 
         # MuteMap messages get sent as long as the mixer sender thread has been started
@@ -431,16 +439,16 @@ class CueDlg(QtWidgets.QMainWindow, Ui_MainWindow):
 
         # dispatch all types in the type list.
         # Note: this makes ShoeMixer appear to not change when types doesn't include mixer
-        for type in The_Show.cues.getcuetype(The_Show.cues.currentcueindex):
+        for type in self.The_Show.cues.getcuetype(self.The_Show.cues.currentcueindex):
             self.dispatch[type]()
 
     def do_stage(self):
         pass
 
     def do_mixer(self):
-        cue_uuid = The_Show.cues.getcurrentcueuuid(The_Show.cues.currentcueindex)
+        cue_uuid = self.The_Show.cues.getcurrentcueuuid(self.The_Show.cues.currentcueindex)
         msg = osc_message_builder.OscMessageBuilder(address='/cue/uuid')
-        # msg.add_arg(The_Show.cues.currentcueindex)
+        # msg.add_arg(self.The_Show.cues.currentcueindex)
         msg.add_arg(cue_uuid)
         msg = msg.build()
         try:
@@ -450,7 +458,7 @@ class CueDlg(QtWidgets.QMainWindow, Ui_MainWindow):
             self.NotifyNoSlaveApp('mixer')
 
     def do_LISP(self):
-        index = The_Show.cues.currentcueindex
+        index = self.The_Show.cues.currentcueindex
         note = self.midinoteoffset + index
         msg = [NOTE_ON, note, 112]
         if self.LISPAppProc != None:
@@ -458,9 +466,9 @@ class CueDlg(QtWidgets.QMainWindow, Ui_MainWindow):
 
     def do_soundFX(self):
 #        if self.SFXAppProc != None:
-        cue_uuid = The_Show.cues.getcurrentcueuuid(The_Show.cues.currentcueindex)
+        cue_uuid = self.The_Show.cues.getcurrentcueuuid(self.The_Show.cues.currentcueindex)
         msg = osc_message_builder.OscMessageBuilder(address='/cue/uuid')
-        # msg.add_arg(The_Show.cues.currentcueindex)
+        # msg.add_arg(self.The_Show.cues.currentcueindex)
         msg.add_arg(cue_uuid)
         msg = msg.build()
         try:
@@ -482,8 +490,8 @@ class CueDlg(QtWidgets.QMainWindow, Ui_MainWindow):
         """insert a new cue before the selected row"""
         # save the old state of the cuefile with a revision number appended
         # todo - mac this is hardwired to project cue file
-        The_Show.cues.savecuelist(True,
-                                  cfg.cfgdict['configuration']['project']['folder'] + '/' + The_Show.show_conf.settings['cues']['href1'])
+        self.The_Show.cues.savecuelist(True,
+                                  cfg.cfgdict['configuration']['project']['folder'] + '/' + self.The_Show.show_conf.settings['cues']['href1'])
 
         sender_text = self.sender().text()
         if sender_text == 'Edit':
@@ -498,9 +506,9 @@ class CueDlg(QtWidgets.QMainWindow, Ui_MainWindow):
     def cue_add(self):
         self.notify_slaves_edit_start()
         tblvw = self.findChild(QtWidgets.QTableView)
-        lastcueviewed = The_Show.cues.currentcueindex
-        oldlastcue = The_Show.cues.getcuelist(The_Show.cues.cuecount-1)  # get the last cues data
-        cueindex = The_Show.cues.cuecount
+        lastcueviewed = self.The_Show.cues.currentcueindex
+        oldlastcue = self.The_Show.cues.getcuelist(self.The_Show.cues.cuecount-1)  # get the last cues data
+        cueindex = self.The_Show.cues.cuecount
         self.editcuedlg = EditCue(cueindex)
         self.editcuedlg.setWindowTitle(_translate("dlgEditCue", "Add Cue"))
         #self.editcuedlg.setROcueelements(['Cue_Number', 'Mutes', 'Entrances', 'Exits', 'Levels', 'On_Stage'])
@@ -509,17 +517,17 @@ class CueDlg(QtWidgets.QMainWindow, Ui_MainWindow):
         self.editcuedlg.exec_()
         if self.editcuedlg.changeflag:
             chg_list = self.editcuedlg.getchange()
-            The_Show.cues.addnewcue(chg_list)
+            self.The_Show.cues.addnewcue(chg_list)
             # save the new version of cue file, overwriting old version
             # todo - mac this is hardwired to project cue file
-            The_Show.cues.savecuelist(False, cfg.cfgdict['configuration']['project']['folder'] + '/' + The_Show.show_conf.settings['cues']['href1'])
+            self.The_Show.cues.savecuelist(False, cfg.cfgdict['configuration']['project']['folder'] + '/' + self.The_Show.show_conf.settings['cues']['href1'])
             # display the new state of the cuefile
-            The_Show.cues.setup_cues(cfg.cfgdict['configuration']['project']['folder'] + '/' + The_Show.show_conf.settings['cues']['href1'])
-            The_Show.cues.currentcueindex = cueindex
+            self.The_Show.cues.setup_cues(cfg.cfgdict['configuration']['project']['folder'] + '/' + self.The_Show.show_conf.settings['cues']['href1'])
+            self.The_Show.cues.currentcueindex = cueindex
         else:
-            The_Show.cues.currentcueindex = lastcueviewed
+            self.The_Show.cues.currentcueindex = lastcueviewed
         self.disptext()
-        tblvw.selectRow(The_Show.cues.currentcueindex)
+        tblvw.selectRow(self.The_Show.cues.currentcueindex)
         if self.editcuedlg.changeflag: tblvw.scrollToBottom()
         self.notify_slaves_edit_complete()
 
@@ -531,20 +539,20 @@ class CueDlg(QtWidgets.QMainWindow, Ui_MainWindow):
         self.editcuedlg = EditCue(cueindex)
         self.editcuedlg.setWindowTitle(_translate("dlgEditCue", "Insert Cue"))
         self.editcuedlg.setROcueelements(['Cue_Number', 'Mutes', 'Levels'])
-        thiscue = The_Show.cues.getcuelist(cueindex)
+        thiscue = self.The_Show.cues.getcuelist(cueindex)
         self.editcuedlg.fillfields(cueindex, thiscue)
         self.editcuedlg.exec_()
         if self.editcuedlg.changeflag:
             chg_list = self.editcuedlg.getchange()
-            The_Show.cues.insertcue(cueindex, chg_list)
+            self.The_Show.cues.insertcue(cueindex, chg_list)
             # save the new version of cue file, overwriting old version
             # todo - mac hardwired to to second cue file
-            The_Show.cues.savecuelist(False, cfg.cfgdict['configuration']['project']['folder'] + '/' + The_Show.show_conf.settings['cues']['href1'])
+            self.The_Show.cues.savecuelist(False, cfg.cfgdict['configuration']['project']['folder'] + '/' + self.The_Show.show_conf.settings['cues']['href1'])
             # display the new state of the cuefile
-            The_Show.cues.setup_cues(cfg.cfgdict['configuration']['project']['folder'] + '/' + The_Show.show_conf.settings['cues']['href1'])
-        The_Show.cues.currentcueindex = cueindex
+            self.The_Show.cues.setup_cues(cfg.cfgdict['configuration']['project']['folder'] + '/' + self.The_Show.show_conf.settings['cues']['href1'])
+        self.The_Show.cues.currentcueindex = cueindex
         self.disptext()
-        tblvw.selectRow(The_Show.cues.currentcueindex)
+        tblvw.selectRow(self.The_Show.cues.currentcueindex)
         self.notify_slaves_edit_complete()
 
     def cue_edit(self):
@@ -555,20 +563,20 @@ class CueDlg(QtWidgets.QMainWindow, Ui_MainWindow):
         self.editcuedlg = EditCue(cueindex)
         self.editcuedlg.setWindowTitle(_translate("dlgEditCue", "Edit Cue"))
         self.editcuedlg.setROcueelements(['Cue_Number', 'Mutes', 'Levels'])
-        thiscue = The_Show.cues.getcuelist(cueindex)
+        thiscue = self.The_Show.cues.getcuelist(cueindex)
         self.editcuedlg.fillfields(cueindex, thiscue)
         self.editcuedlg.exec_()
         if self.editcuedlg.changeflag:
             chg_list = self.editcuedlg.getchange()
-            The_Show.cues.updatecue(cueindex, chg_list)
+            self.The_Show.cues.updatecue(cueindex, chg_list)
             # save the new version of cue file, overwriting old version
             # todo - mac this is hardwired to project cue file
-            The_Show.cues.savecuelist(False, cfg.cfgdict['configuration']['project']['folder'] + '/' + The_Show.show_conf.settings['cues']['href1'])
+            self.The_Show.cues.savecuelist(False, cfg.cfgdict['configuration']['project']['folder'] + '/' + self.The_Show.show_conf.settings['cues']['href1'])
             # display the new state of the cuefile
-            The_Show.cues.setup_cues(cfg.cfgdict['configuration']['project']['folder'] + '/'  + The_Show.show_conf.settings['cues']['href1'])
-        The_Show.cues.currentcueindex = cueindex
+            self.The_Show.cues.setup_cues(cfg.cfgdict['configuration']['project']['folder'] + '/'  + self.The_Show.show_conf.settings['cues']['href1'])
+        self.The_Show.cues.currentcueindex = cueindex
         self.disptext()
-        tblvw.selectRow(The_Show.cues.currentcueindex)
+        tblvw.selectRow(self.The_Show.cues.currentcueindex)
         self.notify_slaves_edit_complete(self.editcuedlg.changeflag)
 
     def cue_delete(self):
@@ -577,15 +585,15 @@ class CueDlg(QtWidgets.QMainWindow, Ui_MainWindow):
         # index[0].row() will be where the user clicked
         index = tblvw.selectedIndexes()
         cueindex = int(self.tabledata[index[0].row()][0])
-        The_Show.cues.deletecue(cueindex)
+        self.The_Show.cues.deletecue(cueindex)
         # save the new version of cue file, overwriting old version
         # todo - mac this is hardwired to project cue file
-        The_Show.cues.savecuelist(False, cfg.cfgdict['configuration']['project']['folder'] + '/' + The_Show.show_conf.settings['cues']['href1'])
+        self.The_Show.cues.savecuelist(False, cfg.cfgdict['configuration']['project']['folder'] + '/' + self.The_Show.show_conf.settings['cues']['href1'])
         # display the new state of the cuefile
-        The_Show.cues.setup_cues(cfg.cfgdict['configuration']['project']['folder'] + '/'  + The_Show.show_conf.settings['cues']['href1'])
-        The_Show.cues.currentcueindex = cueindex
+        self.The_Show.cues.setup_cues(cfg.cfgdict['configuration']['project']['folder'] + '/'  + self.The_Show.show_conf.settings['cues']['href1'])
+        self.The_Show.cues.currentcueindex = cueindex
         self.disptext()
-        tblvw.selectRow(The_Show.cues.currentcueindex)
+        tblvw.selectRow(self.The_Show.cues.currentcueindex)
         self.notify_slaves_edit_complete()
 
 
@@ -607,7 +615,7 @@ class CueDlg(QtWidgets.QMainWindow, Ui_MainWindow):
         tblvw = self.findChild(QtWidgets.QTableView)
         tblvw.selectRow(index.row())
         # cuedata = self.tabledata[index.row()]
-        The_Show.cues.selectedcueindex = int(self.tabledata[index.row()][0])
+        self.The_Show.cues.selectedcueindex = int(self.tabledata[index.row()][0])
 
     def on_table_dblclick(self,index):
         """Edit the double clicked cue"""
@@ -622,7 +630,7 @@ class CueDlg(QtWidgets.QMainWindow, Ui_MainWindow):
         self.editcuedlg = EditCue(cueindex)  # create the edit dialog
         # self.editcuedlg.editidx = cueindex
         self.editcuedlg.setROcueelements(['Cue_Number', 'Entrances', 'Exits', 'Levels', 'On_Stage'])
-        thiscue = The_Show.cues.getcuelist(cueindex)
+        thiscue = self.The_Show.cues.getcuelist(cueindex)
         self.editcuedlg.fillfields(cueindex, thiscue)
         self.editcuedlg.exec_()
         if self.editcuedlg.changeflag:
@@ -630,21 +638,21 @@ class CueDlg(QtWidgets.QMainWindow, Ui_MainWindow):
             for col in range(header.__len__()):
                 changeddataindex = cue_subelements.index(header[col].replace(' ', '_'))
                 self.tabledata[cueindex][col] = chg_list[changeddataindex]
-            The_Show.cues.updatecue(cueindex, chg_list)
+            self.The_Show.cues.updatecue(cueindex, chg_list)
             # todo - mac hardwired to second cue file
-            The_Show.cues.savecuelist(True, cfg.cfgdict['configuration']['project']['folder'] + The_Show.show_conf.settings['cues']['href1'])
-        The_Show.cues.currentcueindex = cueindex
+            self.The_Show.cues.savecuelist(True, cfg.cfgdict['configuration']['project']['folder'] + self.The_Show.show_conf.settings['cues']['href1'])
+        self.The_Show.cues.currentcueindex = cueindex
         self.disptext()
-        tblvw.selectRow(The_Show.cues.currentcueindex)
+        tblvw.selectRow(self.The_Show.cues.currentcueindex)
 
     def setfirstcue(self, index=0):
         if index == 0:
-            The_Show.cues.previouscueindex = 0
+            self.The_Show.cues.previouscueindex = 0
         else:
-            The_Show.cues.previouscueindex = index -1
-        The_Show.cues.currentcueindex = index
+            self.The_Show.cues.previouscueindex = index -1
+        self.The_Show.cues.currentcueindex = index
         tblvw = self.findChild(QtWidgets.QTableView)
-        tblvw.selectRow(The_Show.cues.currentcueindex)
+        tblvw.selectRow(self.The_Show.cues.currentcueindex)
 
     def disptext(self):
         self.get_table_data()
@@ -655,9 +663,9 @@ class CueDlg(QtWidgets.QMainWindow, Ui_MainWindow):
 
     def get_table_data(self):
         self.tabledata = []
-        for index in range(0, The_Show.cues.cuecount):
+        for index in range(0, self.The_Show.cues.cuecount):
             cuenum = '{0:03}'.format(index)
-            q = The_Show.cues.cuelist.find(".cues/cue[@num='"+cuenum+"']")
+            q = self.The_Show.cues.cuelist.find(".cues/cue[@num='"+cuenum+"']")
             type_list = q.find('CueType').text.split(',')
             for type in cue_types:
                 if type in type_list and self.CueTypeVisible[type]:
@@ -683,24 +691,31 @@ class CueDlg(QtWidgets.QMainWindow, Ui_MainWindow):
         Present file dialog to select new ShowConf.xml file
         :return:
         '''
+        fileNames = []
         fdlg = QtWidgets.QFileDialog()
-        fname = fdlg.getOpenFileName(self, 'Open file', '/home')
-        #fname = QtWidgets.QFileDialog.getOpenFileName(self, 'Open file', '/home')
+        fdlg.setFilter(QDir.Hidden | QDir.Dirs | QDir.Files)
+        fdlg.setFileMode(QFileDialog.ExistingFile)
+        fdlg.setNameFilters(["Project files (*.xml)"])
+        fdlg.setDirectory(self.The_Show.show_confpath)
+        proxymodel = FileFilterProxyModel(fdlg)
+        proxymodel.setFilterRegExp(QRegExp("_project", Qt.CaseInsensitive, QRegExp.FixedString))
+        fdlg.setProxyModel(proxymodel)
+
+        if fdlg.exec():
+            fileNames = fdlg.selectedFiles()
         fdlg.close()
-
-        logging.info('openShow: file name: {}'.format(fname[0]))
-        newprojectfolder, newprojfile = os.path.split(fname[0])
-        cfg.cfgdict['configuration']['project']['folder'] = newprojectfolder
-        cfg.cfgdict['configuration']['project']['file'] = newprojfile
-        newtree = cfg.updateFromDict()
-        cfg.write(newtree, False, CFG_PATH)
-        cfg.reload()
-        The_Show.loadNewShow(cfg.cfgdict)
-
-        self.setWindowTitle(The_Show.show_conf.settings['project']['title'])
-        self.disptext()
-        self.setfirstcue()
-        # self.setWindowTitle(self.show_conf.settings('name'))
+        if len(fileNames) != 0:
+            logging.info('Files selected in openProjectFolder: {}'.format(fileNames))
+            self.conffile = fileNames[0]
+            openproj = os.path.split(self.conffile)
+            self.cfg.cfgdict['configuration']['project']['folder'] = openproj[0]
+            self.cfg.cfgdict['configuration']['project']['file'] = openproj[1]
+            newcfg_doc = self.cfg.updateFromDict()
+            self.cfg.write(newcfg_doc, True, CFG_PATH)
+            self.load_cfg()
+            self.load_show()
+            self.char_data = []
+        print('File>Open: {0}'.format(fileNames))
 
     def saveShow(self):
         print("Save show.")
@@ -880,17 +895,17 @@ class CueDlg(QtWidgets.QMainWindow, Ui_MainWindow):
             if self.LISPApp_pid is None:
                 logging.info('LISP not found, attempting to launch')
                 #print('LISP not found, attempting to launch')
-                #The_Show.show_conf.equipment['program']['LISP']['app']
+                #self.The_Show.show_conf.equipment['program']['LISP']['app']
                 self.LISPAppProc = subprocess.Popen(
-                    ['python3', The_Show.show_conf.equipment['program']['LISP']['app'],
-                     The_Show.show_conf.equipment['program']['LISP']['args'],
+                    ['python3', self.The_Show.show_conf.equipment['program']['LISP']['app'],
+                     self.The_Show.show_conf.equipment['program']['LISP']['args'],
                      cfg.cfgdict['configuration']['project']['folder'] + '/'
-                     + The_Show.show_conf.equipment['program']['LISP']['setup']])
+                     + self.The_Show.show_conf.equipment['program']['LISP']['setup']])
                 logging.info('Starting LISP')
-                logging.info(The_Show.show_conf.equipment['program']['LISP']['app'])
-                logging.info(The_Show.show_conf.equipment['program']['LISP']['args'])
+                logging.info(self.The_Show.show_conf.equipment['program']['LISP']['app'])
+                logging.info(self.The_Show.show_conf.equipment['program']['LISP']['args'])
                 logging.info(cfg.cfgdict['configuration']['project']['folder'] + '/'
-                     + The_Show.show_conf.equipment['program']['LISP']['setup'])
+                     + self.The_Show.show_conf.equipment['program']['LISP']['setup'])
                 if self.LISPAppProc is not None:
                     self.LISPApp_pid = self.LISPAppProc.pid
                     logging.info('LISP launch success, pid: {}'.format(self.LISPApp_pid))
@@ -1067,11 +1082,11 @@ class CueDlg(QtWidgets.QMainWindow, Ui_MainWindow):
 
     def ExternalCueUpdate(self):
         self.statusBar().showMessage('External Cue Update')
-        last_index = The_Show.cues.currentcueindex
-        The_Show.reloadShow(cfg.cfgdict)
+        last_index = self.The_Show.cues.currentcueindex
+        self.The_Show.reloadShow(cfg.cfgdict)
         self.disptext()
-        The_Show.cues.currentcueindex = last_index
-        self.tableView.selectRow(The_Show.cues.currentcueindex)
+        self.The_Show.cues.currentcueindex = last_index
+        self.tableView.selectRow(self.The_Show.cues.currentcueindex)
         self.ExternalEditStarted = False
         self.ExternalEditComplete = False
 
@@ -1140,6 +1155,25 @@ class MyTableModel(QtCore.QAbstractTableModel):
         if order == QtCore.Qt.DescendingOrder:
             self.arraydata.reverse()
         self.emit(SIGNAL("layoutChanged()"))
+
+class FileFilterProxyModel(QtCore.QSortFilterProxyModel):
+    def __init__(self, parent=None):
+        super(FileFilterProxyModel, self).__init__(parent)
+
+    def filterAcceptsRow(self, source_row, srcidx):
+        model = self.sourceModel()
+        index0 = model.index(source_row, 0, srcidx)
+        index2 = model.index(source_row, 2, srcidx)
+        str0_filenamerole = model.data(index0, QFileSystemModel.FileNameRole)
+        str2_displayrole = model.data(index2, Qt.DisplayRole)
+        indexofstring = self.filterRegExp().indexIn(str0_filenamerole)
+        if (indexofstring >= 0 and str2_displayrole == 'xml File')\
+                or (str2_displayrole in ('Folder', 'Drive')):
+            return True
+        else:
+            return False
+
+
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO,
