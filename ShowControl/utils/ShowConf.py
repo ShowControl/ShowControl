@@ -124,6 +124,11 @@ class ShowConf:
         except AttributeError:
             self.settings['cuechar'] = None
 
+        # find charstrip file
+        try:
+            self.settings['charstrip'] = self.doc.find('.project/charstrip').get('href')
+        except AttributeError:
+            self.settings['charstrip'] = None
 
         return
 
@@ -150,6 +155,7 @@ class ShowConf:
                 # if there is one or more mixer elements
                 # the following elements are required to be there
                 id = int(mixer.get('id'))
+                uuid = mixer.get('uuid')
                 mfr = mixer.find('./mfr').text
                 model = mixer.find('./model').text
 
@@ -182,7 +188,7 @@ class ShowConf:
                     else:
                         # else just set it to None
                         midi_address = None
-                mixer_dict[id] = {'mfr': mfr, 'model': model, 'IP_address' : IP_address, 'port' : port, 'MIDI_address' : midi_address}
+                mixer_dict[id] = {'uuid': uuid, 'mfr': mfr, 'model': model, 'IP_address' : IP_address, 'port' : port, 'MIDI_address' : midi_address}
                 pass
             self.equipment['mixers'] = mixer_dict
             # handle programs

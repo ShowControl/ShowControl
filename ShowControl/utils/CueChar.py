@@ -1,4 +1,4 @@
-'''
+"""
 Created on Wed Oct 25 10:09:54 EDT 2017
 CueChar object that maintains the character state for each cue
 @author: mac
@@ -9,7 +9,7 @@ This update is a new attempt to smooth out handling of xml
 class CueChar() is now the cue manipulation class
 class CreateCueChar() handles creating empty cuechar files when creating a new project
 
-'''
+"""
 
 import sys
 import inspect
@@ -39,7 +39,7 @@ class CueChar():
         self.setup_cuechar(cuecharfilename)
 
     def setup_cuechar(self, filename):
-        logging.info('In CueList setup_cues')
+        logging.info('In CueChar setup_cuechar')
         # cuecharlist contains all elements *under* <showcontrol>
         self.cuecharlist = ET.parse(filename)
         # getroot() return <showcontrol> and elements under it

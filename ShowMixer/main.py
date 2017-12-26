@@ -5,9 +5,11 @@ import sys
 import logging
 
 from PyQt5 import QtWidgets
-
 from ShowControl.utils import styles
 from ShowMixer.ShowMixer import ChanStripMainWindow
+# from ShowControl.utils.ShowControlConfig import configuration, CFG_DIR, CFG_PATH, LOG_DIR
+# cfg = configuration()
+
 
 def main():
     logging.info('Mesage from main')

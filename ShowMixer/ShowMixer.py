@@ -48,7 +48,7 @@ from ShowControl.utils import styles
 # from SCLog import SCLog
 from Show import Show
 #import configuration as cfg
-from ShowControlConfig import configuration, CFG_DIR, CFG_PATH, LOG_DIR
+#from ShowControlConfig import configuration, CFG_DIR, CFG_PATH, LOG_DIR
 import CommHandlers
 from Cues import cue_types, cue_subelements, cue_edit_sizes, cue_subelements_tooltips, header, cue_fields
 
@@ -57,10 +57,11 @@ from ShowMixer.MixerMap import MixerCharMap
 
 from ShowMixer.ui_ShowMixer import Ui_MainWindow
 from ShowMixer.ui_preferences import Ui_Preferences
+from ShowControl.utils.ShowControlConfig import configuration, CFG_DIR, CFG_PATH, LOG_DIR
+# cfg = configuration()
 
 
 from ShowMixer import ShowMixer_rsrc_rc
-cfg = configuration()
 
 parser = argparse.ArgumentParser()
 # parser.add_argument("--ip", default="192.168.53.40", help="The ip of the OSC server")
@@ -131,9 +132,6 @@ def db_to_int( db ):
         value = (db + 30) / 40
     return int(value * 1024)
 
-cfg = configuration()
-
-
 class ShowPreferences(QDialog, Ui_Preferences):
     def __init__(self, parent=None):
         QDialog.__init__(self, parent)
@@ -159,23 +157,25 @@ class ShowMxr(Show):
     """
     The Show class contains the information and object that constitute a show
     """
-    def __init__(self):
+    def __init__(self, cfg):
         '''
         Constructor
         '''
         super(ShowMxr, self).__init__(cfg.cfgdict)
         self.mixers = {}
+        # for each mixer defined in the project create a mixer object
+        #todo-mac the mxrid here will ultimately should be changed to use the mixer uuid
         for mxrid in self.show_conf.equipment['mixers']:
             #print(mxrid)
-            if self.show_conf.equipment['mixers'][mxrid]['IP_address']:
-                mixeraddress = self.show_conf.equipment['mixers'][mxrid]['IP_address'] + ',' + self.show_conf.equipment['mixers'][mxrid]['port']
-            else:
-                mixeraddress = self.show_conf.equipment['mixers'][mxrid]['MIDI_address']
-            self.mixers[mxrid] = MixerConf(path.abspath(path.join(CFG_DIR, cfg.cfgdict['configuration']['mixers']['folder'], cfg.cfgdict['configuration']['mixers']['file'])),
-                                           self.show_conf.equipment['mixers'][mxrid]['mfr'],
-                                           self.show_conf.equipment['mixers'][mxrid]['model'],
-                                           mixeraddress)
-
+            # if self.show_conf.equipment['mixers'][mxrid]['IP_address']:
+            #     mixeraddress = self.show_conf.equipment['mixers'][mxrid]['IP_address'] + ',' + self.show_conf.equipment['mixers'][mxrid]['port']
+            # else:
+            #     mixeraddress = self.show_conf.equipment['mixers'][mxrid]['MIDI_address']
+            self.mixers[mxrid] = MixerConf(cfg.cfgdict, self.show_conf, mxrid)
+                                           # self.show_conf.equipment['mixers'][mxrid]['mfr'],
+                                           # self.show_conf.equipment['mixers'][mxrid]['model'],
+                                           # mixeraddress)
+                                            #  path.abspath(path.join(CFG_DIR, cfg.cfgdict['configuration']['mixers']['folder'], cfg.cfgdict['configuration']['mixers']['file']))
         self.chrchnmap = MixerCharMap(self.show_confpath + self.show_conf.settings['mixermap'])
 
     def reload(self):
@@ -190,30 +190,27 @@ class ShowMxr(Show):
 
         self.chrchnmap = MixerCharMap(self.show_confpath + self.show_conf.settings['project']['mixermap'])
 
-The_Show = ShowMxr()
-The_Show.displayShow()
-
-
 class ChanStripMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
-    #CSD_log = logging.getLogger(__name__)
-    #CSD_log.debug('ChanStripMainWindow')
     ChanStrip_MinWidth = 50
     CueFileUpdate_sig = pyqtSignal(int)
 
     def __init__(self, parent=None):
         super(ChanStripMainWindow, self).__init__(parent)
         logging.info('In ChanStripMainWindow init.')
-        #self.logger.info('In ChanStripMainWindow init.')
+        self.cfg = configuration()
+        self.The_Show = ShowMxr(self.cfg)
+        self.The_Show.displayShow()
+
         QtGui.QIcon.setThemeSearchPaths(styles.QLiSPIconsThemePaths)
         QtGui.QIcon.setThemeName(styles.QLiSPIconsThemeName)
 
-        self.ShowMixerAppDev = CommAddresses(The_Show.show_conf.equipment['program']['ShowMixer']['IP_address'],
-                                       int(The_Show.show_conf.equipment['program']['ShowMixer']['port']))
+        self.ShowMixerAppDev = CommAddresses(self.The_Show.show_conf.equipment['program']['ShowMixer']['IP_address'],
+                                       int(self.The_Show.show_conf.equipment['program']['ShowMixer']['port']))
         logging.info('ShowMixer receives commands from IP: {} PORT: {}'.format(self.ShowMixerAppDev.IP,
                                                                                self.ShowMixerAppDev.PORT))
 
-        self.CueAppDev = CommAddresses(The_Show.show_conf.equipment['program']['CueEngine']['IP_address'],
-                                      int(The_Show.show_conf.equipment['program']['CueEngine']['port']))
+        self.CueAppDev = CommAddresses(self.The_Show.show_conf.equipment['program']['CueEngine']['IP_address'],
+                                      int(self.The_Show.show_conf.equipment['program']['CueEngine']['port']))
         logging.info('CueEngine response will be sent to IP: {} PORT: {}'.format(self.CueAppDev.IP, self.CueAppDev.PORT))
 
         self.__index = 0
@@ -238,56 +235,6 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.comm_threads = []  # a list of all threads in use for later use when app exits
         self.mixer_sender_threads = []
         self.startdevicethreads()
-        # # Set up sender threads for each mixer
-        # self.mixer_sender_threads = []
-        # # Setup thread and udp to handle mixer I/O
-        # try:
-        #     self.mxr_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        # except socket.error:
-        #     #todo-mac need exception and logging here
-        #     print('Failed to create mixer socket')
-        #     sys.exit()
-        # for idx in The_Show.mixers:
-        #     if The_Show.mixers[idx].protocol == 'osc':
-        #         # Setup thread and udp to handle mixer I/O
-        #         try:
-        #             senderthread = CommHandlers.sender(self.mxr_sock)  #, MXR_IP, MXR_PORT)
-        #             senderthread.sndrsignal.connect(self.sndrtestfunc)  # connect to custom signal called 'signal'
-        #             senderthread.finished.connect(self.sndrthreaddone)  # connect to buitlin signal 'finished'
-        #             senderthread.start()  # start the thread
-        #             self.mixer_sender_threads.append(senderthread)
-        #             #self.comm_threads.append(senderthread)
-        #         except socket.error:
-        #             print('Failed to create mixer socket')  #todo-mac need exception and logging here
-        #             sys.exit()
-        #     elif The_Show.mixers[idx].protocol == 'midi':  #todo-mac figure out to start jack server when it's not started yet.
-        #         # Get midi input port (i.e. ports we can send to) list
-        #         self.client = jack.Client("TempClient")
-        #         self.portlist = self.client.get_ports(is_midi=True, is_physical=True)
-        #         self.client.deactivate()
-        #         self.client.close()
-        #         self.client = None
-        #         sleep(0.1)
-        #         self.portlist.extend(self.getrtmidiports())
-        #         self.selidx = 1  # temporarily hardwie to 0, it's my local jack client on my AF12
-        #         if isinstance(self.portlist[self.selidx], str):
-        #             print('{} ALSA port selected'.format(self.selidx))
-        #             self.snd_sndrthread = CommHandlers.AMIDIsender()
-        #             partofname = self.portlist[self.selidx].split(':')
-        #             senderthread.setport([partofname[0], self.portlist[self.selidx]])
-        #             senderthread.amidi_sndrsignal.connect(
-        #                 self.snd_sndrtestfunc)  # connect to custom signal called 'signal'
-        #             senderthread.finished.connect(
-        #                 self.snd_sndrthreaddone)  # connect to buitlin signal 'finished'
-        #             senderthread.start()  # start the thread
-        #         else:
-        #             print('{} JACK port selected'.format(self.selidx))
-        #             senderthread = CommHandlers.JMIDIsender('ShowMixer')
-        #             senderthread.setport(self.portlist[self.selidx].name)
-        #         self.mixer_sender_threads.append(senderthread)
-        #         #self.comm_threads.append(senderthread)
-        #     else:
-        #         raise ValueError('Mixer ID:{0} Unknown or missing protocol.')
 
         # setup receiver thread
         self.mxr_rcvrthread = CommHandlers.receiver(self.mxr_sock, self.ShowMixerAppDev.IP, self.ShowMixerAppDev.PORT)
@@ -297,25 +244,6 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.comm_threads.append(self.mxr_rcvrthread)
         self.externalclose = False
 
-
-        # temporary to test the connection
-        # cmdchn = CONTROL_CHANGE + 0x02
-        # print('cmdchn: {:02X}'.format(cmdchn))
-        # for control in reversed(range(1, 13)):
-        #     print('control number: {}'.format(control))
-        #     self.mixer_sender_threads[1].queue_msg([0, cmdchn, control, 0x00], '')
-        #     sleep(0.05)
-        # sleep(.5)
-        # for control in range(1, 13):
-        #     print('control number: {}'.format(control))
-        #     self.mixer_sender_threads[1].queue_msg([0, cmdchn, control, 0x40],'')
-        #     sleep(0.05)
-        # sleep(.5)
-        # for control in reversed(range(1, 13)):
-        #     print('control number: {}'.format(control))
-        #     self.mixer_sender_threads[1].queue_msg([0, cmdchn, control, 0x00],'')
-        #     sleep(0.05)
-
         #  Setup thread and udp to handle commands from CueEngine
         # setup command receiver socket
         try:
@@ -323,7 +251,6 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         except socket.error:
             print('Failed to create mixer socket')  #todo-mac need exception and logging here
             sys.exit()
-        #self.cmd_sock.bind((CUE_IP, CUE_PORT))
         self.cmd_sock.bind((self.ShowMixerAppDev.IP, self.ShowMixerAppDev.PORT))
         # setup command receiver thread
         self.cmd_rcvrthread = CommHandlers.cmd_receiver(self.cmd_sock)
@@ -337,7 +264,7 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
         self.setupUi(self)
         self.progressBar.setVisible(False)
-        self.setWindowTitle('ShowMixer - {}'.format(The_Show.show_conf.settings['title']))
+        self.setWindowTitle('ShowMixer - {}'.format(self.The_Show.show_conf.settings['title']))
         self.LED_ext_cue_change = LED()
         self.LED_ext_cue_change.setMaximumSize(QtCore.QSize(32, 32))
         self.LED_ext_cue_change.setFixedSize((QtCore.QSize(32,32)))
@@ -401,12 +328,12 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         checked_state = mute_button.isChecked()
         control_name = self.get_control_name_from_chan_name(mute_chan_name)
         # start with next cue
-        start_index = The_Show.cues.currentcueindex + 1
+        start_index = self.The_Show.cues.currentcueindex + 1
         self.progressBar.setRange(0, 100)
         self.progressBar.setValue(0)
         self.progressBar.setVisible(True)
-        for mxrid in range(The_Show.mixers.__len__()):
-            if The_Show.mixers[mxrid].mutestyle['mutestyle'] == 'illuminated':
+        for mxrid in range(self.The_Show.mixers.__len__()):
+            if self.The_Show.mixers[mxrid].mutestyle['mutestyle'] == 'illuminated':
                 if checked_state:
                     mute_val = 0
                 else:
@@ -418,9 +345,9 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                     mute_val = 0
 
             # iterate through all cues and set the mute state of this mute
-            for idx in range(start_index, The_Show.cues.cuecount):
-                self.progressBar.setValue(int((100 * (idx / The_Show.cues.cuecount))))
-                cue_mutes = The_Show.cues.get_cue_mute_state_by_index(idx)
+            for idx in range(start_index, self.The_Show.cues.cuecount):
+                self.progressBar.setValue(int((100 * (idx / self.The_Show.cues.cuecount))))
+                cue_mutes = self.The_Show.cues.get_cue_mute_state_by_index(idx)
                 mute_state_in_cue = cue_mutes[control_name]
                 # if destination is end continue to last cue
                 if destination == 'end':
@@ -431,7 +358,7 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                     cue_mutes_list_sorted = self.sort_controls(cue_mutes_list)
                     cue_mutes_text_sorted = ','.join(str(s) for s in cue_mutes_list_sorted)
 
-                    The_Show.cues.updatecueelement(idx, 'Mutes', cue_mutes_text_sorted)
+                    self.The_Show.cues.updatecueelement(idx, 'Mutes', cue_mutes_text_sorted)
                 else:
                     if mute_state_in_cue != mute_val:
                         # update cue
@@ -441,7 +368,7 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                         cue_mutes_list_sorted = self.sort_controls(cue_mutes_list)
                         cue_mutes_text_sorted = ','.join(str(s) for s in cue_mutes_list_sorted)
 
-                        The_Show.cues.updatecueelement(idx, 'Mutes', cue_mutes_text_sorted)
+                        self.The_Show.cues.updatecueelement(idx, 'Mutes', cue_mutes_text_sorted)
                     else:
                         break
         self.progressBar.setValue(0)
@@ -472,7 +399,7 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def get_control_name_from_chan_name(self, control_name):
         mixer_index = int(control_name[1])
         control_index = int(control_name[-2:len(control_name)])
-        chan_info = The_Show.mixers[mixer_index].mxrconsole[control_index]
+        chan_info = self.The_Show.mixers[mixer_index].mxrconsole[control_index]
         chan_name = chan_info['name']
         ret_name = control_name[:2] + chan_name.lower()
         return ret_name
@@ -513,16 +440,16 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         new_level = sldr.value()
         mixer_index = int(sldr_name[1])
         chan_index = int(sldr_name[-2:len(sldr_name)])
-        chan_info = The_Show.mixers[mixer_index].mxrconsole[chan_index]
+        chan_info = self.The_Show.mixers[mixer_index].mxrconsole[chan_index]
         chan_name = chan_info['name']
         level_name = sldr_name[:-2].replace('sldr', chan_name.lower())
-        next_cue_index = The_Show.cues.currentcueindex + 1
+        next_cue_index = self.The_Show.cues.currentcueindex + 1
         self.progressBar.setRange(0, 100)
         self.progressBar.setValue(0)
         self.progressBar.setVisible(True)
-        for cue_idx in range(next_cue_index, The_Show.cues.cuecount):
-            self.progressBar.setValue(int((100*(cue_idx/The_Show.cues.cuecount))))
-            levels = The_Show.cues.get_cue_levels(cue_idx)
+        for cue_idx in range(next_cue_index, self.The_Show.cues.cuecount):
+            self.progressBar.setValue(int((100*(cue_idx/self.The_Show.cues.cuecount))))
+            levels = self.The_Show.cues.get_cue_levels(cue_idx)
             try:
                 chan_level = levels[level_name]
                 levels[level_name] = new_level
@@ -532,7 +459,7 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                 for key in levels: level_list.append('{}:{}'.format(key, levels[key]))
                 level_list_sorted = self.sort_controls(level_list)
                 level_text_sorted = ','.join(str(s) for s in level_list_sorted)
-                The_Show.cues.setcueelement(cue_idx, level_text_sorted, 'Levels')
+                self.The_Show.cues.setcueelement(cue_idx, level_text_sorted, 'Levels')
             except KeyError:
                 logging.error('In slider_action_propagate_level key {} not found for index: {}!'.format(level_name, cue_idx))
             #print('Cue#{0} Levels:{1}'.format(cue_idx, levels))
@@ -591,8 +518,8 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             #todo-mac need exception and logging here
             print('Failed to create mixer socket')
             sys.exit()
-        for idx in The_Show.mixers:
-            if The_Show.mixers[idx].protocol == 'osc':
+        for idx in self.The_Show.mixers:
+            if self.The_Show.mixers[idx].protocol == 'osc':
                 # Setup thread and udp to handle mixer I/O
                 try:
                     senderthread = CommHandlers.sender(self.mxr_sock)   #, MXR_IP, MXR_PORT)
@@ -603,7 +530,7 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                 except socket.error:
                     print('Failed to create mixer socket')  #todo-mac need exception and logging here
                     sys.exit()
-            elif The_Show.mixers[idx].protocol == 'midi':  #todo-mac figure out to start jack server when it's not started yet.
+            elif self.The_Show.mixers[idx].protocol == 'midi':  #todo-mac figure out to start jack server when it's not started yet.
                 # Get midi input port (i.e. ports we can send to) list
                 self.client = jack.Client("TempClient")
                 self.portlist = self.client.get_ports(is_midi=True, is_physical=True)
@@ -651,12 +578,8 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
     def addChanStrip(self):
         # determine max sliders
-        #print('Mixer count: {}'.format(The_Show.mixers.__len__()))
-        # for mxrid in The_Show.mixers:
-        #     if The_Show.mixers[mxrid].mxrconsole.__len__() > self.max_slider_count:
-        #         self.max_slider_count = The_Show.mixers[mxrid].mxrconsole.__len__()
         self.max_slider_count = 32
-        for idx in range(The_Show.mixers.__len__()):
+        for idx in range(self.The_Show.mixers.__len__()):
             #self.scroller = QtWidgets.QScrollArea()
             self.tablist.append(QtWidgets.QWidget())
             self.tablist[idx].setMinimumSize(QtCore.QSize(0, 400))
@@ -684,18 +607,18 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             self.tabstripgridlist[idx].setObjectName("stripgridLayout{}".format(idx))
             self.tabgridlayoutlist[idx].addLayout(self.tabstripgridlist[idx], 0, 0, 1, 1)
             #self.tabWidget.insertTab(idx, self.tablist[idx], "Tab {}".format(idx))
-            tab_label = '{} {} ({})'.format(The_Show.show_conf.equipment['mixers'][idx]['mfr'],
-                                  The_Show.show_conf.equipment['mixers'][idx]['model'],
+            tab_label = '{} {} ({})'.format(self.The_Show.show_conf.equipment['mixers'][idx]['mfr'],
+                                  self.The_Show.show_conf.equipment['mixers'][idx]['model'],
                                     idx)
             self.tabWidget.insertTab(idx, self.tablist[idx], tab_label)
-            #The_Show.show_conf.equipment['mixers'][0]['mfr']
+            #self.The_Show.show_conf.equipment['mixers'][0]['mfr']
 
-            for chn in range(The_Show.mixers[idx].mxrconsole.__len__()):
+            for chn in range(self.The_Show.mixers[idx].mxrconsole.__len__()):
                 # Add actor scribble for each channel
                 scrbl = QtWidgets.QLabel()
                 scrbl.setObjectName('M{0}scr{1:02}'.format(idx,chn))
                 # print(scrbl.objectName())
-                scrbl.setText(The_Show.mixers[idx].mxrconsole[chn]['name'])
+                scrbl.setText(self.The_Show.mixers[idx].mxrconsole[chn]['name'])
                 scrbl.setAlignment(QtCore.Qt.AlignHCenter)
                 scrbl.setMinimumWidth(self.ChanStrip_MinWidth)
                 scrbl.setMinimumHeight(30)
@@ -706,7 +629,7 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                 chscrbl = QtWidgets.QLabel()
                 chscrbl.setObjectName('M{0}chscr{1:02}'.format(idx,chn))
                 # print(scrbl.objectName())
-                chscrbl.setText(The_Show.mixers[idx].mxrconsole[chn]['name'])
+                chscrbl.setText(self.The_Show.mixers[idx].mxrconsole[chn]['name'])
                 chscrbl.setAlignment(QtCore.Qt.AlignHCenter)
                 chscrbl.setMinimumWidth(self.ChanStrip_MinWidth)
                 chscrbl.setMinimumHeight(30)
@@ -757,7 +680,7 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                 # Add label for this channel
                 lbl = QtWidgets.QLabel()
                 lbl.setObjectName('M{0}lbl{1:02}'.format(idx, chn))
-                lbl.setText(The_Show.mixers[idx].mxrconsole[chn]['name'])
+                lbl.setText(self.The_Show.mixers[idx].mxrconsole[chn]['name'])
                 lbl.setMinimumWidth(self.ChanStrip_MinWidth)
                 self.tabstripgridlist[idx].addWidget(lbl, 0, chn, 1, 1)
             self.scrollArea[idx].setWidget(self.scrollAreaWidgetContents[idx])
@@ -810,29 +733,11 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         sending_slider = self.sender()
         print('In slidermove, sending_slider name: {0}'.format(sending_slider.objectName()))
 
-        # todo - moved this code to slidervalchanged...not sure if it messed anything up
-        # self.cuehaschanged = True
-        # sending_slider = self.sender()
-        # print('In slidermove, sending_slider name: {0}'.format(sending_slider.objectName()))
-        # sldrname = sending_slider.objectName()
-        # mxrid = int(sldrname[1])
-        # stripGUIindx = int(sldrname[-2:len(sldrname)])
-        # scrLblname = sldrname.replace('sldr', 'lev')
-        # scrLbl = self.findChild(QtWidgets.QLabel, name=scrLblname)
-        # val_db = int_to_db(val)
-        # scrLbl.setText('{0:>.2f}'.format(val_db))  # todo - mac see here for formating db rounded display
-        # msg = The_Show.mixers[mxrid].mxrstrips[The_Show.mixers[mxrid].
-        #     mxrconsole[stripGUIindx]['type']]['fader']. \
-        #     Set(The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['channum'], val)
-        # if msg is not None:
-        #     self.mixer_sender_threads[mxrid].queue_msg(msg, The_Show.mixers[mxrid])
-
     def slder_pressed(self):
         # if external change in progress, return
         if self.ExternalEditStarted and not self.ExternalEditComplete:
             self.NotifyEditInProgress()
             return
-
 
     def sldrmovedone(self):
         print('In sldrmovedone')
@@ -843,14 +748,14 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             return
 
         levels = ''
-        for mxrid in range(The_Show.mixers.__len__()):
-            for stripGUIindx in range(The_Show.mixers[mxrid].mxrconsole.__len__()):
+        for mxrid in range(self.The_Show.mixers.__len__()):
+            for stripGUIindx in range(self.The_Show.mixers[mxrid].mxrconsole.__len__()):
                 sldr = self.window().findChild(QtWidgets.QSlider, name='M{0}sldr{1:02}'.format(mxrid, stripGUIindx))
-                levels += 'M{0}{1}:{2},'.format(mxrid, The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['name'].lower(), sldr.value())
+                levels += 'M{0}{1}:{2},'.format(mxrid, self.The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['name'].lower(), sldr.value())
                 print('M{0}sldr{1:02}:{2:3}'.format(mxrid, stripGUIindx, sldr.value()))
         levels = levels[:-1]
         print(levels)
-        The_Show.cues.setcueelement(The_Show.cues.currentcueindex, levels, 'Levels')
+        self.The_Show.cues.setcueelement(self.The_Show.cues.currentcueindex, levels, 'Levels')
         pass
 
     def slidervalchanged(self, val):
@@ -871,11 +776,11 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         val_db = int_to_db(val)
         scrLbl.setText('{0:>.2f}'.format(val_db))  # todo - mac see here for formating db rounded display
         if not self.scrollView:
-            msg = The_Show.mixers[mxrid].mxrstrips[The_Show.mixers[mxrid].
+            msg = self.The_Show.mixers[mxrid].mxrstrips[self.The_Show.mixers[mxrid].
                 mxrconsole[stripGUIindx]['type']]['fader']. \
-                Set(The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['channum'], val)
+                Set(self.The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['channum'], val)
             if msg is not None:
-                self.mixer_sender_threads[mxrid].queue_msg(msg, The_Show.mixers[mxrid])
+                self.mixer_sender_threads[mxrid].queue_msg(msg, self.The_Show.mixers[mxrid])
         if sending_slider.isSliderDown() or self.slider_keypress:
             print('In slidervalchanged, sending_slider name: {0}, updating level state'.format(sending_slider.objectName()))
             self.updatecuelevelstate()
@@ -892,54 +797,54 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         sldr = self.findChild(QtWidgets.QSlider, name=sldrname)
         val_db = int_to_db(val)
         scrLbl.setText('{0:>.2f}'.format(val_db))
-        msg = The_Show.mixers[mxrid].mxrstrips[The_Show.mixers[mxrid].
+        msg = self.The_Show.mixers[mxrid].mxrstrips[self.The_Show.mixers[mxrid].
             mxrconsole[stripGUIindx]['type']]['fader']. \
-            Set(The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['channum'], val)
+            Set(self.The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['channum'], val)
         sldr.setSliderPosition(int(val))
         if msg is not None:
-            self.mixer_sender_threads[mxrid].queue_msg(msg, The_Show.mixers[mxrid])
+            self.mixer_sender_threads[mxrid].queue_msg(msg, self.The_Show.mixers[mxrid])
 
     def on_buttonNext_clicked(self):
         self.next_cue()
 
     def on_buttonJump_clicked(self):
-        self.execute_cue(The_Show.cues.selectedcueindex) # selectedcueindex no longer
+        self.execute_cue(self.The_Show.cues.selectedcueindex) # selectedcueindex no longer
 
     def on_buttonSaveCue_clicked(self): # todo mac this needs to save mute state
         """Save the current state of the levels and mutes for this cue"""
         print('Save Cue clicked!')
         levels = ''
-        for mxrid in range(The_Show.mixers.__len__()):
-            for stripGUIindx in range(The_Show.mixers[mxrid].mxrconsole.__len__()):
+        for mxrid in range(self.The_Show.mixers.__len__()):
+            for stripGUIindx in range(self.The_Show.mixers[mxrid].mxrconsole.__len__()):
                 sldr = self.findChild(QtWidgets.QSlider, name='M{0}sldr{1:02}'.format(mxrid, stripGUIindx))
-                sldr_name = The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['name'].lower()
+                sldr_name = self.The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['name'].lower()
                 levels += 'M{0}{1}:{2},'.format(mxrid, sldr_name, sldr.value())
                 # print('M{0}sldr{1:02}:{2:3}'.format(mxrid, stripGUIindx, sldr.value()))
         levels = levels[:-1]
         print(levels)
-        The_Show.cues.setcueelement(The_Show.cues.currentcueindex, levels, 'Levels')
+        self.The_Show.cues.setcueelement(self.The_Show.cues.currentcueindex, levels, 'Levels')
         #  Commented this out because I don't why I would have changed the levels in an existing and then add a new cue
-        # The_Show.cues.addnewcue()
+        # self.The_Show.cues.addnewcue()
 
     def updatecuelevelstate(self):
         levels = ''
-        for mxrid in range(The_Show.mixers.__len__()):
-            for stripGUIindx in range(The_Show.mixers[mxrid].mxrconsole.__len__()):
+        for mxrid in range(self.The_Show.mixers.__len__()):
+            for stripGUIindx in range(self.The_Show.mixers[mxrid].mxrconsole.__len__()):
                 sldr = self.findChild(QtWidgets.QSlider, name='M{0}sldr{1:02}'.format(mxrid, stripGUIindx))
-                levels += 'M{0}{1}:{2},'.format(mxrid, The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['name'].lower(), sldr.value())
+                levels += 'M{0}{1}:{2},'.format(mxrid, self.The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['name'].lower(), sldr.value())
                 # print('M{0}sldr{1:02}:{2:3}'.format(mxrid, stripGUIindx, sldr.value()))
         levels = levels[:-1]
         print('In updatecuelevelstate, Levels: {}'.format(levels))
-        The_Show.cues.setcueelement(The_Show.cues.currentcueindex, levels, 'Levels')
+        self.The_Show.cues.setcueelement(self.The_Show.cues.currentcueindex, levels, 'Levels')
         pass
 
     def updatecuemutestate(self):  # todo-mac general overhaul of elements in cue.xml file
                                     # Entrances, Exits, and Mutes worked out...
         mutes = ''
-        for mxrid in range(The_Show.mixers.__len__()):
-            for stripGUIindx in range(The_Show.mixers[mxrid].mxrconsole.__len__()):
+        for mxrid in range(self.The_Show.mixers.__len__()):
+            for stripGUIindx in range(self.The_Show.mixers[mxrid].mxrconsole.__len__()):
                 mute = self.findChild(QtWidgets.QPushButton, name='M{0}mute{1:02}'.format(mxrid, stripGUIindx))
-                if The_Show.mixers[mxrid].mutestyle['mutestyle']== 'illuminated':
+                if self.The_Show.mixers[mxrid].mutestyle['mutestyle']== 'illuminated':
                     if mute.isChecked():
                         mute_val = 0
                     else:
@@ -950,51 +855,44 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                     else:
                         mute_val = 0
 
-                mutes += 'M{0}{1}:{2},'.format(mxrid, The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['name'].lower(), '{0}'.format(mute_val))
+                mutes += 'M{0}{1}:{2},'.format(mxrid, self.The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['name'].lower(), '{0}'.format(mute_val))
         mutes = mutes[:-1]
         print('In updatecuemutestate, mutes: {}'.format(mutes))
-        The_Show.cues.setcueelement(The_Show.cues.currentcueindex, mutes, 'Mutes')
+        self.The_Show.cues.setcueelement(self.The_Show.cues.currentcueindex, mutes, 'Mutes')
         pass
 
     def execute_cue_uuid(self, uuid):
-        cueidx = The_Show.cues.getcueindexbyuuid(uuid)
+        cueidx = self.The_Show.cues.getcueindexbyuuid(uuid)
         print('In execute_cue_uuid, cue index={}'.format(cueidx))
         self.execute_cue(int(cueidx))
 
     def execute_cue(self, num, hard=False):
         print('In execute_cue, cue number:{}'.format(num))
-        The_Show.cues.previouscueindex = The_Show.cues.currentcueindex
-        The_Show.cues.currentcueindex = num
+        self.The_Show.cues.previouscueindex = self.The_Show.cues.currentcueindex
+        self.The_Show.cues.currentcueindex = num
         tblvw = self.findChild(QtWidgets.QTableView)
-        tblvw.selectRow(The_Show.cues.currentcueindex)
+        tblvw.selectRow(self.The_Show.cues.currentcueindex)
         self.execute_mutes(hard)
         self.execute_levels(hard)
         self.execute_MixerMap()
-        # move table focus to next cue
-        # ***changed this: now mutes/sliders show state of highlighted cue
-        # The_Show.cues.previouscueindex = The_Show.cues.currentcueindex
-        # The_Show.cues.currentcueindex += 1
-        # tblvw.selectRow(The_Show.cues.currentcueindex)
         self.update()
         return
 
     def execute_mutes(self, hard=False):
-        #mute_changes = The_Show.cues.get_cue_mute_state_delta(The_Show.cues.currentcueindex)
-        #mute_changes = The_Show.cues.get_cue_mute_state_by_index(The_Show.cues.currentcueindex)
-        # begin test cuechar
         #get the uuid of the current index
-        cur_uuid = The_Show.cues.getcurrentcueuuid(The_Show.cues.currentcueindex)
-        cuechar_cue = The_Show.cuechar.get_cue_by_uuid(cur_uuid)
+        cur_uuid = self.The_Show.cues.getcurrentcueuuid(self.The_Show.cues.currentcueindex)
+        #get the character details for this cue
+        cuechar_cue = self.The_Show.cuechar.get_cue_by_uuid(cur_uuid)
+        #for each character element in this cue get the mute state
         for count, char in enumerate(cuechar_cue):
             char_uuid = char.get('uuid')
             char_mute = char.find(".mute").text
             print('{}. Chr uuid: {}, mute:{}'.format(count, char_uuid, char_mute))
-        # end test cuechar
-        if The_Show.cues.currentcueindex == 0 or hard:
-            mute_changes = The_Show.cues.get_cue_mute_state_by_index(The_Show.cues.currentcueindex)
+        if self.The_Show.cues.currentcueindex == 0 or hard:
+            mute_changes = self.The_Show.cues.get_cue_mute_state_by_index(self.The_Show.cues.currentcueindex)
         else:
-            from_element = The_Show.cues.get_cue_element_by_name(The_Show.cues.previouscueindex, 'Mutes').text.split(',')
-            to_element = The_Show.cues.get_cue_element_by_name(The_Show.cues.currentcueindex, 'Mutes').text.split(',')
+            from_element = self.The_Show.cues.get_cue_element_by_name(self.The_Show.cues.previouscueindex, 'Mutes').text.split(',')
+            to_element = self.The_Show.cues.get_cue_element_by_name(self.The_Show.cues.currentcueindex, 'Mutes').text.split(',')
             mute_changes = {ch_mute.split(':')[0]: int(ch_mute.split(':')[1]) for ch_mute in to_element if ch_mute not in from_element}
         # iterate through mute changes, if any
         if mute_changes != None:
@@ -1005,9 +903,9 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                 nbrs = re.findall(r'\d+',key)  # old way to striGUIindex
                 mxrid = int(nbrs[0])
                 chname = key[re.search('\d', key).end():]
-                # for cons_idx in The_Show.mixers:
-                for cons_idx in range(The_Show.mixers[mxrid].mxrconsole.__len__()):
-                    if The_Show.mixers[mxrid].mxrconsole[cons_idx]['name'].lower() == chname.lower():
+                # for cons_idx in self.The_Show.mixers:
+                for cons_idx in range(self.The_Show.mixers[mxrid].mxrconsole.__len__()):
+                    if self.The_Show.mixers[mxrid].mxrconsole[cons_idx]['name'].lower() == chname.lower():
                         # print('found in stp {0}'.format(cons_idx))
                         stripGUIindx = cons_idx
                         break
@@ -1015,30 +913,30 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                 mute = self.findChild(QtWidgets.QPushButton, name='M{0}mute{1:02}'.format(mxrid, stripGUIindx))
                 if value == 1:  # 1 >> unmute  0 >> mute
                     # Handle unmute
-                    if The_Show.mixers[mxrid].mutestyle['mutestyle'] == 'illuminated':
+                    if self.The_Show.mixers[mxrid].mutestyle['mutestyle'] == 'illuminated':
                         mute.setChecked(False)  # for illuminated = unmuted
                     else:
                         mute.setChecked(True)  # for a dark = umuted
-                    muteval = The_Show.mixers[mxrid].mutestyle['unmute']
+                    muteval = self.The_Show.mixers[mxrid].mutestyle['unmute']
                 else:
                     # Handle mute
-                    if The_Show.mixers[mxrid].mutestyle['mutestyle'] == 'illuminated':
+                    if self.The_Show.mixers[mxrid].mutestyle['mutestyle'] == 'illuminated':
                         mute.setChecked(True)
                     else:
                         mute.setChecked(False)
-                    muteval = The_Show.mixers[mxrid].mutestyle['mute']
-                msg = The_Show.mixers[mxrid].mxrstrips[The_Show.mixers[mxrid].
+                    muteval = self.The_Show.mixers[mxrid].mutestyle['mute']
+                msg = self.The_Show.mixers[mxrid].mxrstrips[self.The_Show.mixers[mxrid].
                     mxrconsole[stripGUIindx]['type']]['mute']. \
-                    Set(The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['channum'], muteval)
-                if msg is not None: self.mixer_sender_threads[mxrid].queue_msg(msg, The_Show.mixers[mxrid])
+                    Set(self.The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['channum'], muteval)
+                if msg is not None: self.mixer_sender_threads[mxrid].queue_msg(msg, self.The_Show.mixers[mxrid])
                 pass
 
     def execute_levels(self, hard=False):
-        if The_Show.cues.currentcueindex == 0 or hard:
-            levels = The_Show.cues.get_cue_levels(The_Show.cues.currentcueindex)
+        if self.The_Show.cues.currentcueindex == 0 or hard:
+            levels = self.The_Show.cues.get_cue_levels(self.The_Show.cues.currentcueindex)
         else:
-            from_element = The_Show.cues.get_cue_element_by_name(The_Show.cues.previouscueindex, 'Levels').text.split(',')
-            to_element = The_Show.cues.get_cue_element_by_name(The_Show.cues.currentcueindex, 'Levels').text.split(',')
+            from_element = self.The_Show.cues.get_cue_element_by_name(self.The_Show.cues.previouscueindex, 'Levels').text.split(',')
+            to_element = self.The_Show.cues.get_cue_element_by_name(self.The_Show.cues.currentcueindex, 'Levels').text.split(',')
             levels = {level.split(':')[0] : int(level.split(':')[1]) for level in to_element if level not in from_element}
 
         if levels != None:
@@ -1050,8 +948,8 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                 mxrid = int(nbrs[0])
                 chname = key[re.search('\d', key).end():]
                 #print(chname)
-                for cons_idx in range(The_Show.mixers[mxrid].mxrconsole.__len__()):
-                    if The_Show.mixers[mxrid].mxrconsole[cons_idx]['name'].lower() == chname.lower():
+                for cons_idx in range(self.The_Show.mixers[mxrid].mxrconsole.__len__()):
+                    if self.The_Show.mixers[mxrid].mxrconsole[cons_idx]['name'].lower() == chname.lower():
                         # print('found in stp {0}'.format(cons_idx))
                         stripGUIindx = cons_idx
                         break
@@ -1063,29 +961,21 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                 val_db = int_to_db(int(value))
                 scrLbl.setText('{0:>.2f}'.format(val_db))
                 if sldr.sliderPosition() != value:
-                    msg = The_Show.mixers[mxrid].mxrstrips[The_Show.mixers[mxrid].
+                    msg = self.The_Show.mixers[mxrid].mxrstrips[self.The_Show.mixers[mxrid].
                         mxrconsole[stripGUIindx]['type']]['fader']. \
-                        Set(The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['channum'], int(value))
+                        Set(self.The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['channum'], int(value))
                     sldr.setSliderPosition(int(value))
-                    if msg is not None: self.mixer_sender_threads[mxrid].queue_msg(msg, The_Show.mixers[mxrid])
+                    if msg is not None: self.mixer_sender_threads[mxrid].queue_msg(msg, self.The_Show.mixers[mxrid])
                 pass
 
     def execute_MixerMap(self):
         """Check for MixerMap entrees with this cues uuid
         if true, do the map"""
-        mixermap_element = The_Show.cues.get_cue_element_by_name(The_Show.cues.currentcueindex, 'map')
+        mixermap_element = self.The_Show.cues.get_cue_element_by_name(self.The_Show.cues.currentcueindex, 'map')
         if mixermap_element != None:
             current_map_index = int(mixermap_element.text)
         else:
             current_map_index = 0
-        # if mixermap_element:
-        #     input_maps = mixermap_element.findall('input')
-        #     for input_map in input_maps:
-        #         mixerid = input_map.get('mixerid')
-        #         mixerchan = input_map.get('chan')
-        #         actor = input_map.get('actor')
-        #         char = input_map.get('char')
-        #         print('Mixer id: {}, chan: {}, actor: {}, char: {}'.format(mixerid, mixerchan, actor, char))
         current_cue_uuid = None
         print('last map: {}, current map:{}'.format(self.last_mixermap, current_map_index))
         logging.info('last map: {}, current map:{}'.format(self.last_mixermap, current_map_index))
@@ -1107,38 +997,38 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
     def next_cue(self):
         nextmxrcuefound = False
-        index = The_Show.cues.currentcueindex
+        index = self.The_Show.cues.currentcueindex
         # find the next cue with type Mixer
         while not nextmxrcuefound:
             index += 1
-            if index < The_Show.cues.cuecount:
-                if 'Mixer' in The_Show.cues.getcuetype(index):
+            if index < self.The_Show.cues.cuecount:
+                if 'Mixer' in self.The_Show.cues.getcuetype(index):
                     nextmxrcuefound = True
                     self.execute_cue(index)
             else:
                 return
 
     def initmutes(self):
-        for mxrid in range(The_Show.mixers.__len__()):
-            for stripGUIindx in range(The_Show.mixers[mxrid].mxrconsole.__len__()):
-                msg = The_Show.mixers[mxrid].mxrstrips[The_Show.mixers[mxrid].
+        for mxrid in range(self.The_Show.mixers.__len__()):
+            for stripGUIindx in range(self.The_Show.mixers[mxrid].mxrconsole.__len__()):
+                msg = self.The_Show.mixers[mxrid].mxrstrips[self.The_Show.mixers[mxrid].
                     mxrconsole[stripGUIindx]['type']]['mute'].\
-                    Set(The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['channum'], The_Show.mixers[mxrid].mutestyle['mute'])
-                if msg is not None: self.mixer_sender_threads[mxrid].queue_msg(msg, The_Show.mixers[mxrid])
+                    Set(self.The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['channum'], self.The_Show.mixers[mxrid].mutestyle['mute'])
+                if msg is not None: self.mixer_sender_threads[mxrid].queue_msg(msg, self.The_Show.mixers[mxrid])
                 mute = self.findChild(QtWidgets.QPushButton, name='M{0}mute{1:02}'.format(mxrid, stripGUIindx))
-                if The_Show.mixers[mxrid].mutestyle['mutestyle']== 'illuminated':
+                if self.The_Show.mixers[mxrid].mutestyle['mutestyle']== 'illuminated':
                     mute.setChecked(True)
                 else:
                     mute.setChecked(False)
 
     def initlevels(self):
-        for mxrid in range(The_Show.mixers.__len__()):
+        for mxrid in range(self.The_Show.mixers.__len__()):
             low_level = db_to_int(-90)
-            for stripGUIindx in range(The_Show.mixers[mxrid].mxrconsole.__len__()):
-                msg = The_Show.mixers[mxrid].mxrstrips[The_Show.mixers[mxrid].
+            for stripGUIindx in range(self.The_Show.mixers[mxrid].mxrconsole.__len__()):
+                msg = self.The_Show.mixers[mxrid].mxrstrips[self.The_Show.mixers[mxrid].
                     mxrconsole[stripGUIindx]['type']]['fader'].\
-                    Set(The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['channum'], low_level)
-                if msg is not None: self.mixer_sender_threads[mxrid].queue_msg(msg, The_Show.mixers[mxrid])
+                    Set(self.The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['channum'], low_level)
+                if msg is not None: self.mixer_sender_threads[mxrid].queue_msg(msg, self.The_Show.mixers[mxrid])
 
     def on_buttonMute_clicked(self):
         mbtn = self.sender()
@@ -1161,30 +1051,30 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         # print(mbtn.objectName())
         chkd = mbtn.isChecked()
         dwn=mbtn.isDown()
-        if mbtn.isChecked() and The_Show.mixers[mxrid].mutestyle['mutestyle'] == 'illuminated':
-            muteval = The_Show.mixers[mxrid].mutestyle['mute']
-        elif mbtn.isChecked() and The_Show.mixers[mxrid].mutestyle['mutestyle'] == 'dark':
-            muteval = The_Show.mixers[mxrid].mutestyle['unmute']
-        elif not mbtn.isChecked() and The_Show.mixers[mxrid].mutestyle['mutestyle'] == 'illuminated':
-            muteval = The_Show.mixers[mxrid].mutestyle['unmute']
-        elif not mbtn.isChecked() and The_Show.mixers[mxrid].mutestyle['mutestyle'] == 'dark':
-            muteval = The_Show.mixers[mxrid].mutestyle['mute']
+        if mbtn.isChecked() and self.The_Show.mixers[mxrid].mutestyle['mutestyle'] == 'illuminated':
+            muteval = self.The_Show.mixers[mxrid].mutestyle['mute']
+        elif mbtn.isChecked() and self.The_Show.mixers[mxrid].mutestyle['mutestyle'] == 'dark':
+            muteval = self.The_Show.mixers[mxrid].mutestyle['unmute']
+        elif not mbtn.isChecked() and self.The_Show.mixers[mxrid].mutestyle['mutestyle'] == 'illuminated':
+            muteval = self.The_Show.mixers[mxrid].mutestyle['unmute']
+        elif not mbtn.isChecked() and self.The_Show.mixers[mxrid].mutestyle['mutestyle'] == 'dark':
+            muteval = self.The_Show.mixers[mxrid].mutestyle['mute']
 
-        msg = The_Show.mixers[mxrid].mxrstrips[The_Show.mixers[mxrid].
+        msg = self.The_Show.mixers[mxrid].mxrstrips[self.The_Show.mixers[mxrid].
             mxrconsole[stripGUIindx]['type']]['mute']. \
-            Set(The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['channum'], muteval)
+            Set(self.The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['channum'], muteval)
         # todo-mac why does this go to main > sys.exit(app.exec_())?
-        if msg is not None: self.mixer_sender_threads[mxrid].queue_msg(msg, The_Show.mixers[mxrid])
+        if msg is not None: self.mixer_sender_threads[mxrid].queue_msg(msg, self.The_Show.mixers[mxrid])
         self.updatecuemutestate()
 
     def setfirstcue(self):
         tblvw = self.findChild(QtWidgets.QTableView)
-        tblvw.selectRow(The_Show.cues.currentcueindex)
-        # self.execute_cue(The_Show.cues.currentcueindex)
+        tblvw.selectRow(self.The_Show.cues.currentcueindex)
+        # self.execute_cue(self.The_Show.cues.currentcueindex)
 
     def getcurrentcueuuid(self):
         """ THis is a kludge to get things working"""
-        uuid = The_Show.cues.getcurrentcueuuid(The_Show.cues.currentcueindex)
+        uuid = self.The_Show.cues.getcurrentcueuuid(self.The_Show.cues.currentcueindex)
         return uuid
 
 
@@ -1192,25 +1082,25 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         source_name = self.sender().objectName()
         tblvw = self.findChild(QtWidgets.QTableView)
         if 'up' in source_name:  # scrol up the table, i.e. previous cue
-            if The_Show.cues.currentcueindex > 0:
-                The_Show.cues.currentcueindex -= 1
+            if self.The_Show.cues.currentcueindex > 0:
+                self.The_Show.cues.currentcueindex -= 1
             else:
-                The_Show.cues.currentcueindex = 0
-            #The_Show.cues.previouscueindex = The_Show.cues.currentcueindex -1
+                self.The_Show.cues.currentcueindex = 0
+            #self.The_Show.cues.previouscueindex = self.The_Show.cues.currentcueindex -1
             #direction = -1
         else:  # scroll down the table, i.e. the next cue
-            if The_Show.cues.currentcueindex < The_Show.cues.cuecount - 1:
-                #The_Show.cues.previouscueindex = The_Show.cues.currentcueindex
-                The_Show.cues.currentcueindex += 1
+            if self.The_Show.cues.currentcueindex < self.The_Show.cues.cuecount - 1:
+                #self.The_Show.cues.previouscueindex = self.The_Show.cues.currentcueindex
+                self.The_Show.cues.currentcueindex += 1
             else:
-                The_Show.cues.currentcueindex = The_Show.cues.cuecount - 1
+                self.The_Show.cues.currentcueindex = self.The_Show.cues.cuecount - 1
             #direction = 1
-        tblvw.selectRow(The_Show.cues.currentcueindex)
+        tblvw.selectRow(self.The_Show.cues.currentcueindex)
         self.display_cue_mutes()
         self.display_cue_levels()
 
     def display_cue_mutes(self):
-        mutes = The_Show.cues.get_cue_mute_state_by_index(The_Show.cues.currentcueindex)
+        mutes = self.The_Show.cues.get_cue_mute_state_by_index(self.The_Show.cues.currentcueindex)
         if mutes is not None:  # iterate through mutes
             for key, value in mutes.items():
                 # find the channel name in the mxrconsole list, it should be the stripGUIindex
@@ -1218,30 +1108,30 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                 nbrs = re.findall(r'\d+',key)  # old way to striGUIindex
                 mxrid = int(nbrs[0])
                 chname = key[re.search('\d', key).end():]
-                for cons_idx in range(The_Show.mixers[mxrid].mxrconsole.__len__()):
-                    if The_Show.mixers[mxrid].mxrconsole[cons_idx]['name'].lower() == chname.lower():
+                for cons_idx in range(self.The_Show.mixers[mxrid].mxrconsole.__len__()):
+                    if self.The_Show.mixers[mxrid].mxrconsole[cons_idx]['name'].lower() == chname.lower():
                         # print('found in stp {0}'.format(cons_idx))
                         stripGUIindx = cons_idx
                         break
                 mute = self.findChild(QtWidgets.QPushButton, name='M{0}mute{1:02}'.format(mxrid, stripGUIindx))
                 if value == 1:  # 1 >> unmute  0 >> mute
                     # Handle unmute
-                    if The_Show.mixers[mxrid].mutestyle['mutestyle'] == 'illuminated':
+                    if self.The_Show.mixers[mxrid].mutestyle['mutestyle'] == 'illuminated':
                         mute.setChecked(False)  # for illuminated = unmuted
                     else:
                         mute.setChecked(True)  # for a dark = umuted
-                    #muteval = The_Show.mixers[mxrid].mutestyle['unmute']
+                    #muteval = self.The_Show.mixers[mxrid].mutestyle['unmute']
                 else:  # Handle mute
-                    if The_Show.mixers[mxrid].mutestyle['mutestyle'] == 'illuminated':
+                    if self.The_Show.mixers[mxrid].mutestyle['mutestyle'] == 'illuminated':
                         mute.setChecked(True)
                     else:
                         mute.setChecked(False)
-                    #muteval = The_Show.mixers[mxrid].mutestyle['mute']
+                    #muteval = self.The_Show.mixers[mxrid].mutestyle['mute']
         return
 
     def display_cue_levels(self):
         self.scrollView = True
-        levels = The_Show.cues.get_cue_levels(The_Show.cues.currentcueindex)
+        levels = self.The_Show.cues.get_cue_levels(self.The_Show.cues.currentcueindex)
         if levels != None:
             for key, value in levels.items():
                 # find the channel name in the mxrconsole list
@@ -1250,8 +1140,8 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                 nbrs = re.findall(r'\d+',key)
                 mxrid = int(nbrs[0])
                 chname = key[re.search('\d', key).end():]
-                for cons_idx in range(The_Show.mixers[mxrid].mxrconsole.__len__()):
-                    if The_Show.mixers[mxrid].mxrconsole[cons_idx]['name'].lower() == chname.lower():
+                for cons_idx in range(self.The_Show.mixers[mxrid].mxrconsole.__len__()):
+                    if self.The_Show.mixers[mxrid].mxrconsole[cons_idx]['name'].lower() == chname.lower():
                         # print('found in stp {0}'.format(cons_idx))
                         stripGUIindx = cons_idx
                         break
@@ -1280,31 +1170,31 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         # update ShowControl_config.xml with new project folder and file
         # print(fname[0])
         # newprojfolder = os.path.dirname(fname(0))
-        tabcount = The_Show.mixers.__len__()
+        tabcount = self.The_Show.mixers.__len__()
         newprojectfolder, newprojfile = os.path.split(fname[0])
         cfg.cfgdict['configuration']['project']['folder'] = newprojectfolder
         cfg.cfgdict['configuration']['project']['file'] = newprojfile
         newtree = cfg.updateFromDict()
         cfg.write(newtree, False, CFG_PATH)
         cfg.reload()
-        The_Show.loadNewShow(cfg.cfgdict)
-        The_Show.reload()
+        self.The_Show.loadNewShow(cfg.cfgdict)
+        self.The_Show.reload()
         self.stopsenderthreads()
         time.sleep(.5)
         self.startdevicethreads()
         self.deletecontrols()
         self.emptytabs(tabcount)
         self.changelayout()
-        self.setWindowTitle(The_Show.show_conf.settings['project']['title'])
+        self.setWindowTitle(self.The_Show.show_conf.settings['project']['title'])
         self.initmutes()
         self.initlevels()
         self.disptext()
         self.setfirstcue()
-        firstuuid = The_Show.cues.getcurrentcueuuid(The_Show.cues.currentcueindex)
+        firstuuid = self.The_Show.cues.getcurrentcueuuid(self.The_Show.cues.currentcueindex)
         self.set_scribble(firstuuid)
 
     def saveShow(self):
-        The_Show.cues.savecuelist(True, cfg.cfgdict['configuration']['project']['folder'] + '/' + The_Show.show_conf.settings['cues']['href1'])
+        self.The_Show.cues.savecuelist(True, cfg.cfgdict['configuration']['project']['folder'] + '/' + self.The_Show.show_conf.settings['cues']['href1'])
         self.cuehaschanged = False
         self.CER_send_edit_complete()
         # CE_msg = osc_message_builder.OscMessageBuilder(address='/cue/editcomplete')
@@ -1329,51 +1219,51 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
     def set_scribble(self, uuid='bad'):
         #charcount = int(mxrmap.getroot().attrib['charcount'])
-        charcount = The_Show.chrchnmap.getmixermapcharcount(uuid)
+        charcount = self.The_Show.chrchnmap.getmixermapcharcount(uuid)
         #chars = mxrmap.findall('input')
-        chars = The_Show.chrchnmap.getmixermapinputs(uuid)
+        chars = self.The_Show.chrchnmap.getmixermapinputs(uuid)
         for char in chars:
             cnum = int(char.attrib['chan'])
             mxrid = int(char.attrib['mixerid'])
-            msg = The_Show.mixers[mxrid].mxrstrips[The_Show.mixers[mxrid].
+            msg = self.The_Show.mixers[mxrid].mxrstrips[self.The_Show.mixers[mxrid].
                 mxrconsole[cnum - 1]['type']]['scribble'].\
                 Set(cnum, char.attrib['char'])
-            if msg is not None: self.mixer_sender_threads[mxrid].queue_msg(msg, The_Show.mixers[mxrid])
+            if msg is not None: self.mixer_sender_threads[mxrid].queue_msg(msg, self.The_Show.mixers[mxrid])
             # print('M{0}scr{1:02}'.format(mxrid,cnum))
             actorlbl = self.findChild(QtWidgets.QLabel, name='M{0}scr{1:02}'.format(mxrid,cnum-1))
             actorlbl.setText(char.attrib['actor'][:7])
             charlbl = self.findChild(QtWidgets.QLabel, name='M{0}chscr{1:02}'.format(mxrid,cnum-1))
             charlbl.setText(char.attrib['char'][:7])
 
-        buses = The_Show.chrchnmap.getmixermapbus(uuid)
+        buses = self.The_Show.chrchnmap.getmixermapbus(uuid)
         for bus in buses:
             cnum = int(bus.attrib['chan'])
             mxrid = int(bus.attrib['mixerid'])
             #find the index of the bus to get the .Set object
-            for control_index, mxcons in enumerate(The_Show.mixers[mxrid].mxrconsole):
+            for control_index, mxcons in enumerate(self.The_Show.mixers[mxrid].mxrconsole):
                 if mxcons['name'] == 'Bus{:02}'.format(cnum):
                     break
-            msg = The_Show.mixers[mxrid].mxrstrips[The_Show.mixers[mxrid].
+            msg = self.The_Show.mixers[mxrid].mxrstrips[self.The_Show.mixers[mxrid].
                 mxrconsole[control_index]['type']]['scribble']. \
                 Set(cnum, bus.attrib['char'])
-            if msg is not None: self.mixer_sender_threads[mxrid].queue_msg(msg, The_Show.mixers[mxrid])
+            if msg is not None: self.mixer_sender_threads[mxrid].queue_msg(msg, self.The_Show.mixers[mxrid])
             actorlbl = self.findChild(QtWidgets.QLabel, name='M{0}scr{1:02}'.format(mxrid, control_index))
             actorlbl.setText(bus.attrib['actor'][:7])
             charlbl = self.findChild(QtWidgets.QLabel, name='M{0}chscr{1:02}'.format(mxrid, control_index))
             charlbl.setText(bus.attrib['char'][:7])
 
-            auxes = The_Show.chrchnmap.getmixermapaux(uuid)
+            auxes = self.The_Show.chrchnmap.getmixermapaux(uuid)
             for aux in auxes:
                 cnum = int(aux.attrib['chan'])
                 mxrid = int(aux.attrib['mixerid'])
                 # find the index of the bus to get the .Set object
-                for control_index, mxcons in enumerate(The_Show.mixers[mxrid].mxrconsole):
+                for control_index, mxcons in enumerate(self.The_Show.mixers[mxrid].mxrconsole):
                     if mxcons['name'] == 'Aux{:02}'.format(cnum):
                         break
-                msg = The_Show.mixers[mxrid].mxrstrips[The_Show.mixers[mxrid].
+                msg = self.The_Show.mixers[mxrid].mxrstrips[self.The_Show.mixers[mxrid].
                     mxrconsole[control_index]['type']]['scribble']. \
                     Set(cnum, aux.attrib['char'])
-                if msg is not None: self.mixer_sender_threads[mxrid].queue_msg(msg, The_Show.mixers[mxrid])
+                if msg is not None: self.mixer_sender_threads[mxrid].queue_msg(msg, self.The_Show.mixers[mxrid])
                 actorlbl = self.findChild(QtWidgets.QLabel, name='M{0}scr{1:02}'.format(mxrid, control_index))
                 actorlbl.setText(aux.attrib['actor'][:7])
                 charlbl = self.findChild(QtWidgets.QLabel, name='M{0}chscr{1:02}'.format(mxrid, control_index))
@@ -1381,7 +1271,7 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             pass
 
     def set_scribble_bycount(self, count=0):
-        mixermap_element = The_Show.chrchnmap.get_map_element_by_count(count)
+        mixermap_element = self.The_Show.chrchnmap.get_map_element_by_count(count)
         if mixermap_element:
             input_maps = mixermap_element.findall('input')
             for input_map in input_maps:
@@ -1390,10 +1280,10 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                 actor = input_map.get('actor')
                 char = input_map.get('char')
                 print('Mixer id: {}, chan: {}, actor: {}, char: {}'.format(mixerid, mixerchan, actor, char))
-                msg = The_Show.mixers[mixerid].mxrstrips[The_Show.mixers[mixerid].
+                msg = self.The_Show.mixers[mixerid].mxrstrips[self.The_Show.mixers[mixerid].
                     mxrconsole[mixerchan - 1]['type']]['scribble'].\
                     Set(mixerchan, char)
-                if msg is not None: self.mixer_sender_threads[mixerid].queue_msg(msg, The_Show.mixers[mixerid])
+                if msg is not None: self.mixer_sender_threads[mixerid].queue_msg(msg, self.The_Show.mixers[mixerid])
                 # print('M{0}scr{1:02}'.format(mxrid,cnum))
                 actorlbl = self.findChild(QtWidgets.QLabel, name='M{0}scr{1:02}'.format(mixerid,mixerchan-1))
                 actorlbl.setText(actor[:7])
@@ -1411,9 +1301,9 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
     def get_table_data(self):
         self.tabledata = []
-        for index in range(0, The_Show.cues.cuecount):
+        for index in range(0, self.The_Show.cues.cuecount):
             cuenum = '{0:03}'.format(index)
-            q = The_Show.cues.cuelist.find(".cues/cue[@num='"+cuenum+"']")
+            q = self.The_Show.cues.cuelist.find(".cues/cue[@num='"+cuenum+"']")
             type_list = q.find('CueType').text.split(',')
             for type in cue_types:
                 if type in type_list and self.CueTypeVisible[type]:
@@ -1421,15 +1311,6 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                     break
         # print(self.tabledata)
         return
-        # qs = The_Show.cues.cuelist.findall('Cue')
-        # self.tabledata =[]
-        # for q in qs:
-        #     dirty_list = q.find('CueType').text.split(',')
-        #     type_list = [s.strip() for s in dirty_list]
-        #     for type in cue_types:
-        #         if type in type_list and self.CueTypeVisible[type]:
-        #             self.append_table_data(q)
-        #             break
 
     def append_table_data(self, q):
         tmp_list = ['{0:03}'.format(int(q.attrib['num']))]
@@ -1445,8 +1326,8 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
     def tableClicked(self, modelidx):
         rowidx = modelidx.row()
-        The_Show.cues.currentcueindex = rowidx
-        self.tableView.selectRow(The_Show.cues.currentcueindex)
+        self.The_Show.cues.currentcueindex = rowidx
+        self.tableView.selectRow(self.The_Show.cues.currentcueindex)
         # print('table clicked, row{}'.format(rowidx))
         self.display_cue_mutes()
         self.display_cue_levels()
@@ -1461,7 +1342,7 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                 return
             elif reply == QMessageBox.Save:
                 # todo - mac this is hardwired to project cue file
-                The_Show.cues.savecuelist(True, cfg.cfgdict['configuration']['project']['folder'] + '/' + The_Show.show_conf.settings['cues']['href1'])
+                self.The_Show.cues.savecuelist(True, cfg.cfgdict['configuration']['project']['folder'] + '/' + self.The_Show.show_conf.settings['cues']['href1'])
                 self.CER_send_edit_complete()
         reply = self.confirmQuit()
         if reply == QMessageBox.Yes:
@@ -1556,20 +1437,20 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.statusBar().showMessage('External Cue Update')
         logging.info('External Cue Update, changed flag: {}')
         if changed:
-            index_before_update = The_Show.cues.currentcueindex
-            The_Show.reloadShow(cfg.cfgdict)
-            self.setWindowTitle(The_Show.show_conf.settings['title'])
+            index_before_update = self.The_Show.cues.currentcueindex
+            self.The_Show.reloadShow(cfg.cfgdict)
+            self.setWindowTitle(self.The_Show.show_conf.settings['title'])
             #self.initmutes()
             #self.initlevels()
             self.disptext()
             self.setfirstcue()
-            firstuuid = The_Show.cues.getcurrentcueuuid(The_Show.cues.currentcueindex)
+            firstuuid = self.The_Show.cues.getcurrentcueuuid(self.The_Show.cues.currentcueindex)
             self.set_scribble(firstuuid)
-            The_Show.cues.currentcueindex = index_before_update
-            self.tableView.selectRow(The_Show.cues.currentcueindex)
+            self.The_Show.cues.currentcueindex = index_before_update
+            self.tableView.selectRow(self.The_Show.cues.currentcueindex)
             self.display_cue_mutes()
             self.display_cue_levels()
-            self.execute_cue(The_Show.cues.currentcueindex, hard=True)
+            self.execute_cue(self.The_Show.cues.currentcueindex, hard=True)
         self.ExternalEditStarted = False
         self.ExternalEditComplete = False
 
@@ -1617,15 +1498,6 @@ class MySlider(QtWidgets.QSlider):
 
     def mouseReleaseEvent(self, m_ev):
         """Subclassed from QSlider"""
-        # levels = ''
-        # for mxrid in range(The_Show.mixers.__len__()):
-        #     for stripGUIindx in range(The_Show.mixers[mxrid].mxrconsole.__len__()):
-        #         sldr = self.window().findChild(QtWidgets.QSlider, name='M{0}sldr{1:02}'.format(mxrid, stripGUIindx))
-        #         levels += 'M{0}{1}:{2},'.format(mxrid, The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['name'].lower(), sldr.value())
-        #         print('M{0}sldr{1:02}:{2:3}'.format(mxrid, stripGUIindx, sldr.value()))
-        # levels = levels[:-1]
-        # print(levels)
-        # The_Show.cues.setcueelement(The_Show.cues.currentcueindex, levels, 'Levels')
         QtWidgets.QSlider.mouseReleaseEvent(self, m_ev)
 
     def keyPressEvent(self, k_ev):
@@ -1633,15 +1505,6 @@ class MySlider(QtWidgets.QSlider):
         if k_ev.key() in  [Qt.Key_Up, Qt.Key_Down, Qt.Key_PageDown, Qt.Key_PageUp]:
             #self.window().slider_keypress = True
             self.kpsig.emit()
-            # levels = ''
-            # for mxrid in range(The_Show.mixers.__len__()):
-            #     for stripGUIindx in range(The_Show.mixers[mxrid].mxrconsole.__len__()):
-            #         sldr = self.window().findChild(QtWidgets.QSlider, name='M{0}sldr{1:02}'.format(mxrid, stripGUIindx))
-            #         levels += 'M{0}{1}:{2},'.format(mxrid, The_Show.mixers[mxrid].mxrconsole[stripGUIindx]['name'].lower(), sldr.value())
-            #         #print('M{0}sldr{1:02}:{2:3}'.format(mxrid, stripGUIindx, sldr.value()))
-            # levels = levels[:-1]
-            # print('In keyPressEvent, levels: {}'.format(levels))
-            # The_Show.cues.setcueelement(The_Show.cues.currentcueindex, levels, 'Levels')
         QtWidgets.QSlider.keyPressEvent(self, k_ev)
 
     def keyReleaseEvent(self, k_ev):
@@ -1764,14 +1627,6 @@ if __name__ == "__main__":
     ui.set_scribble(firstuuid)
     ui.execute_cue_uuid(firstuuid)
     ui.show()
-    # execute the 000 cue to initialize the mixer
-    # except KeyboardInterrupt:
-    #     parser.exit('\nInterrupted by user')
-    # # except (queue.Full):
-    # #     # A timeout occured, i.e. there was an error in the callback
-    # #     parser.exit(1)
-    # except Exception as e:
-    #     parser.exit(type(e).__name__ + ': ' + str(e))
     logging.info('Shutdown')
     sys.exit(app.exec_())
 

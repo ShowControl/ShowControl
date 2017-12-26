@@ -2,6 +2,7 @@ import logging
 from ShowControl.utils.ShowConf import ShowConf
 from ShowControl.utils.Cues import CueList
 from ShowControl.utils.CueChar import CueChar
+from ShowControl.utils.CharStrip import CharStrip
 
 class Show():
     '''
@@ -32,7 +33,9 @@ class Show():
         self.cues.previouscueindex = 0
 #        self.cues.setcurrentcuestate(self.cues.currentcueindex)
         cuechar_file = self.show_conf.settings['cuechar']
+        charstrip_file = self.show_conf.settings['charstrip']
         self.cuechar = CueChar(self.show_confpath + cuechar_file)
+        self.charstrip = CharStrip(self.show_confpath + charstrip_file)
         return
 
     def loadNewShow(self, cfgdict):
