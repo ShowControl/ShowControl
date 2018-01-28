@@ -241,7 +241,7 @@ class JMIDIsender(QThread):
         self.client.connect(self.outport, port)
 
     def queue_msg(self, msg, device):
-        """Add a MIDI event to the cue
+        """Add a MIDI event to the actors
             parameters in:
             event - list [<port index>, <midi chan>, <control number on the midi device>, <value>]
                 multi ports (i.e. port_index) is not implemented as of 1/26/2017

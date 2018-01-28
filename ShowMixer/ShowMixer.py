@@ -882,12 +882,40 @@ class ChanStripMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         #get the uuid of the current index
         cur_uuid = self.The_Show.cues.getcurrentcueuuid(self.The_Show.cues.currentcueindex)
         #get the character details for this cue
+        stripset_cue = self.The_Show.stripset.get_cue_by_uuid(cur_uuid)
         cuechar_cue = self.The_Show.cuechar.get_cue_by_uuid(cur_uuid)
+        # charstrip_cue = self.The_Show.charstrip.get_cue_by_uuid(cur_uuid)
+        # stripchar_cue = self.The_Show.stripchar.get_cue_by_uuid(cur_uuid)
         #for each character element in this cue get the mute state
-        for count, char in enumerate(cuechar_cue):
-            char_uuid = char.get('uuid')
-            char_mute = char.find(".mute").text
-            print('{}. Chr uuid: {}, mute:{}'.format(count, char_uuid, char_mute))
+        # for count, char in enumerate(cuechar_cue):
+        #     char_uuid = char.get('uuid')
+        #     char_mute = char.find(".mute").text
+        #     strip_uuid =  self.The_Show.charstrip.get_charstrip_by_uuid(char_uuid)
+        #     print('{}. Chr uuid: {}, mute:{}, strip:{}'.format(count, char_uuid, char_mute, strip_uuid))
+        t0 = time.time()
+        for mxr_idx, mixer in enumerate(self.The_Show.mixers):
+            for strip in self.The_Show.mixers[mxr_idx].stripfromxml:
+                strip_type = self.The_Show.mixers[mxr_idx].stripfromxml[strip]['type']
+                stripset_elements = ['', '']
+                strip_char, strip_stripset = '', ''
+                char_name, actor_uuid = '', ''
+                actor_name, understudy = '', ''
+                print('strip uuid: {}, type: {}'.format(strip, strip_type))
+                if strip_type == 'input':
+                    strip_char, strip_stripset = self.The_Show.stripset.get_stripset_by_uuid(strip)
+                    char_stripset = self.The_Show.cuechar.get_char_by_uuid(strip_char)
+                    char_name, actor_uuid = self.The_Show.charmap.get_char_by_uuid(strip_char)
+                    actor_name, understudy = self.The_Show.actormap.get_actor_by_uuid(actor_uuid)
+                    print('\tchar uuid: {}, char name: {}, actor name: {}'.format(strip_char, char_name, actor_name, understudy))
+                    char_mute = char_stripset.find(".mute").text
+                    char_level = char_stripset.find(".level").text
+                    print('\tmute: {}, level: {}'.format(char_mute, char_level))
+                else:
+                    stripset_elements = ['', '']
+                # print('strip uuid: {}, type: {}, char uuid: {}, stripset uuid: {}'.format(strip, strip_type, strip_char, strip_stripset))
+        t1 = time.time()
+        print('Execution time: {}'.format(t1-t0))
+        # old code
         if self.The_Show.cues.currentcueindex == 0 or hard:
             mute_changes = self.The_Show.cues.get_cue_mute_state_by_index(self.The_Show.cues.currentcueindex)
         else:

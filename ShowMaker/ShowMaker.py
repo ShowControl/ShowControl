@@ -470,8 +470,12 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
             try:
                 # get the character states for this cue
                 cuechar_element = self.The_Show.cuechar.cuecharlist.find(".cues/cue[@uuid='"+ cue_uuid +"']")
-                if cuechar_element is None: raise AttributeError
-                for chr in self.char.char_list:
+            except:
+                logging.info("cue uuid: {} not found in cuechar xml".format(cue_uuid))
+                # if cuechar_element is None: raise AttributeError
+            logging.info("cue uuid: {} found in cuechar xml".format(cue_uuid))
+            for chr in self.char.char_list:
+                try:
                     chr_state = cuechar_element.find(".char[@uuid='"+ chr[0] +"']")
                     stage_state = StageState.OffStage
                     onstage_state = chr_state.find('.onstage').text
@@ -482,10 +486,17 @@ class ShowMakerWin(QtWidgets.QMainWindow, ShowMaker_ui.Ui_MainWindow_showmaker):
                         stage_state += StageState.MicOn
                     col_state = StageState(stage_state)
                     cols.extend([col_state])
-                self.stagestat_data.append(cols)
-            except AttributeError:
-                logging.info("cue uuid: {} not found in cuechar xml")
 
+                except:
+                    logging.info("char uuid: {} not found in cuechar xml".format(chr[0]))
+                # self.stagestat_data.append(cols)
+            # except AttributeError:
+
+                # self.stagestat_data.append(cols)
+                # logging.info("cue uuid: {} not found in cuechar xml")
+            self.stagestat_data.append(cols)
+            # TODO - mac seems there is a mismath between the cues xml and the cuechar at this point
+            # so a bunch of the above error gets logged...
         return
 
     def select_new_path_clicked(self):

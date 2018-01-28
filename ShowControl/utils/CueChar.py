@@ -31,7 +31,7 @@ pretty_print = lambda f: '\n'.join([line for line in md.parse(open(f)).toprettyx
 
 class CueChar():
     """
-    CueChar object contains the character state for each cue of a project
+    CueChar object contains the character state for each actors of a project
     """
     def __init__(self, cuecharfilename):
         """"""
@@ -45,15 +45,25 @@ class CueChar():
         # getroot() return <showcontrol> and elements under it
         #self.cuecharlist_root = self.cuecharlist.getroot()
         cues = self.cuecharlist.findall('.cues/cue')
+        self.cue = []
         self.cuecharcount = len(cues)
 
     def get_cue_by_uuid(self, uuid):
-        """return the <cue> element for this uuid
-        the <cue> element contains an element for each character
-        each character element contains info for this cue
+        """return the <actors> element for this uuid
+        the <actors> element contains an element for each character
+        each character element contains info for this actors
         for example, the mute status or slider level, etc."""
-        cue = self.cuecharlist.find(".cues/cue[@uuid='" + uuid + "']")
-        return cue
+        self.cue = self.cuecharlist.find(".cues/cue[@uuid='" + uuid + "']")
+        return self.cue
+
+    def get_char_by_uuid(self, uuid):
+        """return character strip set for current actors"""
+        char_stripset = None
+        try:
+            char_stripset = self.cue.find(".char[@uuid='" + uuid + "']")
+        except:
+            logging.error('char uuid: {} not found!'.format(uuid))
+        return char_stripset
 
     def add_new_char(self, new_char_uuid):
         cues = self.cuecharlist.findall('.cues/cue')
@@ -143,7 +153,7 @@ class CreateCueChar():
             project = ET.SubElement(self.cuecharlist, 'cues')
             ET.SubElement(project, 'version').text = '1.0'
             cues_element = self.cuecharlist.find('.cues')
-            new_cue = ET.SubElement(cues_element, 'cue', {'uuid': first_cue_uuid})
+            new_cue = ET.SubElement(cues_element, 'actors', {'uuid': first_cue_uuid})
             for char in char_list:
                 new_char_ele = ET.SubElement(new_cue, 'char', {'uuid': char[0]})
                 ET.SubElement(new_char_ele, 'mute').text = '1'

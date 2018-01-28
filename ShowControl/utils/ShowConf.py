@@ -109,7 +109,7 @@ class ShowConf:
         except AttributeError:
             self.settings['actormap'] = None
 
-        # find cue files
+        # find actors files
         cues_elements = self.doc.findall('./project/cues')
         cues_dict = {}
         cues_files = {}
@@ -129,6 +129,18 @@ class ShowConf:
             self.settings['charstrip'] = self.doc.find('.project/charstrip').get('href')
         except AttributeError:
             self.settings['charstrip'] = None
+
+        # find stripset file
+        try:
+            self.settings['stripset'] = self.doc.find('.project/stripset').get('href')
+        except AttributeError:
+            self.settings['stripset'] = None
+
+        # find stripchar file
+        try:
+            self.settings['stripchar'] = self.doc.find('.project/stripchar').get('href')
+        except AttributeError:
+            self.settings['stripchar'] = None
 
         return
 

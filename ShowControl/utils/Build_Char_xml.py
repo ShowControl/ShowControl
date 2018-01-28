@@ -21,6 +21,9 @@ except ImportError:
 
 pretty_print = lambda f: '\n'.join([line for line in md.parse(open(f)).toprettyxml(indent=' '*2).split('\n') if line.strip()])
 
+
+
+
 class BuildChar():
     def __init__(self):
         pass
@@ -132,11 +135,17 @@ class SplitCharsnActors():
 
         return
 
-class BuildStripChar():
+class BuildCharStrip():
     def __init__(self):
         pass
 
     def buildit(self):
+        # read the cues
+        self.cues_tree = ET.parse('/home/mac/SharedData/ShowSetups/Shows/Fiddler/Fiddler_cuesx.xml')
+        self.cues_root = self.cues_tree.getroot()
+        self.cues = self.cues_root.find("./cues")
+        self.cues_list = self.cues.findall("./actors")
+
         # read the characters
         self.chars_tree = ET.parse('/home/mac/SharedData/ShowSetups/Shows/Fiddler/Fiddler_char.xml')
         self.chars_root = self.chars_tree.getroot()
@@ -150,25 +159,204 @@ class BuildStripChar():
         for mixer in self.mixers:
             self.strip_list.extend(mixer.findall("./strip"))
 
-        # Start the character tree
-        chars_tree = ET.Element('showcontrol')
-        chars_element = ET.SubElement(chars_tree, 'chars')
-        ET.SubElement(chars_element, 'version').text = '1.0'
-        strip_index = 0
-        for index, char in enumerate(self.chars_list):
-            char_uuid = char.get('uuid')
-            char_name = char.find('name').text
-            char_element = ET.SubElement(chars_element, 'char', {'uuid' : char_uuid})
-            while True:
-                if self.strip_list[strip_index].find('type').text == 'input':
-                    ET.SubElement(char_element, 'strip', {'uuid' : self.strip_list[strip_index].get('uuid')})
-                    strip_index += 1
-                    break
-                else:
-                    strip_index += 1
+            # Start the character tree
+            cuestrip_tree = ET.Element('showcontrol')
+            ET.SubElement(cuestrip_tree, 'version').text = '1.0'
+            cuestrip_element = ET.SubElement(cuestrip_tree, 'cues')
+            for cue in self.cues_list:
+                strip_index = 0
+                cue_uuid = cue.get('uuid')
+                cue_element = ET.SubElement(cuestrip_element, 'actors', {'uuid' : cue_uuid})
+                for index, char in enumerate(self.chars_list):
+                    char_uuid = char.get('uuid')
+                    char_name = char.find('name').text
+                    char_element = ET.SubElement(cue_element, 'char', {'uuid' : char_uuid})
+                    while True:
+                        if self.strip_list[strip_index].find('type').text == 'input':
+                            ET.SubElement(char_element, 'strip', {'uuid' : self.strip_list[strip_index].get('uuid')})
+                            strip_index += 1
+                            break
+                        else:
+                            strip_index += 1
 
-            print('uuid: {} name: {}'.format(char_uuid, char_name))
-        self.write(chars_tree, False, '/home/mac/SharedData/ShowSetups/Shows/Fiddler/Fiddler_charstrip.xml')
+                    print('uuid: {} name: {}'.format(char_uuid, char_name))
+        self.write(cuestrip_tree, False, '/home/mac/SharedData/ShowSetups/Shows/Fiddler/Fiddler_charstrip.xml')
+
+        return
+
+    def write(self, newchars,  revision=True, filename=''):
+        """save a new characters file.
+        If revision is true, save with a revision number
+        i.e. this essentially makes a backup of the config file,
+        typically call with revision=True before an add or insert
+        If revision=False, save
+        in the file specified by filename"""
+        newdoctree = ET.ElementTree(newchars)
+        if filename == '':
+            logging.debug('Configuration not saved, no filename provided!')
+            msgBox = QtWidgets.QMessageBox()
+            msgBox.setText('Configuration not saved, no filename provided!')
+            msgBox.exec_()
+            return
+        rev = 1
+        oldroot, extension = path.splitext(filename)
+        if revision:
+            while path.isfile(oldroot + '-{0}'.format(rev) + extension):
+                rev += 1
+            shutil.copyfile(filename, oldroot + '-{0}'.format(rev) + extension)
+
+            # newdoctree.write(oldroot + '-{0}'.format(rev) + extension)
+            logging.debug('Configuration written to: ' + oldroot + '-{0}'.format(rev) + extension)
+        filename_up = oldroot + '_up' + extension  # up >>> uglyprint
+        newdoctree.write(filename_up, encoding="UTF-8", xml_declaration=True)
+        of = open(filename, 'w')
+        of.write(pretty_print(filename_up))
+        of.close()
+
+        logging.debug('Configuration written to: ' + filename)
+
+        return
+
+class BuildStripChar():
+    def __init__(self):
+        pass
+
+    def buildit(self):
+        # read the cues
+        self.cues_tree = ET.parse('/home/mac/SharedData/ShowSetups/Shows/Fiddler/Fiddler_cuesx.xml')
+        self.cues_root = self.cues_tree.getroot()
+        self.cues = self.cues_root.find("./cues")
+        self.cues_list = self.cues.findall("./actors")
+
+        # read the characters
+        self.chars_tree = ET.parse('/home/mac/SharedData/ShowSetups/Shows/Fiddler/Fiddler_char.xml')
+        self.chars_root = self.chars_tree.getroot()
+        self.chars = self.chars_root.find("./chars")
+        self.chars_list = self.chars.findall("./char")
+        # read the strips
+        self.mixers_tree = ET.parse('/home/mac/SharedData/ShowSetups/Shows/Fiddler/Fiddler_projectmixers.xml')
+        self.mixers_root = self.mixers_tree.getroot()
+        self.mixers = self.mixers_root.findall("./mixers/mixer")
+        self.strip_list = []
+        for mixer in self.mixers:
+            self.strip_list.extend(mixer.findall("./strip"))
+
+            # Start the character tree
+            cuestrip_tree = ET.Element('showcontrol')
+            ET.SubElement(cuestrip_tree, 'version').text = '1.0'
+            cuestrip_element = ET.SubElement(cuestrip_tree, 'cues')
+            for cue in self.cues_list:
+                strip_index = 0
+                cue_uuid = cue.get('uuid')
+                cue_element = ET.SubElement(cuestrip_element, 'actors', {'uuid' : cue_uuid})
+                for index, char in enumerate(self.chars_list):
+                    char_uuid = char.get('uuid')
+                    char_name = char.find('name').text
+                    while True:
+                        if self.strip_list[strip_index].find('type').text == 'input':
+                            strip_element = ET.SubElement(cue_element, 'strip', {'uuid' : self.strip_list[strip_index].get('uuid')})
+                            strip_index += 1
+                            break
+                        else:
+                            strip_index += 1
+                    ET.SubElement(strip_element, 'char', {'uuid' : char_uuid})
+
+                    print('uuid: {} name: {}'.format(char_uuid, char_name))
+        self.write(cuestrip_tree, False, '/home/mac/SharedData/ShowSetups/Shows/Fiddler/Fiddler_stripchar.xml')
+
+        return
+
+    def write(self, newchars,  revision=True, filename=''):
+        """save a new characters file.
+        If revision is true, save with a revision number
+        i.e. this essentially makes a backup of the config file,
+        typically call with revision=True before an add or insert
+        If revision=False, save
+        in the file specified by filename"""
+        newdoctree = ET.ElementTree(newchars)
+        if filename == '':
+            logging.debug('Configuration not saved, no filename provided!')
+            msgBox = QtWidgets.QMessageBox()
+            msgBox.setText('Configuration not saved, no filename provided!')
+            msgBox.exec_()
+            return
+        rev = 1
+        oldroot, extension = path.splitext(filename)
+        if revision:
+            while path.isfile(oldroot + '-{0}'.format(rev) + extension):
+                rev += 1
+            shutil.copyfile(filename, oldroot + '-{0}'.format(rev) + extension)
+
+            # newdoctree.write(oldroot + '-{0}'.format(rev) + extension)
+            logging.debug('Configuration written to: ' + oldroot + '-{0}'.format(rev) + extension)
+        filename_up = oldroot + '_up' + extension  # up >>> uglyprint
+        newdoctree.write(filename_up, encoding="UTF-8", xml_declaration=True)
+        of = open(filename, 'w')
+        of.write(pretty_print(filename_up))
+        of.close()
+
+        logging.debug('Configuration written to: ' + filename)
+
+        return
+
+class BuildStripSet():
+    def __init__(self):
+        pass
+
+    def buildit(self):
+        # read the cues
+        self.cues_tree = ET.parse('/home/mac/SharedData/ShowSetups/Shows/Fiddler/Fiddler_cuesx.xml')
+        self.cues_root = self.cues_tree.getroot()
+        self.cues = self.cues_root.find("./cues")
+        self.cues_list = self.cues.findall("./actors")
+
+        # read the characters
+        self.chars_tree = ET.parse('/home/mac/SharedData/ShowSetups/Shows/Fiddler/Fiddler_char.xml')
+        self.chars_root = self.chars_tree.getroot()
+        self.chars = self.chars_root.find("./chars")
+        self.chars_list = self.chars.findall("./char")
+        self.char_count = len(self.chars_list)
+        # read the strips
+        self.mixers_tree = ET.parse('/home/mac/SharedData/ShowSetups/Shows/Fiddler/Fiddler_projectmixers.xml')
+        self.mixers_root = self.mixers_tree.getroot()
+        self.mixers = self.mixers_root.findall("./mixers/mixer")
+        self.strip_list = []
+        for mixer in self.mixers:
+            self.strip_list.extend(mixer.findall("./strip"))
+
+        # Start the character tree
+        cuestrip_tree = ET.Element('showcontrol')
+        ET.SubElement(cuestrip_tree, 'version').text = '1.0'
+        cuestrip_element = ET.SubElement(cuestrip_tree, 'cues')
+        for cue in self.cues_list:
+            strip_index = 0
+            cue_uuid = cue.get('uuid')
+            cue_element = ET.SubElement(cuestrip_element, 'actors', {'uuid' : cue_uuid})
+            char_inc = 0
+            for strip in self.strip_list:
+                strip_uuid = strip.get('uuid')
+
+                strip_element = ET.SubElement(cue_element, 'strip', {'uuid' : strip_uuid } )
+                strip_type = strip.find('type').text
+                if strip_type == 'input' and char_inc < self.char_count:
+                    stripset_element = ET.SubElement(strip_element, 'char', {'uuid' : self.chars_list[char_inc].get('uuid')})
+                    char_inc +=1
+                # else:
+                stripset_element = ET.SubElement(strip_element, 'stripset', {'uuid' : '{}'.format(uuid.uuid4())})
+        # for index, char in enumerate(self.chars_list):
+            #     char_uuid = char.get('uuid')
+            #     char_name = char.find('name').text
+            #
+            #     if self.strip_list[strip_index].find('type').text == 'input':
+            #         strip_element = ET.SubElement(cue_element, 'strip', {'uuid' : self.strip_list[strip_index].get('uuid')})
+            #         strip_index += 1
+            #         break
+            #     else:
+            #         strip_index += 1
+            #     ET.SubElement(strip_element, 'char', {'uuid' : char_uuid})
+            #
+            #     print('uuid: {} name: {}'.format(char_uuid, char_name))
+        self.write(cuestrip_tree, False, '/home/mac/SharedData/ShowSetups/Shows/Fiddler/Fiddler_stripset.xml')
 
         return
 
@@ -211,6 +399,8 @@ if __name__ == "__main__":
     # BC.build_char_file()
     # SCA = SplitCharsnActors()
     # SCA.split_to_files()
-    BSC = BuildStripChar()
-    BSC.buildit()
+    # BSC = BuildStripChar()
+    # BSC.buildit()
+    BSS = BuildStripSet()
+    BSS.buildit()
     pass

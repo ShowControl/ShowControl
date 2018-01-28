@@ -1,6 +1,6 @@
 """
-Created on Tue Dec 26 10:45:05 EST 2017
-CharStrip object that maintains the map of character uuid to mixer strip uuid
+Created on Mon Jan  8 14:18:09 EST 2018
+StripChar object that maintains the map of mixer strip uuid to character uuid
 @author: mac
 
 """
@@ -23,44 +23,41 @@ except ImportError:
 
 pretty_print = lambda f: '\n'.join([line for line in md.parse(open(f)).toprettyxml(indent=' '*2).split('\n') if line.strip()])
 
-class CharStrip():
+class StripChar():
     """
-    CueChar object contains the character state for each actors of a project
+    StripChar object contains the character state for each actors of a project
     """
-    def __init__(self, charstripfilename):
+    def __init__(self, stripcharfilename):
         """"""
-        logging.info('In CharStrip init')
-        self.charstriplist = []
-        self.charstripcount = 0
+        logging.info('In StripChar init')
+        self.stripcharlist = []
+        self.stripcharcount = 0
         self.cue = []
-        self.setup_charstrip(charstripfilename)
+        self.setup_charstrip(stripcharfilename)
 
     def setup_charstrip(self, filename):
         logging.info('In CharStrip setup_charstrip')
-        # cuecharlist contains all elements *under* <showcontrol>
-        self.charstriplist = ET.parse(filename)
-        # getroot() return <showcontrol> and elements under it
-        #self.cuecharlist_root = self.cuecharlist.getroot()
-        cues = self.charstriplist.findall('.cues')
-        self.charstripcount = len(cues)
+        self.stripcharlist = ET.parse(filename)
+        cues = self.stripcharlist.findall('.cues')
+        self.stripcharcount = len(cues)
 
     def get_cue_by_uuid(self, uuid):
         """return the <actors> element for this uuid
         the <actors> element contains an element for each character
         each character element contains info for this actors
         for example, the mute status or slider level, etc."""
-        self.cue = self.charstriplist.find(".cues/actors[@uuid='" + uuid + "']")
+        self.cue = self.stripcharlist.find(".cues/actors[@uuid='" + uuid + "']")
         return self.cue
 
-    def get_charstrip_by_uuid(self, uuid):
+    def get_stripchar_by_uuid(self, uuid):
         """return the <actors> element for this uuid
         the <actors> element contains an element for each character
         each character element contains info for this actors
         for example, the mute status or slider level, etc."""
-        strip_uuid = ""
+        char_uuid = ""
         try:
-            char = self.cue.find(".char[@uuid='" + uuid + "']")
-            strip_uuid = char.find("strip").get("uuid")
+            strip = self.cue.find(".strip[@uuid='" + uuid + "']")
+            char_uuid = strip.find("char").get("uuid")
         except:
-            logging.error("char uuid: {}, strip_uuid: {}".format(uuid, strip_uuid))
-        return strip_uuid
+            logging.error("strip uuid: {}, char_uuid: {}".format(uuid, char_uuid))
+        return char_uuid

@@ -28,7 +28,7 @@ class Id_split():
         # self.cuelist = ET.parse('/home/mac/Shows/CharTest/CharTest_cuesx.xml')
         self.cuelist = ET.parse('/home/mac/Shows/Fiddler/Fiddler_cuesx.xml')
         self.cuelist_root = self.cuelist.getroot()
-        self.cues = self.cuelist_root.findall(".cues/cue")
+        self.cues = self.cuelist_root.findall(".cues/actors")
 
         for cue in self.cues:
             cue_id_element = cue.find('.Id')
